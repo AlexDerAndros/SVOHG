@@ -1,38 +1,152 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
+::-webkit-scrollbar {
+  display: none;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+main {
+  overflow-y: scroll;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
+  width: 100%;
+  position: absolute;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  background-color: #003300;
+}
+.title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.hamburger-menu {
+  cursor: pointer;
+  color: white;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.cross {
+  cursor: pointer;
+}
+.content {
+  background-color: #003300;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  transition: ease-in 0.3s;
+}
+input {
+  border: none;
+  font-family: "Roboto", sans-serif;
+  border-radius: 5px;
+  background: none;
+  color: white;
+}
+.input::placeholder {
+  color: white;
+}
+.Hambuger-Elemente {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+ul {
+  list-style: none;
+}                  
+.searchOv {
+  font-weight: 500;
+  font-size: 110%;
+  width: 50%;
+  margin: 0% 5%;
+}
+.searchEle {
+  color: white;
+  text-decoration: none;
+}
+.searchEle:hover {
+  text-decoration: underline rgb(84, 84, 235);
+  color: rgb(84, 84, 235);
+}
+.ÜberUns {
+  width: 100%;
+  height: 20vh;
+  margin-top: 50%;
+  background-color: #003300;
+  color:rgb(184, 184, 184);
+  font-family: "Roboto", sans-serif;
+  font-size: 1.75vh;
+}
+.imgSV {
+  width: 70%;
+  height: 70%;
+  margin: 0% 15%;
+  border-radius: 5%;
+}
+.text-container {
+  font-family: "Roboto", sans-serif;
+  width: 80%;
+  margin: 0% 10% ;
+  font-size: 2.25vh;
+  font-weight: 500;
+}
+.container {
+  font-family: "Roboto", sans-serif;
+  margin:  0%;
+  width: 100%;
+  height: auto;
+  padding-top: 3%;
+  border-bottom: solid 2px rgb(222, 222, 222);
+}
+.headContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5vh;
+  font-weight: 600;
+}
+.text {
+  width: 80%;
+  margin: 3% 10% ;
+  font-size: 2.25vh;
+  font-weight: 500;
+}
+@media only screen and (max-width: 650px) {
+  header {
+   height: 6vh;
+   gap: 10%;
   }
-  to {
-    transform: rotate(360deg);
+  .title {
+   font-size: 2.5vh;
+   width: 70%;
+   margin: 1.25% 0%;
   }
+  .hamburger-menu {
+    margin: 0.5% 1% ;
+    position: sticky;
+  }
+  .Hambuger-Elemente {
+    height: 4vh;
+    gap:30%;
+    margin: 1% 0%;
+  }
+  .input {
+    top: 1%;
+    width: 40%;
+    position: sticky;
+    font-size: 2.25vh;
+    text-align: left;
+  }
+  .cross {
+    position: sticky;
+    left: 1%;
+  }
+  .inSp {
+    width: 90%;
+    height: 5vh;
+    left: 13.5%;
+    position: fixed;
+  }
+  .searchOv {
+    width: 100%;
+  }
+  
 }
