@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { Routes, BrowserRouter, Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHouse, faMagnifyingGlass, faPhone, faTimes } from '@fortawesome/free-solid-svg-icons';
 import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
 import Login1 from './Login/Login';
@@ -67,13 +67,18 @@ function HeaderBottom() {
         )}
       </div>
       <header>
-        <div className="hamburger-menu" onClick={press}>
-          <FontAwesomeIcon icon={faBars} size='2x' />
-        </div>
+        
         <div className='title'>
           SV Otto-Hahn-Gymnasium
         </div>
       </header>
+      <footer>
+        <div className='icons_footer'>
+        <FontAwesomeIcon icon={faHouse} className='house_icon' />
+        <FontAwesomeIcon icon={faPhone} className='house_icon' />
+        <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon' />
+        </div>
+      </footer>
        <br/>
       <br/>
       <br/>
@@ -92,15 +97,30 @@ function HeaderBottom() {
 function Startseite() {
   return (
     <>
+    <div className="all_container">
+      
+    </div>
+    <div className="anfang">
     <div className='img-containerSV'>
       <img src='./SV.jpg' className='imgSV'/>
     </div>
     <br/>
     <br/>
-    <div className='text-container'>
-      Hallo! Wir sind die SV für das Otto-Hahn-Gymnasium.
-    </div> 
-    <div className='container' style={{marginTop:"15%", borderTop:"solid 2px rgb(222, 222, 222)"}}>
+    <div className='text_container'>
+      <div className="hallo">
+        Hallo!
+      </div>
+      <div className="text_1">
+       Wir sind die SV für das Otto-Hahn-Gymnasium.
+      </div>
+
+
+    </div>
+    </div>
+<div className="what_de_sv">
+  <div className="container">
+
+
       <div className='headContainer'>
         Was ist die SV?
       </div>
@@ -108,7 +128,11 @@ function Startseite() {
         Der Begriff SV bedeutet Schülervertretung. Wir vertreten die Interessen der 
         Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist.
       </div>
-    </div>
+  </div>
+</div>
+
+<div className="wofur">
+
     <div className='container'>
       <div className='headContainer'>
         Wofür ist die SV da?
@@ -118,6 +142,11 @@ function Startseite() {
         so gut es geht umgesetzt werden
       </div>
     </div>
+</div>
+
+
+
+
     <AboutUs/>
     </>
   );
