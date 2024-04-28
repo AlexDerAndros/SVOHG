@@ -19,6 +19,7 @@ header {
   justify-content: center;
   align-items: center;
   color: white;
+  width: 60vw;
 }
 .hamburger-menu {
   cursor: pointer;
