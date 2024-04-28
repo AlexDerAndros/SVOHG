@@ -1,3 +1,8 @@
+/*
+
+      SV OHG CODE BY ALEX AND MARCO
+
+*/
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
 ::-webkit-scrollbar {
@@ -7,19 +12,26 @@ main {
   overflow-y: scroll;
 }
 header {
-  width: 100%;
-  position: absolute;
+  width: 100vw;
+  position: fixed;
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background-color: #003300;
+  height: 70px !important;
 }
 .title {
+  display: flex;
+  justify-content: center;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   justify-content: center;
   align-items: center;
   color: white;
-  width: 60vw;
+  width: 100vw;
+  height: 70px;
+  font-size: 21px !important;
 }
 .hamburger-menu {
   cursor: pointer;
@@ -79,34 +91,39 @@ ul {
 .imgSV {
   width: 70%;
   height: 70%;
-  margin: 0% 15%;
+  margin: 10% 15%;
   border-radius: 5%;
 }
-.text-container {
+.text_container {
   font-family: "Roboto", sans-serif;
-  width: 80%;
-  margin: 0% 10% ;
-  font-size: 2.25vh;
-  font-weight: 500;
-}
-.container {
-  font-family: "Roboto", sans-serif;
-  margin:  0%;
-  width: 100%;
-  height: auto;
-  padding-top: 3%;
-  border-bottom: solid 2px rgb(222, 222, 222);
-}
-.headContainer {
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  font-size: 2.25vh;
+  font-weight: 500;
+}
+.text_1 {
+  width: 70vw;
+}
+.hallo {
+  font-family: poppins;
+  font-weight: 800;
+}
+.headContainer {
+  font-family: "Roboto", sans-serif;
+  margin:  0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
   font-size: 2.5vh;
   font-weight: 600;
+  height: 60px;
 }
 .text {
-  width: 80%;
-  margin: 3% 10% ;
   font-size: 2.25vh;
   font-weight: 500;
 }
@@ -150,4 +167,65 @@ ul {
     width: 100%;
   }
   
+}
+footer {
+  font-size: 100px;
+  position: fixed;
+  width: 100vw;
+  bottom: 0 !important;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 70px;
+  background-color: #003300;
+}
+.house_icon {
+  font-size: 50px !important;
+  cursor: pointer;
+  width: 100vw / 3;
+  color: white;
+}
+.icons_footer {
+  gap: 90px;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  position: fixed;
+  height: 70px;
+}
+
+.anfang {
+  background-color: rgba(250, 255, 238, 0.993);
+  height: 600px;
+}
+.what_de_sv {
+  background-color: rgba(100, 148, 237, 0.466) !important;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  height: 320px;
+}
+
+.wofur {
+  background-color: rgba(0, 139, 139, 0.459);
+  height: 370px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.all_container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.container {
+  width: 70vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
