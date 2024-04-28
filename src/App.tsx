@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { Routes, BrowserRouter, Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHouse, faMagnifyingGlass, faPhone, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHouse, faMagnifyingGlass, faPhone, faTimes, faRightToBracket, faPenToSquare, faArrowUpFromBracket} from '@fortawesome/free-solid-svg-icons';
 import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
 import Login1 from './Login/Login';
@@ -16,6 +16,44 @@ export default function App() {
 }
 
 function HeaderBottom() {
+  const [startseite, setStartseite] = useState(false);
+  const [login, setLogin] = useState(false);
+  const [svKasten, setSvKasten] = useState(false);
+  const [ search, setSearch] = useState(false);
+  const [ Anmeldeformular, setAnmeldeformular] = useState(false);
+
+  
+  const pressSearch = () => {
+    setSearch(true);
+    setSvKasten(false);
+    setLogin(false);
+    setStartseite(false);
+  }
+  const pressStartseite = () => {
+    setSearch(false);
+    setSvKasten(false);
+    setLogin(false);
+    setStartseite(true);
+  }
+  const pressLogin = () => {
+    setSearch(false);
+    setSvKasten(false);
+    setLogin(true);
+    setStartseite(false);
+  }
+  const pressSVKasten = () => {
+    setSearch(false);
+    setSvKasten(true);
+    setLogin(false);
+    setStartseite(false);
+  }
+  const pressAnmeldeformular = () => {
+    setSearch(false);
+    setSvKasten(false);
+    setLogin(false);
+    setStartseite(false);
+    setAnmeldeformular(true);
+  }
   const [click, setClick] = useState(false);
   const [value, setValue] = useState('');
   const [list, setList] = useState([
@@ -71,23 +109,60 @@ function HeaderBottom() {
         <div className='title'>
           SV Otto-Hahn-Gymnasium
         </div>
+         <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>
       </header>
+      <div>
+        {/* {startseite ? (
+          <div>
+            <Startseite/>
+          </div>
+        ) : search ? (
+          <div>
+            <Search/>
+          </div>
+        ) : svKasten ? (
+          <div>
+            <SVKasten1/>
+          </div>   
+        ): login ? (
+          <div>
+            <Login1/>
+          </div>  
+        ) : (
+          <div>
+            Error
+          </div>  
+        )} */}
+      </div>
       <footer>
-        <div className='icons_footer'>
-        <FontAwesomeIcon icon={faHouse} className='house_icon' />
-        <FontAwesomeIcon icon={faPhone} className='house_icon' />
-        <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon' />
+        <div className='icons_footer' style={{bottom:"0%"}}>
+        <Link to='/'>   
+         <FontAwesomeIcon icon={faHouse} className='house_icon' onClick={pressStartseite} />
+        </Link> 
+        <Link to = '/login'>
+         <FontAwesomeIcon icon={faRightToBracket} className='house_icon' onClick={pressLogin}/>
+        </Link> 
+        <Link to='/Search'>
+         <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon' onClick ={pressSearch}/>
+        </Link> 
+        <Link to="/SV Kasten">
+         <FontAwesomeIcon icon={faPenToSquare}  className='house_icon' onClick={pressSVKasten} />
+         </Link>
+         <Link to="/Anmeldeformular">
+          <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon'/>
+         </Link>
         </div>
       </footer>
        <br/>
       <br/>
       <br/>
-      
+    
       <Routes>
         <Route path='/' element={<Startseite />} />
-        <Route path='/Login' element={<Login1 />} />
-        <Route path='/Anmeldeformular' element={<Anmeldeformular1 />} />
-        <Route path='/SV Kasten' element={<SVKasten1 />} />
+        <Route path='/Login' element={<Login />} />
+        <Route path='/Anmeldeformular' element={<Anmeldeformularr/>} />
+        <Route path='/SV Kasten' element={<SVKasten />} />
+        <Route path='/Search' element={<Search />} />
       </Routes>
       </BrowserRouter>
     </>
@@ -144,10 +219,11 @@ function Startseite() {
     </div>
 </div>
 
+<AboutUs/>
 
 
 
-    <AboutUs/>
+   
     </>
   );
 }
@@ -159,5 +235,38 @@ function AboutUs() {
       <div className="UInfo1">Impressum</div>
     </div>
   </div>  
+  );
+}
+function Search() {
+  return (
+   <div>
+     Search
+     <AboutUs/>
+   </div>
+  );
+
+}
+function Login() {
+  return (
+   <>
+     <Login1/>
+     <AboutUs/>
+   </>
+  );
+}
+function Anmeldeformularr() {
+  return (
+   <>
+     <Anmeldeformular1/>
+     <AboutUs/>
+   </>
+  );
+}
+function SVKasten() {
+  return (
+   <>
+     <SVKasten1/>
+     <AboutUs/>
+   </>
   );
 }
