@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { Routes, BrowserRouter, Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHouse, faMagnifyingGlass, faPhone, faTimes, faRightToBracket, faPenToSquare, faArrowUpFromBracket} from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHouse, faMagnifyingGlass, faTimes, faRightToBracket, faPenToSquare, faArrowUpFromBracket} from '@fortawesome/free-solid-svg-icons';
 import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
 import Login1 from './Login/Login';
@@ -12,7 +12,6 @@ import Login1 from './Login/Login';
  Alex das sind die Fehler die du fixen must 
 
   src/App.tsx
-  Line 5:46:   'faPhone' is defined but never used                                                                        @typescript-eslint/no-unused-vars
   Line 19:10:  'startseite' is assigned a value but never used                                                            @typescript-eslint/no-unused-vars
   Line 20:10:  'login' is assigned a value but never used                                                                 @typescript-eslint/no-unused-vars
   Line 21:10:  'svKasten' is assigned a value but never used                                                              @typescript-eslint/no-unused-vars
@@ -194,7 +193,7 @@ function Startseite() {
     </div>
     <div className="anfang">
     <div className='img-containerSV'>
-      <img src='./SV.jpg' className='imgSV'/>
+      <img src='./SV.jpg' className='imgSV' alt='Foto'/>
     </div>
     <br/>
     <br/>
