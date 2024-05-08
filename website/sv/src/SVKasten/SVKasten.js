@@ -1,7 +1,11 @@
 import "./SVKasten.css";
+
+
 export default function SVKasten() {
    return (
      <>
+     <div className="main">
+    
        <div className="head">
          SV Kasten 
        </div>
@@ -17,6 +21,8 @@ export default function SVKasten() {
        <button className="btnSVKasten">
          Senden
        </button>
+      
+     </div>
      </>
    );
 }
