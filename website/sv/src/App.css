@@ -31,6 +31,7 @@ header {
   color: white;
   width: auto;
   height: 70px;
+  width: 90vw;
   font-size: 19px !important;
 }
 .hamburger-menu {
@@ -105,7 +106,7 @@ ul {
   font-weight: 500;
 }
 .text_1 {
-  width: 70vw;
+  width: 80vw;
 }
 .hallo {
   font-family: "Poppins", sans-serif;
@@ -179,6 +180,7 @@ footer {
   font-size: 40px;
   position: fixed;
   width: 100vw;
+  z-index: 1000000;
   bottom: 0 !important;
   display: flex;
   justify-content: center;
@@ -189,11 +191,11 @@ footer {
 .house_icon {
   font-size: 40px !important;
   cursor: pointer;
-  width: 15vw;
+  width: 10vw;
   color: white;
 }
 .icons_footer {
-  gap: 28px;
+  gap: 38px;
   display: flex;
   width: 100vw;
   justify-content: center;

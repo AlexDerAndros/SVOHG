@@ -9,9 +9,10 @@ export default function Login() {
                     Login
                 </div>
             </div>
+            <br />
             <div className="inputs_5">
               <label for="email">Email</label>
-              <input type="text" placeholder="Email or Phone" id="username" />
+              <input type="text" placeholder="Email oder Telefonnummer" id="username" />
 
               <label for="password">Password</label>
               <input type="password" placeholder="Password" id="password" />
