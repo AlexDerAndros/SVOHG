@@ -1,0 +1,244 @@
+/*
+
+      SV OHG CODE BY ALEXANDROS AND MARCO 
+
+*/
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
+::-webkit-scrollbar {
+  display: none;
+}
+main {
+  overflow-y: scroll;
+}
+header {
+  width: 100vw;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #003300;
+  height: 70px !important;
+}
+.title {
+  display: flex;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: auto;
+  height: 70px;
+  font-size: 19px !important;
+}
+.hamburger-menu {
+  cursor: pointer;
+  color: white;
+}
+.cross {
+  cursor: pointer;
+}
+.content {
+  background-color: #003300;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  transition: ease-in 0.3s;
+}
+input {
+  border: none;
+  font-family: "Roboto", sans-serif;
+  border-radius: 5px;
+  background: none;
+  color: white;
+}
+.input::placeholder {
+  color: white;
+}
+.Hambuger-Elemente {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+ul {
+  list-style: none;
+}                  
+.searchOv {
+  font-weight: 500;
+  font-size: 110%;
+  width: 50%;
+  margin: 0% 5%;
+}
+.searchEle {
+  color: white;
+  text-decoration: none;
+}
+.searchEle:hover {
+  text-decoration: underline rgb(84, 84, 235);
+  color: rgb(84, 84, 235);
+}
+.ÜberUns {
+  width: 100%;
+  height: 20vh;
+  margin-top: 200vh;
+  background-color: #003300;
+  color:rgb(184, 184, 184);
+  font-family: "Roboto", sans-serif;
+  font-size: 1.75vh;
+}
+.imgSV {
+  width: 70%;
+  height: 70%;
+  margin: 10% 15%;
+  border-radius: 5%;
+}
+.text_container {
+  font-family: "Roboto", sans-serif;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 2.25vh;
+  font-weight: 500;
+}
+.text_1 {
+  width: 70vw;
+}
+.hallo {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+}
+.headContainer {
+  font-family: "Roboto", sans-serif;
+  margin:  0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  font-size: 2.5vh;
+  font-weight: 600;
+  height: 60px;
+}
+.text {
+  font-size: 2.25vh;
+  font-weight: 500;
+}
+@media only screen and (max-width: 650px) {
+  header {
+   height: 6vh;
+   gap: 10%;
+  }
+  .title {
+   font-size: 2.5vh;
+   width: 70%;
+   margin: 1.25% 0%;
+  }
+  .hamburger-menu {
+    margin: 0.5% 1% ;
+    position: sticky;
+    display: none;
+  }
+  .Hambuger-Elemente {
+    height: 4vh;
+    gap:30%;
+    margin: 1% 0%;
+  }
+  .input {
+    top: 1%;
+    width: 40%;
+    position: sticky;
+    font-size: 2.25vh;
+    text-align: left;
+  }
+  .cross {
+    position: sticky;
+    left: 1%;
+  }
+  .inSp {
+    width: 90%;
+    height: 5vh;
+    left: 13.5%;
+    position: fixed;
+  }
+  .searchOv {
+    width: 100%;
+  }
+ 
+}
+.hamburger-menu {
+  top: 2vh;
+  left: 1%;
+  position: fixed;
+  font-size: 35px;
+}
+footer {
+  font-size: 40px;
+  position: fixed;
+  width: 100vw;
+  bottom: 0 !important;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 70px;
+  background-color: #003300;
+}
+.house_icon {
+  font-size: 40px !important;
+  cursor: pointer;
+  width: 15vw;
+  color: white;
+}
+.icons_footer {
+  gap: 28px;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  position: fixed;
+  height: 70px;
+  bottom: 0%;
+}
+
+.anfang {
+  background-color: rgba(250, 255, 238, 0.993);
+  height: 600px;
+}
+.what_de_sv {
+  background-color: rgba(100, 148, 237, 0.466) !important;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  height: 320px;
+}
+
+.wofur {
+  background-color: rgba(0, 139, 139, 0.459);
+  height: 370px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.all_container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.container {
+  width: 70vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+@media only screen and (min-width: 800px) {
+  footer {
+   display: none;
+ }
+}

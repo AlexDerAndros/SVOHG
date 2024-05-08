@@ -1,3 +1,0 @@
-# SV
-# SVOHG
-# SVOHG
