@@ -7,6 +7,23 @@ import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
 import Login1 from './Login/Login';
 
+/*
+
+ Alex das sind die Fehler die du fixen must 
+
+  src/App.tsx
+  Line 5:46:   'faPhone' is defined but never used                                                                        @typescript-eslint/no-unused-vars
+  Line 19:10:  'startseite' is assigned a value but never used                                                            @typescript-eslint/no-unused-vars
+  Line 20:10:  'login' is assigned a value but never used                                                                 @typescript-eslint/no-unused-vars
+  Line 21:10:  'svKasten' is assigned a value but never used                                                              @typescript-eslint/no-unused-vars
+  Line 22:11:  'search' is assigned a value but never used                                                                @typescript-eslint/no-unused-vars
+  Line 23:11:  'Anmeldeformular' is assigned a value but never used                                                       @typescript-eslint/no-unused-vars
+  Line 50:9:   'pressAnmeldeformular' is assigned a value but never used                                                  @typescript-eslint/no-unused-vars
+  Line 59:16:  'setList' is assigned a value but never used                                                               @typescript-eslint/no-unused-vars
+  Line 180:7:  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+
+*/
+
 export default function App() {
   return (
     <main>
