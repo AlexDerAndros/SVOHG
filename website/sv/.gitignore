@@ -16,6 +16,7 @@
 /firebase.json
 /firebase.js
 # production
+/build
 
 # misc
 .DS_Store
