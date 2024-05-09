@@ -10,11 +10,6 @@
 
 /build
 
-/firebaserc
-/firebase.json
-/firestore.indexes.json
-/firebase.json
-/firebase.js
 # production
 
 # misc
