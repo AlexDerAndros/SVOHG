@@ -13,7 +13,8 @@
     font-weight: 600;
     font-size: 3vh;
     margin-bottom: 4% ;
-    font-weight: 900;
+    font-weight: 500;
+    font-family: "Poppins", sans-serif;
 }
 .textCon {
     width: 100vw;
@@ -50,10 +51,15 @@ button {
 .inSVKasten {
     margin-top: 5%;
     width: 70%;
-    height: 10vh;
     color: black;
     border: rgb(177, 177, 177) 1px solid;
-    font-size: 2.25vh;
+    font-size: 2vh;
+    
+}
+.inSVKasten::placeholder {
+    font-size: 2vh;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
 }
 .main {
     width: 100vw;

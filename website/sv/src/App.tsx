@@ -16,21 +16,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 
-/*
 
- Alex das sind die Fehler die du fixen must 
-
-  src/App.tsx
-  Line 19:10:  'startseite' is assigned a value but never used                                                            @typescript-eslint/no-unused-vars
-  Line 20:10:  'login' is assigned a value but never used                                                                 @typescript-eslint/no-unused-vars
-  Line 21:10:  'svKasten' is assigned a value but never used                                                              @typescript-eslint/no-unused-vars
-  Line 22:11:  'search' is assigned a value but never used                                                                @typescript-eslint/no-unused-vars
-  Line 23:11:  'Anmeldeformular' is assigned a value but never used                                                       @typescript-eslint/no-unused-vars
-  Line 50:9:   'pressAnmeldeformular' is assigned a value but never used                                                  @typescript-eslint/no-unused-vars
-  Line 59:16:  'setList' is assigned a value but never used                                                               @typescript-eslint/no-unused-vars
-  Line 180:7:  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
-
-*/
 
 export default function App() {
   return (
@@ -225,8 +211,9 @@ function Startseite() {
         Was ist die SV?
       </div>
       <div className='text'>
-        Der Begriff SV bedeutet Schülervertretung. Wir vertreten die Interessen der 
-        Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist.
+       Der Begriff SV bedeutet Schülervertretung. 
+       Wir vertreten die Interessen und Probleme der Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist und jeder sich wohlfühlen kann.
+
       </div>
   </div>
 </div>
@@ -238,8 +225,8 @@ function Startseite() {
         Wofür ist die SV da?
       </div>
       <div className='text'>
-        Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium 
-        so gut es geht umgesetzt werden
+      Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
+
       </div>
     </div>
 </div>

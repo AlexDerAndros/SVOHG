@@ -11,9 +11,7 @@ export default function SVKasten() {
        </div>
        <div className="textCon">
           <div className="text">
-            Wilkommen beim SV Kasten! Hier könnt ihr eure Wünsche, Beschwerden und so weiter
-            bei uns einrreichen, damit wir diese dann, wenn es möglich ist, zu erfüllen, um die Schule zu 
-            einem besseren Ort zu machen.
+          Wilkommen beim SV Kasten! Hier könnt ihr uns eure Wünsche und Beschwerden schicken, damit wir diese dann bestmöglich erfüllen können, um die Schule zu einem besseren Ort zu machen. Natürlich ist das ganze Anonym.
           </div>
        </div>
        <input type="text" placeholder="Was wollt ihr uns mitteilen?" className="inSVKasten"/>

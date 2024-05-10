@@ -3,38 +3,41 @@
     SV OHG CODE BY ALEXANDROS AND MARCO 
 
 */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
+
 .bt {
     margin-top: 100px;
     background-color: #e6e6e6;
     color: #080710;
     font-size: 18px;
     font-weight: 600;
-    font-family: poppins;
-    font-weight: 800;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
     border-radius: 5px;
     cursor: pointer;
     width: 70%;
 }
 
 label{
-    display: block;
     margin-top: 30px;
     font-size: 16px;
     font-weight: 500;
-    font-family: poppins;
+    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 20px;
     color: white;
+    z-index: -1;
 }
 input{
     display: flex;
     justify-self: center;
-    display: block;
     width: 75%;
     background-color: rgba(255,255,255,0.07);
     border-radius: 3px;
     font-size: 14px;
     font-weight: 300;
+    z-index: 1000;
 }
 ::placeholder{
     color: #d4d4d4;
@@ -68,8 +71,8 @@ button{
 .title_login {
     font-size: 2em;
     color: rgb(226, 226, 226);
-    font-family: poppins;
-    font-weight: 800;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
 }
 .square {
     z-index: -100;
@@ -98,4 +101,5 @@ button{
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    z-index: -1;
 }

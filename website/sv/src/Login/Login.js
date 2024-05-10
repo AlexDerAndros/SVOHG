@@ -11,11 +11,11 @@ export default function Login() {
             </div>
             <br />
             <div className="inputs_5">
-              <label for="email">Email</label>
-              <input type="text" placeholder="Email oder Telefonnummer" id="username" />
+              <label for="email">E-Mail</label>
+              <input type="text" placeholder="E-Mail oder Telefonnummer" id="username" />
 
-              <label for="password">Password</label>
-              <input type="password" placeholder="Password" id="password" />
+              <label for="password">Passwort</label>
+              <input type="password" placeholder="Passwort" id="password" />
               <button className="bt">Log In</button>
             </div>
           </div>
