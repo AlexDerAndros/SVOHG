@@ -208,7 +208,7 @@ function Startseite() {
 
 
       <div className='headContainer'>
-        Was ist die SV?
+        Was ist die SV? teet
       </div>
       <div className='text'>
        Der Begriff SV bedeutet Schülervertretung. 
