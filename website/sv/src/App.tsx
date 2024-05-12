@@ -6,7 +6,6 @@ import { faBars, faHouse, faMagnifyingGlass, faTimes, faRightToBracket, faPenToS
 import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
 import Login1 from './Login/Login';
-
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -208,7 +207,7 @@ function Startseite() {
 
 
       <div className='headContainer'>
-        Was ist die SV? teet
+        Was ist die SV?
       </div>
       <div className='text'>
        Der Begriff SV bedeutet Schülervertretung. 
