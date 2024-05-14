@@ -15,7 +15,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 
-
+/*Aufgaben:
+Bug Fix Login: Marco
+Events für das Anmeldeformular (auf der Startseite): Marco
+Hosting Funktion(Nur die Hosts können Sachen für sich sehen): Alex
+Tablet-Version (Home und Login): Marco
+Tablet-Version (SV Kasten, Anmeldeformular für Events): Alex
+Cookies(zu Ende): Alex */
 
 export default function App() {
   return (
@@ -117,7 +123,9 @@ function HeaderBottom() {
       <header>
         
         <div className='title'>
-          SV Otto-Hahn-Gymnasium TEST2
+          <a href="/">
+          SV Otto-Hahn-Gymnasium 
+          </a>
         </div>
          <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>
       </header>
@@ -198,10 +206,31 @@ function Startseite() {
       <div className="text_1">
        Wir sind die SV für das Otto-Hahn-Gymnasium.
       </div>
-
+      <div className="abstand"></div>
+      <div className="events">
+        <div className="coneven">
+          <div className="title_events">
+              Events
+          </div>
+        </div>
+        <div className="tabelle">
+          <div className="title_tabelle">
+            22.5 2024
+          </div>
+        <div className="zeit">
+        <div className='angabezeit'>Zeit: &nbsp;</div>
+          18 bis 19uhr
+        </div>
+        <div className="eventname">
+        <div className='angabezeit'>Thema: &nbsp;</div>
+          Test
+        </div>
+        </div>
+      </div>
 
     </div>
     </div>
+    <div className="neinen"></div>
 <div className="what_de_sv">
   <div className="container">
 
@@ -243,7 +272,7 @@ function AboutUs() {
     <div className='ÜberUns'>
         
     <div className='UInfos'>
-      <div className="UInfo1">Impressum</div>
+      <div className="UInfo1">Website made by <a href='https://github.com/marcodoro'>@Marcodori</a> and <a href='https://github.com/AlexDerAndros'>@AlexandrosNtrikos</a></div>
     </div>
   </div>  
   );
@@ -251,7 +280,11 @@ function AboutUs() {
 function Search() {
   return (
    <div>
-     Search
+    <div className="main_search">
+     <div className="searchBar">
+      <input type="text" className='search' placeholder="Suche..."></input>
+     </div>
+    </div>
      <AboutUs/>
    </div>
   );

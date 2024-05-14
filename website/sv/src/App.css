@@ -245,3 +245,70 @@ footer {
    display: none;
  }
 }
+a {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+.UInfos {
+  width: 100vw;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.events {
+  width: 80vw;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  background-color: #003300bd;
+  color: white;
+}
+.neinen {
+  height: 500px;
+}
+.coneven {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid rgba(255, 0, 0, 0) 1px;
+}
+.title_events {
+  font-size: 1.3em;
+  font-weight: 400;
+  font-family: poppins;
+}
+.tabelle {
+  height: 60%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30%;
+  flex-direction: column;
+  border: solid rgba(228, 228, 228, 0.767) 2.22px;
+  border-radius: 10px;
+}
+.abstand {
+  height: 50px;
+  width: 100vw;
+  border: solid 1px rgba(255, 0, 0, 0);
+}
+.zeit {
+  display: flex;
+}
+.eventname {
+  display: flex;
+}
+.angabezeit {
+  font-weight: 600;
+}
+.title_tabelle {
+  height: 0px;
+}
