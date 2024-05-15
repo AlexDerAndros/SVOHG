@@ -3,31 +3,32 @@
       SV OHG CODE BY ALEXANDROS AND MARCO 
 
 */
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;900&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;900;600&family=Roboto&display=swap');
 
 .head {
-    margin-top: 4%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 600;
     font-size: 3vh;
-    margin-bottom: 4% ;
     font-weight: 500;
+    margin-top: -10vh;
     font-family: "Poppins", sans-serif;
+    font-weight: 600;
 }
 .textCon {
-    width: 100vw;
+    width: 80vw;
     height: auto;
-    height: 20vh;
+    height: 30vh;
     background-color: #B9CEAC;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    border-radius: 8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   }
 .text {
-    width: 80vw;
+    width: 90%;
     text-align: left;
     font-size: 2.25vh;
     font-family: "Roboto", sans-serif;
@@ -39,6 +40,8 @@
     padding: 1vh;
     border-radius: 5px;
     margin-top: 5%;
+    width: 80vw;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 
 }
 button {
@@ -50,11 +53,15 @@ button {
 }
 .inSVKasten {
     margin-top: 5%;
-    width: 70%;
+    width: 80%;
     color: black;
     border: rgb(177, 177, 177) 1px solid;
     font-size: 2vh;
-    
+    height: 13vw;
+    outline-width: 0;
+    animation-duration: 0.2s;
+    animation-name: click;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
 }
 .inSVKasten::placeholder {
     font-size: 2vh;
@@ -63,5 +70,6 @@ button {
 }
 .main {
     width: 100vw;
-    top: 10vh;
+    top: 0vh;
+    height: 50vh;
 }
