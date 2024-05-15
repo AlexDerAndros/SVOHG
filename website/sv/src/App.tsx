@@ -152,31 +152,7 @@ function HeaderBottom() {
           </div>  
         )} */}
       </div>
-        <div className="abstand"></div>
-      <div className="events">
-        <div className="coneven">
-          <div className="title_events">
-              Events
-          </div>
-        </div>
-        <div className="tabelle">
-          <div className="title_tabelle">
-            22.5 2024
-          </div>
-        <div className="zeit">
-        <div className='angabezeit'>Zeit: &nbsp;</div>
-          18 bis 19uhr
-        </div>
-        <div className="eventname">
-        <div className='angabezeit'>Thema: &nbsp;</div>
-          Test
-        </div>
-        </div>
-      </div>
-
-    </div>
-    </div>
-    <div className="neinen"></div>
+        
       <footer>
         <div className='icons_footer' style={{bottom:"0%"}}>
         <Link to='/'>   
