@@ -117,7 +117,7 @@ function HeaderBottom() {
       <header>
         
         <div className='title'>
-          SV Otto-Hahn-Gymnasium 
+          SV Otto-Hahn-Gymnasium
         </div>
          <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>
       </header>
