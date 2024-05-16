@@ -21,6 +21,7 @@ header {
   align-items: center;
   background-color: #003300;
   height: 70px !important;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 .title {
   display: flex;
@@ -29,11 +30,12 @@ header {
   font-weight: 400;
   justify-content: center;
   align-items: center;
+  text-shadow: 3px 4px 7px rgba(81,67,21,0.8);
   color: white;
   width: auto;
   height: 70px;
   width: 90vw;
-  font-size: 19px !important;
+  font-size: 19.5px !important;
 }
 .hamburger-menu {
   cursor: pointer;
@@ -105,9 +107,13 @@ ul {
   flex-direction: column;
   font-size: 2.25vh;
   font-weight: 500;
+  display: flex;
+  justify-content: center;
 }
 .text_1 {
   width: 80vw;
+  display: flex;
+  justify-content: center;
 }
 .hallo {
   font-family: "Roboto", sans-serif;
@@ -128,6 +134,7 @@ ul {
 .text {
   font-size: 2.25vh;
   font-weight: 500;
+  width: 100%;
 }
 @media only screen and (max-width: 650px) {
   header {
@@ -140,7 +147,8 @@ ul {
    margin: 1.25% 0%;
   }
   .hamburger-menu {
-    margin: 0.5% 1% ;
+    display: flex;
+    justify-content: center;
     position: sticky;
     display: none;
   }
@@ -227,6 +235,7 @@ footer {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  width: 100vw;
 }
 .all_container {
   display: flex;
@@ -234,10 +243,12 @@ footer {
   flex-direction: column;
 }
 .container {
-  width: 70vw;
+  width: 85svw;
+  height: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 @media only screen and (min-width: 800px) {
@@ -245,3 +256,149 @@ footer {
    display: none;
  }
 }
+a {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+.UInfos {
+  width: 100vw;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.events {
+  width: 80vw;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  background-color: #003300bd;
+  color: white;
+}
+.neinen {
+  height: 109vw;
+}
+.coneven {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid rgba(255, 0, 0, 0) 1px;
+}
+.title_events {
+  font-size: 1.3em;
+  font-weight: 400;
+  font-family: poppins;
+}
+.tabelle {
+  height: 60%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30%;
+  flex-direction: column;
+  border: solid rgba(228, 228, 228, 0.767) 2.22px;
+  border-radius: 10px;
+}
+.abstand {
+  height: 50px;
+  width: 100vw;
+  border: solid 1px rgba(255, 0, 0, 0);
+}
+.zeit {
+  display: flex;
+}
+.eventname {
+  display: flex;
+}
+.angabezeit {
+  font-weight: 600;
+}
+.title_tabelle {
+  height: 0px;
+}
+.main_search {
+  height: 25vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search {
+  width: 80vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 10vw;
+  animation: fadein 1s;
+}
+
+.search {
+  background-color: #003300;
+  color: rgb(22, 22, 22);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.search:focus {
+  background-color: #006600;
+  border-color: #006600;
+  outline: none;
+}
+.search {
+  background-color: #003300;
+  color: rgb(22, 22, 22);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-family: poppins;
+  font-size: 1.5rem;
+  font-weight: 700;
+  animation: fadein 1s;
+}
+
+.search:focus {
+  background-color: #006600;
+  border-color: #006600;
+  outline: none;
+}
+.search::placeholder {
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(10px);
+  opacity: 100%;
+}
+
+.search:focus::placeholder {
+  transform: translateX(-100px);
+  opacity: 0;
+}
+.search {
+  color: white;
+}
+
+html {
+  overflow-x: hidden;
+}
+html {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+

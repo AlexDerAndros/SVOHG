@@ -15,8 +15,7 @@
 /firestore.indexes.json
 /firebase.json
 /firebase.js
-# production
-/build
+# production /build
 
 # misc
 .DS_Store

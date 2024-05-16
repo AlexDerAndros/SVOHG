@@ -49,20 +49,20 @@ function LoggingIn({logBtn, password, setPassword, username, setUsername}) {
           </div>
           <br />
           <div className="inputs_5">
-            <label for="email">E-Mail</label>
+            <label for="email">E-Mail</label><div className="nono"></div>
             <input type="text" 
-                   placeholder="E-Mail oder Nutzername..." 
+                   placeholder="&nbsp;E-Mail oder Nutzername..." 
                    id="username" 
                    value={username} 
                    onChange={(e) => setUsername(e.target.value)} />
 
-            <label for="password">Passwort</label>
+            <label for="password">Passwort</label><div className="nono"></div>
             <input type="password" 
-                   placeholder="Passwort" 
+                   placeholder="&nbsp; Passwort" 
                    id="password" 
                    value={password} 
                    onChange={(e) => setPassword(e.target.value)}/>
-            <button className="bt" onClick={logBtn}>Log In</button>
+            <button className="button" onClick={logBtn}>Log In</button>
           </div>
         </div>
       </div>

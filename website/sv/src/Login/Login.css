@@ -3,8 +3,8 @@
     SV OHG CODE BY ALEXANDROS AND MARCO 
 
 */
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500;600;700&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500;600;700&family=Roboto&display=swap');
 
 .bt {
     margin-top: 100px;
@@ -28,16 +28,23 @@ label{
     font-weight: 500;
     font-size: 20px;
     color: white;
+    font-weight: 600;
 }
 input{
     display: flex;
     justify-self: center;
-    width: 75%;
+    width: 80%;
     background-color: rgba(255,255,255,0.07);
     border-radius: 3px;
     font-size: 14px;
     font-weight: 300;
     z-index: 1000;
+    height: 11vw;
+    display: flex;
+    justify-content: center;
+    border: solid rgba(0, 0, 0, 0.11) 2.0px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+    border-radius: 5px;
 }
 ::placeholder{
     color: #d4d4d4;
@@ -45,17 +52,23 @@ input{
     font-family: "Poppins",sans-serif;
     font-size: 15px;
     z-index: 1000;
-}
-button{
-    margin-top: 50px;
+    display: flex;
+    justify-self: center;
     width: 100%;
+    margin-left: 10vw;
+}
+.button{
+    margin-top: 50px;
+    width: 80%;
     background-color: #ffffff;
     color: #080710;
     padding: 15px 0;
     font-size: 18px;
     font-weight: 600;
     border-radius: 5px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     cursor: pointer;
+    font-weight: 700 !important;
 }
 
 
@@ -68,12 +81,16 @@ button{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: -11;
 }
 .title_login {
     font-size: 2em;
     color: rgb(226, 226, 226);
     font-family: "Poppins", sans-serif;
-    font-weight: 500;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 2px 7px 5px rgba(0,0,0,0.3), 
+      0px -4px 10px rgba(80, 80, 80, 0.3);
 }
 .square {
     z-index: -100;
@@ -103,4 +120,8 @@ button{
     flex-direction: column;
     align-items: center;
     z-index: -1;
+}
+.nono {
+    height: 10px;
+    width: 100vw;
 }
