@@ -15,6 +15,7 @@
 /firestore.indexes.json
 /firebase.json
 /firebase.js
+/src/firebase.js
 # production /build
 
 # misc

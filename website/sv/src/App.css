@@ -270,7 +270,7 @@ a {
 }
 .events {
   width: 80vw;
-  height: 500px;
+  height: 400px;
   display: flex;
   align-items: center;
   flex-direction: column;
