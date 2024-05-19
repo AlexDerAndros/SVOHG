@@ -7,28 +7,27 @@ export default function Login() {
   let pa;
   const[username, setUsername] = useState('');
   const[password, setPassword] = useState(''); 
-  const USAdminSV = "SVHost";
-  const PAAdminSV = "Test";
-  const logBtn = () => {
-    if ( username == USAdminSV && password == PAAdminSV ) {
-      setLog(true);
-      Cookies.set("user", user, {expires: 7});
-      Cookies.set("password", pa, {expires: 7});
-      alert("Login erfolgreich")
-    }
-    else {
-      setLog(false);
-      alert("Login fehlgeschlagen");
-    }
-  };
+  // const USAdminSV = "SVHost";
+  // const PAAdminSV = "Test";
+  // const logBtn = () => {
+  //   if ( username == USAdminSV && password == PAAdminSV ) {
+  //     setLog(true);
+  //     Cookies.set("user", user, {expires: 7});
+  //     Cookies.set("password", pa, {expires: 7});
+  //     alert("Login erfolgreich")
+  //   }
+  //   else {
+  //     setLog(false);
+  //     alert("Login fehlgeschlagen");
+  //   }
+  // };
   
   return (
    <div className="main">
       { log ? (
         <LoggedIn/>
       ) : (
-        <LoggingIn logBtn={logBtn} 
-                    password={password} 
+        <LoggingIn   password={password} 
                     setPassword={setPassword} 
                     username={username} 
                     setUsername={setUsername}/>
@@ -37,7 +36,7 @@ export default function Login() {
   );
 
 }
-function LoggingIn({logBtn, password, setPassword, username, setUsername}) {
+function LoggingIn({ password, setPassword, username, setUsername}) {
   return (
     <>
       <div className="main">
@@ -52,17 +51,13 @@ function LoggingIn({logBtn, password, setPassword, username, setUsername}) {
             <label for="email">E-Mail</label><div className="nono"></div>
             <input type="text" 
                    placeholder="&nbsp;E-Mail oder Nutzername..." 
-                   id="username" 
-                   value={username} 
-                   onChange={(e) => setUsername(e.target.value)} />
+                   id="username" />
 
             <label for="password">Passwort</label><div className="nono"></div>
             <input type="password" 
                    placeholder="&nbsp; Passwort" 
-                   id="password" 
-                   value={password} 
-                   onChange={(e) => setPassword(e.target.value)}/>
-            <button className="button" onClick={logBtn}>Log In</button>
+                   id="password" />
+            <button className="button">Log In</button>
           </div>
         </div>
       </div>
