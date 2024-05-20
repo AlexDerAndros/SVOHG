@@ -3,6 +3,8 @@ import './App.css';
 import { Routes, BrowserRouter, Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faHouse, faMagnifyingGlass, faTimes, faRightToBracket, faPenToSquare, faArrowUpFromBracket} from '@fortawesome/free-solid-svg-icons';
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
 import Login1 from './Login/Login';
@@ -274,20 +276,88 @@ function AboutUs() {
         
     <div className='UInfos'>
       <div className="UInfo1">Website made by <a href='https://github.com/marcodoro'>@Marcodori</a> and <a href='https://github.com/AlexDerAndros'>@AlexandrosNtrikos</a></div>
+    <a href='https://www.instagram.com/schuelervertretungohg/' style={{cursor: "pointer"}} >
+      <FontAwesomeIcon icon={faInstagram} className='InstaIcon'/> Folge uns auf Instagram!
+    </a>  
     </div>
+    
   </div>  
   );
 }
 function Search() {
+  const [startseite, setStartseite] = useState(false);
+  const [login, setLogin] = useState(false);
+  const [svKasten, setSvKasten] = useState(false);
+  const [ Anmeldeformular, setAnmeldeformular] = useState(false);
+  const pressStartseite = () => {
+    setStartseite(!startseite);
+  }
+  const pressLogin = () => {
+    setLogin(!login);
+  }
+  const pressSVKasten = () => {
+    setSvKasten(!svKasten);
+  }
+  const pressAnmeldeformular = () => {
+    setAnmeldeformular(!Anmeldeformular);
+  }
+  const [value, setValue] = useState('');
+  const [list, setList] = useState([
+    { theme: 'Startseite', link: '/', index: 1, press: pressStartseite},
+    { theme: 'Anmeldeformular für die SV', link: '/Anmeldeformular', index: 2, press: pressAnmeldeformular},
+    { theme: 'Login', link: '/Login', index: 3, press: pressLogin },
+    { theme: 'SV Kasten', link: '/SV Kasten', index: 4, press: pressSVKasten }
+  ]);
+  const [filteredItems, setFilteredItems] = useState(list);
+
+ 
+  const handleFilter = (filterTerm: string) => {
+    const filteredItems = list.filter(item => item.theme.toLowerCase().includes(filterTerm.toLowerCase()));
+    setFilteredItems(filteredItems);
+    setValue(filterTerm);
+  };
+
   return (
-   <div>
-    <div className="main_search">
-     <div className="searchBar">
-      <input type="text" className='search' placeholder="Suche..."></input>
-     </div>
+   <div> 
+    {startseite ? (
+      <div>
+        <FontAwesomeIcon icon={faArrowLeft} onClick={pressStartseite} className='arrowBack'/>
+        <Startseite/>
+      </div>
+    ): svKasten ?(
+      <>
+        <FontAwesomeIcon icon={faArrowLeft} onClick={pressSVKasten} className='arrowBack'/>
+        <SVKasten1/>
+      </>
+    ) : login ? (
+      <>
+        <FontAwesomeIcon icon={faArrowLeft} onClick={pressLogin} className='arrowBack'/>
+        <Login1/>
+      </>
+    ): Anmeldeformular ?(
+       <>
+        <FontAwesomeIcon icon={faArrowLeft} onClick={pressAnmeldeformular} className='arrowBack'/>
+        <Anmeldeformular1/>
+       </>
+    ) :(
+      <>
+        <div className="main_search">
+        <div className="searchBar">
+          <input type="text" className='search' placeholder="Suche..." value={value} onChange={(e) => handleFilter(e.target.value)}/>
+         </div>
+         <ul className='searchItems'>
+         {filteredItems.map(item =>(
+           <li key={item.index} className='searchItem' onClick={item.press}>
+            {item.theme}
+           </li>
+         ))}
+        </ul>
+       </div>
+       <AboutUs/>
+      </>
+    )}
     </div>
-     <AboutUs/>
-   </div>
+   
   );
 
 }
