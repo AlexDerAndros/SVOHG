@@ -15,6 +15,7 @@ export default function Login() {
 function LoggingIn({setLog}) {
   const[username, setUsername] = useState('');
   const[password, setPassword] = useState(''); 
+  const incorrectps = useState(''); 
    const USAdminSV = "SVHost";
    const PAAdminSV = "Test";
  const logBtn = () => {
@@ -54,6 +55,7 @@ function LoggingIn({setLog}) {
                    id="password" 
                    value={password}
                    onChange={(e)=> setPassword(e.target.value)}/>
+                   <div classnName='incorrect'>{incorrectps}</div>
             <button className="button" onClick={logBtn}>Log In</button>
            
           </div>
