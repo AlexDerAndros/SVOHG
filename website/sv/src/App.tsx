@@ -18,12 +18,20 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 
 /*Aufgaben:
-Bug Fix Login: Marco
-Events für das Anmeldeformular (auf der Startseite): Marco
-Hosting Funktion(Nur die Hosts können Sachen für sich sehen): Alex
-Tablet-Version (Home und Login): Marco
-Tablet-Version (SV Kasten, Anmeldeformular für Events): Alex
-Cookies(zu Ende): Alex */
+Bug Fixes:
+-Was ist dir SV, Wofür ist sie da Fixen CSS Flexbox
+- Gap zwischen Impressum und Rest fixen
+- ⁠Footer box shadow
+- ⁠Login 
+- ⁠Search`
+- ⁠Events
+- ⁠Transition zwischen Farben in der Startseite
+- ⁠Hamburger Menu schließt sich selbst
+- ⁠Links für jedes einzelne Thema
+- ⁠Reinfolge Impressum fixen
+- ⁠Eventseite fixen
+- ⁠nach oben scrollen automatisch, wenn man draufdrückt
+- ⁠Dashboard für die SV */
 
 export default function App() {
   return (
@@ -161,16 +169,16 @@ function HeaderBottom() {
          <FontAwesomeIcon icon={faHouse} className='house_icon' onClick={pressStartseite} />
         </Link> 
         <Link to = '/login'>
-         <FontAwesomeIcon icon={faRightToBracket} className='house_icon' onClick={pressLogin}/>
+         <FontAwesomeIcon icon={faRightToBracket} className='house_icon_2' onClick={pressLogin}/>
         </Link> 
         <Link to='/Search'>
-         <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon' onClick ={pressSearch}/>
+         <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon_3' onClick ={pressSearch}/>
         </Link> 
         <Link to="/SV Kasten">
-         <FontAwesomeIcon icon={faPenToSquare}  className='house_icon' onClick={pressSVKasten} />
+         <FontAwesomeIcon icon={faPenToSquare}  className='house_icon_4' onClick={pressSVKasten} />
          </Link>
          <Link to="/Anmeldeformular">
-          <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon'/>
+          <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon_5'/>
          </Link>
         </div>
       </footer>
@@ -236,12 +244,11 @@ function Startseite() {
     <div className="neinen"></div>
 <div className="what_de_sv">
   <div className="container">
-
-
-      <div className='headContainer'>
+          <div className='gap_containers_2'></div>
+      <div className='headContainer_2'>
         Was ist die SV?
       </div>
-      <div className='text'>
+      <div className='text_2'>
        Der Begriff SV bedeutet Schülervertretung. 
        Wir vertreten die Interessen und Probleme der Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist und jeder sich wohlfühlen kann.
 
@@ -250,8 +257,8 @@ function Startseite() {
 </div>
 
 <div className="wofur">
-
     <div className='container'>
+    <div className='gap_containers'></div>
       <div className='headContainer'>
         Wofür ist die SV da?
       </div>
@@ -275,10 +282,11 @@ function AboutUs() {
     <div className='ÜberUns'>
         
     <div className='UInfos'>
-      <div className="UInfo1">Website made by <a href='https://github.com/marcodoro'>@Marcodori</a> and <a href='https://github.com/AlexDerAndros'>@AlexandrosNtrikos</a></div>
     <a href='https://www.instagram.com/schuelervertretungohg/' style={{cursor: "pointer"}} >
       <FontAwesomeIcon icon={faInstagram} className='InstaIcon'/> Folge uns auf Instagram!
     </a>  
+    <br />
+      <div className="UInfo1">Website made by <a href='https://github.com/marcodoro'>@Marcodori</a> and <a href='https://github.com/AlexDerAndros'>@AlexandrosNtrikos</a></div>
     </div>
     
   </div>  
