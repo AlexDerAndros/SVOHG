@@ -126,10 +126,49 @@ input{
     color: black;
     font-family: "Poppins", sans-serif;
     font-weight: 600;
-    font-size: 2em;
+    font-size: 1.1em;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     width: 100vw;
     height: 80%;
+    margin-top: 7%;
 }
+.loginInfo {
+    font-family: "Roboto", sans-serif;
+    width: 80%;
+    font-size: 1em;
+    color: rgb(184, 184, 184);
+    margin-top: 5%;
+    text-align: center;
+}
+.registerInfo {
+    color: white;
+    cursor: pointer;
+}
+.arrowBack {
+    font-size: 3em;
+    z-index: 1000;
+    position: absolute;
+    cursor: pointer;
+    color: white;
+    margin: 4%;
+  }
+.logOutBtn {
+    width: 80%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    cursor: pointer;
+    font-weight: 700 !important;
+    border: none;
+    margin: 50px 10% 0% 10%;
+
+  }
+  .poslogOutBtn {
+    width: 100vw;
+  }
