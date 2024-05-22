@@ -8,6 +8,8 @@
 ::-webkit-scrollbar {
   display: none;
 }
+
+
 main {
   overflow-y: scroll;
 }
@@ -119,6 +121,14 @@ ul {
   font-family: "Roboto", sans-serif;
   font-weight: 800;
 }
+.gap_containers {
+  height: 50px;
+  width: 100vw;
+}
+.gap_containers_2 {
+  height: 10px;
+  width: 100vw;
+}
 .headContainer {
   font-family: "Roboto", sans-serif;
   margin:  0%;
@@ -129,12 +139,31 @@ ul {
   width: 100%;
   font-size: 2.5vh;
   font-weight: 600;
-  height: 60px;
+  height: 30px;
+}
+.headContainer_2 {
+  font-family: "Roboto", sans-serif;
+  margin:  0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  font-size: 2.5vh;
+  font-weight: 600;
+  height: 80px;
 }
 .text {
   font-size: 2.25vh;
   font-weight: 500;
   width: 100%;
+  height: 200px;
+}
+.text_2 {
+  font-size: 2.25vh;
+  font-weight: 500;
+  width: 100%;
+  height: 200px;
 }
 @media only screen and (max-width: 650px) {
   header {
@@ -196,8 +225,35 @@ footer {
   flex-direction: column;
   height: 70px;
   background-color: #003300;
+box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+
 }
 .house_icon {
+  font-size: 40px !important;
+  cursor: pointer;
+  width: 10vw;
+  color: white;
+}
+.house_icon_2 {
+  font-size: 40px !important;
+  cursor: pointer;
+  width: 10vw;
+  color: white;
+}
+.house_icon_3 {
+  font-size: 40px !important;
+  cursor: pointer;
+  width: 10vw;
+  color: white;
+}
+.house_icon_5 {
+  font-size: 40px !important;
+  cursor: pointer;
+  width: 10vw;
+  color: white;
+}
+.house_icon_4 {
   font-size: 40px !important;
   cursor: pointer;
   width: 10vw;
@@ -225,12 +281,12 @@ footer {
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
-  height: 320px;
+  height: 370px;
 }
 
 .wofur {
   background-color: rgba(0, 139, 139, 0.459);
-  height: 370px;
+  height: 400px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -243,8 +299,7 @@ footer {
   flex-direction: column;
 }
 .container {
-  width: 85svw;
-  height: 100%;
+  width: 85vw;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -269,27 +324,33 @@ a {
   align-items: center;
   flex-direction: column;
 }
+
 .events {
   width: 80vw;
-  height: 400px;
+  height: 370px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  border-radius: 10px;
+  border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  background-color: #003300bd;
-  color: white;
+  background-color: #d3d3d3af;
+  color: rgb(24, 24, 24);
+  
 }
 .neinen {
   height: 109vw;
 }
 .coneven {
-  width: 100%;
+  width: 99.9%;
   height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
   border: solid rgba(255, 0, 0, 0) 1px;
+  color: white;
+  background-color: rgb(2, 70, 2);
+  /*border-bottom: rgb(96, 151, 96) 2px solid;*/
+
 }
 .title_events {
   font-size: 1.3em;
@@ -297,14 +358,13 @@ a {
   font-family: poppins;
 }
 .tabelle {
-  height: 60%;
+  height: 74%;
   width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30%;
+  gap: 20%;
   flex-direction: column;
-  border: solid rgba(228, 228, 228, 0.767) 2.22px;
   border-radius: 10px;
 }
 .abstand {
@@ -421,4 +481,22 @@ html::-webkit-scrollbar {
   z-index: 1000;
   position: absolute;
   cursor: pointer;
+}
+@media only screen and (max-height: 827px)
+{
+  .text_2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+  }
+  .what_de_sv {
+    height: 300px;
+  }
+  .headContainer_2 {
+    height: 50px;
+  }
+  .text {
+    height: 300px;
+  }
 }

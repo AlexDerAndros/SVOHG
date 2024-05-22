@@ -13,6 +13,7 @@ export default function Login() {
   return log ? <LoggedIn setLog={setLog} /> : <LoggingIn setLog={setLog} />;
 }
 
+
 function LoggingIn({ setLog }) {
   const [click, setClick] = useState(false);
   const [username, setUsername] = useState('');
@@ -24,9 +25,10 @@ function LoggingIn({ setLog }) {
     setClick(!click);
   }
 
-  const logBtn = async (event) => {
-    event.preventDefault();
-    try {
+
+ const logBtn = async(event) => {
+  event.preventDefault();
+    try  {
       const user = await signInWithEmailAndPassword(auth, username, password);
       console.log(user);
       setLog(true);
@@ -55,6 +57,9 @@ function LoggingIn({ setLog }) {
       alert("Registrierung fehlgeschlagen");
     }
   }
+
+          
+
 
   return (
     <div className="main">
