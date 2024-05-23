@@ -66,7 +66,6 @@ function LoggingIn({ setLog }) {
   const logBtn = async(event) => {
     event.preventDefault();
     try {
-      window.location.reload();
       const userCredential = await signInWithEmailAndPassword(auth, username, password);
       const user = userCredential.user;
       console.log(user);
@@ -81,6 +80,7 @@ function LoggingIn({ setLog }) {
         const data = docSnap.data();
         const isAdmin = data.isAdmin || false;
         Cookies.set('isAdmin', isAdmin.toString(), { expires: 7 });
+        window.location.reload();
       }
     } catch (error) {
       setLog(false);
@@ -98,6 +98,7 @@ function LoggingIn({ setLog }) {
       alert("Registrierung erfolgreich");
       Cookies.set('log', 'true', { expires: 7 });
       Cookies.set('user', registerEmail, { expires: 7 });
+      window.location.reload();
   
       // Save user info in Firestore
       await setDoc(doc(db, "users", registerEmail), {
