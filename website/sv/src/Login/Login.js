@@ -66,6 +66,7 @@ function LoggingIn({ setLog }) {
   const logBtn = async(event) => {
     event.preventDefault();
     try {
+      window.location.reload();
       const userCredential = await signInWithEmailAndPassword(auth, username, password);
       const user = userCredential.user;
       console.log(user);
