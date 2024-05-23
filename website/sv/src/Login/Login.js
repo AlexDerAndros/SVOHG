@@ -1,12 +1,12 @@
 import "./Login.css";
 import Cookies from 'js-cookie';
-import { useState, useEffect } from "react";
+import { useState, useEffect, handleUpdate } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import { auth, db } from "../firebase"; // import Firestore db
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { getDoc, setDoc } from "firebase/firestore"; // import Firestore functions
+import { getDoc, setDoc, collection, getDocs, getFirestore } from "firebase/firestore"; // import Firestore functions
 
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -208,8 +208,23 @@ function LoggedIn({ setLog }) {
   );
 }
 
+
 function AdminDashboard({ setLog }) {
+  const [events, setEvents] = useState([]);
+  const [editEvent, setEditEvent] = useState(null);
+  const [formData, setFormData] = useState({ date: '', time: '', topic: '' });
   const username = Cookies.get("user");
+
+  const fetchEvents = async () => {
+    const eventsCol = collection(db, 'events');
+    const eventSnapshot = await getDocs(eventsCol);
+    const eventList = eventSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setEvents(eventList);
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
   const logOut = () => {
     setLog(false);
@@ -217,7 +232,41 @@ function AdminDashboard({ setLog }) {
     Cookies.set('log', 'false', { expires: 1 / 3600 });
     Cookies.remove('user');
     Cookies.remove('isAdmin');
-  }
+  };
+
+  const handleEditClick = (event) => {
+    setEditEvent(event);
+    setFormData({
+      date: event.date.toDate().toLocaleDateString('en-CA'), // for input type="date"
+      time: event.time,
+      topic: event.topic,
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdate = async () => {
+    if (editEvent) {
+      const eventDoc = doc(db, 'events', editEvent.id);
+      const newDate = new Date(formData.date);
+
+      await updateDoc(eventDoc, {
+        date: newDate,
+        time: formData.time,
+        topic: formData.topic,
+      });
+
+      setEditEvent(null);
+      setFormData({ date: '', time: '', topic: '' });
+      fetchEvents(); // Re-fetch the updated events list
+    }
+  };
 
   return (
     <div>
@@ -230,9 +279,55 @@ function AdminDashboard({ setLog }) {
         </button>
       </div>
       <div className="adminDashboard">
-        {/* Your admin dashboard content here */}
         <h2>Admin Dashboard</h2>
         <p>Verwalten Sie Benutzer, sehen Sie Berichte, etc.</p>
+        <h3>Events bearbeiten</h3>
+        {events.map(event => (
+          <div key={event.id}>
+            <p>Datum: {event.date.toDate().toLocaleDateString()}</p>
+            <p>Zeit: {event.time}</p>
+            <p>Thema: {event.topic}</p>
+            <button onClick={() => handleEditClick(event)}>Bearbeiten</button>
+          </div>
+        ))}
+        {editEvent && (
+          <div>
+            <h4>Event bearbeiten</h4>
+            <form onSubmit={e => e.preventDefault()}>
+              <label>
+                Datum:
+                <input
+                  className="change"
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Zeit:
+                <input
+                  className="change"
+                  type="text"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Thema:
+                <input
+                  className="change"
+                  type="text"
+                  name="topic"
+                  value={formData.topic}
+                  onChange={handleChange}
+                />
+              </label>
+              <button type="button" onClick={handleUpdate}>Aktualisieren</button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
