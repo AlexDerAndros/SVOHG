@@ -9,23 +9,32 @@ import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
 import Login1 from './Login/Login';
 import firebase from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import 'firebase/firestore';
 import 'firebase/auth';
 import { auth, db } from "./firebase"; // import Firestore db
 import 'firebase/analytics';
+import { doc, updateDoc } from "firebase/firestore";
+
+import { getDoc, setDoc, collection, getDocs, getFirestore , Timestamp} from "firebase/firestore"; // import Firestore functions
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 
+
+interface Event {
+    date: string;
+    time: string;
+    topic?: string;
+    // Füge hier andere Felder hinzu, die ein Event haben könnte
+  }
 /*Aufgaben:
 Bug Fixes:
 -Was ist dir SV, Wofür ist sie da Fixen CSS Flexbox
 - Gap zwischen Impressum und Rest fixen
 - ⁠Footer box shadow
 - ⁠Login 
-- ⁠Search`
+- ⁠Search`s
 - ⁠Events
 - ⁠Transition zwischen Farben in der Startseite
 - ⁠Hamburger Menu schließt sich selbst
@@ -201,83 +210,89 @@ function HeaderBottom() {
 }
 
 function Startseite() {
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    async function fetchEvents() {
-      const eventsCol = collection(db, 'events');
-      const eventSnapshot = await getDocs(eventsCol);
-      const eventList = eventSnapshot.docs.map(doc => doc.data());
-      
-      // Convert Firestore Timestamps to Dates
-      const formattedEvents = eventList.map(event => ({
-        ...event,
-        date: event.date.toDate().toLocaleDateString(),
-        time: event.time // Assuming this is already a string
-      }));
-
-      setEvents(formattedEvents);
-    }
-
-    fetchEvents();
-  }, []);
-
-  return (
-    <>
-      <div className="all_container"></div>
-      <div className="anfang">
-        <div className='img-containerSV'>
-          <img src='./SV.jpg' className='imgSV' alt='Foto' />
-        </div>
-        <br />
-        <br />
-        <div className='text_container'>
-          <div className="hallo">Hallo!</div>
-          <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium.</div>
-          <div className="abstand"></div>
-          <div className="events">
-            <div className="coneven">
-              <div className="title_events">Events</div>
-            </div>
-            {events.map((event, index) => (
-              <div className="tabelle" key={index}>
-                <div className="title_tabelle">{event.date}</div>
-                <div className="zeit">
-                  <div className='angabezeit'>Zeit: &nbsp;</div>
-                  {event.time}
-                </div>
-                <div className="eventname">
-                  <div className='angabezeit'>Thema: &nbsp;</div>
-                  {event.topic}
-                </div>
+    const [events, setEvents] = useState<Event[]>([]);
+  
+    useEffect(() => {
+      async function fetchEvents() {
+        try {
+          const eventsCol = collection(db, 'events');
+          const eventSnapshot = await getDocs(eventsCol);
+          const eventList = eventSnapshot.docs.map(doc => doc.data());
+          const formattedEvents: Event[] = eventList.map(event => ({
+            ...event,
+            date: event.date instanceof Timestamp ? event.date.toDate().toLocaleDateString() : event.date,
+            time: event.time,
+            topic: event.topic 
+          }));
+  
+          setEvents(formattedEvents);
+        } catch (error) {
+          console.error("Error fetching events: ", error);
+        }
+      }
+  
+      fetchEvents();
+    }, []);
+  
+    return (
+      <>
+        <div className="all_container"></div>
+        <div className="anfang">
+          <div className='img-containerSV'>
+            <img src='./SV.jpg' className='imgSV' alt='Foto' />
+          </div>
+          <br />
+          <br />
+          <div className='text_container'>
+            <div className="hallo">Hallo!</div>
+            <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium.</div>
+            <div className="abstand"></div>
+            <div className="events">
+              <div className="coneven">
+                <div className="title_events">Events</div>
               </div>
-            ))}
+              {events.map((event, index) => (
+                <div className="tabelle" key={index}>
+                  <div className="title_tabelle">
+                    {event.date}
+                  </div>
+                  <div className="zeit">
+                    <div className='angabezeit'>Zeit: &nbsp;</div>
+                    {event.time}
+                  </div>
+                  <div className="eventname">
+                    <div className='angabezeit'>Thema: &nbsp;</div>
+                    {event.topic} 
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="neinen"></div>
-      <div className="what_de_sv">
-        <div className="container">
-          <div className='gap_containers_2'></div>
-          <div className='headContainer_2'>Was ist die SV?</div>
-          <div className='text_2'>
-            Der Begriff SV bedeutet Schülervertretung. Wir vertreten die Interessen und Probleme der Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist und jeder sich wohlfühlen kann.
+        <div className="neinen"></div>
+        <div className="what_de_sv">
+          <div className="container">
+            <div className='gap_containers_2'></div>
+            <div className='headContainer_2'>Was ist die SV?</div>
+            <div className='text_2'>
+              Der Begriff SV bedeutet Schülervertretung. Wir vertreten die Interessen und Probleme der Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist und jeder sich wohlfühlen kann.
+            </div>
           </div>
         </div>
-      </div>
-      <div className="wofur">
-        <div className='container'>
-          <div className='gap_containers'></div>
-          <div className='headContainer'>Wofür ist die SV da?</div>
-          <div className='text'>
-            Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
+        <div className="wofur">
+          <div className='container'>
+            <div className='gap_containers'></div>
+            <div className='headContainer'>Wofür ist die SV da?</div>
+            <div className='text'>
+              Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
+            </div>
           </div>
         </div>
-      </div>
-      <AboutUs />
-    </>
-  );
-}
+        <AboutUs />
+      </>
+    );
+  }
+  
 function AboutUs() {
   return (
     <div className='ÜberUns'>
