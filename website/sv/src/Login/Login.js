@@ -209,10 +209,13 @@ function LoggedIn({ setLog }) {
 }
 
 
+
 function AdminDashboard({ setLog }) {
   const [events, setEvents] = useState([]);
   const [editEvent, setEditEvent] = useState(null);
   const [formData, setFormData] = useState({ date: '', time: '', topic: '' });
+  const [messages, setMessages] = useState([]); // State to store messages
+  const [visibleMessages, setVisibleMessages] = useState(3); // State to control number of visible messages
   const username = Cookies.get("user");
 
   const fetchEvents = async () => {
@@ -222,8 +225,16 @@ function AdminDashboard({ setLog }) {
     setEvents(eventList);
   };
 
+  const fetchMessages = async () => {
+    const messagesCol = collection(db, 'messages');
+    const messagesSnapshot = await getDocs(messagesCol);
+    const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setMessages(messagesList);
+  };
+
   useEffect(() => {
     fetchEvents();
+    fetchMessages(); // Fetch messages when the component mounts
   }, []);
 
   const logOut = () => {
@@ -268,6 +279,10 @@ function AdminDashboard({ setLog }) {
     }
   };
 
+  const handleSeeMore = () => {
+    setVisibleMessages(prev => prev + 3); // Increase the number of visible messages by 3
+  };
+
   return (
     <div>
       <div className="welcome">
@@ -280,24 +295,45 @@ function AdminDashboard({ setLog }) {
       </div>
       <div className="adminDashboard">
         <h2>Admin Dashboard</h2>
-        <p>Verwalten Sie Benutzer, sehen Sie Berichte, etc.</p>
-        <h3>Events bearbeiten</h3>
+        <div className='msg'>
+          <h2>Nachichten</h2>
+          {messages.slice(0, visibleMessages).map(message => (
+            <div key={message.id}>
+              <p>{message.text}</p>
+              <p>{message.timestamp ? new Date(message.timestamp.seconds * 1000).toLocaleString() : 'No timestamp available'}</p>
+            </div>
+          ))}
+          {visibleMessages < messages.length && (
+            <button onClick={handleSeeMore}>See More</button>
+          )}
+        </div>
+        <br />
+        <br />
         {events.map(event => (
-          <div key={event.id}>
-            <p>Datum: {event.date.toDate().toLocaleDateString()}</p>
-            <p>Zeit: {event.time}</p>
-            <p>Thema: {event.topic}</p>
-            <button onClick={() => handleEditClick(event)}>Bearbeiten</button>
+          <div key={event.id} className="events_fff">
+            <div className="events_asdf">
+              <div className="title_asdf">
+                <h3>Events bearbeiten</h3>
+              </div>
+              <p>Datum: {event.date.toDate().toLocaleDateString()}</p>
+              <p>Zeit: {event.time}</p>
+              <p>Thema: {event.topic}</p>
+            </div>
+            <br />
+            <br />
+            <button onClick={() => handleEditClick(event)} className="bearbeiten">Bearbeiten</button>
           </div>
         ))}
+        <br />
+        <br />
         {editEvent && (
-          <div>
-            <h4>Event bearbeiten</h4>
+          <div className="bearbeitenpop">
+            <h2>Event bearbeiten</h2>
             <form onSubmit={e => e.preventDefault()}>
               <label>
                 Datum:
                 <input
-                  className="change"
+                  className="search"
                   type="date"
                   name="date"
                   value={formData.date}
@@ -307,7 +343,7 @@ function AdminDashboard({ setLog }) {
               <label>
                 Zeit:
                 <input
-                  className="change"
+                  className="search"
                   type="text"
                   name="time"
                   value={formData.time}
@@ -317,14 +353,16 @@ function AdminDashboard({ setLog }) {
               <label>
                 Thema:
                 <input
-                  className="change"
+                  className="search"
                   type="text"
                   name="topic"
                   value={formData.topic}
                   onChange={handleChange}
                 />
               </label>
-              <button type="button" onClick={handleUpdate}>Aktualisieren</button>
+              <br />
+              <br />
+              <button type="button" onClick={handleUpdate} className="bearbeiten">Aktualisieren</button>
             </form>
           </div>
         )}
