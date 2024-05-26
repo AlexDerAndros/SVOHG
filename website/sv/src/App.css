@@ -282,9 +282,11 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   flex-direction: column;
   align-items: center;
   height: 370px;
+  border-top: #006600 3px solid;
 }
 
 .wofur {
+  border-top: #006600 3px solid;
   background-color: rgba(0, 139, 139, 0.459);
   height: 400px;
   display: flex;
@@ -499,4 +501,26 @@ html::-webkit-scrollbar {
   .text {
     height: 300px;
   }
+}
+.wiekontakt {
+  border-top: #006600 3px solid;
+  height: 400px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 100px;
+  background-color: #b6b6b67c;
+  color: rgb(0, 0, 0);
+  font-family: poppins;
+}
+.container_33 {
+  height: 90%;
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
 }

@@ -220,6 +220,7 @@ input:focus{
     border: solid rgba(255, 0, 0, 0) 1px;
     color: white;
     background-color: rgb(2, 70, 2);
+    border-radius: 4px;
     flex-direction: column;
 }
 .title_asdf {
@@ -227,7 +228,7 @@ input:focus{
     height: 5vh;
     display: flex;
     justify-content: center;
-    border-radius: 3px;
+    border-radius: 5px;
     align-items: center;
     background-color: rgb(2, 70, 2);
 }
@@ -294,5 +295,12 @@ form {
     display: flex;
     align-items: center;
     flex-direction: column;
+    border-radius: 4px;
     justify-content: center;
+}
+.seemore {
+    background-color: #034903;
+    color: white;
+    font-family: roboto;
+    border: white 2px solid;
 }

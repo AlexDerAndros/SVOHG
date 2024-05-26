@@ -304,7 +304,7 @@ function AdminDashboard({ setLog }) {
             </div>
           ))}
           {visibleMessages < messages.length && (
-            <button onClick={handleSeeMore}>See More</button>
+            <button onClick={handleSeeMore} className='seemore'>See More</button>
           )}
         </div>
         <br />

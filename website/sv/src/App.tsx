@@ -114,7 +114,7 @@ function HeaderBottom() {
   return (
     <>
     <BrowserRouter>
-      <div className='content' style={{ height: click ? '50%' : '0%' }}>
+      <div className='content'>
         {click && (
           <>
             <div className='Hambuger-Elemente'>
@@ -141,14 +141,16 @@ function HeaderBottom() {
           </>
         )}
       </div>
-      <header>
+      <header style={{ height: click ? '50%' : '10%' }}>
         
         <div className='title'>
           <a href="/">
           SV Otto-Hahn-Gymnasium 
           </a>
         </div>
+        <div className="menu">
          <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>
+        </div>
       </header>
       <div>
         {/* {startseite ? (
@@ -285,6 +287,16 @@ function Startseite() {
             <div className='headContainer'>Wofür ist die SV da?</div>
             <div className='text'>
               Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
+            </div>
+          </div>
+        </div>
+        <div className="wiekontakt">
+          <div className="container_33">
+            <div className='headContainer'>
+              Wie könnt ihr uns kontaktieren?
+            </div>
+            <div className="text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </div>
           </div>
         </div>
