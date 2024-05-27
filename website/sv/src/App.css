@@ -230,39 +230,39 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
 
 }
 .house_icon {
-  font-size: 40px !important;
+  font-size: 30px !important;
   cursor: pointer;
   width: 10vw;
   color: white;
 }
 .house_icon_2 {
-  font-size: 40px !important;
+  font-size: 30px !important;
   cursor: pointer;
   width: 10vw;
   color: white;
 }
 .house_icon_3 {
-  font-size: 40px !important;
+  font-size: 30px !important;
   cursor: pointer;
   width: 10vw;
   color: white;
 }
 .house_icon_5 {
-  font-size: 40px !important;
+  font-size: 30px !important;
   cursor: pointer;
   width: 10vw;
   color: white;
 }
 .house_icon_4 {
-  font-size: 40px !important;
+  font-size: 30px !important;
   cursor: pointer;
   width: 10vw;
   color: white;
 }
 .icons_footer {
-  gap: 38px;
+  gap: 33px;
   display: flex;
-  width: 100vw;
+  width: 95vw;
   justify-content: center;
   align-items: center;
   flex-direction: row;
