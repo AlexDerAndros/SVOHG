@@ -221,6 +221,7 @@ footer {
   z-index: 1000000;
   bottom: 0 !important;
   display: flex;
+  align-items: center;
   justify-content: center;
   flex-direction: column;
   height: 75px;
