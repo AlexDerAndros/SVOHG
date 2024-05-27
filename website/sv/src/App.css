@@ -88,7 +88,7 @@ ul {
 .ÜberUns {
   width: 100%;
   height: 20vh;
-  margin-top: 200vh;
+  margin-top: 40vh;
   background-color: #003300;
   color:rgb(184, 184, 184);
   font-family: "Roboto", sans-serif;
@@ -223,7 +223,7 @@ footer {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: 70px;
+  height: 75px;
   background-color: #003300;
 box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 
@@ -315,6 +315,7 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
 }
 a {
   text-decoration: none;
+  width: auto;
   color: white;
   cursor: pointer;
 }
@@ -523,4 +524,14 @@ html::-webkit-scrollbar {
   flex-direction: column;
   align-items: center;
   gap: 30px;
+}
+.title_footer {
+  font-size: 15px;
+  font-family: roboto;
+  color: white;
+}
+.svasdf {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }

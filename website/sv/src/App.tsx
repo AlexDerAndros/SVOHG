@@ -178,20 +178,25 @@ function HeaderBottom() {
         
       <footer>
         <div className='icons_footer' style={{bottom:"0%"}}>
-        <Link to='/'>   
+        <Link to='/'className='svasdf'>   
          <FontAwesomeIcon icon={faHouse} className='house_icon' onClick={pressStartseite} />
+            <div className='title_footer'>Home</div>
         </Link> 
-        <Link to = '/login'>
+        <Link to = '/login'className='svasdf'>
          <FontAwesomeIcon icon={faRightToBracket} className='house_icon_2' onClick={pressLogin}/>
+         <div className='title_footer'>Login</div>
         </Link> 
-        <Link to='/Search'>
+        <Link to='/Search'className='svasdf'>
          <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon_3' onClick ={pressSearch}/>
+         <div className='title_footer'>Suche</div>
         </Link> 
-        <Link to="/SV Kasten">
+        <Link to="/SV Kasten" className='svasdf'>
          <FontAwesomeIcon icon={faPenToSquare}  className='house_icon_4' onClick={pressSVKasten} />
+         <div className='title_footer'>Sv Kasten</div>
          </Link>
-         <Link to="/Anmeldeformular">
+         <Link to="/Anmeldeformular" className='svasdf'>
           <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon_5'/>
+         <div className='title_footer'>Events</div>
          </Link>
         </div>
       </footer>
@@ -296,7 +301,7 @@ function Startseite() {
               Wie könnt ihr uns kontaktieren?
             </div>
             <div className="text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
             </div>
           </div>
         </div>
