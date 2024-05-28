@@ -309,7 +309,31 @@ function Startseite() {
       </>
     );
   }
-  
+/* FUR INSTAGRAMM POSTS IN DER WEBSITE
+interface InstagramPostProps {
+  src: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}
+
+export const InstagramPost: React.FC<InstagramPostProps> = ({ src, caption, width = 500, height = 500 }) => {
+  return (
+    <div style={{ width, height }}>
+      <iframe
+        src={src}
+        width={width}
+        height={height}
+        frameBorder="0"
+        scrolling="no"
+        allowTransparency="true"
+      />
+      {caption && <div dangerouslySetInnerHTML={{ __html: caption }} />}
+    </div>
+  );
+};
+*/
+
 function AboutUs() {
   return (
     <div className='ÜberUns'>
