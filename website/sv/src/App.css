@@ -14,6 +14,12 @@ main {
   overflow-y: scroll;
 }
 header {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   width: 100vw;
   position: fixed;
   z-index: 10000000;
@@ -89,7 +95,8 @@ ul {
 .ÜberUns {
   width: 100%;
   height: 20vh;
-  margin-top: 100vh;
+  margin-top: 10
+  vh;
   background-color: #003300;
   color:rgb(184, 184, 184);
   font-family: "Roboto", sans-serif;
@@ -216,6 +223,13 @@ ul {
   font-size: 35px;
 }
 footer {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   font-size: 40px;
   position: fixed;
   width: 100vw;
@@ -284,6 +298,7 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   flex-direction: column;
   align-items: center;
   height: 370px;
+  width: 95vw;
   border-top: #006600 3px solid;
 }
 
@@ -295,7 +310,15 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  width: 95vw;
+}
+.center {
+  left: 0;
   width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
 }
 .all_container {
   display: flex;
@@ -509,7 +532,7 @@ html::-webkit-scrollbar {
 .wiekontakt {
   border-top: #006600 3px solid;
   height: 400px;
-  width: 100vw;
+  width: 95vw;
   display: flex;
   align-items: center;
   justify-content: center;

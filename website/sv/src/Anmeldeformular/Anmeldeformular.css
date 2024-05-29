@@ -6,14 +6,15 @@
 .anmeldeformular {
    display: flex;
    width: 100vw;
-   margin-top: 10vh;
+   margin-top: 50vh;
+   height:100vh;
 }
 .nichtsVerfügbar {
    justify-content: center;
    align-items: center;
    display: flex;
    width: 100vw;
-   height: 50vh;
+   height: 50vh !important;
    font-family: "Roboto", sans-serif;
    font-weight: 600;
 }
