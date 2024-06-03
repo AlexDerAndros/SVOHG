@@ -129,7 +129,7 @@ ul {
   font-weight: 800;
 }
 .gap_containers {
-  height: 50px;
+  height: 30px;
   width: 100vw;
 }
 .gap_containers_2 {
@@ -146,7 +146,7 @@ ul {
   width: 100%;
   font-size: 2.5vh;
   font-weight: 600;
-  height: 80px;
+  height: 70px;
 }
 .headContainer_2 {
   font-family: "Roboto", sans-serif;
@@ -332,6 +332,13 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
 .container {
   width: 85vw;
   height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.container2 {
+  width: 85vw;
+  height: 80%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -525,11 +532,8 @@ html::-webkit-scrollbar {
   .what_de_sv {
     height: 300px;
   }
-  .headContainer_2 {
-    height: 50px;
-  }
   .text {
-    height: 340px;
+    height: 400px !important;
   }
 }
 .wiekontakt {

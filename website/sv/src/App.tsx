@@ -291,8 +291,7 @@ function Startseite() {
         <br />
         <br />
         <div className="wofur">
-          <div className='container'>
-            <div className='gap_containers'></div>
+          <div className='container2'>
             <div className='headContainer'>Wofür ist die SV da?</div>
             <div className='text'>
               Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
