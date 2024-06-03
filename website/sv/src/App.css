@@ -546,7 +546,7 @@ html::-webkit-scrollbar {
   background-color: #b6b6b67c;
   color: rgb(0, 0, 0);
   font-family: poppins;
-  height: 370px;
+  height: 330px;
   width: 92vw;
   transform: translateX(3.8vw);
   border-top: #006600 3px solid;
