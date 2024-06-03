@@ -287,6 +287,9 @@ function Startseite() {
             </div>
           </div>
         </div>
+        <br />
+        <br />
+        <br />
         <div className="wofur">
           <div className='container'>
             <div className='gap_containers'></div>
@@ -296,12 +299,15 @@ function Startseite() {
             </div>
           </div>
         </div>
+        <br />
+        <br />
+        <br />
         <div className="wiekontakt">
           <div className="container_33">
             <div className='headContainer'>
               Wie könnt ihr uns kontaktieren?
             </div>
-            <div className="text">
+            <div className="text_23">
               Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
             </div>
           </div>
