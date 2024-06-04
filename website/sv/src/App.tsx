@@ -11,7 +11,7 @@ import Login1 from './Login/Login';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-import { auth, db } from "./firebase"; // import Firestore db
+import { auth, db } from "./config/firebase"; // import Firestore db
 import 'firebase/analytics';
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -26,6 +26,8 @@ interface Event {
     date: string;
     time: string;
     topic?: string;
+    shortDescription?: string;
+    longDescription?: string;
     // Füge hier andere Felder hinzu, die ein Event haben könnte
   }
 /*Aufgaben:
@@ -188,11 +190,11 @@ function HeaderBottom() {
         </Link> 
         <Link to='/Search'className='svasdf'>
          <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon_3' onClick ={pressSearch}/>
-         <div className='title_footer'>Suche</div>
+         <div className='title_footer'>Suchen</div>
         </Link> 
         <Link to="/SV Kasten" className='svasdf'>
          <FontAwesomeIcon icon={faPenToSquare}  className='house_icon_4' onClick={pressSVKasten} />
-         <div className='title_footer'>Sv Kasten</div>
+         <div className='title_footer'>SV Kasten</div>
          </Link>
          <Link to="/Anmeldeformular" className='svasdf'>
           <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon_5'/>
@@ -229,7 +231,8 @@ function Startseite() {
             ...event,
             date: event.date instanceof Timestamp ? event.date.toDate().toLocaleDateString() : event.date,
             time: event.time,
-            topic: event.topic 
+            topic: event.topic,
+            shortDescription: event.shortDescription
           }));
   
           setEvents(formattedEvents);
@@ -256,12 +259,12 @@ function Startseite() {
             <div className="abstand"></div>
             <div className="events">
               <div className="coneven">
-                <div className="title_events">Events</div>
+                <div className="title_events"> Aktuelles Event</div>
               </div>
               {events.map((event, index) => (
                 <div className="tabelle" key={index}>
-                  <div className="title_tabelle">
-                    {event.date}
+                  <div className="zeit">
+                  <div className='angabezeit'>Datum: &nbsp;</div>{event.date}
                   </div>
                   <div className="zeit">
                     <div className='angabezeit'>Zeit: &nbsp;</div>
@@ -270,6 +273,10 @@ function Startseite() {
                   <div className="eventname">
                     <div className='angabezeit'>Thema: &nbsp;</div>
                     {event.topic} 
+                  </div>
+                  <div className="eventname">
+                    <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div>
+                    {event.shortDescription} 
                   </div>
                 </div>
               ))}
@@ -392,22 +399,22 @@ function Search() {
    <div> 
     {startseite ? (
       <div>
-        <FontAwesomeIcon icon={faArrowLeft} onClick={pressStartseite} className='arrowBack'/>
+        <FontAwesomeIcon icon={faArrowLeft} onClick={pressStartseite} className='arrowBack'  style={{color: "black"}}/>
         <Startseite/>
       </div>
     ): svKasten ?(
       <>
-        <FontAwesomeIcon icon={faArrowLeft} onClick={pressSVKasten} className='arrowBack'/>
+        <FontAwesomeIcon icon={faArrowLeft} onClick={pressSVKasten} className='arrowBack'  style={{color: "black"}}/>
         <SVKasten1/>
       </>
     ) : login ? (
       <>
-        <FontAwesomeIcon icon={faArrowLeft} onClick={pressLogin} className='arrowBack'/>
+        <FontAwesomeIcon icon={faArrowLeft} onClick={pressLogin} className='arrowBack'  style={{color: "black"}}/>
         <Login1/>
       </>
     ): Anmeldeformular ?(
        <>
-        <FontAwesomeIcon icon={faArrowLeft} onClick={pressAnmeldeformular} className='arrowBack'/>
+        <FontAwesomeIcon icon={faArrowLeft} onClick={pressAnmeldeformular} className='arrowBack' style={{color: "black"}}/>
         <Anmeldeformular1/>
        </>
     ) :(
@@ -444,7 +451,7 @@ function Anmeldeformularr() {
   return (
    <>
      <Anmeldeformular1/>
-     <AboutUs/>
+       <AboutUs/>
    </>
   );
 }
