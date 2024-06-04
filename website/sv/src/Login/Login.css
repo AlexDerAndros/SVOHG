@@ -213,7 +213,7 @@ input:focus{
 }
 .events_asdf {
     width: 70vw;
-    height: 28vh;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;

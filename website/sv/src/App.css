@@ -95,11 +95,11 @@ ul {
 .ÜberUns {
   width: 100%;
   height: 20vh;
-  margin-top: 90vh;
   background-color: #003300;
   color:rgb(184, 184, 184);
   font-family: "Roboto", sans-serif;
   font-size: 1.75vh;
+  margin-top: 150vh;
 }
 .imgSV {
   width: 70%;
@@ -347,6 +347,9 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   footer {
    display: none;
  }
+ .ÜberUns {
+  margin-top: 250vh;
+ }
 }
 a {
   text-decoration: none;
@@ -373,6 +376,7 @@ a {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   background-color: #d3d3d3af;
   color: rgb(24, 24, 24);
+  font-family: 'Roboto';
   
 }
 .neinen {
@@ -396,12 +400,12 @@ a {
   font-family: poppins;
 }
 .tabelle {
-  height: 74%;
+  height: 80%;
   width: 80%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 20%;
+  align-items: left;
+  gap: 10%;
   flex-direction: column;
   border-radius: 10px;
 }
@@ -412,9 +416,12 @@ a {
 }
 .zeit {
   display: flex;
+  width: auto;
 }
 .eventname {
   display: flex;
+  width: auto;
+
 }
 .angabezeit {
   font-weight: 600;
@@ -506,6 +513,7 @@ html::-webkit-scrollbar {
   display: flex;
   justify-content: left;
   align-items: left;
+  cursor: pointer;
   flex-direction: column;
   width: 90vw;
   font-size: 1.2em;

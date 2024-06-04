@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './SVKasten.css';
-import { db } from '../firebase';
+import { db } from '../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { getAuth, signInAnonymously } from 'firebase/auth';
 

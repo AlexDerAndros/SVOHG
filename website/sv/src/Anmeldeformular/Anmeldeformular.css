@@ -6,8 +6,9 @@
 .anmeldeformular {
    display: flex;
    width: 100vw;
-   margin-top: 50vh;
    height:100vh;
+   justify-content: center;
+   margin-top: 10%;
 }
 .nichtsVerfügbar {
    justify-content: center;
@@ -17,4 +18,54 @@
    height: 50vh !important;
    font-family: "Roboto", sans-serif;
    font-weight: 600;
+   margin-top: 50vh;
+
 }
+.tabelle1 {
+   height: 74%;
+   width: 80%;
+   display: flex;
+   justify-content: center;
+   align-items: left;
+   gap: 20%;
+   flex-direction: column;
+   border-radius: 10px;
+ }
+ 
+ .eventNameAusahme {
+   display: flex;
+   font-family: 'Roboto';
+   width: 100%;
+   height: auto;
+   flex-direction: column-reverse;
+ }
+ .events1 {
+   width: 80vw;
+   height: auto;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   border-radius: 2px;
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+   background-color: #d3d3d3af;
+   color: rgb(24, 24, 24);
+   font-family: 'Roboto';
+   
+ }
+ .posLi {
+   display: flex;
+   width: 100%;
+   flex-direction: row;
+   gap: 20%;
+ }
+ .contentA {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+ .btnPos {
+   display: flex;
+   width: 100vw;
+   align-items: center;
+   justify-content: center;
+ }

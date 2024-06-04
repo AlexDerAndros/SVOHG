@@ -3,9 +3,9 @@ import Cookies from 'js-cookie';
 import { useState, useEffect, handleUpdate } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-
-import { auth, db } from "../firebase"; // import Firestore db
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { auth, db, GoogleProvider } from "../config/firebase"; 
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { getDoc, setDoc, collection, getDocs, getFirestore } from "firebase/firestore"; // import Firestore functions
 
 import { doc, updateDoc } from "firebase/firestore";
@@ -55,6 +55,7 @@ export default function Login() {
 function LoggingIn({ setLog }) {
   const [click, setClick] = useState(false);
   const [username, setUsername] = useState('');
+  const [googleUs, setGoogleUs] = useState('');
   const [password, setPassword] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
@@ -111,6 +112,14 @@ function LoggingIn({ setLog }) {
       alert("Registrierung fehlgeschlagen");
     }
   }
+  const logGoogle = () => {
+    signInWithPopup(auth, GoogleProvider).then((data) => {
+     setGoogleUs(data.user.email);
+     Cookies.set('log', true, {expires: 7});
+     Cookies.set('user', data.user.email, { expires: 7 });
+     window.location.reload();
+   });
+  };
   
 
   return (
@@ -147,7 +156,7 @@ function LoggingIn({ setLog }) {
         ) : (
           <>
             <div className="con_3">
-              <div className="title_login">
+              <div className="title_login" >
                 Login
               </div>
             </div>
@@ -169,11 +178,16 @@ function LoggingIn({ setLog }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} />
               <button className="button" onClick={logBtn}>Einloggen</button>
+  
               <div className="loginInfo">
+              <div className="registerInfo" onClick={logGoogle}>
+                <FontAwesomeIcon icon={faGoogle} /> Melden Sie sich mit Google an!
+                </div>
                 Wenn Sie noch nicht eingeloggt sind,
                 <span className="registerInfo" onClick={press}>
                   &nbsp; registrieren Sie sich bitte!
                 </span>
+               
               </div>
             </div>
           </>
@@ -213,7 +227,7 @@ function LoggedIn({ setLog }) {
 function AdminDashboard({ setLog }) {
   const [events, setEvents] = useState([]);
   const [editEvent, setEditEvent] = useState(null);
-  const [formData, setFormData] = useState({ date: '', time: '', topic: '' });
+  const [formData, setFormData] = useState({ date: '', time: '', topic: '', shortDescription: '', longDescription: '' });
   const [messages, setMessages] = useState([]); // State to store messages
   const [visibleMessages, setVisibleMessages] = useState(3); // State to control number of visible messages
   const username = Cookies.get("user");
@@ -251,6 +265,8 @@ function AdminDashboard({ setLog }) {
       date: event.date.toDate().toLocaleDateString('en-CA'), // for input type="date"
       time: event.time,
       topic: event.topic,
+      shortDescription: event.shortDescription, // Corrected property name
+      longDescription: event.longDescription // Corrected property name
     });
   };
 
@@ -271,10 +287,12 @@ function AdminDashboard({ setLog }) {
         date: newDate,
         time: formData.time,
         topic: formData.topic,
+        shortDescription: formData.shortDescription, // Corrected property name
+        longDescription: formData.longDescription // Corrected property name
       });
 
       setEditEvent(null);
-      setFormData({ date: '', time: '', topic: '' });
+      setFormData({ date: '', time: '', topic: '', shortDescription: '', longDescription: ''});
       fetchEvents(); // Re-fetch the updated events list
     }
   };
@@ -318,6 +336,9 @@ function AdminDashboard({ setLog }) {
               <p>Datum: {event.date.toDate().toLocaleDateString()}</p>
               <p>Zeit: {event.time}</p>
               <p>Thema: {event.topic}</p>
+              <p>Kurze Beschreibung: {event.shortDescription}</p>
+              <p>Was ist es?: {event.longDescription}</p>
+
             </div>
             <br />
             <br />
@@ -357,6 +378,25 @@ function AdminDashboard({ setLog }) {
                   type="text"
                   name="topic"
                   value={formData.topic}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Kurze Beschreibung:
+                <input
+                  className="search"
+                  type="text"
+                  name="shortDescription"
+                  value={formData.shortDescription}
+                  onChange={handleChange}
+                />
+              </label> <label>
+                Was ist es?
+                <input
+                  className="search"
+                  type="text"
+                  name="longDescription"
+                  value={formData.longDescription}
                   onChange={handleChange}
                 />
               </label>
