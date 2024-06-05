@@ -97,7 +97,7 @@ function HeaderBottom() {
   const [value, setValue] = useState('');
   const [list, setList] = useState([
     { theme: 'Startseite', link: '/', index: 1 },
-    { theme: 'Anmeldeformular für die SV', link: '/Anmeldeformular', index: 2 },
+    { theme: 'Events', link: '/Anmeldeformular', index: 2 },
     { theme: 'Login', link: '/Login', index: 3 },
     { theme: 'SV Kasten', link: '/SV Kasten', index: 4 }
   ]);
@@ -112,23 +112,29 @@ function HeaderBottom() {
     setFilteredItems(filteredItems);
     setValue(filterTerm);
   };
+  let element;
+  if (click === true) {
+    element =   <FontAwesomeIcon onClick={press} icon={faTimes} size='2x' className='hamburger-menu' />;
+  }
+  else {
+    <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>;
 
+  }
   return (
     <>
     <BrowserRouter>
-      <div className='content'>
+      <div className='content' style={{height: click ? "40%" : '0%' }}>
         {click && (
           <>
             <div className='Hambuger-Elemente'>
-              <div onClick={press}>
-                <FontAwesomeIcon icon={faTimes} size='2x' className='hamburger-menu' />
-              </div>
+              
               <div className='inSp'>
                 <input type='text'
                  value={value}
                  onChange={(e) => handleFilter(e.target.value)}
                  placeholder='Suchen...'
-                 className='input' />
+                 className='search' 
+                 style={{height:"10vh", marginLeft:"10%", padding:"0.1% 2%"}}/>
                </div>  
             </div>
             <ul className='searchOv' >
@@ -143,7 +149,7 @@ function HeaderBottom() {
           </>
         )}
       </div>
-      <header style={{ height: click ? '50%' : '10%' }}>
+      <header>
         
         <div className='title'>
           <a href="/">
@@ -151,35 +157,24 @@ function HeaderBottom() {
           </a>
         </div>
         <div className="menu">
+          {click ? (
+            <>
+             <FontAwesomeIcon onClick={press} icon={faTimes} size='2x' className='hamburger-menu' />;
+             </>
+            
+          ): (
+            <>
          <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>
+         </>
+          )}
         </div>
       </header>
       <div>
-        {/* {startseite ? (
-          <div>
-            <Startseite/>
-          </div>
-        ) : search ? (
-          <div>
-            <Search/>
-          </div>
-        ) : svKasten ? (
-          <div>
-            <SVKasten1/>
-          </div>   
-        ): login ? (
-          <div>
-            <Login1/>
-          </div>  
-        ) : (
-          <div>
-            Error
-          </div>  
-        )} */}
+        
       </div>
         
       <footer>
-        <div className='icons_footer' style={{bottom:"0%"}}>
+        <div className='icons_footer ' >
         <Link to='/'className='svasdf'>   
          <FontAwesomeIcon icon={faHouse} className='house_icon' onClick={pressStartseite} />
             <div className='title_footer'>Home</div>
@@ -190,11 +185,11 @@ function HeaderBottom() {
         </Link> 
         <Link to='/Search'className='svasdf'>
          <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon_3' onClick ={pressSearch}/>
-         <div className='title_footer'>Suchen</div>
+         <div className='title_footer'>Suche</div>
         </Link> 
         <Link to="/SV Kasten" className='svasdf'>
          <FontAwesomeIcon icon={faPenToSquare}  className='house_icon_4' onClick={pressSVKasten} />
-         <div className='title_footer'>SV Kasten</div>
+         <div className='title_footer' >SV Kasten</div>
          </Link>
          <Link to="/Anmeldeformular" className='svasdf'>
           <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon_5'/>
@@ -415,7 +410,7 @@ function Search() {
     ): Anmeldeformular ?(
        <>
         <FontAwesomeIcon icon={faArrowLeft} onClick={pressAnmeldeformular} className='arrowBack' style={{color: "black"}}/>
-        <Anmeldeformular1/>
+        <Anmeldeformularr/>
        </>
     ) :(
       <>

@@ -228,7 +228,10 @@ function AdminDashboard({ setLog }) {
   const [events, setEvents] = useState([]);
   const [editEvent, setEditEvent] = useState(null);
   const [formData, setFormData] = useState({ date: '', time: '', topic: '', shortDescription: '', longDescription: '' });
-  const [messages, setMessages] = useState([]); // State to store messages
+  const [messages, setMessages] = useState([]); 
+  const [teilnehmer, setTeilnehmer] = useState([]); 
+  const [ moreSize, setMoreSize] = useState(false);
+
   const [visibleMessages, setVisibleMessages] = useState(3); // State to control number of visible messages
   const username = Cookies.get("user");
 
@@ -246,9 +249,16 @@ function AdminDashboard({ setLog }) {
     setMessages(messagesList);
   };
 
+  const fetchTeilnehmer = async() => {
+    const TeilnehmerCol = collection(db, 'userEvents');
+    const messagesSnapshot = await getDocs(TeilnehmerCol);
+    const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setTeilnehmer(messagesList);
+  };
   useEffect(() => {
     fetchEvents();
-    fetchMessages(); // Fetch messages when the component mounts
+    fetchMessages();
+    fetchTeilnehmer();
   }, []);
 
   const logOut = () => {
@@ -300,9 +310,12 @@ function AdminDashboard({ setLog }) {
   const handleSeeMore = () => {
     setVisibleMessages(prev => prev + 3); // Increase the number of visible messages by 3
   };
-
+ 
+   const More = () => {
+     setMoreSize(true);
+   };
   return (
-    <div>
+    <div className="siteAdmin">
       <div className="welcome">
         Willkommen Admin {username}!
       </div>
@@ -406,7 +419,37 @@ function AdminDashboard({ setLog }) {
             </form>
           </div>
         )}
+
       </div>
+      <div className="posMSG">
+      <div className='msg' style={{height: editEvent ? "0vh" : "auto", color: editEvent ? "transparent" : "white" }}>
+          <h2 style={{width:'100%', display:'flex',justifyContent:'center'}}>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}s
+          </>))}</h2>
+          {teilnehmer.map((item) => (
+            <>
+           
+            <div className="container_33">
+                <div className='headContainer'>
+                   {item.name}
+               </div>
+
+            </div>
+            <ul>
+              <li>
+                Alter: {item.age}
+              </li>
+              <li>
+                Klasse: {item.Klasse}
+              </li>
+              <li>
+                E-Mail: {item.email}
+              </li>
+            </ul>
+            </>
+           
+          ))}
+    </div>
+    </div>
     </div>
   );
 }

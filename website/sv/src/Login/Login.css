@@ -297,10 +297,22 @@ form {
     flex-direction: column;
     border-radius: 4px;
     justify-content: center;
+    transition: 0.3s ease-in;
 }
 .seemore {
     background-color: #034903;
     color: white;
     font-family: roboto;
     border: white 2px solid;
+}
+.posMSG {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 27em ;
+}
+.siteAdmin {
+    display: flex;
+    flex-direction: column;
 }

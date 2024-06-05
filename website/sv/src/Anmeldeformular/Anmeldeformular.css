@@ -3,6 +3,8 @@
       SV OHG CODE BY ALEXANDROS AND MARCO 
 
 */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
 .anmeldeformular {
    display: flex;
    width: 100vw;
@@ -21,17 +23,7 @@
    margin-top: 50vh;
 
 }
-.tabelle1 {
-   height: 74%;
-   width: 80%;
-   display: flex;
-   justify-content: center;
-   align-items: left;
-   gap: 20%;
-   flex-direction: column;
-   border-radius: 10px;
- }
- 
+
  .eventNameAusahme {
    display: flex;
    font-family: 'Roboto';
@@ -57,11 +49,14 @@
    width: 100%;
    flex-direction: row;
    gap: 20%;
+   align-items: flex-end;
+   height: 40%;
  }
  .contentA {
    display: flex;
    flex-direction: column;
    align-items: center;
+   gap: 2% ;
  }
  .btnPos {
    display: flex;
@@ -69,3 +64,65 @@
    align-items: center;
    justify-content: center;
  }
+ .events {
+  width: 80vw;
+  height: 370px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  background-color: #d3d3d3af;
+  color: rgb(24, 24, 24);
+  font-family: 'Roboto';
+  
+}
+.neinen {
+  height: 109vw;
+}
+.coneven1 {
+  width: 99.9%;
+  height: 12.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid rgba(255, 0, 0, 0) 1px;
+  color: white;
+  background-color: rgb(2, 70, 2);
+
+}
+.title_events {
+  font-size: 1.3em;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+}
+.tabelle1 {
+  height: 80%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  gap: 10%;
+  flex-direction: column;
+  border-radius: 10px;
+}
+.abstand {
+  height: 50px;
+  width: 100vw;
+  border: solid 1px rgba(255, 0, 0, 0);
+}
+.zeit {
+  display: flex;
+  width: auto;
+}
+.eventname {
+  display: flex;
+  width: auto;
+
+}
+.angabezeit {
+  font-weight: 600;
+}
+.title_tabelle {
+  height: 0px;
+}
