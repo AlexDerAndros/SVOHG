@@ -5,18 +5,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import { auth, db } from "../config/firebase"; // import Firestore db
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDocs, collection, Timestamp, addDoc } from "firebase/firestore"; // import Firestore functions
 
-
-
-export default function Anmeldeformular() {
+export default function Anmeldeformular1() {
   const [verfügbar, setVerfügbar] = useState(false);
   const [events, setEvents] = useState([]);
   const [click, setClick] = useState(false);
-
+  const [clickEF, setClickEF] = useState(false);
+ 
   const press = () => {
     setClick(!click);
+  }
+
+  const remove = () => {
+    setClickEF(!clickEF);
+    Cookies.set('teil', false, { expires: 7 });
   }
 
   useEffect(() => {
@@ -33,67 +36,132 @@ export default function Anmeldeformular() {
             topic: data.topic || "No Topic Available",
             shortDescription: data.shortDescription || "No short Description Available",
             longDescription: data.longDescription || "No short Description Available",
-            
           };
         });
 
+        setVerfügbar(eventsList.length > 0);
+        setEvents(eventsList);
 
-        if (eventsList.length > 0) {
-          setVerfügbar(true);
-          setEvents(eventsList);
-        } else {
-          setVerfügbar(false);
-        }
       } catch (error) {
         console.error("Error fetching events: ", error);
       }
     };
 
-    fetchEvents();
-  }, []);
+    const conditions = () => {
+      if (Cookies.get("teil") === "true") {
+        setClickEF(true);
+      }
+    };
 
+    fetchEvents();
+    conditions();
+   
+  }, []);
+ if (clickEF == true || Cookies.get("teil") == "true") {
+  return (
+   <div className="anmeldeformular">
+     <InEvent remove={remove}/>
+   </div>
+  );
+ }
   return (
     <div className="anmeldeformular">
-      
-      {verfügbar ?   (
+      {verfügbar ? (
         <>
-        {click ? (
-           <Event events={events} press={press}/>
-            ):(
-             <>
-              <div >
-             {events.map((event, index) => (
-              <div className="events">
-              <div className="coneven">
-                <div className="title_events"> {event.topic}</div>
+          {click ? (
+            <Event events={events} press={press} clickEF={clickEF} remove={remove} setClickEF={setClickEF}/>
+          ) : (
+            <>
+              <div>
+                {events.map((event, index) => (
+                  <div className="events" key={index}>
+                    <div className="coneven">
+                      <div className="title_events">{event.topic}</div>
+                    </div>
+                    <div className="tabelle1">
+                      <div className="zeit">
+                        <div className='angabezeit'>Datum: &nbsp;</div>
+                        {event.date}
+                      </div>
+                      <div className="zeit">
+                        <div className='angabezeit'>Zeit: &nbsp;</div>
+                        {event.time}
+                      </div>
+                      <div className="eventname">
+                        <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div>
+                        {event.shortDescription} 
+                      </div>
+                      <div className="eventname" style={{color:'blue', textDecoration: 'underline blue 1px', cursor: "pointer"}} onClick={press}>
+                        Weitere Informationen →
+                      </div> 
+                    </div>
+                  </div>
+                ))} 
               </div>
-                <div className="tabelle1" key={index}>
-                <div className="zeit">
-                    <div className='angabezeit'>Datum: &nbsp;</div>
-                    {event.date}
-                  </div>
-                  <div className="zeit">
-                    <div className='angabezeit'>Zeit: &nbsp;</div>
-                    {event.time}
-                  </div>
-                  <div className="eventname">
-                    <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div>
-                    {event.shortDescription} 
-                  </div>
-                  <div className="eventname" style={{color:'blue', textDecoration: 'underline blue 1px', cursor: "pointer"}} onClick={press}>
-                    Weitere Informationen →
-                   </div> 
-                </div>
-                </div>
-              ))} 
-           </div>
-             </>
-            )}
             </>
+          )}
+        </>
       ) : (
         <NichtsVerfügbar />
       )}
     </div>
+  );
+}
+
+function Event({events, press, remove, clickEF}) {
+  const [clickF, setClickF] = useState(false);
+
+  const pressF = () => {
+    setClickF(!clickF);
+  }
+  
+  return (
+    <>
+      {clickF ? (
+        <Formular events={events} pressF={pressF} clickEF={clickEF} remove={remove} setClickEF={setClickF}/>
+      ) : (
+        <>
+          {events.map((event, index) => (
+            <div className="events" style={{height: "auto"}} key={index}>
+              <div className="coneven1">
+                <div className="title_events">{event.topic}</div>
+              </div>
+              <div className="tabelle1">
+                <div className="zeit">
+                  <div className='angabezeit'>Datum: &nbsp;</div>
+                  {event.date}
+                </div>
+                <div className="zeit">
+                  <div className='angabezeit'>Zeit: &nbsp;</div>
+                  {event.time}
+                </div>
+                <div className="eventnameAusnahme">
+                  <div className='angabezeit'>Worum geht es bei dem {event.topic}? &nbsp;</div>
+                  <div className="textEv">
+                    {event.longDescription} 
+                  </div>
+                </div>
+                <div className="eventnameAusnahme">
+                  <div className='angabezeit'>Wie nehme ich bei dem {event.topic} teil? &nbsp;</div>
+                  <div className="textEv">
+                    Beim {event.topic} kann man teilnehmen, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. Wenn Sie den gedrückt haben, können Sie sich dann für den {event.topic} anmelden.
+                  </div>
+                  <br/>
+                  <div className="posLi">
+                    <div className="eventname" style={{color:'blue', textDecoration: 'underline blue 1px', cursor: "pointer"}} onClick={press}>
+                      ← Zurück
+                    </div>
+                    <div className="eventname" style={{color:'blue', textDecoration: 'underline blue 1px', cursor: "pointer"}} onClick={pressF}>
+                      Ich bin ein/e Schüler*in.
+                    </div>
+                  </div>  
+                </div> 
+              </div>
+            </div>
+          ))} 
+        </>
+      )}
+    </>
   );
 }
 
@@ -104,136 +172,79 @@ function NichtsVerfügbar() {
     </div>
   );
 }
-function Event({events, press}) {
-  const [clickF, setClickF] = useState(false);
-  const pressF = () => {
-    setClickF(!clickF);
-  }
-  
-  return (
-    <>
-     {clickF ? (
-      <Fomular events={events} pressF={pressF}/>
-     ): ( <>
-        {events.map((event, index) => (
-              <div className="events" style={{height: "auto"}}  >
-              <div className="coneven">
-                <div className="title_events"> {event.topic}</div>
-              </div>
-                <div className="tabelle1" key={index}  >
-                <div className="zeit" style={{marginTop: " 12.5vh"}}>
-                    <div className='angabezeit' >Datum: &nbsp;</div>
-                    {event.date}
-                  </div>
-                  <div className="zeit">
-                    <div className='angabezeit'>Zeit: &nbsp;</div>
-                    {event.time}
-                  </div>
-                  <div className="eventnameAusnahme">
-                    <div className='angabezeit'>Worum geht es bei dem {event.topic}? &nbsp;</div>
-                    <div className="textEv">
-                     {event.longDescription} 
-                    </div>
-                  </div>
-                  <div className="eventnameAusnahme">
-                    <div className='angabezeit'>Wie nehme ich bei dem {event.topic} teil? &nbsp;</div>
-                    <div className="textEv">
-                      Beim {event.topic} nehme ich teil, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. 
-                      Wenn Sie den gedrückt haben, können Sie sich dann für den {events.topic} anmelden.
-                    </div>
-                    <br/>
-                  <div className="posLi">
-                  <div className="eventname" style={{color:'blue', textDecoration: 'underline blue 1px', cursor: "pointer"}} onClick={press}>
-                  ← Zurück
-                   </div>
-                   <div className="eventname" style={{color:'blue', textDecoration: 'underline blue 1px', cursor: "pointer"}} onClick={pressF}>
-                   Ich bin ein/e Schüler*in.
-                   </div>
-                   </div>  
-                   </div> 
-                </div>
-                </div>
-              ))} 
-     </>)}
-        
-    </>
-  );
-}
-function Fomular({ events, pressF }) {
- useEffect(() => {
-   if (Cookies.get("Teilnehmer") == "true") {
-    setClickEF(true);
-   }
- }, []);
-  const [clickEF, setClickEF] = useState(false);
+
+function Formular({ events, pressF, clickEF, remove, setClickEF  }) {
   const [VN, setVN] = useState('');
   const [NN, setNN] = useState('');
   const [email, setEmail] = useState('');
   const [geb, setGeb] = useState('');
   const [kla, setKla] = useState('');
 
+  useEffect(() => {
+   
+  }, []);
+
   const sendForm = async () => {
     if (VN.trim() !== '' && NN.trim() !== '' && email.trim() !== '' && geb.trim() !== '' && kla.trim() !== '') {
+      
       await addDoc(collection(db, "userEvents"), {
         name: VN + ' ' + NN, 
         email: email,
-        Geburtstag: geb,
+        age: geb,
         Klasse: kla
       });
+      setClickEF(true);
+      Cookies.set('teil', true, { expires: 7 });
       alert("Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!");
       setVN('');
       setNN('');
       setEmail('');
       setGeb('');
       setKla('');
-      setClickEF(!clickEF);
-      window.location.reload();
-      Cookies.set('Teilnehmer', true, { expires: 7 });
     }
-   
   }
 
-  const remove = async () => {
-    setClickEF(!clickEF);
-    Cookies.set('Teilnehmer', false, { expires: 7 });
-
-  }
-
+ if (clickEF === true || Cookies.get("teil") === "true") {
+     return <InEvent remove={remove}/>
+ }
+else {
   return (
     <>
-      {clickEF ? (
-        <>
-          Sie können nun an diesem Event teilnehmen.
-          <button className="button" onClick={remove}>
-            Ich möchte nicht mehr an diesem Event teilnehmen.
-          </button>
-        </>
-      ) : (
-        <>
           {events.map((event, index) => (
             <div className="contentA" key={index}>
-              <div className="headContainer">
+              <div className="title_events">
                 {event.topic}
               </div>
               <input type="text" className='search' placeholder="Vorname..." onChange={(e) => setVN(e.target.value)} />
               <input type="text" className='search' placeholder="Nachname..." onChange={(e) => setNN(e.target.value)} />
-              <input type="text" className='search' placeholder="Geburtstag..." onChange={(e) => setGeb(e.target.value)} />
+              <input type="number" className='search' placeholder="Alter..." onChange={(e) => setGeb(e.target.value)} />
               <input type="text" className='search' placeholder="Klasse..." onChange={(e) => setKla(e.target.value)} />
               <input type="text" className='search' placeholder="E-Mail..." value={email} onChange={(e) => setEmail(e.target.value)} />
               <div className="btnPos">
-                <button className="button" onClick={sendForm}>
+                <button className="bearbeiten" onClick={sendForm} style={{marginTop: "5%"}}>
                   Senden
                 </button>
               </div>
               <br />
-              <div className="eventname" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
+              <div className="eventname" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer",  }} onClick={pressF}>
                 ← Zurück
               </div>
             </div>
           ))}
-        </>
-      )}
 
     </>
   );
+
+}
+}
+
+function InEvent({remove}) {
+ return (
+   <>
+     Sie können nun an diesem Event teilnehmen.
+     <button className="button" onClick={remove}>
+       Ich möchte nicht mehr an diesem Event teilnehmen.
+     </button>
+   </>
+ );
 }
