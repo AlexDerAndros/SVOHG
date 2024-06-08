@@ -201,7 +201,7 @@ function HeaderBottom() {
       </div>
         
       <footer>
-        <div className='icons_footer ' >
+        <div className='icons_footer ' style={{bottom:"0%"}}>
         <Link to='/'className={`svasdf ${isFocused ? 'focused' : ''}`}>   
          <FontAwesomeIcon icon={faHouse} className='house_icon' onClick={pressStartseite} id='first' />
             <div className='title_footer'>Home</div>
@@ -219,7 +219,7 @@ function HeaderBottom() {
          <div className='title_footer' >SV Kasten</div>
          </Link>
          <Link to="/Anmeldeformular" className='svasdf'>
-          <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon_5'/>
+          <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon_5' onClick={pressAnmeldeformular}/>
          <div className='title_footer'>Events</div>
          </Link>
         </div>

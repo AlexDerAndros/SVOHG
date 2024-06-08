@@ -60,7 +60,7 @@ export default function Anmeldeformular1() {
  if (clickEF == true || Cookies.get("teil") == "true") {
   return (
    <div className="anmeldeformular">
-     <InEvent remove={remove}/>
+     <InEvent remove={remove} events={events}/>
    </div>
   );
  }
@@ -122,11 +122,11 @@ function Event({events, press, remove, clickEF}) {
       ) : (
         <>
           {events.map((event, index) => (
-            <div className="events" style={{height: "auto"}} key={index}>
+            <div className="events" key={index}>
               <div className="coneven1">
                 <div className="title_events">{event.topic}</div>
               </div>
-              <div className="tabelle1">
+              <div className="tabelle1" >
                 <div className="zeit">
                   <div className='angabezeit'>Datum: &nbsp;</div>
                   {event.date}
@@ -205,7 +205,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF  }) {
   }
 
  if (clickEF === true || Cookies.get("teil") === "true") {
-     return <InEvent remove={remove}/>
+     return <InEvent remove={remove} events={events}/>
  }
 else {
   return (
@@ -238,13 +238,57 @@ else {
 }
 }
 
-function InEvent({remove}) {
+function InEvent({remove, events}) {
+  const[teilnehmer, setTeilnehmer] = useState([]);
+  const fetchTeilnehmer = async() => {
+    const TeilnehmerCol = collection(db, 'userEvents');
+    const messagesSnapshot = await getDocs(TeilnehmerCol);
+    const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setTeilnehmer(messagesList);
+  };
+  useEffect(() => {
+   fetchTeilnehmer();
+  }, []);
  return (
-   <>
-     Sie können nun an diesem Event teilnehmen.
-     <button className="button" onClick={remove}>
-       Ich möchte nicht mehr an diesem Event teilnehmen.
-     </button>
-   </>
+   <div className="events1" >
+    {events.map((event => (
+      <>
+      <div className="coneven1">
+          <div className="title_events">{event.topic}</div>
+          </div>
+          <div className="tabelle1" >
+          <div style={{fontWeight:"600"}}>
+           Sie können nun an diesem Event teilnehmen.
+          </div>
+          <div className="eventnameAusnahme">
+                  <div className='angabezeit'>Worum geht es bei dem {event.topic}? &nbsp;</div>
+                  <div className="textEv">
+                    {event.longDescription} 
+                  </div>
+                </div>
+                <div className="eventnameAusnahme">
+                  <div className='angabezeit'>Wie nehme ich bei dem {event.topic} teil? &nbsp;</div>
+                  <div className="textEv">
+                    Beim {event.topic} kann man teilnehmen, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. Wenn Sie den gedrückt haben, können Sie sich dann für den {event.topic} anmelden.
+                  </div>
+                </div>  
+          <div>
+            <div style={{fontWeight:"600"}}>
+              Ihre Informationen:
+             </div>
+              <ul>
+              
+              </ul>
+          </div>
+     
+        
+        <button className="bearbeiten" onClick={remove}>
+          Ich möchte nicht mehr an diesem Event teilnehmen.
+        </button>
+      </div>
+      </>
+    )))}
+    
+   </div>
  );
 }
