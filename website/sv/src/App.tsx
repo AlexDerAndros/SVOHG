@@ -55,6 +55,7 @@ export default function App() {
 }
 
 function HeaderBottom() {
+  
   const [startseite, setStartseite] = useState(false);
   const [login, setLogin] = useState(false);
   const [svKasten, setSvKasten] = useState(false);
@@ -67,31 +68,52 @@ function HeaderBottom() {
     setSvKasten(false);
     setLogin(false);
     setStartseite(false);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
+  
   const pressStartseite = () => {
     setSearch(false);
     setSvKasten(false);
     setLogin(false);
-    setStartseite(true);
+    setStartseite(true);    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
   const pressLogin = () => {
     setSearch(false);
     setSvKasten(false);
     setLogin(true);
-    setStartseite(false);
+    setStartseite(false);    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
   const pressSVKasten = () => {
     setSearch(false);
     setSvKasten(true);
     setLogin(false);
-    setStartseite(false);
+    setStartseite(false);    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
   const pressAnmeldeformular = () => {
     setSearch(false);
     setSvKasten(false);
     setLogin(false);
     setStartseite(false);
-    setAnmeldeformular(true);
+    setAnmeldeformular(true);    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
   const [click, setClick] = useState(false);
   const [value, setValue] = useState('');
@@ -120,6 +142,11 @@ function HeaderBottom() {
     <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>;
 
   }
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleClick = () => {
+    setIsFocused(true);
+  };
   return (
     <>
     <BrowserRouter>
@@ -175,8 +202,8 @@ function HeaderBottom() {
         
       <footer>
         <div className='icons_footer ' >
-        <Link to='/'className='svasdf'>   
-         <FontAwesomeIcon icon={faHouse} className='house_icon' onClick={pressStartseite} />
+        <Link to='/'className={`svasdf ${isFocused ? 'focused' : ''}`}>   
+         <FontAwesomeIcon icon={faHouse} className='house_icon' onClick={pressStartseite} id='first' />
             <div className='title_footer'>Home</div>
         </Link> 
         <Link to = '/login'className='svasdf'>
@@ -214,6 +241,7 @@ function HeaderBottom() {
 }
 
 function Startseite() {
+
     const [events, setEvents] = useState<Event[]>([]);
   
     useEffect(() => {
@@ -266,11 +294,11 @@ function Startseite() {
                     {event.time}
                   </div>
                   <div className="eventname">
-                    <div className='angabezeit'>Thema: &nbsp;</div>
+                    <div className='angabezeit'>Thema: &nbsp;</div><br/>
                     {event.topic} 
                   </div>
                   <div className="eventname">
-                    <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div>
+                    <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div><br/>
                     {event.shortDescription} 
                   </div>
                 </div>

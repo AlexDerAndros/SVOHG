@@ -25,7 +25,6 @@ const makeUserAdmin = async (email) => {
 // Example usage:
 // makeUserAdmin("user@example.com");
 
-makeUserAdmin("marcodori2010@gmail.com");
 
 
 export default function Login() {

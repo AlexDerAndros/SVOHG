@@ -2,6 +2,26 @@
 
       SV OHG CODE BY ALEXANDROS AND MARCO 
 
+
+      Bei SV Kasten Möglichkeit, dass man auch zum Lehrerzimmer gehen kann 
+Aktuelle Seite, markiert über bei den Links mit der Farbe: #93B96E
+Abstand zu Impressum mit @media optimieren
+eingeraste Seite
+.bottom bei Handy 0%
+Unter Impressum kein Platz
+const myRef = useRef(null)
+
+   const executeScroll = () => myRef.current.scrollIntoView()    Bei Links
+Bug Fix Datum bei Events ändern können 
+Pfeil kleiner bei Search aber gleiches Klickfeld
+Wenn man angemeldet ist Seite verbessern
+Zurück Knopf Eventseite Handyversion breiter
+Placeholder SV Kasten
+
+
+Um uns zu kontaktieren müsst ihr nur auf den SV Kasten unten klicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben oder ein Zettel in den Kasten vor dem Lehrerzimmer werfen 
+Wenn ihr wollt könnt ihr auch 
+an „———.“  eine email schreiben 
 */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
@@ -249,34 +269,43 @@ footer {
   background-color: #003300;
 box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 
-
 }
 .house_icon {
-  font-size: 30px !important;
+  font-size: 30px;
   cursor: pointer;
   width: 10vw;
   color: white;
+  outline: none; 
+  transition: filter 0.3s, background-color 0.3s; 
+}
+.house_icon.focused {
+  filter: blur(0.0px); 
+  color: rgb(127, 163, 231) !important; 
+}
+.house_icon:focus {
+  color: rgb(127, 163, 231) !important;
+  filter: blur(0.0px)
 }
 .house_icon_2 {
-  font-size: 30px !important;
+  font-size: 30px;
   cursor: pointer;
   width: 10vw;
   color: white;
 }
 .house_icon_3 {
-  font-size: 30px !important;
+  font-size: 30px;
   cursor: pointer;
   width: 10vw;
   color: white;
 }
 .house_icon_5 {
-  font-size: 30px !important;
+  font-size: 30px;
   cursor: pointer;
   width: 10vw;
   color: white;
 }
 .house_icon_4 {
-  font-size: 30px !important;
+  font-size: 30px;
   cursor: pointer;
   width: 10vw;
   color: white;
@@ -377,7 +406,7 @@ a {
 
 .events {
   width: 80vw;
-  height: 370px;
+  height: 470px !important;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -429,8 +458,8 @@ a {
 }
 .eventname {
   display: flex;
-  width: auto;
-
+  width: 100%;
+  flex-direction: column; 
 }
 .angabezeit {
   font-weight: 600;
