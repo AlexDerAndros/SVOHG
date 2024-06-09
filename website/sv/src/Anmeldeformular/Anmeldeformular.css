@@ -50,7 +50,7 @@
    flex-direction: row;
    gap: 20%;
    align-items: flex-end;
-   height: 40%;
+   height: 20%;
  }
  .contentA {
    display: flex;
@@ -97,12 +97,12 @@
   font-family: "Poppins", sans-serif;
 }
 .tabelle1 {
-  height: 80%;
+  height: 90%;
   width: 80%;
   display: flex;
   justify-content: center;
   align-items: left;
-  gap: 10%;
+  gap: 7%;
   flex-direction: column;
   border-radius: 10px;
 }
@@ -125,4 +125,9 @@
 }
 .title_tabelle {
   height: 0px;
+}
+@media only screen and (min-width: 1200px) {
+  .posLi {
+    height: 40%;
+  }
 }
