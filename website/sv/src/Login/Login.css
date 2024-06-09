@@ -18,13 +18,13 @@ input{
     height: 50px;
     display: flex;
     justify-content: center;
-    border: solid rgba(0, 0, 0, 0.11) 2.0px;
+    border: rgb(127, 163, 231) 1px solid;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
     border-radius: 5px;
 }
 .bt {
     margin-top: 100px;
-    background-color: #e6e6e6;
+    background-color: rgb(127, 163, 231);
     color: #080710;
     font-size: 18px;
     font-weight: 600;
@@ -59,7 +59,8 @@ label{
 .button{
     margin-top: 50px;
     width: 80%;
-    background-color: #ffffff;
+    background-color: rgb(127, 163, 231);
+
     color: #080710;
     padding: 15px 0;
     font-size: 18px;
@@ -92,10 +93,12 @@ label{
     width: 88vw;
     height: 75vh;
     background-color: #003300;
+    
+    
     display: flex;
     border-radius: 15px;
     flex-direction: column;
-    border: 2px solid rgba(255,255,255,0.1);
+    border: rgb(127, 163, 231) 3px solid;
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
 }
 .con_3 {

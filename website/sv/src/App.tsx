@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Routes, BrowserRouter, Route, Link } from 'react-router-dom';
+import { Routes, BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faHouse, faMagnifyingGlass, faTimes, faRightToBracket, faPenToSquare, faArrowUpFromBracket} from '@fortawesome/free-solid-svg-icons';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -55,66 +55,57 @@ export default function App() {
 }
 
 function HeaderBottom() {
-  
-  const [startseite, setStartseite] = useState(false);
+  const [startseite, setStartseite] = useState(true);
   const [login, setLogin] = useState(false);
   const [svKasten, setSvKasten] = useState(false);
-  const [ search, setSearch] = useState(false);
-  const [ Anmeldeformular, setAnmeldeformular] = useState(false);
+  const [search, setSearch] = useState(false);
+  const [anmeldeformular, setAnmeldeformular] = useState(false);
 
-  
   const pressSearch = () => {
     setSearch(true);
     setSvKasten(false);
     setLogin(false);
     setStartseite(false);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
-  
+    setAnmeldeformular(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const pressStartseite = () => {
     setSearch(false);
     setSvKasten(false);
     setLogin(false);
-    setStartseite(true);    
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
+    setStartseite(true);
+    setAnmeldeformular(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const pressLogin = () => {
     setSearch(false);
     setSvKasten(false);
     setLogin(true);
-    setStartseite(false);    
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
+    setStartseite(false);
+    setAnmeldeformular(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const pressSVKasten = () => {
     setSearch(false);
     setSvKasten(true);
     setLogin(false);
-    setStartseite(false);    
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
+    setStartseite(false);
+    setAnmeldeformular(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const pressAnmeldeformular = () => {
     setSearch(false);
     setSvKasten(false);
     setLogin(false);
     setStartseite(false);
-    setAnmeldeformular(true);    
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
+    setAnmeldeformular(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const [click, setClick] = useState(false);
   const [value, setValue] = useState('');
   const [list, setList] = useState([
@@ -134,111 +125,93 @@ function HeaderBottom() {
     setFilteredItems(filteredItems);
     setValue(filterTerm);
   };
+
   let element;
-  if (click === true) {
-    element =   <FontAwesomeIcon onClick={press} icon={faTimes} size='2x' className='hamburger-menu' />;
+  if (click) {
+    element = <FontAwesomeIcon onClick={press} icon={faTimes} size='2x' className='hamburger-menu' />;
+  } else {
+    element = <FontAwesomeIcon icon={faBars} onClick={press} className="hamburger-menu" />;
   }
-  else {
-    <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>;
 
-  }
-  const [isFocused, setIsFocused] = useState(false);
-
-  const handleClick = () => {
-    setIsFocused(true);
-  };
   return (
     <>
-    <BrowserRouter>
-      <div className='content' style={{height: click ? "40%" : '0%' }}>
-        {click && (
-          <>
-            <div className='Hambuger-Elemente'>
-              
-              <div className='inSp'>
-                <input type='text'
-                 value={value}
-                 onChange={(e) => handleFilter(e.target.value)}
-                 placeholder='Suchen...'
-                 className='search' 
-                 style={{height:"10vh", marginLeft:"10%", padding:"0.1% 2%"}}/>
-               </div>  
-            </div>
-            <ul className='searchOv' >
-              {filteredItems.map((item) => (
-                <li key={item.index} >
-                  <Link to={item.link} className='searchEle'>
-                    {item.theme}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </div>
-      <header>
-        
-        <div className='title'>
-          <a href="/">
-          SV Otto-Hahn-Gymnasium 
-          </a>
-        </div>
-        <div className="menu">
-          {click ? (
+      <Router>
+        <div className='content' style={{ height: click ? "40%" : '0%' }}>
+          {click && (
             <>
-             <FontAwesomeIcon onClick={press} icon={faTimes} size='2x' className='hamburger-menu' />;
-             </>
-            
-          ): (
-            <>
-         <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>
-         </>
+              <div className='Hambuger-Elemente'>
+                <div className='inSp'>
+                  <input
+                    type='text'
+                    value={value}
+                    onChange={(e) => handleFilter(e.target.value)}
+                    placeholder='Suchen...'
+                    className='search'
+                    style={{ height: "10vh", marginLeft: "10%", padding: "0.1% 2%" }}
+                  />
+                </div>
+              </div>
+              <ul className='searchOv'>
+                {filteredItems.map((item) => (
+                  <li key={item.index}>
+                    <Link to={item.link} className='searchEle'>
+                      {item.theme}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
         </div>
-      </header>
-      <div>
-        
-      </div>
-        
-      <footer>
-        <div className='icons_footer ' >
-        <Link to='/'className={`svasdf ${isFocused ? 'focused' : ''}`}>   
-         <FontAwesomeIcon icon={faHouse} className='house_icon' onClick={pressStartseite} id='first' />
-            <div className='title_footer'>Home</div>
-        </Link> 
-        <Link to = '/login'className='svasdf'>
-         <FontAwesomeIcon icon={faRightToBracket} className='house_icon_2' onClick={pressLogin}/>
-         <div className='title_footer'>Login</div>
-        </Link> 
-        <Link to='/Search'className='svasdf'>
-         <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon_3' onClick ={pressSearch}/>
-         <div className='title_footer'>Suche</div>
-        </Link> 
-        <Link to="/SV Kasten" className='svasdf'>
-         <FontAwesomeIcon icon={faPenToSquare}  className='house_icon_4' onClick={pressSVKasten} />
-         <div className='title_footer' >SV Kasten</div>
-         </Link>
-         <Link to="/Anmeldeformular" className='svasdf'>
-          <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon_5'/>
-         <div className='title_footer'>Events</div>
-         </Link>
-        </div>
-      </footer>
-       <br/>
-      <br/>
-      <br/>
-    
-      <Routes>
-        <Route path='/' element={<Startseite />} />
-        <Route path='/Login' element={<Login />} />
-        <Route path='/Anmeldeformular' element={<Anmeldeformularr/>} />
-        <Route path='/SV Kasten' element={<SVKasten />} />
-        <Route path='/Search' element={<Search />} />
-      </Routes>
-      </BrowserRouter>
+        <header>
+          <div className='title'>
+            <a href="/">SV Otto-Hahn-Gymnasium</a>
+          </div>
+          <div className="menu">
+            {element}
+          </div>
+        </header>
+        <div></div>
+        <footer>
+  <div className='icons_footer'>
+    <Link to='/' className={`svasdf ${startseite ? 'active' : ''}`} onClick={pressStartseite}>
+      <FontAwesomeIcon icon={faHouse} className='house_icon' />
+      <div className='title_footer'>Home</div>
+    </Link>
+    <Link to='/Login' className={`svasdf ${login ? 'active' : ''}`} onClick={pressLogin}>
+      <FontAwesomeIcon icon={faRightToBracket} className='house_icon_2' />
+      <div className='title_footer'>Login</div>
+    </Link>
+    <Link to='/Search' className={`svasdf ${search ? 'active' : ''}`} onClick={pressSearch}>
+      <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon_3' />
+      <div className='title_footer'>Suche</div>
+    </Link>
+    <Link to="/SV Kasten" className={`svasdf ${svKasten ? 'active' : ''}`} onClick={pressSVKasten}>
+      <FontAwesomeIcon icon={faPenToSquare} className='house_icon_4' />
+      <div className='title_footer'>SV Kasten</div>
+    </Link>
+    <Link to="/Anmeldeformular" className={`svasdf ${anmeldeformular ? 'active' : ''}`} onClick={pressAnmeldeformular}>
+      <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon_5' />
+      <div className='title_footer'>Events</div>
+    </Link>
+  </div>
+</footer>
+
+        <br />
+        <br />
+        <br />
+        <Routes>
+          <Route path='/' element={<Startseite />} />
+          <Route path='/Login' element={<Login />} />
+          <Route path='/Anmeldeformular' element={<Anmeldeformularr />} />
+          <Route path='/SV Kasten' element={<SVKasten />} />
+          <Route path='/Search' element={<Search />} />
+        </Routes>
+      </Router>
     </>
   );
 }
+
 
 function Startseite() {
 

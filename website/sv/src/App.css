@@ -129,6 +129,7 @@ ul {
   height: 70%;
   margin: 10% 15%;
   border-radius: 5%;
+  border: 3px solid rgb(127, 163, 231) !important;
 }
 .text_container {
   font-family: "Roboto", sans-serif;
@@ -335,13 +336,11 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   height: 370px;
   width: 92vw;
   transform: translateX(3.8vw);
-  border-top: #006600 3px solid;
-  border-bottom:#006600 solid 2px;
+  border-top: rgb(127, 163, 231) 3px solid;
+  border-bottom:rgb(127, 163, 231) solid 2px;
 }
 
 .wofur {
-  border-bottom:#003300 solid 2px;
-  border-top: #006600 3px solid;
   background-color: rgba(0, 139, 139, 0.459);
   height: 480px;
   display: flex;
@@ -350,8 +349,8 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   align-items: center;
   width: 92vw;
   transform: translateX(3.8vw);
-  border-top: #006600 3px solid;
-  border-bottom:#006600 solid 2px;
+  border-top: rgb(127, 163, 231) 3px solid;
+  border-bottom:rgb(127, 163, 231) solid 2px;
 }
 .center {
   left: 0;
@@ -583,7 +582,8 @@ html::-webkit-scrollbar {
   }
 }
 .wiekontakt {
-  border-top: #006600 3px solid;
+  border-top: rgb(127, 163, 231) 3px solid;
+  border-bottom:rgb(127, 163, 231) solid 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -595,8 +595,6 @@ html::-webkit-scrollbar {
   height: 330px;
   width: 92vw;
   transform: translateX(3.8vw);
-  border-top: #006600 3px solid;
-  border-bottom:#006600 solid 2px;
 }
 .container_33 {
   height: 70%;
@@ -629,8 +627,6 @@ html::-webkit-scrollbar {
     width: 80vw !important;
     height: 400px;
     transform: translateX(10vw);
-    border-left:#003300 solid 2px;
-    border-right:#003300 solid 2px;
   }
   .text {
     width: 60vw !important;
@@ -642,16 +638,13 @@ html::-webkit-scrollbar {
     width: 80vw !important;
     height: 400px;
     transform: translateX(10vw);
-    border-left:#003300 solid 2px;
-    border-right:#003300 solid 2px;
+
   }
   .wiekontakt {
     width: 80vw !important;
     height: 400px;
     transform: translateX(10vw);
-    border-left:#003300 solid 2px;
-    border-right:#003300 solid 2px;
-    border-bottom:#003300 solid 2px;
+
   }
 }
 @media only screen and (max-width: 361px) {
@@ -666,3 +659,17 @@ html::-webkit-scrollbar {
     height: 300px;
   }
 }
+.active .house_icon,.active .house_icon_2,
+.active .house_icon_3,
+.active .house_icon_4,
+.active .house_icon_5 {
+  color: rgb(127, 163, 231);
+  transition: 0.2s ease;
+}
+
+ .house_icon,.active .house_icon_2,
+ .house_icon_3,
+ .house_icon_4,
+ .house_icon_5 {
+  transition: 0.2s ease !important;
+ }
