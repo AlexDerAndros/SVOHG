@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import { auth, db } from "../config/firebase"; // import Firestore db
-import { getDocs, collection, Timestamp, addDoc } from "firebase/firestore"; // import Firestore functions
+import { getDocs, collection, Timestamp, addDoc, deleteDoc, } from "firebase/firestore"; // import Firestore functions
+import { title } from "process";
 
 export default function Anmeldeformular1() {
   const [verfügbar, setVerfügbar] = useState(false);
@@ -18,8 +19,10 @@ export default function Anmeldeformular1() {
   }
 
   const remove = () => {
+    
+    // const docRef = (db, "events",  );
     setClickEF(!clickEF);
-    Cookies.set('teil', false, { expires: 7 });
+    Cookies.set('teil', false, { expires: 1/48 });
   }
 
   useEffect(() => {
@@ -188,6 +191,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF  }) {
     if (VN.trim() !== '' && NN.trim() !== '' && email.trim() !== '' && geb.trim() !== '' && kla.trim() !== '') {
       
       await addDoc(collection(db, "userEvents"), {
+        title: VN + '' +  NN, 
         name: VN + ' ' + NN, 
         email: email,
         age: geb,
@@ -195,12 +199,20 @@ function Formular({ events, pressF, clickEF, remove, setClickEF  }) {
       });
       setClickEF(true);
       Cookies.set('teil', true, { expires: 7 });
+      Cookies.set("name", VN + ' ' + NN, {expires: 7});
+      Cookies.set("age", geb, {expires: 7});
+      Cookies.set("kla", kla, {expires: 7});
+      Cookies.set("email", email, {expires: 7});
+
+
+
       alert("Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!");
       setVN('');
       setNN('');
       setEmail('');
       setGeb('');
       setKla('');
+
     }
   }
 
@@ -240,6 +252,10 @@ else {
 
 function InEvent({remove, events}) {
   const[teilnehmer, setTeilnehmer] = useState([]);
+  let name = Cookies.get("name") || "Sie können Ihre Anmeldedaten nur auf dem Gerät abrufen, auf dem Sie sich für das Event angemeldet haben.";
+  let age = Cookies.get("age") || "Hier ist dasselbe der Fall.";
+  let email = Cookies.get("email") || "Hier ist dasselbe der Fall.";
+  let klasse = Cookies.get("class") || "Hier ist dasselbe der Fall." ;
   const fetchTeilnehmer = async() => {
     const TeilnehmerCol = collection(db, 'userEvents');
     const messagesSnapshot = await getDocs(TeilnehmerCol);
@@ -275,6 +291,20 @@ function InEvent({remove, events}) {
           <div>
             <div style={{fontWeight:"600"}}>
               Ihre Informationen:
+              <div style={{fontWeight:"400"}}>
+                 <div>
+                   Name: {name}
+                 </div>
+                 <div>
+                   Alter: {age}
+                 </div> 
+                 <div>
+                   Klasse: {klasse}
+                 </div> 
+                 <div>
+                   E-Mail: {email}
+                 </div>
+              </div>
              </div>
               <ul>
               

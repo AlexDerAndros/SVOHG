@@ -61,7 +61,13 @@ function HeaderBottom() {
   const [svKasten, setSvKasten] = useState(false);
   const [ search, setSearch] = useState(false);
   const [ Anmeldeformular, setAnmeldeformular] = useState(false);
+  const [isFocusedS, setIsFocusedS] = useState(true);
+  const [isFocusedL, setIsFocusedL] = useState(false);
+  const [isFocusedSVK, setIsFocusedSVK] = useState(false);
+  const [isFocusedSEA, setIsFocusedSEA] = useState(false);
+  const [isFocusedSA, setIsFocusedSA] = useState(false);
 
+  
   
   const pressSearch = () => {
     setSearch(true);
@@ -72,6 +78,12 @@ function HeaderBottom() {
       top: 0,
       behavior: 'smooth'
     });
+    setIsFocusedSEA(true);
+    setIsFocusedS(false);
+    setIsFocusedL(false);
+    setIsFocusedSVK(false);
+    setIsFocusedSA(false);
+
   }
   
   const pressStartseite = () => {
@@ -83,6 +95,12 @@ function HeaderBottom() {
       top: 0,
       behavior: 'smooth'
     });
+    setIsFocusedSEA(false);
+    setIsFocusedS(true);
+    setIsFocusedL(false);
+    setIsFocusedSVK(false);
+    setIsFocusedSA(false);
+
   }
   const pressLogin = () => {
     setSearch(false);
@@ -93,6 +111,13 @@ function HeaderBottom() {
       top: 0,
       behavior: 'smooth'
     });
+    setIsFocusedSEA(false);
+    setIsFocusedS(false);
+    setIsFocusedL(true);
+    setIsFocusedSVK(false);
+    setIsFocusedSA(false);
+
+
   }
   const pressSVKasten = () => {
     setSearch(false);
@@ -103,6 +128,14 @@ function HeaderBottom() {
       top: 0,
       behavior: 'smooth'
     });
+    setIsFocusedSEA(false);
+    setIsFocusedS(false);
+    setIsFocusedL(false);
+    setIsFocusedSVK(true);
+    setIsFocusedSA(false);
+
+   
+
   }
   const pressAnmeldeformular = () => {
     setSearch(false);
@@ -114,6 +147,14 @@ function HeaderBottom() {
       top: 0,
       behavior: 'smooth'
     });
+    setIsFocusedSEA(false);
+    setIsFocusedS(false);
+    setIsFocusedL(false);
+    setIsFocusedSVK(false);
+    setIsFocusedSA(true);
+
+
+
   }
   const [click, setClick] = useState(false);
   const [value, setValue] = useState('');
@@ -142,15 +183,12 @@ function HeaderBottom() {
     <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>;
 
   }
-  const [isFocused, setIsFocused] = useState(false);
 
-  const handleClick = () => {
-    setIsFocused(true);
-  };
+  
   return (
     <>
     <BrowserRouter>
-      <div className='content' style={{height: click ? "40%" : '0%' }}>
+      {/* <div className='content' style={{height: click ? "40%" : '0%' }}>
         {click && (
           <>
             <div className='Hambuger-Elemente'>
@@ -175,7 +213,7 @@ function HeaderBottom() {
             </ul>
           </>
         )}
-      </div>
+      </div> */}
       <header>
         
         <div className='title'>
@@ -183,7 +221,7 @@ function HeaderBottom() {
           SV Otto-Hahn-Gymnasium 
           </a>
         </div>
-        <div className="menu">
+        <div className="menu" style={{display:"none"}}>
           {click ? (
             <>
              <FontAwesomeIcon onClick={press} icon={faTimes} size='2x' className='hamburger-menu' />;
@@ -195,32 +233,53 @@ function HeaderBottom() {
          </>
           )}
         </div>
+        <div className='Menu'>
+        <Link to='/' className='svasdf' onClick={pressStartseite}>   
+            <div  style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedS ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Home</div>
+        </Link> 
+        <Link to = '/login'className='svasdf' onClick={pressLogin}>
+         <FontAwesomeIcon icon={faRightToBracket} style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_2' onClick={pressLogin}/>
+         <div style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedL ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Login</div>
+        </Link> 
+        <Link to='/Search'className='svasdf' onClick={pressSearch}>
+         <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_3' onClick ={pressSearch}/>
+         <div  style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedSEA ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Suche</div>
+        </Link> 
+        <Link to="/SV Kasten" className='svasdf'  onClick={pressSVKasten}>
+         <FontAwesomeIcon icon={faPenToSquare} style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
+         <div  style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white' ,  transform: isFocusedSVK ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>SV Kasten</div>
+         </Link>
+         <Link to="/Anmeldeformular" className='svasdf' onClick={pressAnmeldeformular}>
+          <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_5' onClick={pressAnmeldeformular}/>
+         <div style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white' ,  transform: isFocusedSA ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Events</div>
+         </Link>
+        </div>
       </header>
       <div>
         
       </div>
         
       <footer>
-        <div className='icons_footer ' style={{bottom:"0%"}}>
-        <Link to='/'className={`svasdf ${isFocused ? 'focused' : ''}`}>   
-         <FontAwesomeIcon icon={faHouse} className='house_icon' onClick={pressStartseite} id='first' />
-            <div className='title_footer'>Home</div>
+        <div className='icons_footer ' >
+        <Link to='/' className='svasdf' onClick={pressStartseite}>   
+         <FontAwesomeIcon icon={faHouse} className='house_icon'  id='first' style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white'}} />
+            <div className='title_footer' style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white', transform:"scale(1.2)",}}>Home</div>
         </Link> 
-        <Link to = '/login'className='svasdf'>
-         <FontAwesomeIcon icon={faRightToBracket} className='house_icon_2' onClick={pressLogin}/>
-         <div className='title_footer'>Login</div>
+        <Link to = '/login'className='svasdf'  onClick={pressLogin}>
+         <FontAwesomeIcon icon={faRightToBracket} style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_2'/>
+         <div className='title_footer' style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white'}}>Login</div>
         </Link> 
-        <Link to='/Search'className='svasdf'>
-         <FontAwesomeIcon icon={faMagnifyingGlass} className='house_icon_3' onClick ={pressSearch}/>
-         <div className='title_footer'>Suche</div>
+        <Link to='/Search'className='svasdf' onClick ={pressSearch} >
+         <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_3' />
+         <div className='title_footer' style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white'}}>Suche</div>
         </Link> 
-        <Link to="/SV Kasten" className='svasdf'>
-         <FontAwesomeIcon icon={faPenToSquare}  className='house_icon_4' onClick={pressSVKasten} />
-         <div className='title_footer' >SV Kasten</div>
+        <Link onClick={pressSVKasten} to="/SV Kasten" className='svasdf'  >
+         <FontAwesomeIcon icon={faPenToSquare} style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
+         <div className='title_footer' style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white'}}>SV Kasten</div>
          </Link>
-         <Link to="/Anmeldeformular" className='svasdf'>
-          <FontAwesomeIcon icon={faArrowUpFromBracket} className='house_icon_5' onClick={pressAnmeldeformular}/>
-         <div className='title_footer'>Events</div>
+         <Link onClick={pressAnmeldeformular} to="/Anmeldeformular" className='svasdf' >
+          <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_5' />
+         <div className='title_footer'  style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white'}}>Events</div>
          </Link>
         </div>
       </footer>
