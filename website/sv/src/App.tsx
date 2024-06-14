@@ -263,7 +263,7 @@ function HeaderBottom() {
         <div className='icons_footer ' >
         <Link to='/' className='svasdf' onClick={pressStartseite}>   
          <FontAwesomeIcon icon={faHouse} className='house_icon'  id='first' style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white'}} />
-            <div className='title_footer' style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white', transform:"scale(1.2)",}}>Home</div>
+            <div className='title_footer' style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white', transform:"scale(1.1)", }}>Home</div>
         </Link> 
         <Link to = '/login'className='svasdf'  onClick={pressLogin}>
          <FontAwesomeIcon icon={faRightToBracket} style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_2'/>
@@ -327,7 +327,7 @@ function Startseite() {
     }, []);
   
     return (
-      <>
+  <div style={{background: "rgba(250, 255, 238, 0.993)"}}>
         <div className="all_container"></div>
         <div className="anfang">
           <div className='img-containerSV'>
@@ -335,11 +335,12 @@ function Startseite() {
           </div>
           <br />
           <br />
+        <div style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
           <div className='text_container'>
             <div className="hallo">Hallo!</div>
             <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium.</div>
             <div className="abstand"></div>
-            <div className="events">
+            <div className="events" style={{width:"60%"}}>
               <div className="coneven">
                 <div className="title_events"> Aktuelles Event</div>
               </div>
@@ -365,20 +366,23 @@ function Startseite() {
             </div>
           </div>
         </div>
+        </div>  
         <div className="neinen"></div>
-
+      {/* <div className='conPos'> */}
         <div className="what_de_sv">
           <div className="container">
-            <div className='gap_containers_2'></div>
+            <div className='gap_containers_2'></div> 
             <div className='headContainer_2'>Was ist die SV?</div>
             <div className='text_2'>
               Der Begriff SV bedeutet Schülervertretung. Wir vertreten die Interessen und Probleme der Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist und jeder sich wohlfühlen kann.
             </div>
           </div>
-        </div>
+        {/* </div> */}
+        </div>  
         <br />
         <br />
         <br />
+      {/* <div className='center'> */}
         <div className="wofur">
           <div className='container2'>
             <div className='headContainer'>Wofür ist die SV da?</div>
@@ -386,10 +390,12 @@ function Startseite() {
               Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
             </div>
           </div>
-        </div>
+        {/* </div> */}
+      </div>    
         <br />
         <br />
         <br />
+       {/* <div className='center'> */}
         <div className="wiekontakt">
           <div className="container_33">
             <div className='headContainer'>
@@ -398,10 +404,11 @@ function Startseite() {
             <div className="text_23">
               Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
             </div>
-          </div>
-        </div>
+          {/* </div> */}
+        </div>  
+        </div>  
         <AboutUs />
-      </>
+      </div>
     );
   }
 /* FUR INSTAGRAMM POSTS IN DER WEBSITE
@@ -464,7 +471,7 @@ function Search() {
   const [value, setValue] = useState('');
   const [list, setList] = useState([
     { theme: 'Startseite', link: '/', index: 1, press: pressStartseite},
-    { theme: 'Anmeldeformular für die SV', link: '/Anmeldeformular', index: 2, press: pressAnmeldeformular},
+    { theme: 'Events', link: '/Anmeldeformular', index: 2, press: pressAnmeldeformular},
     { theme: 'Login', link: '/Login', index: 3, press: pressLogin },
     { theme: 'SV Kasten', link: '/SV Kasten', index: 4, press: pressSVKasten }
   ]);

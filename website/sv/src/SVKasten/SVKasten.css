@@ -186,3 +186,8 @@
     padding: 0 2.6rem;
   }
 }
+@media only screen and (min-width: 950px) {
+    .kasten {
+        width: 78%;
+    }
+}

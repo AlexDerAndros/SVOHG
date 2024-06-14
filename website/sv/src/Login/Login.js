@@ -314,7 +314,7 @@ function AdminDashboard({ setLog }) {
      setMoreSize(true);
    };
   return (
-    <div className="siteAdmin">
+    <div className="siteAdmin" style={{marginBottom:"100vh"}}>
       <div className="welcome">
         Willkommen Admin {username}!
       </div>
@@ -323,7 +323,7 @@ function AdminDashboard({ setLog }) {
           Ausloggen
         </button>
       </div>
-      <div className="adminDashboard">
+      <div className="adminDashboard" style={{marginBottom:"50vh"}}>
         <h2>Admin Dashboard</h2>
         <div className='msg'>
           <h2>Nachichten</h2>
@@ -420,9 +420,10 @@ function AdminDashboard({ setLog }) {
         )}
 
       </div>
+      
       <div className="posMSG">
-      <div className='msg' style={{height: editEvent ? "0vh" : "auto", color: editEvent ? "transparent" : "white" }}>
-          <h2 style={{width:'100%', display:'flex',justifyContent:'center'}}>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}s
+      <div className='msg' style={{height: editEvent ? "0vh" : "auto", color: editEvent ? "transparent" : "white"}}>
+          <h2 style={{width:'100%', display:'flex',justifyContent:'center'}}>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}
           </>))}</h2>
           {teilnehmer.map((item) => (
             <>
@@ -449,6 +450,7 @@ function AdminDashboard({ setLog }) {
           ))}
     </div>
     </div>
+    <div style={{height:'150vh', width:"100vw", zIndex:"-100"}}></div>
     </div>
   );
 }
