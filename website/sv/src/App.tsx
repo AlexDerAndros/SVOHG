@@ -58,54 +58,147 @@ function HeaderBottom() {
   const [startseite, setStartseite] = useState(true);
   const [login, setLogin] = useState(false);
   const [svKasten, setSvKasten] = useState(false);
+<<<<<<< HEAD
   const [search, setSearch] = useState(false);
   const [anmeldeformular, setAnmeldeformular] = useState(false);
 
+=======
+  const [ search, setSearch] = useState(false);
+  const [ Anmeldeformular, setAnmeldeformular] = useState(false);
+  const [isFocusedS, setIsFocusedS] = useState(true);
+  const [isFocusedL, setIsFocusedL] = useState(false);
+  const [isFocusedSVK, setIsFocusedSVK] = useState(false);
+  const [isFocusedSEA, setIsFocusedSEA] = useState(false);
+  const [isFocusedSA, setIsFocusedSA] = useState(false);
+
+  
+  
+>>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
   const pressSearch = () => {
     setSearch(true);
     setSvKasten(false);
     setLogin(false);
     setStartseite(false);
+<<<<<<< HEAD
     setAnmeldeformular(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+=======
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    setIsFocusedSEA(true);
+    setIsFocusedS(false);
+    setIsFocusedL(false);
+    setIsFocusedSVK(false);
+    setIsFocusedSA(false);
+
+  }
+  
+>>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
   const pressStartseite = () => {
     setSearch(false);
     setSvKasten(false);
     setLogin(false);
+<<<<<<< HEAD
     setStartseite(true);
     setAnmeldeformular(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+=======
+    setStartseite(true);    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    setIsFocusedSEA(false);
+    setIsFocusedS(true);
+    setIsFocusedL(false);
+    setIsFocusedSVK(false);
+    setIsFocusedSA(false);
+
+  }
+>>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
   const pressLogin = () => {
     setSearch(false);
     setSvKasten(false);
     setLogin(true);
+<<<<<<< HEAD
     setStartseite(false);
     setAnmeldeformular(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+=======
+    setStartseite(false);    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    setIsFocusedSEA(false);
+    setIsFocusedS(false);
+    setIsFocusedL(true);
+    setIsFocusedSVK(false);
+    setIsFocusedSA(false);
+
+
+  }
+>>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
   const pressSVKasten = () => {
     setSearch(false);
     setSvKasten(true);
     setLogin(false);
+<<<<<<< HEAD
     setStartseite(false);
     setAnmeldeformular(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+=======
+    setStartseite(false);    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    setIsFocusedSEA(false);
+    setIsFocusedS(false);
+    setIsFocusedL(false);
+    setIsFocusedSVK(true);
+    setIsFocusedSA(false);
+
+   
+
+  }
+>>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
   const pressAnmeldeformular = () => {
     setSearch(false);
     setSvKasten(false);
     setLogin(false);
     setStartseite(false);
+<<<<<<< HEAD
     setAnmeldeformular(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+=======
+    setAnmeldeformular(true);    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    setIsFocusedSEA(false);
+    setIsFocusedS(false);
+    setIsFocusedL(false);
+    setIsFocusedSVK(false);
+    setIsFocusedSA(true);
+
+
+
+  }
+>>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
   const [click, setClick] = useState(false);
   const [value, setValue] = useState('');
   const [list, setList] = useState([
@@ -133,11 +226,55 @@ function HeaderBottom() {
     element = <FontAwesomeIcon icon={faBars} onClick={press} className="hamburger-menu" />;
   }
 
+<<<<<<< HEAD
   return (
     <>
       <Router>
         <div className='content' style={{ height: click ? "40%" : '0%' }}>
           {click && (
+=======
+  }
+
+  
+  return (
+    <>
+    <BrowserRouter>
+      {/* <div className='content' style={{height: click ? "40%" : '0%' }}>
+        {click && (
+          <>
+            <div className='Hambuger-Elemente'>
+              
+              <div className='inSp'>
+                <input type='text'
+                 value={value}
+                 onChange={(e) => handleFilter(e.target.value)}
+                 placeholder='Suchen...'
+                 className='search' 
+                 style={{height:"10vh", marginLeft:"10%", padding:"0.1% 2%"}}/>
+               </div>  
+            </div>
+            <ul className='searchOv' >
+              {filteredItems.map((item) => (
+                <li key={item.index} >
+                  <Link to={item.link} className='searchEle'>
+                    {item.theme}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div> */}
+      <header>
+        
+        <div className='title'>
+          <a href="/">
+          SV Otto-Hahn-Gymnasium 
+          </a>
+        </div>
+        <div className="menu" style={{display:"none"}}>
+          {click ? (
+>>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
             <>
               <div className='Hambuger-Elemente'>
                 <div className='inSp'>
@@ -163,6 +300,7 @@ function HeaderBottom() {
             </>
           )}
         </div>
+<<<<<<< HEAD
         <header>
           <div className='title'>
             <a href="/">SV Otto-Hahn-Gymnasium</a>
@@ -208,6 +346,70 @@ function HeaderBottom() {
           <Route path='/Search' element={<Search />} />
         </Routes>
       </Router>
+=======
+        <div className='Menu'>
+        <Link to='/' className='svasdf' onClick={pressStartseite}>   
+            <div  style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedS ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Home</div>
+        </Link> 
+        <Link to = '/login'className='svasdf' onClick={pressLogin}>
+         <FontAwesomeIcon icon={faRightToBracket} style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_2' onClick={pressLogin}/>
+         <div style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedL ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Login</div>
+        </Link> 
+        <Link to='/Search'className='svasdf' onClick={pressSearch}>
+         <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_3' onClick ={pressSearch}/>
+         <div  style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedSEA ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Suche</div>
+        </Link> 
+        <Link to="/SV Kasten" className='svasdf'  onClick={pressSVKasten}>
+         <FontAwesomeIcon icon={faPenToSquare} style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
+         <div  style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white' ,  transform: isFocusedSVK ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>SV Kasten</div>
+         </Link>
+         <Link to="/Anmeldeformular" className='svasdf' onClick={pressAnmeldeformular}>
+          <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_5' onClick={pressAnmeldeformular}/>
+         <div style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white' ,  transform: isFocusedSA ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Events</div>
+         </Link>
+        </div>
+      </header>
+      <div>
+        
+      </div>
+        
+      <footer>
+        <div className='icons_footer ' >
+        <Link to='/' className='svasdf' onClick={pressStartseite}>   
+         <FontAwesomeIcon icon={faHouse} className='house_icon'  id='first' style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white'}} />
+            <div className='title_footer' style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white', transform:"scale(1.1)", }}>Home</div>
+        </Link> 
+        <Link to = '/login'className='svasdf'  onClick={pressLogin}>
+         <FontAwesomeIcon icon={faRightToBracket} style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_2'/>
+         <div className='title_footer' style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white'}}>Login</div>
+        </Link> 
+        <Link to='/Search'className='svasdf' onClick ={pressSearch} >
+         <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_3' />
+         <div className='title_footer' style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white'}}>Suche</div>
+        </Link> 
+        <Link onClick={pressSVKasten} to="/SV Kasten" className='svasdf'  >
+         <FontAwesomeIcon icon={faPenToSquare} style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
+         <div className='title_footer' style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white'}}>SV Kasten</div>
+         </Link>
+         <Link onClick={pressAnmeldeformular} to="/Anmeldeformular" className='svasdf' >
+          <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_5' />
+         <div className='title_footer'  style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white'}}>Events</div>
+         </Link>
+        </div>
+      </footer>
+       <br/>
+      <br/>
+      <br/>
+    
+      <Routes>
+        <Route path='/' element={<Startseite />} />
+        <Route path='/Login' element={<Login />} />
+        <Route path='/Anmeldeformular' element={<Anmeldeformularr/>} />
+        <Route path='/SV Kasten' element={<SVKasten />} />
+        <Route path='/Search' element={<Search />} />
+      </Routes>
+      </BrowserRouter>
+>>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
     </>
   );
 }
@@ -241,7 +443,7 @@ function Startseite() {
     }, []);
   
     return (
-      <>
+  <div style={{background: "rgba(250, 255, 238, 0.993)"}}>
         <div className="all_container"></div>
         <div className="anfang">
           <div className='img-containerSV'>
@@ -249,11 +451,12 @@ function Startseite() {
           </div>
           <br />
           <br />
+        <div style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
           <div className='text_container'>
             <div className="hallo">Hallo!</div>
             <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium.</div>
             <div className="abstand"></div>
-            <div className="events">
+            <div className="events" style={{width:"60%"}}>
               <div className="coneven">
                 <div className="title_events"> Aktuelles Event</div>
               </div>
@@ -279,20 +482,23 @@ function Startseite() {
             </div>
           </div>
         </div>
+        </div>  
         <div className="neinen"></div>
-
+      {/* <div className='conPos'> */}
         <div className="what_de_sv">
           <div className="container">
-            <div className='gap_containers_2'></div>
+            <div className='gap_containers_2'></div> 
             <div className='headContainer_2'>Was ist die SV?</div>
             <div className='text_2'>
               Der Begriff SV bedeutet Schülervertretung. Wir vertreten die Interessen und Probleme der Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist und jeder sich wohlfühlen kann.
             </div>
           </div>
-        </div>
+        {/* </div> */}
+        </div>  
         <br />
         <br />
         <br />
+      {/* <div className='center'> */}
         <div className="wofur">
           <div className='container2'>
             <div className='headContainer'>Wofür ist die SV da?</div>
@@ -300,10 +506,12 @@ function Startseite() {
               Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
             </div>
           </div>
-        </div>
+        {/* </div> */}
+      </div>    
         <br />
         <br />
         <br />
+       {/* <div className='center'> */}
         <div className="wiekontakt">
           <div className="container_33">
             <div className='headContainer'>
@@ -312,10 +520,11 @@ function Startseite() {
             <div className="text_23">
               Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
             </div>
-          </div>
-        </div>
+          {/* </div> */}
+        </div>  
+        </div>  
         <AboutUs />
-      </>
+      </div>
     );
   }
 /* FUR INSTAGRAMM POSTS IN DER WEBSITE
@@ -378,7 +587,7 @@ function Search() {
   const [value, setValue] = useState('');
   const [list, setList] = useState([
     { theme: 'Startseite', link: '/', index: 1, press: pressStartseite},
-    { theme: 'Anmeldeformular für die SV', link: '/Anmeldeformular', index: 2, press: pressAnmeldeformular},
+    { theme: 'Events', link: '/Anmeldeformular', index: 2, press: pressAnmeldeformular},
     { theme: 'Login', link: '/Login', index: 3, press: pressLogin },
     { theme: 'SV Kasten', link: '/SV Kasten', index: 4, press: pressSVKasten }
   ]);

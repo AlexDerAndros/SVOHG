@@ -82,14 +82,21 @@
 }
 .coneven1 {
   width: 99.9%;
-  height: 12.5%;
+  height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
   border: solid rgba(255, 0, 0, 0) 1px;
   color: white;
   background-color: rgb(2, 70, 2);
-
+  font-size: 1.3em;
+  
+}
+.conPos {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .title_events {
   font-size: 1.3em;
@@ -125,6 +132,25 @@
 }
 .title_tabelle {
   height: 0px;
+}
+.events1 {
+  width: 80vw;
+  height: 370px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  background-color: #d3d3d3af;
+  color: rgb(24, 24, 24);
+  font-family: 'Roboto';
+  
+}
+@media only screen and (max-width: 800px) {
+  .events1 {
+    font-size: 1.7vh;
+    height: 500px;
+  }
 }
 @media only screen and (min-width: 1200px) {
   .posLi {
