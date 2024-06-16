@@ -77,8 +77,11 @@
   font-family: 'Roboto';
   
 }
+@media only screen and (max-width: 500px) {
+  
 .neinen {
   height: 109vw;
+}
 }
 .coneven1 {
   width: 99.9%;

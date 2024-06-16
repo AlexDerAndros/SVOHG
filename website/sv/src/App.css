@@ -137,7 +137,7 @@ ul {
   height: 70%;
   margin: 10% 15%;
   border-radius: 5%;
-  border: 3px solid rgb(127, 163, 231) !important;
+  border: 2px solid rgb(127, 163, 231);
 }
 .text_container {
   font-family: "Roboto", sans-serif;
@@ -347,8 +347,8 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   height: 370px;
   width: 92vw;
   transform: translateX(3.8vw);
-  border-top: rgb(127, 163, 231) 3px solid;
-  border-bottom:rgb(127, 163, 231) solid 2px;
+  border-top: #006600 3px solid;
+  border-bottom:#006600 solid 2px;
 }
 
 .wofur {
@@ -360,8 +360,8 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   align-items: center;
   width: 92vw;
   transform: translateX(3.8vw);
-  border-top: rgb(127, 163, 231) 3px solid;
-  border-bottom:rgb(127, 163, 231) solid 2px;
+  border-top: #006600 3px solid;
+  border-bottom:#006600 solid 2px;
 }
 
 .center {
@@ -477,9 +477,12 @@ a {
   font-family: 'Roboto';
   
 }
-.neinen {
-  height: 109vw;
+@media only screen and (max-width: 500px) {
+  .neinen {
+    height: 109vw;
+  }  
 }
+
 .coneven {
   width: 99.9%;
   height: 20%;
@@ -701,11 +704,6 @@ html::-webkit-scrollbar {
   }
 }
 .wiekontakt {
-<<<<<<< HEAD
-  border-top: rgb(127, 163, 231) 3px solid;
-  border-bottom:rgb(127, 163, 231) solid 2px;
-=======
->>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
   display: flex;
   align-items: center;
   justify-content: center;
@@ -717,6 +715,8 @@ html::-webkit-scrollbar {
   height: 330px;
   width: 92vw;
   transform: translateX(3.8vw);
+  border-top: #006600 3px solid;
+  border-bottom:#006600 solid 2px;
 }
 .container_33 {
   height: 70%;
@@ -750,8 +750,6 @@ html::-webkit-scrollbar {
     width: 60% !important;
     height: 350px;
     transform: translateX(10vw);
-<<<<<<< HEAD
-=======
     margin : 0% 20% 0% 9%  ;
     padding: 0% 1%;
     
@@ -761,32 +759,24 @@ html::-webkit-scrollbar {
   }
   .text_container {
     width: 80vw;
->>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
   }
   .text {
-    width: 60vw !important;
+    width: 60% !important;
   }
   .text_2 {
-    width: 60vw !important;
+    width: 60% !important;
   }
   .what_de_sv {
     width: 60vw !important;
     height: 350px;
     transform: translateX(10vw);
-<<<<<<< HEAD
-
-=======
     margin : 0% 20% 0% 9%  ;
     padding: 0% 1%;
->>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
   }
   .wiekontakt {
     width: 60vw !important;
     height: 350px;
     transform: translateX(10vw);
-<<<<<<< HEAD
-
-=======
     margin : 0% 20% 0% 9%  ;
     padding: 0% 1%;
     
@@ -799,7 +789,9 @@ html::-webkit-scrollbar {
   }
   .text {
     font-size: 2.5vh;
->>>>>>> 9289b6b3c92f504c80ca9c29243cca1e177300ef
+  }
+  .neinen {
+    height: 900px !important;
   }
 }
 @media only screen and (max-width: 361px) {
@@ -814,17 +806,3 @@ html::-webkit-scrollbar {
     height: 300px;
   }
 }
-.active .house_icon,.active .house_icon_2,
-.active .house_icon_3,
-.active .house_icon_4,
-.active .house_icon_5 {
-  color: rgb(127, 163, 231);
-  transition: 0.2s ease;
-}
-
- .house_icon,.active .house_icon_2,
- .house_icon_3,
- .house_icon_4,
- .house_icon_5 {
-  transition: 0.2s ease !important;
- }

@@ -190,4 +190,18 @@
     .kasten {
         width: 78%;
     }
+    .button-36 {
+        height: 90px;
+        font-size: 22px;
+        width: 250px;
+    }
+    .input_real {
+        height: 100px;
+    }
+    .gap123 {
+        height: 50px;
+    }
+    .center {
+        height: 700px;
+    }
 }

@@ -51,6 +51,7 @@ export default function SVKasten() {
               </div>
             </div>
           </div>
+          <div className='gap123'></div>
           <div className="kasten_schreiben">
             <div className="input">
               <input 
@@ -61,6 +62,7 @@ export default function SVKasten() {
                 onChange={handleChange}
               />
             </div>
+            <div className='gap123'></div>
             <button className="button-36" role="button" onClick={handleClick}>Senden</button>
           </div>
         </div>
