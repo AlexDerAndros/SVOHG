@@ -6,7 +6,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { auth, db, GoogleProvider } from "../config/firebase"; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { getDoc, setDoc, collection, getDocs, getFirestore, addDoc } from "firebase/firestore"; // import Firestore functions
+import { getDoc, setDoc, collection, getDocs, getFirestore } from "firebase/firestore"; // import Firestore functions
 
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -104,16 +104,6 @@ function LoggingIn({ setLog }) {
       await setDoc(doc(db, "users", registerEmail), {
         email: registerEmail,
         isAdmin: false // Default isAdmin status
-      });
-      let us = Cookies.get('user');
-      await addDoc(collection(db, "mail"), {
-        to: [us],
-        message: {
-          subject: 'Registrierung erfolgreich',
-          text: 'This is the plaintext section of the email body.',
-          html: `Hallo ${us}, <br/> ihre Registrierung war erfolgreich. Nun können Sie sich mit ihrer E-Mail Adresse anmelden. <br/> 
-          Falls Sie noch weitere Fragen haben, wenden Sie sich bitte an die E-Mail Adresse svohgmonheim7@gmail.com! <br/> <br/> Mit freundlichen Grüßen <br/> Eure SV`,
-        }
       });
     } catch (error) {
       setLog(false);
