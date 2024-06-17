@@ -806,3 +806,8 @@ html::-webkit-scrollbar {
     height: 300px;
   }
 }
+@media only screen and (max-width: 1px) {
+  footer {
+    display: none;
+  }
+}
