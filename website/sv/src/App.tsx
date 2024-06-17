@@ -327,7 +327,7 @@ function Startseite() {
     }, []);
   
     return (
-  <div style={{background: "rgba(250, 255, 238, 0.993)"}}>
+  <>   
         <div className="all_container"></div>
         <div className="anfang">
           <div className='img-containerSV'>
@@ -340,11 +340,9 @@ function Startseite() {
             <div className="hallo">Hallo!</div>
             <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium.</div>
             <div className="abstand"></div>
-<<<<<<< Updated upstream
+
             <div className="events" style={{width:"80%"}}>
-=======
             <div className="events" >
->>>>>>> Stashed changes
               <div className="coneven">
                 <div className="title_events"> Aktuelles Event</div>
               </div>
@@ -372,7 +370,6 @@ function Startseite() {
         </div>
         </div>  
         <div className="neinen"></div>
-      {/* <div className='conPos'> */}
         <div className="what_de_sv">
           <div className="container">
             <div className='gap_containers_2'></div> 
@@ -381,12 +378,10 @@ function Startseite() {
               Der Begriff SV bedeutet Schülervertretung. Wir vertreten die Interessen und Probleme der Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist und jeder sich wohlfühlen kann.
             </div>
           </div>
-        {/* </div> */}
         </div>  
         <br />
         <br />
         <br />
-      {/* <div className='center'> */}
         <div className="wofur">
           <div className='container2'>
             <div className='headContainer'>Wofür ist die SV da?</div>
@@ -394,12 +389,10 @@ function Startseite() {
               Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
             </div>
           </div>
-        {/* </div> */}
       </div>    
         <br />
         <br />
         <br />
-       {/* <div className='center'> */}
         <div className="wiekontakt">
           <div className="container_33">
             <div className='headContainer'>
@@ -408,37 +401,14 @@ function Startseite() {
             <div className="text_23">
               Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
             </div>
-          {/* </div> */}
         </div>  
         </div>  
         <AboutUs />
       </div>
+      </> 
     );
   }
-/* FUR INSTAGRAMM POSTS IN DER WEBSITE
-interface InstagramPostProps {
-  src: string;
-  caption?: string;
-  width?: number;
-  height?: number;
-}
 
-export const InstagramPost: React.FC<InstagramPostProps> = ({ src, caption, width = 500, height = 500 }) => {
-  return (
-    <div style={{ width, height }}>
-      <iframe
-        src={src}
-        width={width}
-        height={height}
-        frameBorder="0"
-        scrolling="no"
-        allowTransparency="true"
-      />
-      {caption && <div dangerouslySetInnerHTML={{ __html: caption }} />}
-    </div>
-  );
-};
-*/
 
 function AboutUs() {
   return (
