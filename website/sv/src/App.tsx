@@ -8,7 +8,6 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
 import Login1 from './Login/Login';
-import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import { auth, db } from "./config/firebase"; // import Firestore db
@@ -218,7 +217,7 @@ function HeaderBottom() {
         
         <div className='title'>
           <a href="/">
-          SV Otto-Hahn-Gymnasium 
+          SV Otto-Hahn-Gymnasium
           </a>
         </div>
         <div className="menu" style={{display:"none"}}>

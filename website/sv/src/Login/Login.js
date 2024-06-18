@@ -84,6 +84,7 @@ function LoggingIn({ setLog }) {
     } catch (error) {
       setLog(false);
       console.log(error);
+      alert('Error:' + error);
     }
   }
 
@@ -97,7 +98,7 @@ function LoggingIn({ setLog }) {
       alert("Registrierung erfolgreich");
       Cookies.set('log', 'true', { expires: 7 });
       Cookies.set('user', registerEmail, { expires: 7 });
-      window.location.reload();
+    
       let us = Cookies.get('user');
       await addDoc(collection( db, "mail"), {
         to : [us],
@@ -107,6 +108,7 @@ function LoggingIn({ setLog }) {
           html:`Guten Tag ${us}, <br/> <br/> ihre Registrierung war erfolgreich. Nun können Sie sich mit ihrer E-Mail Adresse ${us} und mit ihrem Passwort auch anmelden. <br/> Falls Sie noch weitere Fragen haben, wenden Sie sich bitte an die E-Mail Adresse svohgmonheim7@gmail.com <br/> <br/> Mit freundlichen Grüßen <br/> Eure SV`
         }
       });
+      window.location.reload();
       await setDoc(doc(db, "users", registerEmail), {
         email: registerEmail,
         isAdmin: false 
