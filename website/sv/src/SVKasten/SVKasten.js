@@ -3,6 +3,7 @@ import './SVKasten.css';
 import { db } from '../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { getAuth, signInAnonymously } from 'firebase/auth';
+import Cookies from 'js-cookie';
 
 export default function SVKasten() {
   const [text, setText] = useState('');
@@ -29,6 +30,7 @@ export default function SVKasten() {
           text: text,
           timestamp: new Date()
         });
+        Cookies.set('message', text, {expires: 7});
         setText('');
       } catch (e) {
         console.error('Error adding document: ', e);

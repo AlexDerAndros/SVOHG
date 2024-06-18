@@ -32,6 +32,7 @@ an „———.“  eine email schreiben
 
 main {
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 header {
   -webkit-tap-highlight-color: transparent;
@@ -253,6 +254,11 @@ ul {
   .Menu {
     display: none;
   }
+  .imgSV {
+    width: 80%;
+    height: 90%;
+    margin: 10%;
+  }
 }
 .hamburger-menu {
   top: 2vh;
@@ -365,11 +371,10 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
 }
 
 .center {
-  width: 100%;
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
 }
 .all_container {
   display: flex;
@@ -429,7 +434,7 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   }
   .Menu {
     display: flex;
-    font-size: 19px;
+    font-size: 18px;
     font-family: "Roboto";
     height: 70px;
     width: 100vw;
@@ -446,7 +451,7 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
     margin: 10% 25%;
     border-radius: 5%;
   }
-
+  
 
 }
 a {
@@ -656,6 +661,7 @@ a {
     margin-left: 15% ;
     font-size: 3vh;
   }
+  
 }
 html {
   overflow-x: hidden;
@@ -698,10 +704,12 @@ html::-webkit-scrollbar {
   }
   .what_de_sv {
     height: 300px;
+    margin-top: 10vh;
   }
   .text {
     height: 400px !important;
   }
+ 
 }
 .wiekontakt {
   display: flex;
@@ -770,8 +778,9 @@ html::-webkit-scrollbar {
     width: 60vw !important;
     height: 350px;
     transform: translateX(10vw);
-    margin : 0% 20% 0% 9%  ;
+    margin : 5% 20% 0% 9%  ;
     padding: 0% 1%;
+
   }
   .wiekontakt {
     width: 60vw !important;
@@ -805,9 +814,15 @@ html::-webkit-scrollbar {
   .text {
     height: 300px;
   }
+ 
 }
 @media only screen and (max-width: 1px) {
   footer {
     display: none;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .what_de_sv {
+    margin-top: 40vh;
   }
 }

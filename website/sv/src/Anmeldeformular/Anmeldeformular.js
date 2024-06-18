@@ -17,7 +17,7 @@ export default function Anmeldeformular1() {
 
   const remove = async () => {
     try {
-      const userEmail = Cookies.get("email");
+      const userEmail = Cookies.get("email1");
       const q = query(collection(db, "userEvents"), where('email', '==', userEmail));
       const querySnapshot = await getDocs(q);
 
@@ -87,7 +87,7 @@ export default function Anmeldeformular1() {
             <>
               <div>
                 {events.map((event, index) => (
-                  <div className="events" key={index}>
+                  <div className="events1" key={index}>
                     <div className="coneven">
                       <div className="title_events">{event.topic}</div>
                     </div>
@@ -210,9 +210,17 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
       Cookies.set("name", VN + ' ' + NN, { expires: 7 });
       Cookies.set("age", geb, { expires: 7 });
       Cookies.set("kla", kla, { expires: 7 });
-      Cookies.set("email", email, { expires: 7 });
-
+      Cookies.set("email1", email, { expires: 7 });
       alert("Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!");
+      let mail = Cookies.get('email1');
+      await addDoc(collection( db, "mail"), {
+        to : [mail],
+        message: {
+          subject: "Anmeldung für das Event erfolgreich",
+          text:"Hallo",
+          html:`Guten Tag ${mail}, <br/> <br/> sie nehmen nun am Event teil. <br/> Falls Sie noch weitere Fragen haben, wenden Sie sich bitte an die E-Mail Adresse svohgmonheim7@gmail.com <br/> <br/> Mit freundlichen Grüßen <br/> Eure SV`
+        }
+      });
       setVN('');
       setNN('');
       setEmail('');
@@ -228,14 +236,19 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
       <>
         {events.map((event, index) => (
           <div className="contentA" key={index}>
-            <div className="title_events">
+            <div className="title_events" >
               {event.topic}
             </div>
+            <div className="infoIN">Vorname:</div>
             <input type="text" className='search' placeholder="Vorname..." onChange={(e) => setVN(e.target.value)} />
+            <div className="infoIN">Nachname:</div>
             <input type="text" className='search' placeholder="Nachname..." onChange={(e) => setNN(e.target.value)} />
+            <div className="infoIN">Alter:</div>
             <input type="number" className='search' placeholder="Alter..." onChange={(e) => setGeb(e.target.value)} />
+            <div className="infoIN">Klasse:</div> 
             <input type="text" className='search' placeholder="Klasse..." onChange={(e) => setKla(e.target.value)} />
-            <input type="text" className='search' placeholder="E-Mail..." value={user} onChange={(e) => setEmail(e.target.value)} />
+            <div className="infoIN">E-Mail:</div> 
+            <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)} />
             <div className="btnPos">
               <button className="bearbeiten" onClick={sendForm} style={{ marginTop: "5%" }}>
                 Senden
@@ -256,8 +269,8 @@ function InEvent({ remove, events }) {
   const [teilnehmer, setTeilnehmer] = useState([]);
   let name = Cookies.get("name") || "Sie können Ihre Anmeldedaten nur auf dem Gerät abrufen, auf dem Sie sich für das Event angemeldet haben.";
   let age = Cookies.get("age") || "Hier ist dasselbe der Fall.";
-  let email = Cookies.get("email") || "Hier ist dasselbe der Fall.";
-  let klasse = Cookies.get("class") || "Hier ist dasselbe der Fall.";
+  let email = Cookies.get("email1") || "Hier ist dasselbe der Fall.";
+  let klasse = Cookies.get("kla") || "Hier ist dasselbe der Fall.";
   const fetchTeilnehmer = async () => {
     const TeilnehmerCol = collection(db, 'userEvents');
     const messagesSnapshot = await getDocs(TeilnehmerCol);
@@ -268,7 +281,7 @@ function InEvent({ remove, events }) {
     fetchTeilnehmer();
   }, []);
   return (
-    <div className="events1">
+    <div className="contentB">
       {events.map((event => (
         <>
           <div className="coneven1">

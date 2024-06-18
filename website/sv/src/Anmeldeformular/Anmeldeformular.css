@@ -32,16 +32,16 @@
    flex-direction: column-reverse;
  }
  .events1 {
-   width: 80vw;
-   height: auto;
-   display: flex;
-   align-items: center;
-   flex-direction: column;
-   border-radius: 2px;
-   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-   background-color: #d3d3d3af;
-   color: rgb(24, 24, 24);
-   font-family: 'Roboto';
+  width: 80%;
+  height: 470px !important;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  background-color: #d3d3d3af;
+  color: rgb(24, 24, 24);
+  font-family: 'Roboto';
    
  }
  .posLi {
@@ -56,7 +56,6 @@
    display: flex;
    flex-direction: column;
    align-items: center;
-   gap: 2% ;
  }
  .btnPos {
    display: flex;
@@ -64,19 +63,12 @@
    align-items: center;
    justify-content: center;
  }
- .events {
-  width: 80vw;
-  height: 370px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  background-color: #d3d3d3af;
-  color: rgb(24, 24, 24);
-  font-family: 'Roboto';
-  
-}
+ .infoIN {
+   margin-top: 1%;
+   width: 61vw;
+   font-family: 'Roboto', sans-serif;
+ }
+ 
 @media only screen and (max-width: 500px) {
   
 .neinen {
@@ -138,7 +130,7 @@
 }
 .events1 {
   width: 80vw;
-  height: 370px;
+  height: auto;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -149,10 +141,37 @@
   font-family: 'Roboto';
   
 }
+.contentB {
+  width: 80vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  background-color: #d3d3d3af;
+  color: rgb(24, 24, 24);
+  font-family: 'Roboto';
+}
 @media only screen and (max-width: 800px) {
   .events1 {
     font-size: 1.7vh;
     height: 500px;
+  }
+  .contentB {
+    width: 80vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    background-color: #d3d3d3af;
+    color: rgb(24, 24, 24);
+    font-family: 'Roboto';
+  }  
+  .tabelle1 {
+    font-size: 2vh;
   }
 }
 @media only screen and (min-width: 1200px) {

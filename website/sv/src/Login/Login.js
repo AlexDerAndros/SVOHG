@@ -6,7 +6,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { auth, db, GoogleProvider } from "../config/firebase"; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { getDoc, setDoc, collection, getDocs, getFirestore } from "firebase/firestore"; // import Firestore functions
+import { getDoc, setDoc, collection, getDocs, addDoc, where, deleteDoc, query, writeBatch} from "firebase/firestore"; // import Firestore functions
 
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -73,7 +73,6 @@ function LoggingIn({ setLog }) {
       Cookies.set('log', 'true', { expires: 7 });
       Cookies.set('user', username, { expires: 7 });
 
-      // Check for admin status in Firestore
       const docRef = doc(db, "users", username);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -99,11 +98,18 @@ function LoggingIn({ setLog }) {
       Cookies.set('log', 'true', { expires: 7 });
       Cookies.set('user', registerEmail, { expires: 7 });
       window.location.reload();
-  
-      // Save user info in Firestore
+      let us = Cookies.get('user');
+      await addDoc(collection( db, "mail"), {
+        to : [us],
+        message: {
+          subject: "Registrierung erfolgreich",
+          text:"Hallo",
+          html:`Guten Tag ${us}, <br/> <br/> ihre Registrierung war erfolgreich. Nun können Sie sich mit ihrer E-Mail Adresse ${us} und mit ihrem Passwort auch anmelden. <br/> Falls Sie noch weitere Fragen haben, wenden Sie sich bitte an die E-Mail Adresse svohgmonheim7@gmail.com <br/> <br/> Mit freundlichen Grüßen <br/> Eure SV`
+        }
+      });
       await setDoc(doc(db, "users", registerEmail), {
         email: registerEmail,
-        isAdmin: false // Default isAdmin status
+        isAdmin: false 
       });
     } catch (error) {
       setLog(false);
@@ -125,7 +131,7 @@ function LoggingIn({ setLog }) {
     <div className="main">
       <div className="square">
         {click ? (
-          <>
+          <div>
             <FontAwesomeIcon icon={faArrowLeft} onClick={press} className='arrowBack' />
             <div className="con_3">
               <div className="title_login">
@@ -151,15 +157,14 @@ function LoggingIn({ setLog }) {
                 onChange={(e) => setRegisterPassword(e.target.value)} />
               <button className="button" onClick={register}>Registrieren</button>
             </div>
-          </>
+          </div>
         ) : (
-          <>
+          <div>
             <div className="con_3">
               <div className="title_login" >
                 Login
               </div>
             </div>
-            <br />
             <div className="inputs_5">
               <label htmlFor="email">E-Mail</label>
               <div className="nono"></div>
@@ -189,7 +194,7 @@ function LoggingIn({ setLog }) {
                
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>
@@ -230,6 +235,7 @@ function AdminDashboard({ setLog }) {
   const [messages, setMessages] = useState([]); 
   const [teilnehmer, setTeilnehmer] = useState([]); 
   const [ moreSize, setMoreSize] = useState(false);
+  const [timestamp, setTimestamp] = useState('');
 
   const [visibleMessages, setVisibleMessages] = useState(3); // State to control number of visible messages
   const username = Cookies.get("user");
@@ -313,6 +319,31 @@ function AdminDashboard({ setLog }) {
    const More = () => {
      setMoreSize(true);
    };
+
+   const deleteMessage = async () => {
+     try {
+       const q = query(collection(db, "messages"), where('timestamp', '==', timestamp));
+       const querySnapshot = await getDocs(q);
+   
+       if (querySnapshot.empty) {
+         console.log('Keine Dokumente zum Löschen gefunden.');
+         return;
+       }
+   
+       const batch = writeBatch(db);
+   
+       querySnapshot.forEach(docSnapshot => {
+         const docRef = doc(db, "messages", docSnapshot.id);
+         batch.delete(docRef);
+       });
+   
+       await batch.commit();
+       console.log('Dokumente erfolgreich gelöscht.');
+     } catch (error) {
+       console.error('Fehler beim Löschen der Dokumente: ', error);
+       alert('Fehler: ' + error.message);
+     }
+   };
   return (
     <div className="siteAdmin" style={{marginBottom:"100vh"}}>
       <div className="welcome">
@@ -331,6 +362,7 @@ function AdminDashboard({ setLog }) {
             <div key={message.id}>
               <p>{message.text}</p>
               <p>{message.timestamp ? new Date(message.timestamp.seconds * 1000).toLocaleString() : 'No timestamp available'}</p>
+              {/* <button onClick={deleteMessage}> Löschen</button> */}
             </div>
           ))}
           {visibleMessages < messages.length && (

@@ -340,7 +340,7 @@ function Startseite() {
             <div className="hallo">Hallo!</div>
             <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium.</div>
             <div className="abstand"></div>
-            <div className="events" style={{width:"80%"}}>
+            <div className="events" >
               <div className="coneven">
                 <div className="title_events"> Aktuelles Event</div>
               </div>

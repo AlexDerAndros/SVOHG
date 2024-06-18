@@ -91,10 +91,8 @@ label{
 }
 .square {
     width: 88vw;
-    height: 75vh;
+    height: auto;
     background-color: #003300;
-    
-    
     display: flex;
     border-radius: 15px;
     flex-direction: column;
@@ -102,7 +100,7 @@ label{
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
 }
 .con_3 {
-    height: 15vh;
+    height: 10vh;
     background-color: rgba(0, 0, 0, 0);
     width: 100%;
     display: flex;
@@ -113,11 +111,10 @@ label{
 .inputs_5 {
     display: flex;
     width: 100%;
-    height: 650px;
+    height: 500px;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin-top: -10%;
 
 }
 .nono {
@@ -325,4 +322,9 @@ form {
      margin-top: 15%;
      height: 94vh;
    }
+}
+@media only screen and (max-width: 900px) {
+    .square {
+        margin-top: 20%;
+    }
 }
