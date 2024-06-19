@@ -8,6 +8,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
 import Login1 from './Login/Login';
+import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import { auth, db } from "./config/firebase"; // import Firestore db
@@ -214,10 +215,13 @@ function HeaderBottom() {
         )}
       </div> */}
       <header>
-        
+        <div className="gap1234123"></div>
+        <div className='LogoSVCon'>
+            <img src='./23.png' className='LogoSV' alt='Logo' />
+        </div>
         <div className='title'>
           <a href="/">
-          SV Otto-Hahn-Gymnasium
+          SV Otto-Hahn-Gymnasium 
           </a>
         </div>
         <div className="menu" style={{display:"none"}}>
@@ -339,7 +343,7 @@ function Startseite() {
             <div className="hallo">Hallo!</div>
             <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium.</div>
             <div className="abstand"></div>
-            <div className="events" >
+            <div className="events" style={{width:"80%"}}>
               <div className="coneven">
                 <div className="title_events"> Aktuelles Event</div>
               </div>
@@ -367,7 +371,7 @@ function Startseite() {
         </div>
         </div>  
         <div className="neinen"></div>
-      {/* <div className='conPos'> */}
+      {/* <div className='conPos'> OKI */}
         <div className="what_de_sv">
           <div className="container">
             <div className='gap_containers_2'></div> 

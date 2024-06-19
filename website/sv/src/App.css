@@ -425,9 +425,9 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
     color: white;
     width: auto;
     height: 70px;
-    width: 90vw;
+    width: 93vw;
     font-size: 22px !important;
-    margin-left: 17%;
+    margin-left: 6%;
   }
   footer {
    display: none;
@@ -825,4 +825,16 @@ html::-webkit-scrollbar {
   .what_de_sv {
     margin-top: 40vh;
   }
+}
+.LogoSV {
+  height: 40px;
+}
+@media only screen and (max-width: 890px) {
+  .LogoSV {
+    display: none;
+  }
+}
+.gap1234123 {
+  height: 100%;
+  width: 40px;
 }
