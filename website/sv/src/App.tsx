@@ -238,23 +238,23 @@ function HeaderBottom() {
         </div>
         <div className='Menu'>
         <Link to='/' className='svasdf' onClick={pressStartseite}>   
-            <div  style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedS ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Home</div>
+            <div  style={{ color: isFocusedS ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedS ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Home</div>
         </Link> 
         <Link to = '/login'className='svasdf' onClick={pressLogin}>
          <FontAwesomeIcon icon={faRightToBracket} style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_2' onClick={pressLogin}/>
-         <div style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedL ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Login</div>
+         <div style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedL ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Login</div>
         </Link> 
         <Link to='/Search'className='svasdf' onClick={pressSearch}>
          <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_3' onClick ={pressSearch}/>
-         <div  style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedSEA ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Suche</div>
+         <div  style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white',  transform: isFocusedSEA ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Suche</div>
         </Link> 
         <Link to="/SV Kasten" className='svasdf'  onClick={pressSVKasten}>
          <FontAwesomeIcon icon={faPenToSquare} style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
-         <div  style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white' ,  transform: isFocusedSVK ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>SV Kasten</div>
+         <div  style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white' ,  transform: isFocusedSVK ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>SV Kasten</div>
          </Link>
          <Link to="/Anmeldeformular" className='svasdf' onClick={pressAnmeldeformular}>
           <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_5' onClick={pressAnmeldeformular}/>
-         <div style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white' ,  transform: isFocusedSA ? " scale(1.25)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Events</div>
+         <div style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white' ,  transform: isFocusedSA ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Events</div>
          </Link>
         </div>
       </header>
