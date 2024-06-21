@@ -29,7 +29,43 @@ an „———.“  eine email schreiben
   display: none;
 }
 
+@media only screen and (min-height: 1000px) {
+  @media only screen and (min-width: 760px) {
+    @media only screen and (max-height: 1200px) {
+      @media only screen and (max-width: 860px) {
+        .neinen {
+          height: 1000px !important;
+        }
+      }
+    }
+  }
+}
 
+@media only screen and (min-height: 1000px) {
+  .events {
+    height: 800px !important;
+    font-size: 20px;
+  }
+  .neinen {
+    height: 700px !important;
+  }
+  .what_de_sv {
+    justify-content: center !important;
+  }
+  .text {
+    font-size: 24px !important;
+  }
+  .text_1 {
+    font-size: 24px !important;
+  }
+  .text_2 {
+    font-size: 24px !important;
+
+  }
+  .text_23 {
+    font-size: 24px !important;
+  }
+}
 main {
   overflow-y: scroll;
   overflow-x: hidden;
@@ -64,7 +100,7 @@ header {
   color: white;
   width: auto;
   height: 70px;
-  width: 90vw;
+  width: 91vw;
   font-size: 19.5px !important;
 }
 .hamburger-menu {
@@ -439,11 +475,11 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
     font-family: "Roboto";
     height: 70px;
     width: 100vw;
-    gap:  10%;
+    gap:  9%;
     align-items: center;
     justify-content: left;
     text-align: center;
-    margin-left: -10%;
+    margin-left: -4%;
   }
   
   .imgSV {
@@ -485,8 +521,11 @@ a {
 }
 @media only screen and (max-width: 500px) {
   .neinen {
-    height: 109vw;
+    height: 149vw;
   }  
+  .events {
+    height: 550px !important;
+  }
 }
 
 .coneven {
@@ -815,6 +854,9 @@ html::-webkit-scrollbar {
   .text {
     height: 300px;
   }
+  .neinen {
+    height: 200px !important;
+  }
  
 }
 @media only screen and (max-width: 1px) {
@@ -846,5 +888,5 @@ html::-webkit-scrollbar {
 }
 .gap1234123 {
   height: 100%;
-  width: 40px;
+  width: 20px;
 }

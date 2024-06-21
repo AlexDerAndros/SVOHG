@@ -58,33 +58,42 @@ function LoggingIn({ setLog }) {
   const [password, setPassword] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError('');
+      }, 2000); 
+
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   const press = () => {
     setClick(!click);
   }
 
-  const logBtn = async(event) => {
+  const logBtn = async (event) => {
     event.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, username, password);
       const user = userCredential.user;
-      console.log(user);
       setLog(true);
-      Cookies.set('log', 'true', { expires: 7 });
-      Cookies.set('user', username, { expires: 7 });
+      Cookies.set('log', 'true', { expires: 14 });
+      Cookies.set('user', username, { expires: 14 });
 
       const docRef = doc(db, "users", username);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data();
         const isAdmin = data.isAdmin || false;
-        Cookies.set('isAdmin', isAdmin.toString(), { expires: 7 });
+        Cookies.set('isAdmin', isAdmin.toString(), { expires: 14 });
         window.location.reload();
       }
     } catch (error) {
       setLog(false);
-      console.log(error);
-      alert('Error:' + error);
+      setError('Falsche Passwort oder Account');
     }
   }
 
@@ -93,41 +102,39 @@ function LoggingIn({ setLog }) {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
       const user = userCredential.user;
-      console.log(user);
       setLog(true);
       alert("Registrierung erfolgreich");
-      Cookies.set('log', 'true', { expires: 7 });
-      Cookies.set('user', registerEmail, { expires: 7 });
-    
+      Cookies.set('log', 'true', { expires: 14 });
+      Cookies.set('user', registerEmail, { expires: 14 });
+
       let us = Cookies.get('user');
-      await addDoc(collection( db, "mail"), {
-        to : [us],
+      await addDoc(collection(db, "mail"), {
+        to: [us],
         message: {
           subject: "Registrierung erfolgreich",
-          text:"Hallo",
-          html:`Guten Tag ${us}, <br/> <br/> ihre Registrierung war erfolgreich. Nun können Sie sich mit ihrer E-Mail Adresse ${us} und mit ihrem Passwort auch anmelden. <br/> Falls Sie noch weitere Fragen haben, wenden Sie sich bitte an die E-Mail Adresse svohgmonheim7@gmail.com <br/> <br/> Mit freundlichen Grüßen <br/> Eure SV`
+          text: "Hallo",
+          html: `Guten Tag ${us}, <br/> <br/> ihre Registrierung war erfolgreich. Nun können Sie sich mit ihrer E-Mail Adresse ${us} und mit ihrem Passwort auch anmelden. <br/> Falls Sie noch weitere Fragen haben, wenden Sie sich bitte an die E-Mail Adresse svohgmonheim7@gmail.com <br/> <br/> Mit freundlichen Grüßen <br/> Eure SV`
         }
       });
       window.location.reload();
       await setDoc(doc(db, "users", registerEmail), {
         email: registerEmail,
-        isAdmin: false 
+        isAdmin: false
       });
     } catch (error) {
       setLog(false);
-      console.log(error);
       alert("Registrierung fehlgeschlagen");
     }
   }
+
   const logGoogle = () => {
     signInWithPopup(auth, GoogleProvider).then((data) => {
-     setGoogleUs(data.user.email);
-     Cookies.set('log', true, {expires: 7});
-     Cookies.set('user', data.user.email, { expires: 7 });
-     window.location.reload();
-   });
+      setGoogleUs(data.user.email);
+      Cookies.set('log', true, { expires: 14 });
+      Cookies.set('user', data.user.email, { expires: 14 });
+      window.location.reload();
+    });
   };
-  
 
   return (
     <div className="main">
@@ -184,16 +191,17 @@ function LoggingIn({ setLog }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} />
               <button className="button" onClick={logBtn}>Einloggen</button>
-  
+
+              {error && <p style={{ color: 'red' }}>{error}</p>} 
+
               <div className="loginInfo">
-              <div className="registerInfo" onClick={logGoogle}>
-                <FontAwesomeIcon icon={faGoogle} /> Melden Sie sich mit Google an!
+                <div className="registerInfo" onClick={logGoogle}>
+                  <FontAwesomeIcon icon={faGoogle} /> Melden Sie sich mit Google an!
                 </div>
                 Wenn Sie noch nicht eingeloggt sind,
                 <span className="registerInfo" onClick={press}>
                   &nbsp; registrieren Sie sich bitte!
                 </span>
-               
               </div>
             </div>
           </div>
