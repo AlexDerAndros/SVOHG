@@ -217,7 +217,7 @@ function HeaderBottom() {
       <header>
         <div className="gap1234123"></div>
         <div className='LogoSVCon'>
-            <img src='./23.png' className='LogoSV' alt='Logo' />
+            <img src='./3.png' className='LogoSV' alt='Logo' />
         </div>
         <div className='title'>
           <a href="/">

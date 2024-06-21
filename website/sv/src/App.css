@@ -840,7 +840,9 @@ html::-webkit-scrollbar {
     align-items: center;
     width: 100vw;
   }
- 
+  .gap1234123 {
+    display: none;
+  }
 }
 .gap1234123 {
   height: 100%;
