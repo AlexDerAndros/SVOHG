@@ -296,6 +296,7 @@ function HeaderBottom() {
         <Route path='/Anmeldeformular' element={<Anmeldeformularr/>} />
         <Route path='/SV Kasten' element={<SVKasten />} />
         <Route path='/Search' element={<Search />} />
+        <Route path='/Search' element={<SVBeitreten />} />
       </Routes>
       </BrowserRouter>
     </>
@@ -303,117 +304,153 @@ function HeaderBottom() {
 }
 
 function Startseite() {
+  const [events, setEvents] = useState<Event[]>([]);
 
-    const [events, setEvents] = useState<Event[]>([]);
-  
-    useEffect(() => {
-      async function fetchEvents() {
-        try {
-          const eventsCol = collection(db, 'events');
-          const eventSnapshot = await getDocs(eventsCol);
-          const eventList = eventSnapshot.docs.map(doc => doc.data());
-          const formattedEvents: Event[] = eventList.map(event => ({
-            ...event,
-            date: event.date instanceof Timestamp ? event.date.toDate().toLocaleDateString() : event.date,
-            time: event.time,
-            topic: event.topic,
-            shortDescription: event.shortDescription
-          }));
-  
-          setEvents(formattedEvents);
-        } catch (error) {
-          console.error("Error fetching events: ", error);
-        }
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const eventsCol = collection(db, 'events');
+        const eventSnapshot = await getDocs(eventsCol);
+        const eventList = eventSnapshot.docs.map(doc => doc.data());
+        const formattedEvents: Event[] = eventList.map(event => ({
+          ...event,
+          date: event.date instanceof Timestamp ? event.date.toDate().toLocaleDateString() : event.date,
+          time: event.time,
+          topic: event.topic,
+          shortDescription: event.shortDescription,
+        }));
+
+        setEvents(formattedEvents);
+      } catch (error) {
+        console.error("Error fetching events: ", error);
       }
-  
-      fetchEvents();
-    }, []);
-  
-    return (
-  <div style={{background: "rgba(250, 255, 238, 0.993)"}}>
-        <div className="all_container"></div>
-        <div className="anfang">
-          <div className='img-containerSV'>
-            <img src='./SV.jpg' className='imgSV' alt='Foto' />
-          </div>
-          <br />
-          <br />
-        <div style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
+    }
+
+    async function fetchnewevents() {
+      try {
+        //Hier werden die neuen events gefetcht
+      }
+      catch (error) {
+        console.error("Error", error)
+        //Falls efehlr pasiert
+      }
+    }
+
+    fetchEvents();
+  }, []);
+
+  function eventdavor() {
+    alert("N");
+    //Alex rest must du machen ich habe keine ahnung wie man das macht
+  }
+
+  function nachstesevent() {
+    alert("B");
+    //Same hier.
+  }
+
+  return (
+    <div style={{ background: "rgba(250, 255, 238, 0.993)" }}>
+      <div className="all_container"></div>
+      <div className="anfang">
+        <div className='img-containerSV'>
+          <img src='./SV.jpg' className='imgSV' alt='Foto' />
+        </div>
+        <br />
+        <br />
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <div className='text_container'>
             <div className="hallo">Hallo!</div>
             <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium.</div>
             <div className="abstand"></div>
-            <div className="events" style={{width:"80%"}}>
+            <div className="events" style={{ width: "80%" }}>
               <div className="coneven">
+                <div className="davor" onClick={eventdavor}>Event davor</div>
                 <div className="title_events"> Aktuelles Event</div>
+                <div className="danach" onClick={nachstesevent}>Nächstes Event</div>
               </div>
               {events.map((event, index) => (
                 <div className="tabelle" key={index}>
                   <div className="zeit">
-                  <div className='angabezeit'>Datum: &nbsp;</div>{event.date}
+                    <div className='angabezeit'>Datum: &nbsp;</div>{event.date}
                   </div>
                   <div className="zeit">
                     <div className='angabezeit'>Zeit: &nbsp;</div>
                     {event.time}
                   </div>
                   <div className="eventname">
-                    <div className='angabezeit'>Thema: &nbsp;</div><br/>
-                    {event.topic} 
+                    <div className='angabezeit'>Thema: &nbsp;</div><br />
+                    {event.topic}
                   </div>
                   <div className="eventname">
-                    <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div><br/>
-                    {event.shortDescription} 
+                    <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div><br />
+                    {event.shortDescription}
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        </div>  
-        <div className="neinen"></div>
-      {/* <div className='conPos'> OKI */}
-        <div className="what_de_sv">
-          <div className="container">
-            <div className='gap_containers_2'></div> 
-            <div className='headContainer_2'>Was ist die SV?</div>
-            <div className='text_2'>
-              Der Begriff SV bedeutet Schülervertretung. Wir vertreten die Interessen und Probleme der Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist und jeder sich wohlfühlen kann.
-            </div>
-          </div>
-        {/* </div> */}
-        </div>  
-        <br />
-        <br />
-        <br />
-      {/* <div className='center'> */}
-        <div className="wofur">
-          <div className='container2'>
-            <div className='headContainer'>Wofür ist die SV da?</div>
-            <div className='text'>
-              Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
-            </div>
-          </div>
-        {/* </div> */}
-      </div>    
-        <br />
-        <br />
-        <br />
-       {/* <div className='center'> */}
-        <div className="wiekontakt">
-          <div className="container_33">
-            <div className='headContainer'>
-              Wie könnt ihr uns kontaktieren?
-            </div>
-            <div className="text_23">
-              Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
-            </div>
-          {/* </div> */}
-        </div>  
-        </div>  
-        <AboutUs />
       </div>
-    );
-  }
+      <div className="neinen"></div>
+      {/* <div className='conPos'> OKI */}
+      <div className="what_de_sv">
+        <div className="container">
+          <div className='gap_containers_2'></div>
+          <div className='headContainer_2'>Was ist die SV?</div>
+          <div className='text_2'>
+            Der Begriff SV bedeutet Schülervertretung. Wir vertreten die Interessen und Probleme der Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist und jeder sich wohlfühlen kann.
+          </div>
+        </div>
+        {/* </div> */}
+      </div>
+      <br />
+      <br />
+      <br />
+      {/* <div className='center'> */}
+      <div className="wofur">
+        <div className='container2'>
+          <div className='headContainer'>Wofür ist die SV da?</div>
+          <div className='text'>
+            Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
+          </div>
+        </div>
+        {/* </div> */}
+      </div>
+      <br />
+      <br />
+      <br />
+      {/* <div className='center'> */}
+      <div className="wiekontakt">
+        <div className="container_33">
+          <div className='headContainer'>
+            Wie könnt ihr uns kontaktieren?
+          </div>
+          <div className="text_23">
+            Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
+          </div>
+          {/* </div> */}
+        </div>
+      </div>
+      <br />
+      <br />
+      <br />
+      {/* <div className='center'> */}
+      <div className='wiejoin'>
+        <div className="container_4">
+          <div className='headContainer'>
+            Wie kann man die SV beitreten?
+          </div>
+          <div className="text_23">
+            Wenn du Interesse hast, der SV beizutreten, kannst du uns kontaktieren und BLA BLA BLA BLA BLA BLA.
+          </div>
+        </div>
+      </div>
+      {/* </div> */}
+      <AboutUs />
+    </div>
+  );
+}
 /* FUR INSTAGRAMM POSTS IN DER WEBSITE
 interface InstagramPostProps {
   src: string;
@@ -438,6 +475,13 @@ export const InstagramPost: React.FC<InstagramPostProps> = ({ src, caption, widt
   );
 };
 */
+function SVBeitreten() {
+  return (
+    <>
+    Hallo sv beitreten?
+    </>
+  )
+}
 
 function AboutUs() {
   return (
