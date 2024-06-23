@@ -27,9 +27,11 @@ const makeUserAdmin = async (email) => {
 
 
 
-export default function Login() {
+export default function Login1() {
   const [log, setLog] = useState(Cookies.get('log') === 'true');
   const [isAdmin, setIsAdmin] = useState(Cookies.get('isAdmin') === 'true');
+ const [isDeveloper, setIsDeveloper] = useState(Cookies.get('isDeveloper') === 'true');
+
 
   useEffect(() => {
     const checkAdminStatus = async () => {
@@ -45,11 +47,28 @@ export default function Login() {
         }
       }
     };
+    const checkDeveloperStatus = async () => {
+      const username = Cookies.get('user');
+      if (username) {
+        const docRef = doc(db, "users", username);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const isDeveloper = data.isDeveloper || false;
+          setIsDeveloper(isDeveloper);
+          Cookies.set('isDeveloper', isDeveloper.toString(), { expires: 7 });
+        }
+      }
+    };
     checkAdminStatus();
+    checkDeveloperStatus();
+    
   }, []);
-
-  return log ? (isAdmin ? <AdminDashboard setLog={setLog} /> : <LoggedIn setLog={setLog} />) : <LoggingIn setLog={setLog} />;
-}
+  
+  
+   return log ? (isAdmin ? <AdminDashboard setLog={setLog} />:  isDeveloper ?  <DeveloperDashboard setLog={setLog}/>  : <LoggedIn setLog={setLog} />) : <LoggingIn setLog={setLog} />;
+ 
+  }
 
 function LoggingIn({ setLog }) {
   const [click, setClick] = useState(false);
@@ -88,7 +107,9 @@ function LoggingIn({ setLog }) {
       if (docSnap.exists()) {
         const data = docSnap.data();
         const isAdmin = data.isAdmin || false;
+        const isDeveloper = data.isDeveloper || false;
         Cookies.set('isAdmin', isAdmin.toString(), { expires: 14 });
+        Cookies.set('isDeveloper', isDeveloper.toString(), { expires: 14 });
         window.location.reload();
       }
     } catch (error) {
@@ -119,7 +140,8 @@ function LoggingIn({ setLog }) {
       window.location.reload();
       await setDoc(doc(db, "users", registerEmail), {
         email: registerEmail,
-        isAdmin: false
+        isAdmin: false,
+        isDeveloper: false
       });
     } catch (error) {
       setLog(false);
@@ -365,7 +387,265 @@ function AdminDashboard({ setLog }) {
         </button>
       </div>
       <div className="adminDashboard" style={{marginBottom:"50vh"}}>
-        <h2>Admin Dashboard</h2>
+        <h2> Admin Dashboard</h2>
+        <div className='msg'>
+          <h2>Nachichten</h2>
+          {messages.slice(0, visibleMessages).map(message => (
+            <div key={message.id}>
+              <p>{message.text}</p>
+              <p>{message.timestamp ? new Date(message.timestamp.seconds * 1000).toLocaleString() : 'No timestamp available'}</p>
+              {/* <button onClick={deleteMessage}> Löschen</button> */}
+            </div>
+          ))}
+          {visibleMessages < messages.length && (
+            <button onClick={handleSeeMore} className='seemore'>See More</button>
+          )}
+        </div>
+        <br />
+        <br />
+        {events.map(event => (
+          <div key={event.id} className="events_fff">
+            <div className="events_asdf">
+              <div className="title_asdf">
+                <h3>Events bearbeiten</h3>
+              </div>
+              <p>Datum: {event.date.toDate().toLocaleDateString()}</p>
+              <p>Zeit: {event.time}</p>
+              <p>Thema: {event.topic}</p>
+              <p>Kurze Beschreibung: {event.shortDescription}</p>
+              <p>Was ist es?: {event.longDescription}</p>
+
+            </div>
+            <br />
+            <br />
+            <button onClick={() => handleEditClick(event)} className="bearbeiten">Bearbeiten</button>
+          </div>
+        ))}
+        <br />
+        <br />
+        {editEvent && (
+          <div className="bearbeitenpop">
+            <h2>Event bearbeiten</h2>
+            <form onSubmit={e => e.preventDefault()}>
+              <label>
+                Datum:
+                <input
+                  className="search"
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Zeit:
+                <input
+                  className="search"
+                  type="text"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Thema:
+                <input
+                  className="search"
+                  type="text"
+                  name="topic"
+                  value={formData.topic}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Kurze Beschreibung:
+                <input
+                  className="search"
+                  type="text"
+                  name="shortDescription"
+                  value={formData.shortDescription}
+                  onChange={handleChange}
+                />
+              </label> <label>
+                Was ist es?
+                <input
+                  className="search"
+                  type="text"
+                  name="longDescription"
+                  value={formData.longDescription}
+                  onChange={handleChange}
+                />
+              </label>
+              <br />
+              <br />
+              <button type="button" onClick={handleUpdate} className="bearbeiten">Aktualisieren</button>
+            </form>
+          </div>
+        )}
+
+      </div>
+      
+      <div className="posMSG">
+      <div className='msg' style={{height: editEvent ? "0vh" : "auto", color: editEvent ? "transparent" : "white"}}>
+          <h2 style={{width:'100%', display:'flex',justifyContent:'center'}}>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}
+          </>))}</h2>
+          {teilnehmer.map((item) => (
+            <>
+           
+            <div className="container_33">
+                <div className='headContainer'>
+                   {item.name}
+               </div>
+
+            </div>
+            <ul>
+              <li>
+                Alter: {item.age}
+              </li>
+              <li>
+                Klasse: {item.Klasse}
+              </li>
+              <li>
+                E-Mail: {item.email}
+              </li>
+            </ul>
+            </>
+           
+          ))}
+    </div>
+    </div>
+    <div style={{height:'150vh', width:"100vw", zIndex:"-100"}}></div>
+    </div>
+  );
+}
+function DeveloperDashboard({ setLog }) {
+  const [events, setEvents] = useState([]);
+  const [editEvent, setEditEvent] = useState(null);
+  const [formData, setFormData] = useState({ date: '', time: '', topic: '', shortDescription: '', longDescription: '' });
+  const [messages, setMessages] = useState([]); 
+  const [teilnehmer, setTeilnehmer] = useState([]); 
+  const [ moreSize, setMoreSize] = useState(false);
+  const [timestamp, setTimestamp] = useState('');
+
+  const [visibleMessages, setVisibleMessages] = useState(3); // State to control number of visible messages
+  const username = Cookies.get("user");
+
+  const fetchEvents = async () => {
+    const eventsCol = collection(db, 'events');
+    const eventSnapshot = await getDocs(eventsCol);
+    const eventList = eventSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setEvents(eventList);
+  };
+
+  const fetchMessages = async () => {
+    const messagesCol = collection(db, 'messages');
+    const messagesSnapshot = await getDocs(messagesCol);
+    const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setMessages(messagesList);
+  };
+
+  const fetchTeilnehmer = async() => {
+    const TeilnehmerCol = collection(db, 'userEvents');
+    const messagesSnapshot = await getDocs(TeilnehmerCol);
+    const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setTeilnehmer(messagesList);
+  };
+  useEffect(() => {
+    fetchEvents();
+    fetchMessages();
+    fetchTeilnehmer();
+  }, []);
+
+  const logOut = () => {
+    setLog(false);
+    alert("Sie sind ausgeloggt!");
+    Cookies.set('log', 'false', { expires: 1 / 3600 });
+    Cookies.remove('user');
+    Cookies.remove('isAdmin');
+  };
+
+  const handleEditClick = (event) => {
+    setEditEvent(event);
+    setFormData({
+      date: event.date.toDate().toLocaleDateString('en-CA'), // for input type="date"
+      time: event.time,
+      topic: event.topic,
+      shortDescription: event.shortDescription, // Corrected property name
+      longDescription: event.longDescription // Corrected property name
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdate = async () => {
+    if (editEvent) {
+      const eventDoc = doc(db, 'events', editEvent.id);
+      const newDate = new Date(formData.date);
+
+      await updateDoc(eventDoc, {
+        date: newDate,
+        time: formData.time,
+        topic: formData.topic,
+        shortDescription: formData.shortDescription, // Corrected property name
+        longDescription: formData.longDescription // Corrected property name
+      });
+
+      setEditEvent(null);
+      setFormData({ date: '', time: '', topic: '', shortDescription: '', longDescription: ''});
+      fetchEvents(); // Re-fetch the updated events list
+    }
+  };
+
+  const handleSeeMore = () => {
+    setVisibleMessages(prev => prev + 3); // Increase the number of visible messages by 3
+  };
+ 
+   const More = () => {
+     setMoreSize(true);
+   };
+
+   const deleteMessage = async () => {
+     try {
+       const q = query(collection(db, "messages"), where('timestamp', '==', timestamp));
+       const querySnapshot = await getDocs(q);
+   
+       if (querySnapshot.empty) {
+         console.log('Keine Dokumente zum Löschen gefunden.');
+         return;
+       }
+   
+       const batch = writeBatch(db);
+   
+       querySnapshot.forEach(docSnapshot => {
+         const docRef = doc(db, "messages", docSnapshot.id);
+         batch.delete(docRef);
+       });
+   
+       await batch.commit();
+       console.log('Dokumente erfolgreich gelöscht.');
+     } catch (error) {
+       console.error('Fehler beim Löschen der Dokumente: ', error);
+       alert('Fehler: ' + error.message);
+     }
+   };
+  return (
+    <div className="siteAdmin" style={{marginBottom:"100vh"}}>
+      <div className="welcome">
+        Willkommen Developer {username}!
+      </div>
+      <div className="posLogOutBtn">
+        <button onClick={logOut} className="logOutBtn">
+          Ausloggen
+        </button>
+      </div>
+      <div className="adminDashboard" style={{marginBottom:"50vh"}}>
+        <h2>Developer Dashboard</h2>
         <div className='msg'>
           <h2>Nachichten</h2>
           {messages.slice(0, visibleMessages).map(message => (
