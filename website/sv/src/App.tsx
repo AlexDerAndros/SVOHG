@@ -29,7 +29,10 @@ interface Event {
     shortDescription?: string;
     longDescription?: string;
     // Füge hier andere Felder hinzu, die ein Event haben könnte
-  }
+}
+
+
+
 /*Aufgaben:
 Bug Fixes:
 -Was ist dir SV, Wofür ist sie da Fixen CSS Flexbox
@@ -442,7 +445,7 @@ function Startseite() {
             Wie kann man die SV beitreten?
           </div>
           <div className="text_23">
-            Wenn du Interesse hast, der SV beizutreten, kannst du uns kontaktieren und BLA BLA BLA BLA BLA BLA.
+          Um in die SV zu kommen musst du ein Klassensprecher oder Stufensprecher sein. Außerdem musst du mindestens in der 9.Klasse sein. Wenn man diese Bedingungen erfüllt, kommt man automatisch in die SV.
           </div>
         </div>
       </div>
