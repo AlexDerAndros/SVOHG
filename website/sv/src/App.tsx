@@ -495,7 +495,8 @@ function AboutUs() {
       <FontAwesomeIcon icon={faInstagram} className='InstaIcon'/> Folge uns auf Instagram!
     </a>  
     <br />
-      <div className="UInfo1">Website made by <a href='https://github.com/marcodoro'>@Marcodori</a> and <a href='https://github.com/AlexDerAndros'>@AlexandrosNtrikos</a></div>
+      <div className="UInfo1">Website made by <a href='https://github.com/marcodoro'>@Marcodori</a> and <a href='https://github.com/AlexDerAndros'>@AlexandrosNtrikos</a></div><br />
+      <a href="https://ohg.monheim.de/">OHG Monheim Website</a>
     </div>
     
   </div>  
