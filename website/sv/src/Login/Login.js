@@ -2,7 +2,7 @@ import "./Login.css";
 import Cookies from 'js-cookie';
 import { useState, useEffect, handleUpdate } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { auth, db, GoogleProvider } from "../config/firebase"; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
@@ -43,7 +43,7 @@ export default function Login1() {
           const data = docSnap.data();
           const isAdmin = data.isAdmin || false;
           setIsAdmin(isAdmin);
-          Cookies.set('isAdmin', isAdmin.toString(), { expires: 7 });
+          Cookies.set('isAdmin', isAdmin.toString(), { expires: 14 });
         }
       }
     };
@@ -54,14 +54,14 @@ export default function Login1() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
-          const isDeveloper = data.isDeveloper || false;
+          const isAdmin = data.isDeveloper || false;
           setIsDeveloper(isDeveloper);
-          Cookies.set('isDeveloper', isDeveloper.toString(), { expires: 7 });
+          Cookies.set('isDeveloper', isDeveloper.toString(), { expires: 14 });
         }
       }
     };
+    
     checkAdminStatus();
-    checkDeveloperStatus();
     
   }, []);
   
@@ -78,7 +78,10 @@ function LoggingIn({ setLog }) {
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [error, setError] = useState('');
-
+  const [seePassword, setSeePassword] = useState('');
+  const eyePassword = () => {
+    setSeePassword(!seePassword);
+  }
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => {
@@ -92,7 +95,13 @@ function LoggingIn({ setLog }) {
   const press = () => {
     setClick(!click);
   }
-
+  let icSee; 
+  if (seePassword == true) {
+    icSee = <FontAwesomeIcon className="icSee" icon={faEye} style={{ color:"white"}} onClick={eyePassword}/>; 
+  } else {
+    icSee = <FontAwesomeIcon className="icSee" icon={faEyeSlash} style={{ color:"white"}} onClick={eyePassword}/>;
+    
+  }
   const logBtn = async (event) => {
     event.preventDefault();
     try {
@@ -143,6 +152,7 @@ function LoggingIn({ setLog }) {
         isAdmin: false,
         isDeveloper: false
       });
+      
     } catch (error) {
       setLog(false);
       alert("Registrierung fehlgeschlagen");
@@ -165,12 +175,12 @@ function LoggingIn({ setLog }) {
           <div>
             <FontAwesomeIcon icon={faArrowLeft} onClick={press} className='arrowBack' />
             <div className="con_3">
-              <div className="title_login">
+              <div className="title_login" >
                 Registrierung
               </div>
             </div>
             <br />
-            <div className="inputs_5">
+            <div className="inputs_5" style={{marginTop:"-10%"}}>
               <label htmlFor="email">E-Mail</label>
               <div className="nono"></div>
               <input type="text"
@@ -181,11 +191,17 @@ function LoggingIn({ setLog }) {
 
               <label htmlFor="password">Passwort</label>
               <div className="nono"></div>
+              <div className="posINPA">
               <input type="password"
                 placeholder="&nbsp;Erstelle ein Passwort..."
                 id="password"
                 value={registerPassword}
-                onChange={(e) => setRegisterPassword(e.target.value)} />
+                onChange={(e) => setRegisterPassword(e.target.value)} /> 
+                 {icSee}
+                </div>
+                  <div className="paSee" style={{fontSize: seePassword ? "3.5vw" : "0vw"}} >
+                    Passwort: {registerPassword}
+                  </div>  
               <button className="button" onClick={register}>Registrieren</button>
             </div>
           </div>
@@ -207,13 +223,19 @@ function LoggingIn({ setLog }) {
 
               <label htmlFor="password">Passwort</label>
               <div className="nono"></div>
+              <div className="posINPA">
               <input type="password"
                 placeholder="&nbsp; Passwort..."
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} />
+                 {icSee}
+                </div>
+                <div className="paSee" style={{fontSize: seePassword ? "2.5vw" : "0vw"}} >
+                    Passwort: {password}
+                  </div>  
               <button className="button" onClick={logBtn}>Einloggen</button>
-
+               
               {error && <p style={{ color: 'red' }}>{error}</p>} 
 
               <div className="loginInfo">
@@ -242,6 +264,8 @@ function LoggedIn({ setLog }) {
     Cookies.set('log', 'false', { expires: 1 / 3600 });
     Cookies.remove('user');
     Cookies.remove('isAdmin');
+    Cookies.remove('isDeveloper');
+
   }
 
   return (
@@ -268,7 +292,6 @@ function AdminDashboard({ setLog }) {
   const [teilnehmer, setTeilnehmer] = useState([]); 
   const [ moreSize, setMoreSize] = useState(false);
   const [timestamp, setTimestamp] = useState('');
-
   const [visibleMessages, setVisibleMessages] = useState(3); // State to control number of visible messages
   const username = Cookies.get("user");
 
@@ -292,6 +315,7 @@ function AdminDashboard({ setLog }) {
     const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setTeilnehmer(messagesList);
   };
+  
   useEffect(() => {
     fetchEvents();
     fetchMessages();
@@ -304,6 +328,8 @@ function AdminDashboard({ setLog }) {
     Cookies.set('log', 'false', { expires: 1 / 3600 });
     Cookies.remove('user');
     Cookies.remove('isAdmin');
+    Cookies.remove('isDeveloper');
+
   };
 
   const handleEditClick = (event) => {
@@ -311,6 +337,7 @@ function AdminDashboard({ setLog }) {
     setFormData({
       date: event.date.toDate().toLocaleDateString('en-CA'), // for input type="date"
       time: event.time,
+      place: event.place,
       topic: event.topic,
       shortDescription: event.shortDescription, // Corrected property name
       longDescription: event.longDescription // Corrected property name
@@ -333,6 +360,7 @@ function AdminDashboard({ setLog }) {
       await updateDoc(eventDoc, {
         date: newDate,
         time: formData.time,
+        place: formData.place,
         topic: formData.topic,
         shortDescription: formData.shortDescription, // Corrected property name
         longDescription: formData.longDescription // Corrected property name
@@ -411,6 +439,7 @@ function AdminDashboard({ setLog }) {
               </div>
               <p>Datum: {event.date.toDate().toLocaleDateString()}</p>
               <p>Zeit: {event.time}</p>
+              <p>Ort: {event.place}</p>
               <p>Thema: {event.topic}</p>
               <p>Kurze Beschreibung: {event.shortDescription}</p>
               <p>Was ist es?: {event.longDescription}</p>
@@ -444,6 +473,16 @@ function AdminDashboard({ setLog }) {
                   type="text"
                   name="time"
                   value={formData.time}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Ort:
+                <input
+                  className="search"
+                  type="text"
+                  name="place"
+                  value={formData.place}
                   onChange={handleChange}
                 />
               </label>
@@ -526,6 +565,7 @@ function DeveloperDashboard({ setLog }) {
   const [teilnehmer, setTeilnehmer] = useState([]); 
   const [ moreSize, setMoreSize] = useState(false);
   const [timestamp, setTimestamp] = useState('');
+  const [users, setUsers] = useState([]);
 
   const [visibleMessages, setVisibleMessages] = useState(3); // State to control number of visible messages
   const username = Cookies.get("user");
@@ -550,10 +590,17 @@ function DeveloperDashboard({ setLog }) {
     const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setTeilnehmer(messagesList);
   };
+  const fetchUser = async() => {
+    const UserCol = collection(db, 'users');
+    const UserSnapshot = await getDocs(UserCol);
+    const UserList = UserSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setUsers(UserList);
+  };
   useEffect(() => {
     fetchEvents();
     fetchMessages();
     fetchTeilnehmer();
+    fetchUser();
   }, []);
 
   const logOut = () => {
@@ -562,6 +609,8 @@ function DeveloperDashboard({ setLog }) {
     Cookies.set('log', 'false', { expires: 1 / 3600 });
     Cookies.remove('user');
     Cookies.remove('isAdmin');
+    Cookies.remove('isDeveloper');
+
   };
 
   const handleEditClick = (event) => {
@@ -569,6 +618,7 @@ function DeveloperDashboard({ setLog }) {
     setFormData({
       date: event.date.toDate().toLocaleDateString('en-CA'), // for input type="date"
       time: event.time,
+      place: event.place, 
       topic: event.topic,
       shortDescription: event.shortDescription, // Corrected property name
       longDescription: event.longDescription // Corrected property name
@@ -592,6 +642,7 @@ function DeveloperDashboard({ setLog }) {
         date: newDate,
         time: formData.time,
         topic: formData.topic,
+        place: formData.place,
         shortDescription: formData.shortDescription, // Corrected property name
         longDescription: formData.longDescription // Corrected property name
       });
@@ -646,6 +697,19 @@ function DeveloperDashboard({ setLog }) {
       </div>
       <div className="adminDashboard" style={{marginBottom:"50vh"}}>
         <h2>Developer Dashboard</h2>
+        <div className='msg' style={{marginBottom:"5%"}}>  
+          <h2>User zu Admins machen</h2>
+          {users.map(user => (
+            <form className="users" >
+                E-Mail: {user.email} <br/>
+                ist ein Admin: 
+                <select name="options">
+                  <option>true</option>
+                  <option>false</option>
+                </select>
+            </form>  
+          ))}
+        </div>
         <div className='msg'>
           <h2>Nachichten</h2>
           {messages.slice(0, visibleMessages).map(message => (
@@ -669,6 +733,7 @@ function DeveloperDashboard({ setLog }) {
               </div>
               <p>Datum: {event.date.toDate().toLocaleDateString()}</p>
               <p>Zeit: {event.time}</p>
+              <p>Ort: {event.place}</p>
               <p>Thema: {event.topic}</p>
               <p>Kurze Beschreibung: {event.shortDescription}</p>
               <p>Was ist es?: {event.longDescription}</p>
@@ -676,7 +741,7 @@ function DeveloperDashboard({ setLog }) {
             </div>
             <br />
             <br />
-            <button onClick={() => handleEditClick(event)} className="bearbeiten">Bearbeiten</button>
+            <button onClick={() => handleEditClick(event)} className="bearbeiten" style={{zIndex: 1000}}>Bearbeiten</button>
           </div>
         ))}
         <br />
@@ -702,6 +767,16 @@ function DeveloperDashboard({ setLog }) {
                   type="text"
                   name="time"
                   value={formData.time}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Ort:
+                <input
+                  className="search"
+                  type="text"
+                  name="place"
+                  value={formData.place}
                   onChange={handleChange}
                 />
               </label>
@@ -744,7 +819,7 @@ function DeveloperDashboard({ setLog }) {
       </div>
       
       <div className="posMSG">
-      <div className='msg' style={{height: editEvent ? "0vh" : "auto", color: editEvent ? "transparent" : "white"}}>
+      <div className='msg' style={{height: editEvent ? "0vh" : "auto", color: editEvent ? "transparent" : "white", marginTop:"20vh"}}>
           <h2 style={{width:'100%', display:'flex',justifyContent:'center'}}>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}
           </>))}</h2>
           {teilnehmer.map((item) => (
@@ -772,6 +847,7 @@ function DeveloperDashboard({ setLog }) {
           ))}
     </div>
     </div>
+   
     <div style={{height:'150vh', width:"100vw", zIndex:"-100"}}></div>
     </div>
   );

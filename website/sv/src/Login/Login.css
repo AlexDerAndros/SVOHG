@@ -316,6 +316,32 @@ form {
     display: flex;
     flex-direction: column;
 }
+.users {
+  text-align: left;
+  width: 80%;
+}
+.paSee {
+    color: white;
+    font-family: "Roboto", sans-serif;
+    width: 80%;
+    margin-top: 5% ;
+    height: 5vh;
+    transition: 0.2s ease-out;
+}
+.posINPA {
+    width: 90%;
+    display: flex;
+    gap: 0% 5%;
+    margin-left: 10%;
+}
+.icSee {
+   width: 10%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 3vw;
+}
 @media only screen and (min-width: 950px) {
    .square {
      width: 50vw;
@@ -326,5 +352,6 @@ form {
 @media only screen and (max-width: 900px) {
     .square {
         margin-top: 20%;
+        
     }
 }

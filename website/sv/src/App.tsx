@@ -25,6 +25,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 interface Event {
     date: string;
     time: string;
+    place:string;
     topic?: string;
     shortDescription?: string;
     longDescription?: string;
@@ -319,6 +320,7 @@ function Startseite() {
           ...event,
           date: event.date instanceof Timestamp ? event.date.toDate().toLocaleDateString() : event.date,
           time: event.time,
+          place: event.place,
           topic: event.topic,
           shortDescription: event.shortDescription,
         }));
@@ -380,6 +382,9 @@ function Startseite() {
                   <div className="zeit">
                     <div className='angabezeit'>Zeit: &nbsp;</div>
                     {event.time}
+                  </div>
+                  <div className="zeit">
+                    <div className='angabezeit'>Ort: &nbsp;</div>{event.place}
                   </div>
                   <div className="eventname">
                     <div className='angabezeit'>Thema: &nbsp;</div><br />

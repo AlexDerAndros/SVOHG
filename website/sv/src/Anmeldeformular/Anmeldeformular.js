@@ -8,12 +8,9 @@ import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query } 
 export default function Anmeldeformular1() {
   const [verfügbar, setVerfügbar] = useState(false);
   const [events, setEvents] = useState([]);
-  const [click, setClick] = useState(false);
   const [clickEF, setClickEF] = useState(false);
 
-  const press = () => {
-    setClick(!click);
-  };
+ 
 
   const remove = async () => {
     try {
@@ -46,6 +43,7 @@ export default function Anmeldeformular1() {
             id: doc.id,
             date: data.date instanceof Timestamp ? data.date.toDate().toLocaleDateString() : data.date || "No Time Available",
             time: data.time || "No Time Available",
+            place: data.place || "No Place Available",
             topic: data.topic || "No Topic Available",
             shortDescription: data.shortDescription || "No short Description Available",
             longDescription: data.longDescription || "No short Description Available",
@@ -80,48 +78,16 @@ export default function Anmeldeformular1() {
   return (
     <div className="anmeldeformular">
       {verfügbar ? (
-        <>
-          {click ? (
-            <Event events={events} press={press} clickEF={clickEF} remove={remove} setClickEF={setClickEF} />
-          ) : (
-            <>
-              <div>
-                {events.map((event, index) => (
-                  <div className="events1" key={index}>
-                    <div className="coneven">
-                      <div className="title_events">{event.topic}</div>
-                    </div>
-                    <div className="tabelle1">
-                      <div className="zeit">
-                        <div className='angabezeit'>Datum: &nbsp;</div>
-                        {event.date}
-                      </div>
-                      <div className="zeit">
-                        <div className='angabezeit'>Zeit: &nbsp;</div>
-                        {event.time}
-                      </div>
-                      <div className="eventname">
-                        <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div>
-                        {event.shortDescription}
-                      </div>
-                      <div className="eventname" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={press}>
-                        Weitere Informationen →
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-        </>
-      ) : (
+             <Event remove={remove} events={events} clickEF={clickEF} setClickEF={setClickEF}/>
+          )
+       : (
         <NichtsVerfügbar />
       )}
     </div>
   );
 }
 
-function Event({ events, press, remove, clickEF }) {
+function Event({ events,  remove, clickEF, setClickEF}) {
   const [clickF, setClickF] = useState(false);
 
   const pressF = () => {
@@ -130,51 +96,54 @@ function Event({ events, press, remove, clickEF }) {
 
   return (
     <>
-      {clickF ? (
-        <Formular events={events} pressF={pressF} clickEF={clickEF} remove={remove} setClickEF={setClickF} />
-      ) : (
-        <>
-          {events.map((event, index) => (
-            <div className="events1" key={index}>
-              <div className="coneven1">
-                <div className="title_events">{event.topic}</div>
+    {clickF ? (
+      <Formular events={events} pressF={pressF} clickEF={clickEF} remove={remove} setClickEF={setClickEF} />
+    ) : (
+      <>
+        {events.map((event, index) => (
+          <div className="events1" key={index}>
+            <div className="coneven1">
+              <div className="title_events">{event.topic}</div>
+            </div>
+            <div className="tabelle1" >
+              <div className="zeit">
+                <div className='angabezeit'>Datum: &nbsp;</div>
+                {event.date}
               </div>
-              <div className="tabelle1" >
-                <div className="zeit">
-                  <div className='angabezeit'>Datum: &nbsp;</div>
-                  {event.date}
+              <div className="zeit">
+                <div className='angabezeit'>Zeit: &nbsp;</div>
+                {event.time}
+              </div>
+              <div className="zeit">
+                <div className='angabezeit'>Ort: &nbsp;</div>
+                {event.place}
+              </div>
+              <div className="eventnameAusnahme">
+                <div className='angabezeit'>Worum geht es bei dem {event.topic}? &nbsp;</div>
+                <div className="textEv">
+                  {event.longDescription}
                 </div>
-                <div className="zeit">
-                  <div className='angabezeit'>Zeit: &nbsp;</div>
-                  {event.time}
+              </div>
+              <div className="eventnameAusnahme">
+                <div className='angabezeit'>Wie nehme ich bei dem {event.topic} teil? &nbsp;</div>
+                <div className="textEv">
+                  Beim {event.topic} kann man teilnehmen, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. Wenn Sie den gedrückt haben, können Sie sich dann für den {event.topic} anmelden.
                 </div>
-                <div className="eventnameAusnahme">
-                  <div className='angabezeit'>Worum geht es bei dem {event.topic}? &nbsp;</div>
-                  <div className="textEv">
-                    {event.longDescription}
-                  </div>
-                </div>
-                <div className="eventnameAusnahme">
-                  <div className='angabezeit'>Wie nehme ich bei dem {event.topic} teil? &nbsp;</div>
-                  <div className="textEv">
-                    Beim {event.topic} kann man teilnehmen, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. Wenn Sie den gedrückt haben, können Sie sich dann für den {event.topic} anmelden.
-                  </div>
-                  <br />
-                  <div className="posLi">
-                    <div className="eventname" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={press}>
-                      ← Zurück
-                    </div>
-                    <div className="eventname" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
-                      Ich bin ein/e Schüler*in.
-                    </div>
+                <br />
+                <div className="posLi">
+                  
+                  <div className="eventname" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
+                    Ich bin ein/e Schüler*in.
                   </div>
                 </div>
               </div>
             </div>
-          ))}
-        </>
-      )}
-    </>
+          </div>
+        ))}
+      </>
+    )}
+  </>
+    
   );
 }
 
@@ -333,3 +302,4 @@ function InEvent({ remove, events }) {
     </div>
   );
 }
+
