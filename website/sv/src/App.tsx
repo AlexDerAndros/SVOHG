@@ -308,9 +308,15 @@ function HeaderBottom() {
 }
 
 function Startseite() {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);  
+  const [flexboxPopup, setFlexboxPopup] = useState('flex');
+  const [heightpopup, setheightpopup] = useState('translateY(100vh)');
 
   useEffect(() => {
+    setTimeout(() => {
+      setheightpopup('translateY(5vh)');
+    }, 1000);
+
     async function fetchEvents() {
       try {
         const eventsCol = collection(db, 'events');
@@ -354,8 +360,31 @@ function Startseite() {
     //Same hier.
   }
 
+
+
+  function deletePopup() {
+    setFlexboxPopup('none');
+    console.log('Popup display set to none');
+  }
+
+
   return (
     <div style={{ background: "rgba(250, 255, 238, 0.993)" }}>
+      <div className="popup" style={{ display: flexboxPopup, transform: heightpopup }}>
+            <div className="innen_3">
+                <div className="title_popup">
+                  <div className='bold'>
+                  Cookie-Zustimmung
+                  </div>
+                  <br />
+                Wir verwenden Cookies, um Ihre Erfahrung auf unserer Website zu verbessern. Indem Sie auf „Akzeptieren“ klicken, stimmen Sie der Verwendung von Cookies zu. Wenn Sie auf „Ablehnen“ klicken, werden keine Cookies gesetzt.
+                </div>
+                <div className="text_pop">
+                <button className="button_cookies" onClick={deletePopup}>Akzeptieren</button>
+                <button className="button_cookies" onClick={deletePopup}>Ablehnen</button>
+                </div>
+            </div>
+        </div>
       <div className="all_container"></div>
       <div className="anfang">
         <div className='img-containerSV'>
