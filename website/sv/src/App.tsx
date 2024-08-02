@@ -311,18 +311,50 @@ function Startseite() {
   const [events, setEvents] = useState<Event[]>([]);  
   const [flexboxPopup, setFlexboxPopup] = useState('flex');
   const [heightpopup, setheightpopup] = useState('translateY(100vh)');
+  const COOKIE_NAME = 'cookieConsent';
+  const COOKIE_EXPIRY_DAYS = 2; //hier kannst du veradnern wie lange diese cookie dauern wird fur die cookie consent popup 
 
+
+  //keine ahnung was das ist
+  function setCookie(name:any, value:any, days:any) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+  }
+  //keine ahnung auch hier
+  function getCookie(name:any) {
+    const cname = name + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(cname) === 0) {
+        return c.substring(cname.length, c.length);
+      }
+    }
+    return "";
+  }
+  //nichts
   useEffect(() => {
-    setTimeout(() => {
-      setheightpopup('translateY(5vh)');
-    }, 1000);
+    const cookieConsent = getCookie(COOKIE_NAME);
+    if (!cookieConsent) {
+      setTimeout(() => {
+        setheightpopup('translateY(5vh)');
+      }, 1000);
+    } else {
+      setFlexboxPopup('none');
+    }
 
     async function fetchEvents() {
       try {
         const eventsCol = collection(db, 'events');
         const eventSnapshot = await getDocs(eventsCol);
         const eventList = eventSnapshot.docs.map(doc => doc.data());
-        const formattedEvents: Event[] = eventList.map(event => ({
+        const formattedEvents = eventList.map(event => ({
           ...event,
           date: event.date instanceof Timestamp ? event.date.toDate().toLocaleDateString() : event.date,
           time: event.time,
@@ -334,16 +366,6 @@ function Startseite() {
         setEvents(formattedEvents);
       } catch (error) {
         console.error("Error fetching events: ", error);
-      }
-    }
-
-    async function fetchnewevents() {
-      try {
-        //Hier werden die neuen events gefetcht
-      }
-      catch (error) {
-        console.error("Error", error)
-        //Falls efehlr pasiert
       }
     }
 
@@ -362,11 +384,12 @@ function Startseite() {
 
 
 
+
   function deletePopup() {
     setFlexboxPopup('none');
-    console.log('Popup display set to none');
+    setCookie(COOKIE_NAME, 'accepted', COOKIE_EXPIRY_DAYS);
+    console.log('Popup display set to none and cookie set');
   }
-
 
   return (
     <div style={{ background: "rgba(250, 255, 238, 0.993)" }}>
