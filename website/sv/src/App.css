@@ -956,7 +956,7 @@ html::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: green;
+  background-color: rgb(108, 143, 209) !important;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   gap: 20%;
   border: rgba(0, 139, 139, 0.459) 3px solid ;
 }
@@ -989,30 +989,39 @@ html::-webkit-scrollbar {
 }
 .bold {
   font-weight: 800;
-  font-size: 1.7vw;
+  font-size: 1.9vw;
 }
+.button_cookies:last-child {
+  background-color: rgb(245, 151, 151);box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.button_cookies:first-child {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #277527;
 
+}
 @media only screen and (max-width: 500px) 
 {
   .popup {
     z-index: 100000000;
-    height: 40vh;
+    height: 50vh;
     backdrop-filter: none !important;
-    background-color: none;
+    background-color: transparent !important;
     background: none;
     width: 100vw;
     border-radius: 0px;
     border: none;
+    box-shadow: none !important;
   }
   .innen_3 {
-    border-radius: 0px;
+    border-radius: 0px !important;
+    background-color: rgb(108, 143, 209) !important;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     width: 100vw;
     height: 100%;
     border: none;
     display: flex;
     justify-content: center;
     align-items: center ;
-    gap: 100px;
+    gap: 120px;
     flex-direction: column;
   }
   .button_cookies {
@@ -1041,7 +1050,8 @@ html::-webkit-scrollbar {
     background-color: rgb(245, 151, 151);box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
   .button_cookies:first-child {
-    background-color: rgba(100, 148, 237, 0.466) !important;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: #277527;
 
   }
   @media only screen and (max-height: 784px) 
@@ -1062,3 +1072,41 @@ html::-webkit-scrollbar {
     }
   }
 }
+
+@media only screen and (max-width: 379px) {
+  .title {
+    font-size: 19px !important;
+  }
+}
+
+@media only screen and (max-width: 368px) {
+  .title {
+    font-size: 17px !important;
+  }
+}
+
+@media only screen and (max-height: 667px) {
+  .popup {
+    height: 60vh !important;
+  }
+  .innen_3 {
+    height: 50vh !important;
+  }
+}
+
+@media only screen and (max-height: 375px) {
+  .Menu {
+    font-size: 10px !important;
+  }
+}
+
+@media only screen and (max-width: 450px) 
+{
+  .events {
+    height: 600px !important;
+    gap: 0px;
+  }
+  .tabelle {
+    gap: 25px;
+  }
+} 

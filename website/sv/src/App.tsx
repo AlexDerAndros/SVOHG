@@ -386,7 +386,8 @@ function Startseite() {
 
 
   function deletePopup() {
-    setFlexboxPopup('none');
+    setheightpopup('translateY(100vh)');
+    //setFlexboxPopup('none');
     setCookie(COOKIE_NAME, 'accepted', COOKIE_EXPIRY_DAYS);
     console.log('Popup display set to none and cookie set');
   }
