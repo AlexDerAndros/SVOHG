@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import { gsap } from 'gsap';
 import { Routes, BrowserRouter, Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faHouse, faMagnifyingGlass, faTimes, faRightToBracket, faPenToSquare, faArrowUpFromBracket} from '@fortawesome/free-solid-svg-icons';
@@ -393,7 +394,7 @@ function Startseite() {
   }
 
   return (
-    <div style={{ background: "rgba(250, 255, 238, 0.993)" }}>
+    <div   className='abc123' style={{ background: "rgba(250, 255, 238, 0.993)" }}>
       <div className="popup" style={{ display: flexboxPopup, transform: heightpopup }}>
             <div className="innen_3">
                 <div className="title_popup">

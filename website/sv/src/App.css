@@ -3,6 +3,14 @@
       SV OHG CODE BY ALEXANDROS AND MARCO 
 
 
+░██████╗██╗░░░██╗
+██╔════╝██║░░░██║
+╚█████╗░╚██╗░██╔╝
+░╚═══██╗░╚████╔╝░
+██████╔╝░░╚██╔╝░░
+╚═════╝░░░░╚═╝░░░
+
+
       Bei SV Kasten Möglichkeit, dass man auch zum Lehrerzimmer gehen kann 
 Aktuelle Seite, markiert über bei den Links mit der Farbe: #93B96E
 Abstand zu Impressum mit @media optimieren
@@ -66,9 +74,15 @@ an „———.“  eine email schreiben
     font-size: 24px !important;
   }
 }
+.abc123 {
+  background-color: rgb(255, 253, 238) !important;
+}
 main {
   overflow-y: scroll;
   overflow-x: hidden;
+}
+.neinen {
+  z-index: -1000000000;
 }
 header {
   -webkit-tap-highlight-color: transparent;
@@ -283,6 +297,10 @@ ul {
     width: 100%;
   }
 
+}
+.img-containerSV {
+  z-index: 10000000;
+  background-color: rgb(222, 254, 255);
 }
 @media only screen and (max-width: 900px) {
   .content {

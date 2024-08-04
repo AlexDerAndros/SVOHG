@@ -4,6 +4,7 @@ import { db } from '../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { getAuth, signInAnonymously } from 'firebase/auth';
 import Cookies from 'js-cookie';
+import { gsap } from 'gsap';
 
 export default function SVKasten() {
   const [text, setText] = useState('');
@@ -12,7 +13,7 @@ export default function SVKasten() {
     const auth = getAuth();
     signInAnonymously(auth)
       .then(() => {
-        // Signed in..
+        // Signed ie
       })
       .catch((error) => {
         console.error("Authentication error:", error);
@@ -23,7 +24,26 @@ export default function SVKasten() {
     setText(event.target.value);
   };
 
-  const handleClick = async () => {
+  const handleClick = async () => {    
+    gsap.to('.button-36', {
+      x: 200,
+      y: -400,
+      borderRadius: 100,
+      opacity: 0,
+      duration: 1,
+      ease: "power1.out",
+      rotation: 360,
+    })
+    setTimeout(() => {
+      gsap.to('.button-36', {
+        x: 0,
+        y: 0,
+        borderRadius: 8,
+        opacity: 1,
+        duration: 1,
+        rotation: 0
+      }) 
+    }, 900);
     if (text.trim() !== '') {
       try {
         await addDoc(collection(db, 'messages'), {
@@ -38,10 +58,14 @@ export default function SVKasten() {
     }
   };
 
+
   return (
     <>
       <div className="main_kasten">
         <div className="center">
+          <br />
+          <br />
+          <br />
           <div className="head">
             SV Kasten 
           </div>
