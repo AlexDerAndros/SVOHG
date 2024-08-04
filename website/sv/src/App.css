@@ -342,7 +342,7 @@ footer {
   font-size: 40px;
   position: fixed;
   width: 100vw;
-  z-index: 1000000000000000000000000000000;
+  z-index: 100000000000000;
   bottom: 0 !important;
   display: flex;
   align-items: center;
