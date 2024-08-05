@@ -430,6 +430,8 @@ function Startseite() {
               </div>
               {events.map((event, index) => (
                 <div className="tabelle" key={index}>
+                  <div className="tabelle1">
+
                   <div className="zeit">
                     <div className='angabezeit'>Datum: &nbsp;</div>{event.date}
                   </div>
@@ -448,6 +450,15 @@ function Startseite() {
                     <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div><br />
                     {event.shortDescription}
                   </div>
+                  </div>
+                  <div className="tabelle2">
+                    <div className="foto">
+                      <div className="holder">
+                        <div className="abit"></div>
+                       <img className='imgbigred'  src="./test.png" alt="" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -455,6 +466,7 @@ function Startseite() {
         </div>
       </div>
       <div className="neinen"></div>
+      <div className="smally"></div>
       {/* <div className='conPos'> OKI */}
       <div className="what_de_sv">
         <div className="container">

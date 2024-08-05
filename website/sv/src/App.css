@@ -37,6 +37,17 @@ an „———.“  eine email schreiben
   display: none;
 }
 
+@media only screen and (max-width: 1024px) {
+  @media only screen and (min-height: 1366px) {
+    .tabelle2 {
+      display: none;
+    }
+    .events {
+      height: 2000px !important;
+    }
+  }
+}
+
 @media only screen and (min-height: 1000px) {
   @media only screen and (min-width: 760px) {
     @media only screen and (max-height: 1200px) {
@@ -55,7 +66,7 @@ an „———.“  eine email schreiben
     font-size: 20px;
   }
   .neinen {
-    height: 700px !important;
+    height: 900px !important;
   }
   .what_de_sv {
     justify-content: center !important;
@@ -582,8 +593,8 @@ a {
   display: flex;
   justify-content: center;
   align-items: left;
-  gap: 10%;
-  flex-direction: column;
+  gap: 20%;
+  flex-direction: row;
   border-radius: 10px;
 }
 .abstand {
@@ -1010,7 +1021,7 @@ html::-webkit-scrollbar {
   font-size: 1.9vw;
 }
 .button_cookies:last-child {
-  background-color: rgb(245, 151, 151);box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: rgba(245, 151, 151, 0.575);box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .button_cookies:first-child {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -1128,3 +1139,90 @@ html::-webkit-scrollbar {
     gap: 25px;
   }
 } 
+.foto {
+  position: absolute;
+  height: 40%;
+  width: 30%;
+  transform: translateX(-90%);
+}
+.holder {
+  height: 90%;
+  width: 90%;
+}
+.imgbigred {
+  height: 100% !important;
+  width: 100% !important;
+}
+.abit {
+  height: 10px;
+  width: 100px;
+}
+.smally {
+  display: none;
+}
+@media only screen and (max-width: 897px) {
+  .tabelle2 {
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
