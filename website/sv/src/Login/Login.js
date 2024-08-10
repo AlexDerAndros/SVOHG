@@ -71,6 +71,8 @@ export default function Login1() {
   }
 
 function LoggingIn({ setLog }) {
+  let [text, settext] = useState("password");
+
   const [click, setClick] = useState(false);
   const [username, setUsername] = useState('');
   const [googleUs, setGoogleUs] = useState('');
@@ -78,10 +80,11 @@ function LoggingIn({ setLog }) {
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [error, setError] = useState('');
-  const [seePassword, setSeePassword] = useState('');
+  const [seePassword, setSeePassword] = useState(false); // Changed to boolean
   const eyePassword = () => {
     setSeePassword(!seePassword);
   }
+  
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => {
@@ -95,13 +98,16 @@ function LoggingIn({ setLog }) {
   const press = () => {
     setClick(!click);
   }
+
   let icSee; 
-  if (seePassword == true) {
+  if (seePassword) {
     icSee = <FontAwesomeIcon className="icSee" icon={faEye} style={{ color:"white"}} onClick={eyePassword}/>; 
+    text = "text";  // Show password
   } else {
     icSee = <FontAwesomeIcon className="icSee" icon={faEyeSlash} style={{ color:"white"}} onClick={eyePassword}/>;
-    
+    text = "password";  // Hide password
   }
+
   const logBtn = async (event) => {
     event.preventDefault();
     try {
@@ -192,16 +198,13 @@ function LoggingIn({ setLog }) {
               <label htmlFor="password">Passwort</label>
               <div className="nono"></div>
               <div className="posINPA">
-              <input type="password"
+              <input type={seePassword ? "text" : "password"}
                 placeholder="&nbsp;Erstelle ein Passwort..."
                 id="password"
                 value={registerPassword}
                 onChange={(e) => setRegisterPassword(e.target.value)} /> 
                  {icSee}
                 </div>
-                  <div className="paSee" style={{fontSize: seePassword ? "3.5vw" : "0vw"}} >
-                    Passwort: {registerPassword}
-                  </div>  
               <button className="button" onClick={register}>Registrieren</button>
             </div>
           </div>
@@ -224,16 +227,13 @@ function LoggingIn({ setLog }) {
               <label htmlFor="password">Passwort</label>
               <div className="nono"></div>
               <div className="posINPA">
-              <input type="password"
-                placeholder="&nbsp; Passwort..."
+              <input type={seePassword ? "text" : "password"}
+                placeholder=" Passwort"
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} />
                  {icSee}
                 </div>
-                <div className="paSee" style={{fontSize: seePassword ? "2.5vw" : "0vw"}} >
-                    Passwort: {password}
-                  </div>  
               <button className="button" onClick={logBtn}>Einloggen</button>
                
               {error && <p style={{ color: 'red' }}>{error}</p>} 
@@ -254,6 +254,7 @@ function LoggingIn({ setLog }) {
     </div>
   );
 }
+
 
 function LoggedIn({ setLog }) {
   const username = Cookies.get("user");

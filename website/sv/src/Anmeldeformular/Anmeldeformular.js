@@ -132,7 +132,7 @@ function Event({ events,  remove, clickEF, setClickEF}) {
                 <br />
                 <div className="posLi">
                   
-                  <div className="eventname" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
+                  <div className="eventname1" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
                     Ich bin ein/e Schüler*in.
                   </div>
                 </div>
@@ -224,7 +224,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
               </button>
             </div>
             <br />
-            <div className="eventname" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
+            <div className="eventname1" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
               ← Zurück
             </div>
           </div>

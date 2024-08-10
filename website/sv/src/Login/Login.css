@@ -11,14 +11,17 @@ input{
     justify-self: center;
     width: 80%;
     background-color: rgba(255,255,255,0.07);
-    border-radius: 3px;
+    border-radius: 0 !important;
     font-size: 14px;
     font-weight: 300;
     z-index: 1000;
     height: 50px;
     display: flex;
     justify-content: center;
-    border: rgb(127, 163, 231) 1px solid;
+    border-bottom: rgb(127, 163, 231) 1px solid !important;
+    border-top: transparent !important;
+    border-left: transparent !important;
+    border-right: transparent !important;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
     border-radius: 5px;
 }
@@ -176,9 +179,14 @@ button:focus {
     transition: transform 0.2s ease-in-out;
 }
 input:focus{
-    transform: scale(1.05);
-    transition: transform 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
     outline: none;
+}
+input::placeholder {
+    transition: 0.5s ease-in-out;
+}
+input:focus::placeholder {
+    transform: translateX(100vw);
 }
 .change {
     color: black;

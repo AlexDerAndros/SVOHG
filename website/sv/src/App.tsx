@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { gsap } from 'gsap';
 import { Routes, BrowserRouter, Route, Link } from 'react-router-dom';
@@ -20,6 +20,7 @@ import { getDoc, setDoc, collection, getDocs, getFirestore , Timestamp} from "fi
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 
 
@@ -308,7 +309,59 @@ function HeaderBottom() {
   );
 }
 
-function Startseite() {
+
+function Startseite() {  
+  const svRef = useRef(null);
+  const wofurRef = useRef(null);
+  const kontaktRef = useRef(null);
+  const beitretenRef = useRef(null);
+
+  useEffect(() => {
+    gsap.from(svRef.current, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: svRef.current,
+        start: 'top 80%', // when the top of the element is 80% from the top of the viewport
+        toggleActions: 'play none none reverse',
+      },
+    });
+
+    gsap.from(wofurRef.current, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: wofurRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      },
+    });
+
+    gsap.from(kontaktRef.current, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: kontaktRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      },
+    });
+
+    gsap.from(beitretenRef.current, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: beitretenRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      },
+    });
+  }, []);
+
   const [events, setEvents] = useState<Event[]>([]);  
   const [flexboxPopup, setFlexboxPopup] = useState('flex');
   const [heightpopup, setheightpopup] = useState('translateY(100vh)');

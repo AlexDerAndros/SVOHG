@@ -942,7 +942,7 @@ html::-webkit-scrollbar {
   justify-content: center;
   flex-direction: column;
   gap: 40px;
-  background-color: #2fca377c;
+  background-color: #3bb1377c;
   color: rgb(0, 0, 0);
   font-family: poppins;
   height: 390px;
