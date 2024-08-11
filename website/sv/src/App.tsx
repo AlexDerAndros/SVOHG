@@ -5,7 +5,7 @@ import { Routes, BrowserRouter, Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faHouse, faMagnifyingGlass, faTimes, faRightToBracket, faPenToSquare, faArrowUpFromBracket} from '@fortawesome/free-solid-svg-icons';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
 import Login1 from './Login/Login';
@@ -310,27 +310,32 @@ function HeaderBottom() {
 }
 
 
-function Startseite() {  
-  const svRef = useRef(null);
-  const wofurRef = useRef(null);
-  const kontaktRef = useRef(null);
-  const beitretenRef = useRef(null);
+gsap.registerPlugin(ScrollTrigger);
+
+function Startseite() {
+  const svRef = useRef<HTMLDivElement | null>(null);
+  const wofurRef = useRef<HTMLDivElement | null>(null);
+  const kontaktRef = useRef<HTMLDivElement | null>(null);
+  const beitretenRef = useRef<HTMLDivElement | null>(null);
+  const questionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    // Animation for svRef (comes from bottom)
     gsap.from(svRef.current, {
       opacity: 0,
       y: 50,
       duration: 1,
       scrollTrigger: {
         trigger: svRef.current,
-        start: 'top 80%', // when the top of the element is 80% from the top of the viewport
+        start: 'top 80%',
         toggleActions: 'play none none reverse',
       },
     });
 
+    // Animation for wofurRef (comes from left)
     gsap.from(wofurRef.current, {
       opacity: 0,
-      y: 50,
+      x: -50,
       duration: 1,
       scrollTrigger: {
         trigger: wofurRef.current,
@@ -339,9 +344,10 @@ function Startseite() {
       },
     });
 
+    // Animation for kontaktRef (comes from top)
     gsap.from(kontaktRef.current, {
       opacity: 0,
-      y: 50,
+      y: -50,
       duration: 1,
       scrollTrigger: {
         trigger: kontaktRef.current,
@@ -350,9 +356,10 @@ function Startseite() {
       },
     });
 
+    // Animation for beitretenRef (comes from right)
     gsap.from(beitretenRef.current, {
       opacity: 0,
-      y: 50,
+      x: 50,
       duration: 1,
       scrollTrigger: {
         trigger: beitretenRef.current,
@@ -360,40 +367,48 @@ function Startseite() {
         toggleActions: 'play none none reverse',
       },
     });
-  }, []);
 
-  const [events, setEvents] = useState<Event[]>([]);  
-  const [flexboxPopup, setFlexboxPopup] = useState('flex');
-  const [heightpopup, setheightpopup] = useState('translateY(100vh)');
-  const COOKIE_NAME = 'cookieConsent';
-  const COOKIE_EXPIRY_DAYS = 2; //hier kannst du veradnern wie lange diese cookie dauern wird fur die cookie consent popup 
+    // Animation for questionsRef
+    questionsRef.current.forEach((question, index) => {
+      if (question) {
+        let animationProps: gsap.TweenVars = { opacity: 0, y: 50 };
 
+        switch (index) {
+          case 0:
+            animationProps = { ...animationProps, y: 50 }; // From bottom
+            break;
+          case 1:
+            animationProps = { ...animationProps, x: -50 }; // From left
+            break;
+          case 2:
+            animationProps = { ...animationProps, y: -50 }; // From top
+            break;
+          case 3:
+            animationProps = { ...animationProps, x: 50 }; // From right
+            break;
+          default:
+            break;
+        }
 
-  //keine ahnung was das ist
-  function setCookie(name:any, value:any, days:any) {
-    const date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    const expires = "expires=" + date.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-  }
-  //keine ahnung auch hier
-  function getCookie(name:any) {
-    const cname = name + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1);
+        gsap.fromTo(
+          question,
+          animationProps,
+          {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            scrollTrigger: {
+              trigger: question,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+            duration: 1.5,
+            ease: 'power2.out',
+          }
+        );
       }
-      if (c.indexOf(cname) === 0) {
-        return c.substring(cname.length, c.length);
-      }
-    }
-    return "";
-  }
-  //nichts
-  useEffect(() => {
+    });
+
     const cookieConsent = getCookie(COOKIE_NAME);
     if (!cookieConsent) {
       setTimeout(() => {
@@ -426,50 +441,70 @@ function Startseite() {
     fetchEvents();
   }, []);
 
+  const [events, setEvents] = useState<any[]>([]);
+  const [flexboxPopup, setFlexboxPopup] = useState('flex');
+  const [heightpopup, setheightpopup] = useState('translateY(100vh)');
+  const COOKIE_NAME = 'cookieConsent';
+  const COOKIE_EXPIRY_DAYS = 2;
+
+  function setCookie(name: string, value: string, days: number) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+  }
+
+  function getCookie(name: string) {
+    const cname = name + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(cname) === 0) {
+        return c.substring(cname.length, c.length);
+      }
+    }
+    return "";
+  }
+
   function eventdavor() {
     alert("N");
-    //Alex rest must du machen ich habe keine ahnung wie man das macht
   }
 
   function nachstesevent() {
     alert("B");
-    //Same hier.
   }
-
-
-
 
   function deletePopup() {
     setheightpopup('translateY(100vh)');
-    //setFlexboxPopup('none');
     setCookie(COOKIE_NAME, 'accepted', COOKIE_EXPIRY_DAYS);
     console.log('Popup display set to none and cookie set');
   }
 
   return (
-    <div   className='abc123' style={{ background: "rgba(250, 255, 238, 0.993)" }}>
+    <div className='abc123' style={{ background: "rgba(250, 255, 238, 0.993)" }}>
       <div className="popup" style={{ display: flexboxPopup, transform: heightpopup }}>
-            <div className="innen_3">
-                <div className="title_popup">
-                  <div className='bold'>
-                  Cookie-Zustimmung
-                  </div>
-                  <br />
-                Wir verwenden Cookies, um Ihre Erfahrung auf unserer Website zu verbessern. Indem Sie auf „Akzeptieren“ klicken, stimmen Sie der Verwendung von Cookies zu. Wenn Sie auf „Ablehnen“ klicken, werden keine Cookies gesetzt.
-                </div>
-                <div className="text_pop">
-                <button className="button_cookies" onClick={deletePopup}>Akzeptieren</button>
-                <button className="button_cookies" onClick={deletePopup}>Ablehnen</button>
-                </div>
-            </div>
+        <div className="innen_3">
+          <div className="title_popup">
+            <div className='bold'>Cookie-Zustimmung</div>
+            <br />
+            Wir verwenden Cookies, um Ihre Erfahrung auf unserer Website zu verbessern. Indem Sie auf „Akzeptieren“ klicken, stimmen Sie der Verwendung von Cookies zu. Wenn Sie auf „Ablehnen“ klicken, werden keine Cookies gesetzt.
+          </div>
+          <div className="text_pop">
+            <button className="button_cookies" onClick={deletePopup}>Akzeptieren</button>
+            <button className="button_cookies" onClick={deletePopup}>Ablehnen</button>
+          </div>
         </div>
+      </div>
       <div className="all_container"></div>
       <div className="anfang">
         <div className='img-containerSV'>
           <img src='./SV.jpg' className='imgSV' alt='Foto' />
         </div>
-        <br />
-        <br />
+        <br /><br />
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <div className='text_container'>
             <div className="hallo">Hallo!</div>
@@ -478,37 +513,36 @@ function Startseite() {
             <div className="events" style={{ width: "80%" }}>
               <div className="coneven">
                 <div className="davor" onClick={eventdavor}>Event davor</div>
-                <div className="title_events"> Aktuelles Event</div>
+                <div className="title_events">Aktuelles Event</div>
                 <div className="danach" onClick={nachstesevent}>Nächstes Event</div>
               </div>
               {events.map((event, index) => (
                 <div className="tabelle" key={index}>
                   <div className="tabelle1">
-
-                  <div className="zeit">
-                    <div className='angabezeit'>Datum: &nbsp;</div>{event.date}
-                  </div>
-                  <div className="zeit">
-                    <div className='angabezeit'>Zeit: &nbsp;</div>
-                    {event.time}
-                  </div>
-                  <div className="zeit">
-                    <div className='angabezeit'>Ort: &nbsp;</div>{event.place}
-                  </div>
-                  <div className="eventname">
-                    <div className='angabezeit'>Thema: &nbsp;</div><br />
-                    {event.topic}
-                  </div>
-                  <div className="eventname">
-                    <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div><br />
-                    {event.shortDescription}
-                  </div>
+                    <div className="zeit">
+                      <div className='angabezeit'>Datum: &nbsp;</div>{event.date}
+                    </div>
+                    <div className="zeit">
+                      <div className='angabezeit'>Zeit: &nbsp;</div>
+                      {event.time}
+                    </div>
+                    <div className="zeit">
+                      <div className='angabezeit'>Ort: &nbsp;</div>{event.place}
+                    </div>
+                    <div className="eventname">
+                      <div className='angabezeit'>Thema: &nbsp;</div><br />
+                      {event.topic}
+                    </div>
+                    <div className="eventname">
+                      <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div><br />
+                      {event.shortDescription}
+                    </div>
                   </div>
                   <div className="tabelle2">
                     <div className="foto">
                       <div className="holder">
                         <div className="abit"></div>
-                       <img className='imgbigred'  src="./test.png" alt="" />
+                        <img className='imgbigred' src="./test.png" alt="" />
                       </div>
                     </div>
                   </div>
@@ -518,66 +552,63 @@ function Startseite() {
           </div>
         </div>
       </div>
-      <div className="neinen"></div>
-      <div className="smally"></div>
-      {/* <div className='conPos'> OKI */}
-      <div className="what_de_sv">
-        <div className="container">
-          <div className='gap_containers_2'></div>
-          <div className='headContainer_2'>Was ist die SV?</div>
-          <div className='text_2'>
-            Der Begriff SV bedeutet Schülervertretung. Wir vertreten die Interessen und Probleme der Schüler*innen bei Lehrer*innen, damit die Schule für alle ein besserer Ort ist und jeder sich wohlfühlen kann.
+      <div className="back"></div>
+      <div className="questions">
+        <div
+          className="question"
+          ref={(el) => (questionsRef.current[0] = el)}
+        >
+          <div className="titleq">
+            Was ist die SV?
           </div>
-        </div>
-        {/* </div> */}
-      </div>
-      <br />
-      <br />
-      <br />
-      {/* <div className='center'> */}
-      <div className="wofur">
-        <div className='container2'>
-          <div className='headContainer'>Wofür ist die SV da?</div>
-          <div className='text'>
+          <div className="textq">
             Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
           </div>
         </div>
-        {/* </div> */}
-      </div>
-      <br />
-      <br />
-      <br />
-      {/* <div className='center'> */}
-      <div className="wiekontakt">
-        <div className="container_33">
-          <div className='headContainer'>
+        <div
+          className="question"
+          ref={(el) => (questionsRef.current[1] = el)}
+        >
+          <div className="titleq">
             Wie könnt ihr uns kontaktieren?
           </div>
-          <div className="text_23">
+          <div className="textq">
             Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
           </div>
-          {/* </div> */}
         </div>
-      </div>
-      <br />
-      <br />
-      <br />
-      {/* <div className='center'> */}
-      <div className='wiejoin'>
-        <div className="container_4">
-          <div className='headContainer'>
+        <div
+          className="question"
+          ref={(el) => (questionsRef.current[2] = el)}
+        >
+          <div className="titleq">
+            Wie könnt ihr uns kontaktieren?
+          </div>
+          <div className="textq">
+            Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben. Das wird alles auch anonymusch gemacht.
+          </div>
+        </div>
+        <div
+          className="question"
+          ref={(el) => (questionsRef.current[3] = el)}
+        >
+          <div className="titleq">
             Wie kann man die SV beitreten?
           </div>
-          <div className="text_23">
-          Um in die SV zu kommen musst du ein Klassensprecher oder Stufensprecher sein. Außerdem musst du mindestens in der 9.Klasse sein. Wenn man diese Bedingungen erfüllt, kommt man automatisch in die SV.
+          <div className="textq">
+            Um in die SV zu kommen musst du ein Klassensprecher oder Stufensprecher sein. Außerdem musst du mindestens in der 9.Klasse sein. Wenn man diese Bedingungen erfüllt, kommt man automatisch in die SV.
           </div>
         </div>
       </div>
-      {/* </div> */}
+      <div className="line1"></div>
+      <div className="ic1">
+        <FontAwesomeIcon icon={faCalendarDays} className='calendar'/>
+      </div>
+      <div className="line2"></div>
       <AboutUs />
     </div>
   );
 }
+
 /* FUR INSTAGRAMM POSTS IN DER WEBSITE
 interface InstagramPostProps {
   src: string;
@@ -699,7 +730,11 @@ function Search() {
          <ul className='searchItems'>
          {filteredItems.map(item =>(
            <li key={item.index} className='searchItem' onClick={item.press}>
-            {item.theme}
+            <div className="centerli">
+            <div className="containerli">
+                {item.theme}
+            </div>
+            </div>
            </li>
          ))}
         </ul>

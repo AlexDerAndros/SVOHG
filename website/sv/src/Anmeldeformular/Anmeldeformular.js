@@ -1,5 +1,6 @@
 import "./Anmeldeformular.css";
 import Cookies from 'js-cookie';
+import gsap from "gsap";
 import { useState, useEffect } from "react";
 
 import { auth, db } from "../config/firebase"; 
@@ -91,7 +92,13 @@ function Event({ events,  remove, clickEF, setClickEF}) {
   const [clickF, setClickF] = useState(false);
 
   const pressF = () => {
-    setClickF(!clickF);
+    gsap.to(".eventname1", {
+      opacity: '10%',
+      duration: 0.5
+    })
+      setTimeout(() => {
+        setClickF(!clickF);
+      }, 500);
   };
 
   return (
@@ -166,6 +173,21 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
   useEffect(() => {}, []);
 
   const sendForm = async () => {
+    gsap.to('.bearbeiten1', {
+      borderRadius: '100%',
+      width: '70px', // Add unit 'px'
+      opacity: 0,
+      duration: 1,
+      onComplete: () => {
+        // Animate back to the initial state
+        gsap.to('.bearbeiten1', {
+          borderRadius: '8px',
+          width: '13rem',
+          opacity: 1,
+          duration: 1
+        });
+      }
+    });
     if (VN.trim() !== '' && NN.trim() !== '' && email.trim() !== '' && geb.trim() !== '' && kla.trim() !== '') {
       await addDoc(collection(db, "userEvents"), {
         title: VN + '' + NN,
@@ -219,7 +241,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
             <div className="infoIN">E-Mail:</div> 
             <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)} />
             <div className="btnPos">
-              <button className="bearbeiten" onClick={sendForm} style={{ marginTop: "5%" }}>
+              <button className="bearbeiten1" onClick={sendForm} style={{ marginTop: "5%" }}>
                 Senden
               </button>
             </div>

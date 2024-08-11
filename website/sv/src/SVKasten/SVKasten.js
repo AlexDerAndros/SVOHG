@@ -25,25 +25,6 @@ export default function SVKasten() {
   };
 
   const handleClick = async () => {    
-    gsap.to('.button-36', {
-      x: 200,
-      y: -400,
-      borderRadius: 100,
-      opacity: 0,
-      duration: 1,
-      ease: "power1.out",
-      rotation: 360,
-    })
-    setTimeout(() => {
-      gsap.to('.button-36', {
-        x: 0,
-        y: 0,
-        borderRadius: 8,
-        opacity: 1,
-        duration: 1,
-        rotation: 0
-      }) 
-    }, 900);
     if (text.trim() !== '') {
       try {
         await addDoc(collection(db, 'messages'), {
