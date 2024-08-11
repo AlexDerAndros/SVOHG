@@ -293,7 +293,7 @@ function AdminDashboard({ setLog }) {
   const [teilnehmer, setTeilnehmer] = useState([]); 
   const [ moreSize, setMoreSize] = useState(false);
   const [timestamp, setTimestamp] = useState('');
-  const [visibleMessages, setVisibleMessages] = useState(3); // State to control number of visible messages
+  const [visibleMessages, setVisibleMessages] = useState(6); // State to control number of visible messages
   const username = Cookies.get("user");
 
   const fetchEvents = async () => {
@@ -405,6 +405,9 @@ function AdminDashboard({ setLog }) {
        alert('Fehler: ' + error.message);
      }
    };
+
+   const sortedMessages = messages.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
+
   return (
     <div className="siteAdmin" style={{marginBottom:"100vh"}}>
       <div className="welcome">
@@ -416,34 +419,63 @@ function AdminDashboard({ setLog }) {
         </button>
       </div>
       <div className="adminDashboard" style={{marginBottom:"50vh"}}>
-        <h2> Admin Dashboard</h2>
+         <h2>Admin Dashboard</h2>
         <div className='msg'>
+        <div className='titlead'>
           <h2>Nachichten</h2>
-          {messages.slice(0, visibleMessages).map(message => (
-            <div key={message.id}>
-              <p>{message.text}</p>
-              <p>{message.timestamp ? new Date(message.timestamp.seconds * 1000).toLocaleString() : 'No timestamp available'}</p>
-              {/* <button onClick={deleteMessage}> Löschen</button> */}
-            </div>
-          ))}
+          </div>
+  <div className="log123ad">
+    {sortedMessages.slice(0, visibleMessages).map(message => (
+      <div className="msg123" tabindex={0} key={message.id}>
+        <p>{message.text}</p>
+        <p>{message.timestamp ? new Date(message.timestamp.seconds * 1000).toLocaleString() : 'Keine datum da'}</p>
+        {/* <button onClick={deleteMessage}> Löschen</button> */}
+      </div>
+    ))}
+  </div>
           {visibleMessages < messages.length && (
             <button onClick={handleSeeMore} className='seemore'>See More</button>
           )}
         </div>
         <br />
         <br />
+        <div className='msg'>
+        <div className="titleposMsg">
+          <h2 style={{width:'100%', display:'flex',justifyContent:'center'}}>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}</>))}</h2>
+        </div>
+        <div className="gridContainer">
+  {teilnehmer.map((item) => (
+    <div className="person" key={item.id}>
+      <div className="container_33log">
+        <div className='headContainerlog'>
+          {item.name}
+        </div>
+      </div>
+      <ul>
+        <li>Alter: {item.age}</li>
+        <li>Klasse: {item.Klasse}</li>
+        <li>E-Mail: {item.email}</li>
+      </ul>
+    </div>
+  ))}
+</div>
+    </div>
+    <br />
+    <br />
         {events.map(event => (
           <div key={event.id} className="events_fff">
             <div className="events_asdf">
               <div className="title_asdf">
-                <h3>Events bearbeiten</h3>
+                <h2>Events bearbeiten</h2>
               </div>
-              <p>Datum: {event.date.toDate().toLocaleDateString()}</p>
-              <p>Zeit: {event.time}</p>
-              <p>Ort: {event.place}</p>
-              <p>Thema: {event.topic}</p>
-              <p>Kurze Beschreibung: {event.shortDescription}</p>
-              <p>Was ist es?: {event.longDescription}</p>
+              <div className="textasdf123">
+              <p tabIndex={0}>Datum: {event.date.toDate().toLocaleDateString()}</p>
+              <p tabIndex={0}>Zeit: {event.time}</p>
+              <p tabIndex={0}>Ort: {event.place}</p>
+              <p tabIndex={0}>Thema: {event.topic}</p>
+              <p tabIndex={0}>Kurze Beschreibung: {event.shortDescription}</p>
+              <p tabIndex={0}>Was ist es?: {event.longDescription}</p>
+              </div>
 
             </div>
             <br />
@@ -453,6 +485,9 @@ function AdminDashboard({ setLog }) {
         ))}
         <br />
         <br />
+
+    <br />
+    <br />
         {editEvent && (
           <div className="bearbeitenpop">
             <h2>Event bearbeiten</h2>
@@ -525,35 +560,14 @@ function AdminDashboard({ setLog }) {
 
       </div>
       
-      <div className="posMSG">
-      <div className='msg' style={{height: editEvent ? "0vh" : "auto", color: editEvent ? "transparent" : "white"}}>
-          <h2 style={{width:'100%', display:'flex',justifyContent:'center'}}>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}
-          </>))}</h2>
-          {teilnehmer.map((item) => (
-            <>
-           
-            <div className="container_33">
-                <div className='headContainer'>
-                   {item.name}
-               </div>
-
-            </div>
-            <ul>
-              <li>
-                Alter: {item.age}
-              </li>
-              <li>
-                Klasse: {item.Klasse}
-              </li>
-              <li>
-                E-Mail: {item.email}
-              </li>
-            </ul>
-            </>
-           
-          ))}
-    </div>
-    </div>
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
+     <br />
     <div style={{height:'150vh', width:"100vw", zIndex:"-100"}}></div>
     </div>
   );
@@ -821,31 +835,25 @@ function DeveloperDashboard({ setLog }) {
       
       <div className="posMSG">
       <div className='msg' style={{height: editEvent ? "0vh" : "auto", color: editEvent ? "transparent" : "white", marginTop:"20vh"}}>
-          <h2 style={{width:'100%', display:'flex',justifyContent:'center'}}>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}
-          </>))}</h2>
-          {teilnehmer.map((item) => (
-            <>
-           
-            <div className="container_33">
-                <div className='headContainer'>
-                   {item.name}
-               </div>
-
-            </div>
-            <ul>
-              <li>
-                Alter: {item.age}
-              </li>
-              <li>
-                Klasse: {item.Klasse}
-              </li>
-              <li>
-                E-Mail: {item.email}
-              </li>
-            </ul>
-            </>
-           
-          ))}
+        <div className="titleposMsg">
+          <h2>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}</>))}</h2>
+        </div>
+        <div className="gridContainer">
+  {teilnehmer.map((item) => (
+    <div className="person" key={item.id}>
+      <div className="container_33log">
+        <div className="headContainerlog">
+          {item.name}
+        </div>
+      </div>
+      <ul>
+        <li>Alter: {item.age}</li>
+        <li>Klasse: {item.Klasse}</li>
+        <li>E-Mail: {item.email}</li>
+      </ul>
+    </div>
+  ))}
+</div>
     </div>
     </div>
    

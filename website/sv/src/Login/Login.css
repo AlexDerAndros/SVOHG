@@ -227,13 +227,95 @@ input:focus::placeholder {
     align-items: center;
     border: solid rgba(255, 0, 0, 0) 1px;
     color: white;
-    background-color: rgb(2, 70, 2);
+    background-color: #d3d3d3af;
     border-radius: 4px;
     flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.textasdf123 {
+    background-color: #f0f0f000;
+    width: 90%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust to desired number of columns */
+    grid-gap: 10px; /* Space between grid items */
+    padding: 10px; /* Padding around the grid container */
+}
+
+.textasdf123 > p {
+    background-color: #003300;
+    height: auto; /* Adjust height based on content */
+    padding: 10px; /* Internal padding for content */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px; /* Optional: Rounded corners */
+}
+
+.textasdf123 > p:focus {
+    background-color: #006600;
+    outline: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .posMSG {
+        transform: translateY(200px) !important;
+    }
+
+}
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Creates responsive columns */
+    grid-gap: 20px; /* Space between grid items */
+    padding: 10px; /* Padding around the grid container */
+}
+
+.person {
+    background-color: #003300;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensure space is distributed vertically */
+    padding: 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 100%; /* Ensure it fills the grid cell's height */
+    overflow: hidden; /* Prevent content overflow */
+}
+
+.container_33log {
+    background-color: #004400;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.headContainerlog {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.titleposMsg {
+    width: 100%;
+    display: flex;
+    height: 20%;
+    background-color: #003300 !important;
 }
 .title_asdf {
     width: 100%;
-    height: 5vh;
+    height: 20%;
     display: flex;
     justify-content: center;
     border-radius: 5px;
@@ -298,7 +380,7 @@ form {
     font-family: roboto;
     width: 70vw;
     height: auto + 100px;
-    background-color: #034903;
+    background-color: #d3d3d3af;
     color: white;
     display: flex;
     align-items: center;
@@ -306,12 +388,46 @@ form {
     border-radius: 4px;
     justify-content: center;
     transition: 0.3s ease-in;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .seemore {
     background-color: #034903;
     color: white;
     font-family: roboto;
-    border: white 2px solid;
+    border: none;
+    height: 40px;
+    width: 120px;
+    border-radius: 5px;
+}
+.titlead {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #034903;
+}
+
+.log123ad {
+    transition: 0.5s ease-in-out;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust column size as needed */
+    grid-gap: 20px; /* Space between items */
+    width: 100%; /* Full width of the container */
+    padding: 10px; /* Optional padding around the grid */
+}
+
+.msg123 {
+    background-color: #003300;
+    padding: 10px; /* Add some padding inside each .msg123 */
+    text-align: center; /* Center the text inside .msg123 */
+    border-radius: 5px; /* Optional: Rounded corners */
+    color: white; /* Optional: Text color */
+    cursor: pointer; 
+    transition: 0.25s ease-in-out;
+}
+.msg123:focus {
+    background-color: #006600;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 .posMSG {
     width: 100vw;
