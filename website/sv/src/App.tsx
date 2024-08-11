@@ -323,7 +323,7 @@ function Startseite() {
     // Animation for svRef (comes from bottom)
     gsap.from(svRef.current, {
       opacity: 0,
-      y: 50,
+      y: 100,
       duration: 1,
       scrollTrigger: {
         trigger: svRef.current,
@@ -335,7 +335,7 @@ function Startseite() {
     // Animation for wofurRef (comes from left)
     gsap.from(wofurRef.current, {
       opacity: 0,
-      x: -50,
+      x: -100,
       duration: 1,
       scrollTrigger: {
         trigger: wofurRef.current,
@@ -347,7 +347,7 @@ function Startseite() {
     // Animation for kontaktRef (comes from top)
     gsap.from(kontaktRef.current, {
       opacity: 0,
-      y: -50,
+      y: -100,
       duration: 1,
       scrollTrigger: {
         trigger: kontaktRef.current,
@@ -359,7 +359,7 @@ function Startseite() {
     // Animation for beitretenRef (comes from right)
     gsap.from(beitretenRef.current, {
       opacity: 0,
-      x: 50,
+      x: 100,
       duration: 1,
       scrollTrigger: {
         trigger: beitretenRef.current,
@@ -375,16 +375,16 @@ function Startseite() {
 
         switch (index) {
           case 0:
-            animationProps = { ...animationProps, y: 50 }; // From bottom
+            animationProps = { ...animationProps, y: 100 }; // From bottom
             break;
           case 1:
-            animationProps = { ...animationProps, x: -50 }; // From left
+            animationProps = { ...animationProps, x: -100 }; // From left
             break;
           case 2:
-            animationProps = { ...animationProps, y: -50 }; // From top
+            animationProps = { ...animationProps, y: -100 }; // From top
             break;
           case 3:
-            animationProps = { ...animationProps, x: 50 }; // From right
+            animationProps = { ...animationProps, x: 100 }; // From right
             break;
           default:
             break;
@@ -581,7 +581,7 @@ function Startseite() {
           ref={(el) => (questionsRef.current[2] = el)}
         >
           <div className="titleq">
-            Wie könnt ihr uns kontaktieren?
+            Wie kann man die SV beitreten?
           </div>
           <div className="textq">
             Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben. Das wird alles auch anonymusch gemacht.
