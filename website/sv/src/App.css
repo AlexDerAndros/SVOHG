@@ -1091,7 +1091,7 @@ html::-webkit-scrollbar {
   }
 }
 
-@media only screen and (max-height: 667px) {
+@media only screen and (max-height: 567px) {
   .popup {
     height: 60vh !important;
   }
