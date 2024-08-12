@@ -425,6 +425,22 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   background-color: rgba(250, 255, 238, 0.993);
   height: 600px;
 }
+@media only screen and (max-width: 485px) {
+  .questions .question:nth-of-type(3) .titleq {
+    font-size: 15px !important;
+  }
+  .questions .question:nth-of-type(4) .titleq {
+    font-size: 15px !important;
+  }
+}
+@media only screen and (max-width: 363px) {
+  .questions .question:nth-of-type(3) .titleq {
+    font-size: 12px !important;
+  }
+  .questions .question:nth-of-type(4) .titleq {
+    font-size: 12px !important;
+  }
+}
 .what_de_sv {
   background-color: rgba(100, 148, 237, 0.466) !important;
   display: flex;
@@ -1272,6 +1288,7 @@ html::-webkit-scrollbar {
   align-items: center;
   text-align: center;
   font-size: 20px;
+  flex-direction: row;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 @media only screen and (max-width: 500px) {
@@ -1302,6 +1319,9 @@ html::-webkit-scrollbar {
   align-items: center;
   
 }
+.linktokasten {
+  color: black;
+}
 @media only screen and (max-width: 422px) {
   .questions .question:first-child .titleq {
     font-size: 30px !important;
@@ -1313,9 +1333,11 @@ html::-webkit-scrollbar {
 }
 .question {
   height: 20%;
-  border-radius: 5px;
+  border-radius: 0px;
   width: 70%;
   background-color: #d3d3d3;
+  border-left: #7fa3e7 solid 3px;
+  border-right: #7fa3e7 solid 3px;
   display: flex;
   align-items: center;
   flex-direction: column;

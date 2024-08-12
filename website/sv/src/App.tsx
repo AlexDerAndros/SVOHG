@@ -593,7 +593,7 @@ function Startseite() {
             Wie könnt ihr &nbsp; <div className='highvs'>uns</div> &nbsp; kontaktieren?
           </div>
           <div className="textq">
-          uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
+          <a className='linktokasten' href='/SV Kasten'>  Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.  </a>
           </div>
         </div>
       </div>

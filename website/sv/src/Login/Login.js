@@ -38,20 +38,6 @@ export default function Login1() {
 
 
   useEffect(() => {
-    gsap.fromTo(
-      '.event1',
-      { opacity: 0, y: -50 }, // fromVars: element is initially hidden and positioned 50px above its final position
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        scrollTrigger: {
-          trigger: '.event1',
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    );
     const checkAdminStatus = async () => {
       const username = Cookies.get('user');
       if (username) {
