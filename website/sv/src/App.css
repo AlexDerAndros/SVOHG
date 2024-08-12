@@ -577,7 +577,7 @@ a {
     height: 550px !important;
   }
 }
-@media only screen and (min-width: 900px) {
+@media only screen and (max-width: 900px) {
   .linetop {
     display: none;
   }
