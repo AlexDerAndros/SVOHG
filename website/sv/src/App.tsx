@@ -556,7 +556,7 @@ function Startseite() {
           ref={(el) => (questionsRef.current[0] = el)}
         >
           <div className="titleq">
-            Was ist die SV?
+            Was ist die &nbsp; <div className='highvs'>SV?</div> <img className='svg123' src="./question-square.svg" alt="" />
           </div>
           <div className="textq">
             Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
@@ -567,10 +567,10 @@ function Startseite() {
           ref={(el) => (questionsRef.current[1] = el)}
         >
           <div className="titleq">
-            Wie könnt ihr uns kontaktieren?
+          Wofür ist die &nbsp; <div className='highvs'>SV</div> &nbsp; da?
           </div>
           <div className="textq">
-            Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
+          Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
           </div>
         </div>
         <div
@@ -578,10 +578,11 @@ function Startseite() {
           ref={(el) => (questionsRef.current[2] = el)}
         >
           <div className="titleq">
-            Wie kann man die SV beitreten?
+            Wie kann man die &nbsp; <div className='highvs'>SV</div> &nbsp; beitreten?
           </div>
           <div className="textq">
-            Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben. Das wird alles auch anonymusch gemacht.
+          Um in die SV zu kommen musst du ein Klassensprecher oder Stufensprecher sein. Außerdem musst du mindestens in der 9.Klasse sein. Wenn man diese Bedingungen erfüllt, kommt man automatisch in die SV.
+
           </div>
         </div>
         <div
@@ -589,10 +590,10 @@ function Startseite() {
           ref={(el) => (questionsRef.current[3] = el)}
         >
           <div className="titleq">
-            Wie kann man die SV beitreten?
+            Wie könnt ihr &nbsp; <div className='highvs'>uns</div> &nbsp; kontaktieren?
           </div>
           <div className="textq">
-            Um in die SV zu kommen musst du ein Klassensprecher oder Stufensprecher sein. Außerdem musst du mindestens in der 9.Klasse sein. Wenn man diese Bedingungen erfüllt, kommt man automatisch in die SV.
+          uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.
           </div>
         </div>
       </div>

@@ -1,10 +1,13 @@
 import "./Anmeldeformular.css";
 import Cookies from 'js-cookie';
 import gsap from "gsap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { auth, db } from "../config/firebase"; 
-import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query } from "firebase/firestore"; // import Firestore functions
+import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query } from "firebase/firestore"; 
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Anmeldeformular1() {
   const [verfügbar, setVerfügbar] = useState(false);
@@ -89,6 +92,7 @@ export default function Anmeldeformular1() {
 }
 
 function Event({ events,  remove, clickEF, setClickEF}) {
+  const eventsRefs = useRef([]);
   const [clickF, setClickF] = useState(false);
 
   const pressF = () => {
@@ -101,14 +105,30 @@ function Event({ events,  remove, clickEF, setClickEF}) {
       }, 500);
   };
 
+  useEffect(() => {
+    eventsRefs.current.forEach((ref, index) => {
+      if (ref) {
+        gsap.fromTo(
+          ref, // Target each eventRef
+          { opacity: 0, y: -50 }, // Initial state
+          { opacity: 1, y: 0, duration: 1 } // Final state
+        );
+      }
+    });
+  }, [events]);
+
   return (
     <>
     {clickF ? (
       <Formular events={events} pressF={pressF} clickEF={clickEF} remove={remove} setClickEF={setClickEF} />
     ) : (
       <>
-        {events.map((event, index) => (
-          <div className="events1" key={index}>
+{events.map((event, index) => (
+            <div
+              className="events1"
+              ref={el => eventsRefs.current[index] = el} // Attach each event ref
+              key={index}
+            >
             <div className="coneven1">
               <div className="title_events">{event.topic}</div>
             </div>

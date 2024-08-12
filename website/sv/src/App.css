@@ -576,6 +576,12 @@ a {
   .events {
     height: 550px !important;
   }
+  .svg123 {
+    display: none;
+  }
+}
+.svg123 {
+  transform: translateX(20px);
 }
 @media only screen and (max-width: 900px) {
   .linetop {
@@ -584,6 +590,9 @@ a {
   .popup {
     z-index: 10000000;
   }
+}
+.highvs {
+  color: #7fa3e7 !important;
 }
 .coneven {
   width: 99.9%;
@@ -600,7 +609,8 @@ a {
 }
 .title_events {
   font-size: 1.3em;
-  font-weight: 400;
+  font-weight: 600 !important;
+  color: #7fa3e7;
   font-family: poppins;
 }
 .tabelle {

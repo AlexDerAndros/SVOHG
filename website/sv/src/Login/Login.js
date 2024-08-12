@@ -1,14 +1,18 @@
 import "./Login.css";
 import Cookies from 'js-cookie';
-import { useState, useEffect, handleUpdate } from "react";
+import { useState, useEffect, handleUpdate, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { auth, db, GoogleProvider } from "../config/firebase"; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { getDoc, setDoc, collection, getDocs, addDoc, where, deleteDoc, query, writeBatch} from "firebase/firestore"; // import Firestore functions
-
+import gsap from "gsap";
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { doc, updateDoc } from "firebase/firestore";
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 const makeUserAdmin = async (email) => {
   try {
@@ -34,6 +38,20 @@ export default function Login1() {
 
 
   useEffect(() => {
+    gsap.fromTo(
+      '.event1',
+      { opacity: 0, y: -50 }, // fromVars: element is initially hidden and positioned 50px above its final position
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '.event1',
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
     const checkAdminStatus = async () => {
       const username = Cookies.get('user');
       if (username) {
