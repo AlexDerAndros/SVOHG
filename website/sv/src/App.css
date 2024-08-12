@@ -577,7 +577,14 @@ a {
     height: 550px !important;
   }
 }
-
+@media only screen and (min-width: 900px) {
+  .linetop {
+    display: none;
+  }
+  .popup {
+    z-index: 10000000;
+  }
+}
 .coneven {
   width: 99.9%;
   height: 20%;
