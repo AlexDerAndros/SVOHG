@@ -220,9 +220,11 @@ ul {
   display: flex;
   justify-content: center;
 }
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 .hallo {
-  font-family: "Roboto", sans-serif;
-  font-weight: 800;
+  font-family: kanit;
+  font-weight: 700;
+  font-size: 25px ;
 }
 .gap_containers {
   height: 30px;
@@ -325,6 +327,8 @@ ul {
     width: 80%;
     height: 90%;
     margin: 10%;
+  z-index: 10 !important;
+
   }
   .davor {
     display: none;
@@ -558,7 +562,11 @@ a {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   background-color: #d3d3d3af;
   color: rgb(24, 24, 24);
+  overflow-x: hidden;
   font-family: 'Roboto';
+  opacity: 0; /* Initially hidden */
+  transform: translateY(50px); /* Matches the GSAP animation start position */
+  transition: opacity 0.3s, transform 0.3s;
   
 }
 @media only screen and (max-width: 500px) {
@@ -1362,4 +1370,14 @@ html::-webkit-scrollbar {
       gap: 150px;
     }
   }
+}
+.linetop {
+  position: absolute;
+  top: 0;
+  color: #003300;
+  width: 5px;
+  background: rgb(240,254,250);
+background: linear-gradient(180deg, #003300 13%, #00330000 100%);
+  left: calc(50vw - 5px);
+  z-index: 0;
 }

@@ -179,7 +179,9 @@ function LoggingIn({ setLog }) {
       <div className="square">
         {click ? (
           <div>
+            <div className='arrowcon'>
             <FontAwesomeIcon icon={faArrowLeft} onClick={press} className='arrowBack' />
+            </div>
             <div className="con_3">
               <div className="title_login" >
                 Registrierung

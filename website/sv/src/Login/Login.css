@@ -154,7 +154,18 @@ label{
     position: absolute;
     cursor: pointer;
     color: white;
-  }
+    transition: 1s ease-in-out;
+}
+.arrowback:focus {
+    transform: translateY(100px);
+}
+.arrowcon {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .logOutBtn {
     width: 80%;
     background-color: #ffffff;

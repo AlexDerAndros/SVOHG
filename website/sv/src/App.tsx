@@ -318,94 +318,59 @@ function Startseite() {
   const kontaktRef = useRef<HTMLDivElement | null>(null);
   const beitretenRef = useRef<HTMLDivElement | null>(null);
   const questionsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const eventsRef = useRef<HTMLDivElement | null>(null);
+
+  const imgRef = useRef(null);
+  const linetop = useRef(null);
 
   useEffect(() => {
-    // Animation for svRef (comes from bottom)
-    gsap.from(svRef.current, {
-      opacity: 0,
-      y: 100,
-      duration: 1,
-      scrollTrigger: {
-        trigger: svRef.current,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse',
-      },
-    });
 
-    // Animation for wofurRef (comes from left)
-    gsap.from(wofurRef.current, {
-      opacity: 0,
-      x: -100,
-      duration: 1,
-      scrollTrigger: {
-        trigger: wofurRef.current,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse',
-      },
-    });
+    const animateElement = (element:any, fromVars: gsap.TweenVars, toVars: gsap.TweenVars) => {
+      gsap.fromTo(
+        element,
+        fromVars,
+        {
+          ...toVars,
+          scrollTrigger: {
+            trigger: element,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    };
 
-    // Animation for kontaktRef (comes from top)
-    gsap.from(kontaktRef.current, {
-      opacity: 0,
-      y: -100,
-      duration: 1,
-      scrollTrigger: {
-        trigger: kontaktRef.current,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse',
-      },
-    });
+    animateElement(imgRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 2.5, ease: 'power3.out' });
+    animateElement(linetop.current, { opacity: 0, height: '0px' }, { opacity: 1, height: '800px', duration: 4.5, ease: 'power3.out' });
+    
+    animateElement(eventsRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
+    animateElement(svRef.current, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
+    animateElement(wofurRef.current, { opacity: 0, x: -100 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' });
+    animateElement(kontaktRef.current, { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
+    animateElement(beitretenRef.current, { opacity: 0, x: 100 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' });
 
-    // Animation for beitretenRef (comes from right)
-    gsap.from(beitretenRef.current, {
-      opacity: 0,
-      x: 100,
-      duration: 1,
-      scrollTrigger: {
-        trigger: beitretenRef.current,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse',
-      },
-    });
-
-    // Animation for questionsRef
     questionsRef.current.forEach((question, index) => {
       if (question) {
-        let animationProps: gsap.TweenVars = { opacity: 0, y: 50 };
+        let fromVars: gsap.TweenVars = { opacity: 0 };
 
         switch (index) {
           case 0:
-            animationProps = { ...animationProps, y: 100 }; // From bottom
+            fromVars = { ...fromVars, y: 100 }; 
             break;
           case 1:
-            animationProps = { ...animationProps, x: -100 }; // From left
+            fromVars = { ...fromVars, x: -100 }; 
             break;
           case 2:
-            animationProps = { ...animationProps, y: -100 }; // From top
+            fromVars = { ...fromVars, y: -100 }; 
             break;
           case 3:
-            animationProps = { ...animationProps, x: 100 }; // From right
+            fromVars = { ...fromVars, x: 100 }; 
             break;
           default:
             break;
         }
 
-        gsap.fromTo(
-          question,
-          animationProps,
-          {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            scrollTrigger: {
-              trigger: question,
-              start: 'top 80%',
-              toggleActions: 'play none none none',
-            },
-            duration: 1.5,
-            ease: 'power2.out',
-          }
-        );
+        animateElement(question, fromVars, { opacity: 1, x: 0, y: 0, duration: 1.5, ease: 'power2.out' });
       }
     });
 
@@ -441,6 +406,7 @@ function Startseite() {
     fetchEvents();
   }, []);
 
+
   const [events, setEvents] = useState<any[]>([]);
   const [flexboxPopup, setFlexboxPopup] = useState('flex');
   const [heightpopup, setheightpopup] = useState('translateY(100vh)');
@@ -471,11 +437,41 @@ function Startseite() {
   }
 
   function eventdavor() {
-    alert("N");
+    gsap.to('.davor', {
+      transform: 'scale(1.2)',
+      duration: 0.2,
+      onComplete: () => {
+        // Reset the animation after it completes
+        gsap.to('.davor', {
+          transform: 'scale(1)',
+          duration: 0.2
+        });
+      }
+    });
+    gsap.to('.tabelle1', {
+      x: '-90vw',
+      duration: 2.5,//
+      ease: 'bounce.inOut',
+    })
   }
 
   function nachstesevent() {
-    alert("B");
+    gsap.to('.danach', {
+      transform: 'scale(1.2)',
+      duration: 0.2,
+      onComplete: () => {
+        // Reset the animation after it completes
+        gsap.to('.danach', {
+          transform: 'scale(1)',
+          duration: 0.2
+        });
+      }
+    });
+    gsap.to('.tabelle1', {
+      x: '0px',
+      duration: 2.5,
+      ease: 'bounce.inOut',
+    })
   }
 
   function deletePopup() {
@@ -502,7 +498,8 @@ function Startseite() {
       <div className="all_container"></div>
       <div className="anfang">
         <div className='img-containerSV'>
-          <img src='./SV.jpg' className='imgSV' alt='Foto' />
+            <div className="linetop" ref={linetop}></div>
+          <img src='./SV.jpg' className='imgSV' alt='Foto' ref={imgRef} />
         </div>
         <br /><br />
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -510,7 +507,7 @@ function Startseite() {
             <div className="hallo">Hallo!</div>
             <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium.</div>
             <div className="abstand"></div>
-            <div className="events" style={{ width: "80%" }}>
+            <div className="events" ref={eventsRef} style={{ width: "80%" }}>
               <div className="coneven">
                 <div className="davor" onClick={eventdavor}>Event davor</div>
                 <div className="title_events">Aktuelles Event</div>
