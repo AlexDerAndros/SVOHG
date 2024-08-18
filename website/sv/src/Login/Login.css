@@ -206,7 +206,6 @@ input:focus::placeholder {
     display: flex;
     width: 100vw;
     align-items: center;
-    height: 100vh;
     flex-direction: column;
 }
 .bearbeiten {
@@ -291,6 +290,7 @@ input:focus::placeholder {
     flex-direction: column;
     justify-content: space-between; /* Ensure space is distributed vertically */
     padding: 15px;
+    margin-bottom: 20px;
     border-radius: 5px;
     box-sizing: border-box;
     height: 100%; /* Ensure it fills the grid cell's height */
@@ -450,6 +450,9 @@ form {
 .siteAdmin {
     display: flex;
     flex-direction: column;
+    height: auto;
+    overflow-x: hidden;
+    width: 100vw;
 }
 .users {
   text-align: left;

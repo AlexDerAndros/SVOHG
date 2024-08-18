@@ -58,7 +58,7 @@ export default function Login1() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
-          const isAdmin = data.isDeveloper || false;
+          const isDeveloper = data.isDeveloper || false;
           setIsDeveloper(isDeveloper);
           Cookies.set('isDeveloper', isDeveloper.toString(), { expires: 14 });
         }
@@ -66,7 +66,7 @@ export default function Login1() {
     };
     
     checkAdminStatus();
-    
+    checkDeveloperStatus();
   }, []);
   
   
@@ -234,7 +234,7 @@ function LoggingIn({ setLog }) {
               <div className="nono"></div>
               <div className="posINPA">
               <input type={seePassword ? "text" : "password"}
-                placeholder=" Passwort"
+                placeholder="Passwort"
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)} />
@@ -289,9 +289,7 @@ function LoggedIn({ setLog }) {
   );
 }
 
-
-
-function AdminDashboard({ setLog }) {
+function AdminDevDashboard() {
   const [events, setEvents] = useState([]);
   const [editEvent, setEditEvent] = useState(null);
   const [formData, setFormData] = useState({ date: '', time: '', topic: '', shortDescription: '', longDescription: '' });
@@ -299,9 +297,7 @@ function AdminDashboard({ setLog }) {
   const [teilnehmer, setTeilnehmer] = useState([]); 
   const [ moreSize, setMoreSize] = useState(false);
   const [timestamp, setTimestamp] = useState('');
-  const [visibleMessages, setVisibleMessages] = useState(6); // State to control number of visible messages
-  const username = Cookies.get("user");
-
+  const [visibleMessages, setVisibleMessages] = useState(6);
   const fetchEvents = async () => {
     const eventsCol = collection(db, 'events');
     const eventSnapshot = await getDocs(eventsCol);
@@ -329,15 +325,7 @@ function AdminDashboard({ setLog }) {
     fetchTeilnehmer();
   }, []);
 
-  const logOut = () => {
-    setLog(false);
-    alert("Sie sind ausgeloggt!");
-    Cookies.set('log', 'false', { expires: 1 / 3600 });
-    Cookies.remove('user');
-    Cookies.remove('isAdmin');
-    Cookies.remove('isDeveloper');
-
-  };
+ 
 
   const handleEditClick = (event) => {
     setEditEvent(event);
@@ -414,19 +402,9 @@ function AdminDashboard({ setLog }) {
 
    const sortedMessages = messages.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
 
-  return (
-    <div className="siteAdmin" style={{marginBottom:"100vh"}}>
-      <div className="welcome">
-        Willkommen Admin {username}!
-      </div>
-      <div className="posLogOutBtn">
-        <button onClick={logOut} className="logOutBtn">
-          Ausloggen
-        </button>
-      </div>
-      <div className="adminDashboard" style={{marginBottom:"50vh"}}>
-         <h2>Admin Dashboard</h2>
-        <div className='msg'>
+   return (
+     <>
+       <div className='msg'>
         <div className='titlead'>
           <h2>Nachichten</h2>
           </div>
@@ -449,7 +427,8 @@ function AdminDashboard({ setLog }) {
         <div className="titleposMsg">
           <h2 style={{width:'100%', display:'flex',justifyContent:'center'}}>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}</>))}</h2>
         </div>
-        <div className="gridContainer">
+        <div>
+      
   {teilnehmer.map((item) => (
     <div className="person" key={item.id}>
       <div className="container_33log">
@@ -564,53 +543,51 @@ function AdminDashboard({ setLog }) {
           </div>
         )}
 
+     
+     </>
+   );
+}
+
+function AdminDashboard({ setLog }) {
+ 
+  const username = Cookies.get("user");
+  const logOut = () => {
+    setLog(false);
+    alert("Sie sind ausgeloggt!");
+    Cookies.set('log', 'false', { expires: 1 / 3600 });
+    Cookies.remove('user');
+    Cookies.remove('isAdmin');
+    Cookies.remove('isDeveloper');
+
+  };
+ 
+  return (
+    <div className="siteAdmin" style={{marginBottom:"100vh"}}>
+      <div className="welcome">
+        Willkommen Admin {username}!
       </div>
-      
-     <br />
-     <br />
-     <br />
-     <br />
-     <br />
-     <br />
-     <br />
-     <br />
+      <div className="posLogOutBtn">
+        <button onClick={logOut} className="logOutBtn">
+          Ausloggen
+        </button>
+      </div>
+      <div className="adminDashboard" style={{marginBottom:"50vh",}}>
+         <h2>Admin Dashboard</h2>
+         <AdminDevDashboard />
+      </div>
     <div style={{height:'150vh', width:"100vw", zIndex:"-100"}}></div>
+
     </div>
   );
 }
 function DeveloperDashboard({ setLog }) {
-  const [events, setEvents] = useState([]);
-  const [editEvent, setEditEvent] = useState(null);
-  const [formData, setFormData] = useState({ date: '', time: '', topic: '', shortDescription: '', longDescription: '' });
-  const [messages, setMessages] = useState([]); 
-  const [teilnehmer, setTeilnehmer] = useState([]); 
-  const [ moreSize, setMoreSize] = useState(false);
-  const [timestamp, setTimestamp] = useState('');
+  
   const [users, setUsers] = useState([]);
 
-  const [visibleMessages, setVisibleMessages] = useState(3); // State to control number of visible messages
+ 
   const username = Cookies.get("user");
 
-  const fetchEvents = async () => {
-    const eventsCol = collection(db, 'events');
-    const eventSnapshot = await getDocs(eventsCol);
-    const eventList = eventSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setEvents(eventList);
-  };
-
-  const fetchMessages = async () => {
-    const messagesCol = collection(db, 'messages');
-    const messagesSnapshot = await getDocs(messagesCol);
-    const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setMessages(messagesList);
-  };
-
-  const fetchTeilnehmer = async() => {
-    const TeilnehmerCol = collection(db, 'userEvents');
-    const messagesSnapshot = await getDocs(TeilnehmerCol);
-    const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setTeilnehmer(messagesList);
-  };
+  
   const fetchUser = async() => {
     const UserCol = collection(db, 'users');
     const UserSnapshot = await getDocs(UserCol);
@@ -618,9 +595,6 @@ function DeveloperDashboard({ setLog }) {
     setUsers(UserList);
   };
   useEffect(() => {
-    fetchEvents();
-    fetchMessages();
-    fetchTeilnehmer();
     fetchUser();
   }, []);
 
@@ -634,78 +608,7 @@ function DeveloperDashboard({ setLog }) {
 
   };
 
-  const handleEditClick = (event) => {
-    setEditEvent(event);
-    setFormData({
-      date: event.date.toDate().toLocaleDateString('en-CA'), // for input type="date"
-      time: event.time,
-      place: event.place, 
-      topic: event.topic,
-      shortDescription: event.shortDescription, // Corrected property name
-      longDescription: event.longDescription // Corrected property name
-    });
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleUpdate = async () => {
-    if (editEvent) {
-      const eventDoc = doc(db, 'events', editEvent.id);
-      const newDate = new Date(formData.date);
-
-      await updateDoc(eventDoc, {
-        date: newDate,
-        time: formData.time,
-        topic: formData.topic,
-        place: formData.place,
-        shortDescription: formData.shortDescription, // Corrected property name
-        longDescription: formData.longDescription // Corrected property name
-      });
-
-      setEditEvent(null);
-      setFormData({ date: '', time: '', topic: '', shortDescription: '', longDescription: ''});
-      fetchEvents(); // Re-fetch the updated events list
-    }
-  };
-
-  const handleSeeMore = () => {
-    setVisibleMessages(prev => prev + 3); // Increase the number of visible messages by 3
-  };
  
-   const More = () => {
-     setMoreSize(true);
-   };
-
-   const deleteMessage = async () => {
-     try {
-       const q = query(collection(db, "messages"), where('timestamp', '==', timestamp));
-       const querySnapshot = await getDocs(q);
-   
-       if (querySnapshot.empty) {
-         console.log('Keine Dokumente zum Löschen gefunden.');
-         return;
-       }
-   
-       const batch = writeBatch(db);
-   
-       querySnapshot.forEach(docSnapshot => {
-         const docRef = doc(db, "messages", docSnapshot.id);
-         batch.delete(docRef);
-       });
-   
-       await batch.commit();
-       console.log('Dokumente erfolgreich gelöscht.');
-     } catch (error) {
-       console.error('Fehler beim Löschen der Dokumente: ', error);
-       alert('Fehler: ' + error.message);
-     }
-   };
   return (
     <div className="siteAdmin" style={{marginBottom:"100vh"}}>
       <div className="welcome">
@@ -718,7 +621,7 @@ function DeveloperDashboard({ setLog }) {
       </div>
       <div className="adminDashboard" style={{marginBottom:"50vh"}}>
         <h2>Developer Dashboard</h2>
-        <div className='msg' style={{marginBottom:"5%"}}>  
+        <div className='log123ad' style={{marginBottom:"5%"}}>  
           <h2>User zu Admins machen</h2>
           {users.map(user => (
             <form className="users" >
@@ -731,138 +634,8 @@ function DeveloperDashboard({ setLog }) {
             </form>  
           ))}
         </div>
-        <div className='msg'>
-          <h2>Nachichten</h2>
-          {messages.slice(0, visibleMessages).map(message => (
-            <div key={message.id}>
-              <p>{message.text}</p>
-              <p>{message.timestamp ? new Date(message.timestamp.seconds * 1000).toLocaleString() : 'No timestamp available'}</p>
-              {/* <button onClick={deleteMessage}> Löschen</button> */}
-            </div>
-          ))}
-          {visibleMessages < messages.length && (
-            <button onClick={handleSeeMore} className='seemore'>See More</button>
-          )}
-        </div>
-        <br />
-        <br />
-        {events.map(event => (
-          <div key={event.id} className="events_fff">
-            <div className="events_asdf">
-              <div className="title_asdf">
-                <h3>Events bearbeiten</h3>
-              </div>
-              <p>Datum: {event.date.toDate().toLocaleDateString()}</p>
-              <p>Zeit: {event.time}</p>
-              <p>Ort: {event.place}</p>
-              <p>Thema: {event.topic}</p>
-              <p>Kurze Beschreibung: {event.shortDescription}</p>
-              <p>Was ist es?: {event.longDescription}</p>
-
-            </div>
-            <br />
-            <br />
-            <button onClick={() => handleEditClick(event)} className="bearbeiten" style={{zIndex: 1000}}>Bearbeiten</button>
-          </div>
-        ))}
-        <br />
-        <br />
-        {editEvent && (
-          <div className="bearbeitenpop">
-            <h2>Event bearbeiten</h2>
-            <form onSubmit={e => e.preventDefault()}>
-              <label>
-                Datum:
-                <input
-                  className="search"
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                Zeit:
-                <input
-                  className="search"
-                  type="text"
-                  name="time"
-                  value={formData.time}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                Ort:
-                <input
-                  className="search"
-                  type="text"
-                  name="place"
-                  value={formData.place}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                Thema:
-                <input
-                  className="search"
-                  type="text"
-                  name="topic"
-                  value={formData.topic}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                Kurze Beschreibung:
-                <input
-                  className="search"
-                  type="text"
-                  name="shortDescription"
-                  value={formData.shortDescription}
-                  onChange={handleChange}
-                />
-              </label> <label>
-                Was ist es?
-                <input
-                  className="search"
-                  type="text"
-                  name="longDescription"
-                  value={formData.longDescription}
-                  onChange={handleChange}
-                />
-              </label>
-              <br />
-              <br />
-              <button type="button" onClick={handleUpdate} className="bearbeiten">Aktualisieren</button>
-            </form>
-          </div>
-        )}
-
-      </div>
-      
-      <div className="posMSG">
-      <div className='msg' style={{height: editEvent ? "0vh" : "auto", color: editEvent ? "transparent" : "white", marginTop:"20vh"}}>
-        <div className="titleposMsg">
-          <h2>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}</>))}</h2>
-        </div>
-        <div className="gridContainer">
-  {teilnehmer.map((item) => (
-    <div className="person" key={item.id}>
-      <div className="container_33log">
-        <div className="headContainerlog">
-          {item.name}
-        </div>
-      </div>
-      <ul>
-        <li>Alter: {item.age}</li>
-        <li>Klasse: {item.Klasse}</li>
-        <li>E-Mail: {item.email}</li>
-      </ul>
-    </div>
-  ))}
-</div>
-    </div>
-    </div>
-   
+        <AdminDevDashboard/>
+       </div>
     <div style={{height:'150vh', width:"100vw", zIndex:"-100"}}></div>
     </div>
   );
