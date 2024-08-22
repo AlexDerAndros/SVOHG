@@ -478,7 +478,9 @@ function AdminDevDashboard() {
             <h2>Event bearbeiten</h2>
             <form onSubmit={e => e.preventDefault()}>
               <label>
-                Datum:
+                <div className="labelEditEvents">
+                  Datum:
+                </div>
                 <input
                   className="search"
                   type="date"
@@ -488,7 +490,9 @@ function AdminDevDashboard() {
                 />
               </label>
               <label>
+              <div className="labelEditEvents">
                 Zeit:
+              </div>
                 <input
                   className="search"
                   type="text"
@@ -498,7 +502,9 @@ function AdminDevDashboard() {
                 />
               </label>
               <label>
-                Ort:
+              <div className="labelEditEvents">
+                 Ort:
+              </div>
                 <input
                   className="search"
                   type="text"
@@ -508,7 +514,10 @@ function AdminDevDashboard() {
                 />
               </label>
               <label>
-                Thema:
+               <div className="labelEditEvents"> 
+                 Thema:
+                </div>
+                
                 <input
                   className="search"
                   type="text"
@@ -518,7 +527,9 @@ function AdminDevDashboard() {
                 />
               </label>
               <label>
+              <div className="labelEditEvents">
                 Kurze Beschreibung:
+               </div>
                 <input
                   className="search"
                   type="text"
@@ -526,8 +537,11 @@ function AdminDevDashboard() {
                   value={formData.shortDescription}
                   onChange={handleChange}
                 />
-              </label> <label>
-                Was ist es?
+              </label> 
+              <label>
+               <div className="labelEditEvents">
+                 Was ist es?
+               </div>  
                 <input
                   className="search"
                   type="text"

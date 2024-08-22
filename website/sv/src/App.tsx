@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 import { Routes, BrowserRouter, Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faHouse, faMagnifyingGlass, faTimes, faRightToBracket, faPenToSquare, faArrowUpFromBracket} from '@fortawesome/free-solid-svg-icons';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram,  faGithub} from '@fortawesome/free-brands-svg-icons';
 import { faArrowLeft, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import SVKasten1 from './SVKasten/SVKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
@@ -650,6 +650,8 @@ function AboutUs() {
     <br />
       <div className="UInfo1">Website made by <a href='https://github.com/marcodoro'>@Marcodori</a> and <a href='https://github.com/AlexDerAndros'>@AlexandrosNtrikos</a></div><br />
       <a href="https://ohg.monheim.de/">OHG Monheim Website</a>
+      <br/>
+      <a href='https://github.com/AlexDerAndros/SVOHG'> <FontAwesomeIcon icon={faGithub} className='InstaIcon'/> Link zu GitHub </a>
     </div>
     
   </div>  
