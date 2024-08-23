@@ -188,7 +188,21 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
   const [email, setEmail] = useState('');
   const [geb, setGeb] = useState('');
   const [kla, setKla] = useState('');
+  const[clickIN, setClickIN] = useState(false);
+  let plusIcon;
   
+  const pressIN = () => {
+    setClickIN(!clickIN);
+   }
+  if (Cookies.get('isAdmin') == 'true' || Cookies.get('isDeveloper') == 'true') {
+    plusIcon = <div className="addInput" onClick={pressIN} style={{transform: clickIN ? "rotate(45deg)" : 'rotate(0deg)', transition: '0.2s ease-in'}}>+</div>;
+  }
+  else {
+    plusIcon = '';
+  }
+  
+ 
+
   let user = Cookies.get('user');
   useEffect(() => {}, []);
 
@@ -260,6 +274,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
             <input type="text" className='search' placeholder="Klasse..." onChange={(e) => setKla(e.target.value)} />
             <div className="infoIN">E-Mail:</div> 
             <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)} />
+            {plusIcon}
             <div className="btnPos">
               <button className="bearbeiten1" onClick={sendForm} style={{ marginTop: "5%" }}>
                 Senden
@@ -303,6 +318,17 @@ function InEvent({ remove, events }) {
               Sie können nun an diesem Event teilnehmen.
             </div>
             <div className="eventnameAusnahme">
+             <div>
+              <span className="angabezeit">Datum: </span> {event.date} 
+              <br/>
+              <br/>
+              <span className="angabezeit">Zeit: </span> {event.time} 
+              <br/>
+              <br/>
+              <span className="angabezeit">Ort: </span>  {event.place}
+              <br/>
+              <br/>
+             </div> 
               <div className='angabezeit'>Worum geht es bei dem {event.topic}? &nbsp;</div>
               <div className="textEv">
                 {event.longDescription}

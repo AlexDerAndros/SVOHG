@@ -185,6 +185,17 @@
   color: rgb(24, 24, 24);
   font-family: 'Roboto';
 }
+.addInput {
+  background-color: rgb(2, 70, 2);
+  color: white;
+  font-size: 3vw;
+  width: 4vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: none;
+  border-radius: 100%;
+}
 @media only screen and (max-width: 800px) {
   .events1 {
     font-size: 20px;
@@ -192,7 +203,7 @@
   }
   .contentB {
     width: 80vw;
-    height: 100vh;
+    height: 145vh;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -204,6 +215,10 @@
   }  
   .tabelle1 {
     font-size: 15px;
+  }
+  .addInput {
+    font-size: 6vw;
+    width: 7vw;
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -230,5 +245,8 @@
   .events1 {
     height: 700px !important;
     transform: translateY(-50px);
+  }
+  .contentB {
+    height: 100vh;
   }
  }
