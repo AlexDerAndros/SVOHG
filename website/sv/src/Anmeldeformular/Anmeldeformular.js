@@ -275,6 +275,13 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
             <div className="infoIN">E-Mail:</div> 
             <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)} />
             {plusIcon}
+            <div className="posConAddInput">
+             <div className="conAddInput" style={{width: clickIN ? '80vw' : "0vw", fontSize: clickIN ? '3vw' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}}>
+               <div className="infoIN">Titel des neuen Eingabefeldes:</div> <br/>
+               <input type="text" className='search' placeholder="E-Mail..."   />
+                
+              </div>
+           </div> 
             <div className="btnPos">
               <button className="bearbeiten1" onClick={sendForm} style={{ marginTop: "5%" }}>
                 Senden

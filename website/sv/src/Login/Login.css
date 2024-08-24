@@ -481,10 +481,10 @@ form {
    font-size: 3vw;
 }
 .labelEditEvents {
-  color: black;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  margin-left: 1.75%;
+   color: black;
+   font-family: "Roboto", sans-serif;
+   font-weight: 400;
+   margin-left: 1.75%;
 }
 @media only screen and (min-width: 950px) {
    .square {

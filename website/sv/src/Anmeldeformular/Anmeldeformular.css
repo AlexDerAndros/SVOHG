@@ -188,13 +188,23 @@
 .addInput {
   background-color: rgb(2, 70, 2);
   color: white;
-  font-size: 3vw;
-  width: 4vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: none;
-  border-radius: 100%;
+  font-size: 2vw;
+  width: 6vh;
+  height: 7.25vw;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.conAddInput {
+  height: 30vh;
+}
+ .posConAddInput {
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 @media only screen and (max-width: 800px) {
   .events1 {
@@ -203,7 +213,7 @@
   }
   .contentB {
     width: 80vw;
-    height: 145vh;
+    height: 145vw;
     display: flex;
     align-items: center;
     flex-direction: column;
