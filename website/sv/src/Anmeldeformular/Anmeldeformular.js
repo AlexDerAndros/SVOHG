@@ -188,7 +188,9 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
   const [email, setEmail] = useState('');
   const [geb, setGeb] = useState('');
   const [kla, setKla] = useState('');
-  const[clickIN, setClickIN] = useState(false);
+  const [inF, setInF] = useState('');
+  const [clickIN, setClickIN] = useState(false);
+  const [inputsList, setInputsList] = useState([]);
   let plusIcon;
   
   const pressIN = () => {
@@ -253,17 +255,45 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
       setKla('');
     }
   };
+  const sendInput = async () => {
+    if(inF.trim() !== '') {
+      try {
+        await addDoc(collection(db, "inputs"), {
+           placeholder: inF + '...',
+           titleIN: inF + ':'
+        });
+        alert('Eingabefeld wurde erfolgreich hinzugefügt!');
+      } catch (error) {
+         console.log(error);
+         alert('Eingabefeld konnte nicht hinzugefügt werden!');
+      }
+    }
+    setInF('');
+
+  }
+  const fetchInputs = async () => {
+    const inCol = collection(db, 'inputs');
+    const inSnapshot = await getDocs(inCol);
+    const inList = inSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setInputsList(inList);
+  };
+  
+  useEffect(() => {
+    fetchInputs();
+  }, []);
 
   if (clickEF === true || Cookies.get("teil") === "true") {
     return <InEvent remove={remove} events={events} />;
   } else {
     return (
       <>
-        {events.map((event, index) => (
-          <div className="contentA" key={index}>
+       
+          <div className="contentA" >
+          {events.map((event) => (
             <div className="title_events" >
               {event.topic}
             </div>
+          ))}
             <div className="infoIN">Vorname:</div>
             <input type="text" className='search' placeholder="Vorname..." onChange={(e) => setVN(e.target.value)} />
             <div className="infoIN">Nachname:</div>
@@ -274,14 +304,22 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
             <input type="text" className='search' placeholder="Klasse..." onChange={(e) => setKla(e.target.value)} />
             <div className="infoIN">E-Mail:</div> 
             <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)} />
+            {inputsList.map((item) => (
+              <>
+                 <div className="infoIN">{item.titleIN}</div> 
+                 <input type="text" className='search' placeholder={item.placeholder}   />
+              </>
+            ))}
             {plusIcon}
-            <div className="posConAddInput">
-             <div className="conAddInput" style={{width: clickIN ? '80vw' : "0vw", fontSize: clickIN ? '3vw' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}}>
-               <div className="infoIN">Titel des neuen Eingabefeldes:</div> <br/>
-               <input type="text" className='search' placeholder="E-Mail..."   />
-                
-              </div>
-           </div> 
+            <div style={{width: clickIN ? '60vw' : "0", fontSize: clickIN ? '100%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}}  className="infoIN">Titel des neuen Eingabefeldes:</div> <br/>
+            <input style={{padding: clickIN ? '10px' : '0px',width: clickIN ? '60vw' : "0vw", fontSize: clickIN ? '120%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}} 
+                   type="text"
+                   className='search'
+                   placeholder="Titel des Eingabefeldes..."
+                   onChange={(e) => setInF(e.target.value)}   />
+                 <button className="bearbeiten1" onClick={sendInput} style={{ padding: '0', marginTop: "5%", width: clickIN ? '60vw' : "0", fontSize: clickIN ? '100%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none', display:'flex', justifyContent:'center', alignItems: "center"}}>
+                   Senden des Eingabefeldes
+                 </button>
             <div className="btnPos">
               <button className="bearbeiten1" onClick={sendForm} style={{ marginTop: "5%" }}>
                 Senden
@@ -292,7 +330,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
               ← Zurück
             </div>
           </div>
-        ))}
+       
       </>
     );
   }
