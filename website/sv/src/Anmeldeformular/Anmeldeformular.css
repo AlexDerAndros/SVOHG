@@ -189,12 +189,12 @@
   background-color: rgb(2, 70, 2);
   color: white;
   font-size: 2vw;
-  width: 6vh;
-  height: 7.25vw;
+  width: 2.5%;
+  height: 10% ;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  border-radius: 50%;
+  border-radius: 100px;
   cursor: pointer;
 }
 .conAddInput {

@@ -191,6 +191,8 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
   const [inF, setInF] = useState('');
   const [clickIN, setClickIN] = useState(false);
   const [inputsList, setInputsList] = useState([]);
+  const [deleteCon, setDeleteCon] = useState(false);
+  const [deleteIn, setDeleteIn] = useState('');
   let plusIcon;
   
   const pressIN = () => {
@@ -204,7 +206,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
   }
   
  
-
+  
   let user = Cookies.get('user');
   useEffect(() => {}, []);
 
@@ -270,14 +272,33 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
     }
     setInF('');
 
+  };
+  const pressDel = () => {
+    setDeleteCon(!deleteCon);
   }
+  async function deleteInput() {
+    try {
+      pressDel();
+      let value = deleteIn;
+      const q = query(collection(db, "inputs"), where('titleIN', '==', value));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach(async (docSnapshot) => {
+        const docRef = doc(db, "inputs", docSnapshot.id);
+        await deleteDoc(docRef);
+      });
+
+    } catch(error) {
+      console.log(error);
+    }
+ };
   const fetchInputs = async () => {
     const inCol = collection(db, 'inputs');
     const inSnapshot = await getDocs(inCol);
     const inList = inSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setInputsList(inList);
   };
-  
+ 
   useEffect(() => {
     fetchInputs();
   }, []);
@@ -308,6 +329,9 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
               <>
                  <div className="infoIN">{item.titleIN}</div> 
                  <input type="text" className='search' placeholder={item.placeholder}   />
+                 <button onClick={deleteInput}>
+                   Löschen
+                 </button>
               </>
             ))}
             {plusIcon}
