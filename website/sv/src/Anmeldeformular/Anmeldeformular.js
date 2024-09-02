@@ -2,7 +2,8 @@ import "./Anmeldeformular.css";
 import Cookies from 'js-cookie';
 import gsap from "gsap";
 import { useState, useEffect, useRef } from "react";
-
+import { faTrash, faX } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { auth, db } from "../config/firebase"; 
 import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query } from "firebase/firestore"; 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -213,11 +214,10 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
   const sendForm = async () => {
     gsap.to('.bearbeiten1', {
       borderRadius: '100%',
-      width: '70px', // Add unit 'px'
+      width: '70px', 
       opacity: 0,
       duration: 1,
       onComplete: () => {
-        // Animate back to the initial state
         gsap.to('.bearbeiten1', {
           borderRadius: '8px',
           width: '13rem',
@@ -278,7 +278,6 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
   }
   async function deleteInput() {
     try {
-      pressDel();
       let value = deleteIn;
       const q = query(collection(db, "inputs"), where('titleIN', '==', value));
       const querySnapshot = await getDocs(q);
@@ -287,10 +286,14 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
         const docRef = doc(db, "inputs", docSnapshot.id);
         await deleteDoc(docRef);
       });
+      alert('Eingabefeld erfolgreich gelöscht!');
+    pressDel();
 
     } catch(error) {
       console.log(error);
+      alert('Eingabefeld konnte leider nicht gelöscht werden');
     }
+    
  };
   const fetchInputs = async () => {
     const inCol = collection(db, 'inputs');
@@ -309,39 +312,63 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
     return (
       <>
        
-          <div className="contentA" >
+          <div className="contentA"  >
           {events.map((event) => (
             <div className="title_events" >
               {event.topic}
             </div>
           ))}
-            <div className="infoIN">Vorname:</div>
-            <input type="text" className='search' placeholder="Vorname..." onChange={(e) => setVN(e.target.value)} />
-            <div className="infoIN">Nachname:</div>
+            <div className="infoIN"  >Vorname:</div>
+            <input type="text"   className='search' placeholder="Vorname..." onChange={(e) => setVN(e.target.value)} />
+            <div className="infoIN" >Nachname:</div>
             <input type="text" className='search' placeholder="Nachname..." onChange={(e) => setNN(e.target.value)} />
             <div className="infoIN">Alter:</div>
             <input type="number" className='search' placeholder="Alter..." onChange={(e) => setGeb(e.target.value)} />
-            <div className="infoIN">Klasse:</div> 
+            <div className="infoIN" >Klasse:</div> 
             <input type="text" className='search' placeholder="Klasse..." onChange={(e) => setKla(e.target.value)} />
-            <div className="infoIN">E-Mail:</div> 
-            <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)} />
+            <div className="infoIN" >E-Mail:</div> 
+            <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)}  />
             {inputsList.map((item) => (
               <>
                  <div className="infoIN">{item.titleIN}</div> 
-                 <input type="text" className='search' placeholder={item.placeholder}   />
-                 <button onClick={deleteInput}>
-                   Löschen
+                 <div className="INDEL">
+                   <input type="text" className='search' placeholder={item.placeholder}   />
+                   <div className="PosbtnDelIn">
+                    <br/>
+                    <FontAwesomeIcon icon={faTrash} onClick={pressDel} className="btnDelIn"/>
+                   </div>
+                 </div> 
+                 <div className="delete" style={{width: deleteCon ? '80vw' : '0vw', zIndex: deleteCon ? '1000' : '-1'}}>
+             <div className="conDelte">
+              <div className="backToForm" onClick={pressDel}>
+               <FontAwesomeIcon icon={faX}/>
+              </div>
+              <div className="DelInfo">
+                <div className="DelText">
+                  Bitte geben Sie hier den Titel des Eingabefeldes mit einem Doppelpunkt hinten dran ein und <br/> bestätigen Sie dann die Löschung dieses Eingabefeldes, um es zu löschen.
+                 <br/> <br/>
+                 <input type="text" className='search' placeholder="Titel eines Eingabefeldes mit einem Doppelpunkt hinten dran"  onChange={(e) => setDeleteIn(e.target.value)}
+                 style={{ padding: deleteCon ? '10px' : '0px',width: deleteCon ? '60vw' : "0vw",}} />
+                 <br/>
+                  <button className="bearbeiten1" onClick={deleteInput} style={{width: deleteCon ? '60vw' : "0vw",fontSize: deleteCon ? '120%' : '0vw'}}>
+                   Löschung des Eingabefeldes
                  </button>
+                </div>
+              </div>
+             </div> 
+            </div>
               </>
             ))}
+            <br/>
+            <br/>
             {plusIcon}
             <div style={{width: clickIN ? '60vw' : "0", fontSize: clickIN ? '100%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}}  className="infoIN">Titel des neuen Eingabefeldes:</div> <br/>
-            <input style={{padding: clickIN ? '10px' : '0px',width: clickIN ? '60vw' : "0vw", fontSize: clickIN ? '120%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}} 
+            <input style={{zIndex: deleteCon ? '-1' : '1' , padding: clickIN ? '10px' : '0px',width: clickIN ? '60vw' : "0vw", fontSize: clickIN ? '120%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}} 
                    type="text"
                    className='search'
                    placeholder="Titel des Eingabefeldes..."
                    onChange={(e) => setInF(e.target.value)}   />
-                 <button className="bearbeiten1" onClick={sendInput} style={{ padding: '0', marginTop: "5%", width: clickIN ? '60vw' : "0", fontSize: clickIN ? '100%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none', display:'flex', justifyContent:'center', alignItems: "center"}}>
+                 <button className="bearbeiten1" onClick={sendInput} style={{padding: '0', marginTop: "5%", width: clickIN ? '60vw' : "0", fontSize: clickIN ? '100%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none', display:'flex', justifyContent:'center', alignItems: "center"}}>
                    Senden des Eingabefeldes
                  </button>
             <div className="btnPos">

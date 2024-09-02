@@ -206,6 +206,46 @@
    justify-content: center;
    align-items: center;
 }
+.delete {
+  top: 20%;
+  position: fixed;
+  height: 70%;
+  background-color: rgb(2, 70, 2);
+  color: white;
+  z-index: 1000;
+  display: flex;
+  transition: ease-out 0.3s;
+}
+.conDelete {
+  width: 80vw;
+  height: 100%;
+}
+.backToForm {
+  font-size: 3vw ;
+  z-index: 1000;  
+  margin: 2vw;
+}
+.INDEL {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-content: center;
+  margin-left: 3vw ;
+}
+.btnDelIn {
+  font-size: 3vw;
+}
+.DelInfo {
+  width: 100vw;
+  
+}
+.DelText {
+   margin: 0vw 10vw;
+   width: 80vw;
+}
+
+
+
 @media only screen and (max-width: 800px) {
   .events1 {
     font-size: 20px;
