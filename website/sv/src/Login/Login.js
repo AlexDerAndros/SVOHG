@@ -635,8 +635,9 @@ function DeveloperDashboard({ setLog }) {
       </div>
       <div className="adminDashboard" style={{marginBottom:"50vh"}}>
         <h2>Developer Dashboard</h2>
-        <div className='log123ad' style={{marginBottom:"5%"}}>  
+        <div className='dev123ad2'>
           <h2>User zu Admins machen</h2>
+        <div className='log123ad2' style={{marginBottom:"5%"}}>  
           {users.map(user => (
             <form className="users" >
                 E-Mail: {user.email} <br/>
@@ -647,6 +648,7 @@ function DeveloperDashboard({ setLog }) {
                 </select>
             </form>  
           ))}
+        </div>
         </div>
         <AdminDevDashboard/>
        </div>

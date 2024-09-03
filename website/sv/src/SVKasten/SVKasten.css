@@ -194,8 +194,3 @@
         display: none;
     }
 }
-@media only screen and (max-height: 956px) {
-    .plane {
-        display: none;
-    }
-}

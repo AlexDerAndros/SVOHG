@@ -424,8 +424,34 @@ form {
     grid-gap: 20px; /* Space between items */
     width: 100%; /* Full width of the container */
     padding: 10px; /* Optional padding around the grid */
+    background-color: #004400;
+}
+.log123ad2 {
+    transition: 0.5s ease-in-out;
+    display: grid;
+    width: 98%;
+    padding: 10px; /* Optional padding around the grid */
+    background-color: #004400;
+    flex-direction: column;  
+    grid-gap: 50px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust column size as needed */
+
 }
 
+.dev123ad2 {
+    height: auto;
+    width: 90%;
+}
+.dev123ad2 > h2 {
+    background-color: #003300;
+    height: 50px;
+    width: 100%;
+    transform: translate(0, 25px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+}
 .msg123 {
     background-color: #003300;
     padding: 10px; /* Add some padding inside each .msg123 */
@@ -455,8 +481,23 @@ form {
     width: 100vw;
 }
 .users {
-  text-align: left;
-  width: 80%;
+  width: 100%;
+  background-color: #006600;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  color: whitesmoke;
+  font-family: poppins;
+}
+.users > select {
+    background-color: #7fa3e7;
+    border: none;
+    width: 50%;
+    height: 25%;
+    margin: 20px;
+    color: whitesmoke;
+  font-family: poppins;
+
 }
 .paSee {
     color: white;
