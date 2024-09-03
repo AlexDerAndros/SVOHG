@@ -265,6 +265,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
            titleIN: inF + ':'
         });
         alert('Eingabefeld wurde erfolgreich hinzugefügt!');
+        window.location.reload();
       } catch (error) {
          console.log(error);
          alert('Eingabefeld konnte nicht hinzugefügt werden!');
@@ -287,7 +288,6 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
         await deleteDoc(docRef);
       });
       alert('Eingabefeld erfolgreich gelöscht!');
-    pressDel();
 
     } catch(error) {
       console.log(error);
@@ -350,7 +350,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
                  <input type="text" className='search' placeholder="Titel eines Eingabefeldes mit einem Doppelpunkt hinten dran"  onChange={(e) => setDeleteIn(e.target.value)}
                  style={{ padding: deleteCon ? '10px' : '0px',width: deleteCon ? '60vw' : "0vw",}} />
                  <br/>
-                  <button className="bearbeiten1" onClick={deleteInput} style={{width: deleteCon ? '60vw' : "0vw",fontSize: deleteCon ? '120%' : '0vw'}}>
+                  <button className="bearbeiten1" onClick={deleteInput} style={{width: deleteCon ? '60vw' : "0vw",fontSize: deleteCon ? '120%' : '0vw',  padding: deleteCon ? '10px' : '0px'}}>
                    Löschung des Eingabefeldes
                  </button>
                 </div>
