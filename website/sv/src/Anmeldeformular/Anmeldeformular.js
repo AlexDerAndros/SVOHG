@@ -98,8 +98,8 @@ function Event({ events,  remove, clickEF, setClickEF}) {
 
   const pressF = () => {
     gsap.to(".eventname1", {
-      opacity: '10%',
-      duration: 0.5
+      scale: 1.2,
+      duration: 0.5,
     })
       setTimeout(() => {
         setClickF(!clickF);
@@ -314,20 +314,18 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
        
           <div className="contentA"  >
           {events.map((event) => (
-            <div className="title_events" >
+            <div className="title_events_2" >
               {event.topic}
             </div>
           ))}
-            <div className="infoIN"  >Vorname:</div>
+          <div className='loadofinputs'>
             <input type="text"   className='search' placeholder="Vorname..." onChange={(e) => setVN(e.target.value)} />
-            <div className="infoIN" >Nachname:</div>
             <input type="text" className='search' placeholder="Nachname..." onChange={(e) => setNN(e.target.value)} />
-            <div className="infoIN">Alter:</div>
             <input type="number" className='search' placeholder="Alter..." onChange={(e) => setGeb(e.target.value)} />
-            <div className="infoIN" >Klasse:</div> 
             <input type="text" className='search' placeholder="Klasse..." onChange={(e) => setKla(e.target.value)} />
-            <div className="infoIN" >E-Mail:</div> 
             <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)}  />
+
+          </div>
             {inputsList.map((item) => (
               <>
                  <div className="infoIN">{item.titleIN}</div> 

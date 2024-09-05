@@ -595,19 +595,18 @@ function AdminDashboard({ setLog }) {
   );
 }
 function DeveloperDashboard({ setLog }) {
-  
   const [users, setUsers] = useState([]);
+  const [visibleUsers, setVisibleUsers] = useState(6); // 6j users gerade
 
- 
   const username = Cookies.get("user");
 
-  
-  const fetchUser = async() => {
+  const fetchUser = async () => {
     const UserCol = collection(db, 'users');
     const UserSnapshot = await getDocs(UserCol);
     const UserList = UserSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setUsers(UserList);
   };
+
   useEffect(() => {
     fetchUser();
   }, []);
@@ -619,10 +618,12 @@ function DeveloperDashboard({ setLog }) {
     Cookies.remove('user');
     Cookies.remove('isAdmin');
     Cookies.remove('isDeveloper');
-
   };
 
- 
+  const loadMoreUsers = () => {
+    setVisibleUsers(prevVisibleUsers => prevVisibleUsers + 3); 
+  };
+
   return (
     <div className="siteAdmin" style={{marginBottom:"100vh"}}>
       <div className="welcome">
@@ -637,22 +638,30 @@ function DeveloperDashboard({ setLog }) {
         <h2>Developer Dashboard</h2>
         <div className='dev123ad2'>
           <h2>User zu Admins machen</h2>
-        <div className='log123ad2' style={{marginBottom:"5%"}}>  
-          {users.map(user => (
-            <form className="users" >
+          <div className='log123ad2' style={{marginBottom:"5%"}}>
+            {users.slice(0, visibleUsers).map(user => (
+              <form className="users" key={user.id}>
                 E-Mail: {user.email} <br/>
                 ist ein Admin: 
                 <select name="options">
                   <option>true</option>
                   <option>false</option>
                 </select>
-            </form>  
-          ))}
+              </form>
+            ))}
         </div>
+        <div className='savingthebutton'>
+          {/* ... Button thing */}
+          {visibleUsers < users.length && (
+            <button onClick={loadMoreUsers} className='seemore' id="lilbutton">
+              Mehr Benutzer laden
+            </button>
+          )}
         </div>
+          </div>
         <AdminDevDashboard/>
-       </div>
-    <div style={{height:'150vh', width:"100vw", zIndex:"-100"}}></div>
+      </div>
+      <div style={{height:'150vh', width:"100vw", zIndex:"-100"}}></div>
     </div>
   );
 }

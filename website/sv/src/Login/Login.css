@@ -292,6 +292,7 @@ input:focus::placeholder {
     padding: 15px;
     margin-bottom: 20px;
     border-radius: 5px;
+    gap: 14px;
     box-sizing: border-box;
     height: 100%; /* Ensure it fills the grid cell's height */
     overflow: hidden; /* Prevent content overflow */
@@ -305,7 +306,7 @@ input:focus::placeholder {
 
 .headContainerlog {
     font-size: 1.2em;
-    margin-bottom: 10px;
+    margin: 0px;
 }
 
 ul {
@@ -423,7 +424,6 @@ form {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust column size as needed */
     grid-gap: 20px; /* Space between items */
     width: 100%; /* Full width of the container */
-    padding: 10px; /* Optional padding around the grid */
     background-color: #004400;
 }
 .log123ad2 {
@@ -482,12 +482,14 @@ form {
 }
 .users {
   width: 100%;
-  background-color: #006600;
+  background-color: #003300;
+  border-radius: 10px;
   height: 150px;
   display: flex;
   justify-content: center;
   color: whitesmoke;
   font-family: poppins;
+  font-size: 12px !important;
 }
 .users > select {
     background-color: #7fa3e7;
@@ -496,6 +498,9 @@ form {
     height: 25%;
     margin: 20px;
     color: whitesmoke;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 20px;
   font-family: poppins;
 
 }
@@ -539,4 +544,12 @@ form {
         margin-top: 20%;
         
     }
+}
+.savingthebutton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100px;
+    align-items: flex-start;
+    transform: translateY(-30px);
 }

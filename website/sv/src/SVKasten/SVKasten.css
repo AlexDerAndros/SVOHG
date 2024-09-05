@@ -76,7 +76,7 @@
 .input_real {
     width: 70%;
     height: 40%;
-    border: 2px solid rgb(127, 163, 231) !important;
+    border: 2px solid rgb(127, 163, 231);
     color: black;
     font-family: poppins;
     font-weight: 500;
@@ -86,6 +86,7 @@
 .input_real:focus {
     transform: scale(1.1);
     transition: transform 0.3s ease-in-out;
+    box-shadow: rgba(40, 163, 157, 0.171) 0px 4px 16px, rgba(14, 117, 112, 0.247) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
 .input_real:focus::-webkit-input-placeholder {
     transform: translateX(100%);
@@ -95,6 +96,12 @@
 .input_real {
     border: none;
     outline: none;
+}
+.title_events_2 {
+    font-size: 40px;
+    margin: 20px;
+    font-family: kanit;
+    font-weight: 600;
 }
 .text {
     height: 100%;
