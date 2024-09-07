@@ -7,23 +7,30 @@ SV OHG CODE BY ALEXANDROS AND MARCO
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500;600;700&family=Roboto&display=swap');
 
 input{
+    border: 2px solid #7fa3e7 !important;
+    border-radius: 10px !important;
     display: flex;
     justify-self: center;
     width: 80%;
     background-color: rgba(255,255,255,0.07);
-    border-radius: 0 !important;
     font-size: 14px;
     font-weight: 300;
     z-index: 1000;
     height: 50px;
     display: flex;
     justify-content: center;
-    border-bottom: rgb(127, 163, 231) 1px solid !important;
-    border-top: transparent !important;
-    border-left: transparent !important;
-    border-right: transparent !important;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
     border-radius: 5px;
+}
+.mitgoogle {
+    height: 50px;
+    -webkit-tap-highlight-color: transparent;
+}
+#password {
+    width: 88% !important;
+}
+input::placeholder {
+    transform: translateX(20px);
 }
 .bt {
     margin-top: 100px;
@@ -86,10 +93,10 @@ label{
     align-items: center;
 }
 .title_login {
-    font-size: 2em;
+    font-size: 2.3em;
     color: rgb(226, 226, 226);
     font-family: "Poppins", sans-serif;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 2px;
 }
 .square {
@@ -147,6 +154,7 @@ label{
 .registerInfo {
     color: white;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 .arrowBack {
     font-size: 3em;
@@ -517,6 +525,7 @@ form {
     display: flex;
     gap: 0% 5%;
     margin-left: 10%;
+    position: relative;
 }
 .icSee {
    width: 10%;
@@ -524,7 +533,10 @@ form {
    display: flex;
    justify-content: center;
    align-items: center;
+   position: absolute;
    font-size: 3vw;
+   transform: translate(750%);
+   z-index: 10000 !important;
 }
 .labelEditEvents {
    color: black;

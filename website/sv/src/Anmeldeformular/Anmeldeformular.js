@@ -375,7 +375,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
               </button>
             </div>
             <br />
-            <div className="eventname1" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
+            <div className="eventname21" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
               ← Zurück
             </div>
           </div>

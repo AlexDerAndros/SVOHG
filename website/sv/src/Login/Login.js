@@ -170,12 +170,22 @@ function LoggingIn({ setLog }) {
   }
 
   const logGoogle = () => {
+    try {
     signInWithPopup(auth, GoogleProvider).then((data) => {
+      try {
       setGoogleUs(data.user.email);
       Cookies.set('log', true, { expires: 14 });
       Cookies.set('user', data.user.email, { expires: 14 });
       window.location.reload();
+      }
+      catch {
+        alert("Error" + error)
+      }
     });
+    }
+    catch {
+      alert('Error: ' + error)
+    }
   };
 
   return (
@@ -246,7 +256,7 @@ function LoggingIn({ setLog }) {
 
               <div className="loginInfo">
                 <div className="registerInfo" onClick={logGoogle}>
-                  <FontAwesomeIcon icon={faGoogle} /> Melden Sie sich mit Google an!
+                  <img src="./google_icon-icons.com_62736.png" alt="Mit Google Anmelden" className="mitgoogle" />
                 </div>
                 Wenn Sie noch nicht eingeloggt sind,
                 <span className="registerInfo" onClick={press}>
