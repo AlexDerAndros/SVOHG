@@ -296,3 +296,23 @@ label > input {
         transform: translateY(130px);
     }
 }
+@media only screen and (max-width: 600px) {
+    .plane {
+        display: none;
+    }
+    .oeffentlich {
+        margin: 0;
+        height: 50px;
+        transform: translate(0, -40px);
+        width: 80vw;
+    }
+    .input {
+        height: 150px !important;
+    }
+    .title_svkasten_123adg {
+        transform: translate(20px, 200px) !important;
+    }
+    .input_real {
+        width: 100% !important;
+    }
+}

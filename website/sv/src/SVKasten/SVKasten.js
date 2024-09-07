@@ -5,6 +5,7 @@ import { collection, addDoc, getDocs, updateDoc, doc, getDoc, setDoc, deleteDoc 
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 import Cookies from 'js-cookie';
 import { gsap } from 'gsap';
+/*import plane from 'Public/SVKasten/Paper.png';*/
 
 export default function SVKasten() {
   const [text, setText] = useState('');
@@ -179,7 +180,8 @@ export default function SVKasten() {
             <button className="button-36" role="button" onClick={handleClick}>Senden
               
             </button>
-            <img src='./paper.png' alt='Paper Plane' className='plane' />
+            <img src={`${process.env.PUBLIC_URL}/Paper.png`} alt='Paper Plane' className='plane' />
+
           </div>
   
           <div className="oeffentlich_nach">
