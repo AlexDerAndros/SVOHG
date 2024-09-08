@@ -226,6 +226,7 @@ ul {
   font-family: kanit;
   font-weight: 700;
   font-size: 25px ;
+  color: rgb(22, 22, 22);
 }
 .gap_containers {
   height: 30px;
@@ -562,9 +563,10 @@ a {
 }
 .UInfos {
   width: 100vw;
-  height: 60%;
+  height: 100%;
   display: flex;
   justify-content: center;
+  font-size: 15px;
   align-items: center;
   flex-direction: column;
 }
@@ -779,16 +781,7 @@ html {
 html::-webkit-scrollbar {
   display: none;  /* Chrome, Safari, Opera */
 }
-.searchItems {
-  display: flex;
-  justify-content: left;
-  align-items: left;
-  cursor: pointer;
-  flex-direction: column;
-  width: 90vw;
-  font-size: 1.2em;
-  font-family: "Roboto", sans-serif;
-}
+
 .InstaIcon {
   color: white;
 }
@@ -797,7 +790,9 @@ html::-webkit-scrollbar {
   color:black;
   z-index: 1000;
   position: absolute;
+  margin: 30px;
   cursor: pointer;
+  position: fixed;
 }
 @media only screen and (max-height: 827px)
 {
@@ -1420,4 +1415,61 @@ html::-webkit-scrollbar {
 background: linear-gradient(180deg, #003300 13%, #00330000 100%);
   left: calc(50vw - 5px);
   z-index: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .question {
+    width: 90% !important;
+    height: 100% !important;
+  }
+}
+.searchBar {
+  width: 100vw;
+  height: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 0, 0, 0);
+}
+.lupesvg {
+  height: 70px !important;
+  position: absolute;
+  display: none;
+  z-index: 10000;
+  transform: translate(55%, calc(25%));
+}
+.containerli {
+  background-color: #003300;
+  width: 30vw;
+  color: whitesmoke;
+  display: flex;
+  height: 60px;
+  border: #7fa3e7 solid 2px;
+  border-radius: 7px;
+  align-items: center;
+  justify-content: center;
+  transform: translate(60%, 170px);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+}
+.searchItems {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  cursor: pointer;
+  flex-direction: column;
+  width: 100vw;
+  gap: 20px;
+  margin: -50px;
+  font-size: 1.2em;
+  font-family: "Roboto", sans-serif;
+}
+@media only screen and (min-width: 900px) {
+  .lupesvg {
+    display: flex !important; 
+  }
+}
+@media only screen and (max-width: 500px) {
+  .containerli {
+    width: 160px;
+  }
 }

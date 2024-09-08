@@ -725,7 +725,8 @@ function Search() {
       <br />
         <div className="main_search">
         <div className="searchBar">
-          <input type="text" className='search' placeholder="Suche..." value={value} onChange={(e) => handleFilter(e.target.value)}/>
+          <img src='./search.svg' alt='' className='lupesvg' />
+          <input type="text" className='search' id='123ad' placeholder="Suche..." value={value} onChange={(e) => handleFilter(e.target.value)}/>
          </div>
          <ul className='searchItems'>
          {filteredItems.map(item =>(

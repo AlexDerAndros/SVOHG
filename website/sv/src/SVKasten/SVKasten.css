@@ -45,7 +45,7 @@
     transform: translate(0, 200px);
     background-color: #054405dc;
     width: 500px;
-    height: 100px;
+    height: auto;
     display: flex;
     border: solid #7fa3e7 1px;
     border-radius: 7px;
@@ -70,6 +70,7 @@
     display: flex;
     transform: translate(20px);
     height: 50%;
+    width: 94%;
 }
 .head {
     font-size: 2.1rem;

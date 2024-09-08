@@ -439,8 +439,9 @@ function AdminDevDashboard() {
         </div>
         <div>
       
+          <div className='personscon'>
   {teilnehmer.map((item) => (
-    <div className="person" key={item.id}>
+    <div className="person" key={item.id} tabindex={0}>
       <div className="container_33log">
         <div className='headContainerlog'>
           {item.name}
@@ -453,6 +454,7 @@ function AdminDevDashboard() {
       </ul>
     </div>
   ))}
+  </div>
 </div>
     </div>
     <br />

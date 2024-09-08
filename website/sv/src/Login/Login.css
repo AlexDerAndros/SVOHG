@@ -175,14 +175,15 @@ label{
     align-items: center;
 }
 .logOutBtn {
+    border: #7fa3e7 solid 2px !important;
     width: 80%;
-    background-color: #ffffff;
-    color: #080710;
+    background-color: #004400;
+    color: whitesmoke;
     padding: 15px 0;
     font-size: 18px;
     font-weight: 600;
     border-radius: 5px;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     cursor: pointer;
     font-weight: 700 !important;
     border: none;
@@ -218,24 +219,23 @@ input:focus::placeholder {
 }
 .bearbeiten {
     background-image: linear-gradient(92.88deg, #003300dc 9.16%, #054405dc 43.89%, #074e07dc 64.72%);
-    border-radius: 8px;
-    border-style: none;
-    box-sizing: border-box;
+    border-radius: 7px;
     color: #FFFFFF;
     cursor: pointer;
     flex-shrink: 0;
     font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
     font-size: 16px;
     font-weight: 500;
-    height: 4rem;
-    width: 13rem;
+    height: 4.5rem;
+    border: #7fa3e7 solid 2px;
+    width: 14rem;
     text-align: center;
     text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
     transition: all .5s;
     user-select: none;
-    -webkit-user-select: none;
+    -webkit-user-select: transparent;
     touch-action: manipulation;
-      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 .events_asdf {
     width: 70vw;
@@ -246,7 +246,7 @@ input:focus::placeholder {
     border: solid rgba(255, 0, 0, 0) 1px;
     color: white;
     background-color: #d3d3d3af;
-    border-radius: 4px;
+    border-radius: 5px;
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
@@ -266,10 +266,13 @@ input:focus::placeholder {
     padding: 10px; /* Internal padding for content */
     display: flex;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     justify-content: center;
     color: white;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
     text-align: center;
+    transition: 0.4s ease-in-out;
     border-radius: 5px; /* Optional: Rounded corners */
 }
 
@@ -294,16 +297,19 @@ input:focus::placeholder {
 .person {
     background-color: #003300;
     color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Ensure space is distributed vertically */
     padding: 15px;
     margin-bottom: 20px;
     border-radius: 5px;
+    cursor: pointer;
     gap: 14px;
     box-sizing: border-box;
     height: 100%; /* Ensure it fills the grid cell's height */
     overflow: hidden; /* Prevent content overflow */
+    transition: 0.4s ease-in-out;
 }
 
 .container_33log {
@@ -331,14 +337,16 @@ li {
     width: 100%;
     display: flex;
     height: 20%;
-    background-color: #003300 !important;
+    background-color: #003300 !important;box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 .title_asdf {
     width: 100%;
     height: 20%;
     display: flex;
     justify-content: center;
-    border-radius: 5px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     align-items: center;
     background-color: rgb(2, 70, 2);
 }
@@ -354,6 +362,10 @@ li {
     align-items: center;
     display: flex;
     flex-direction: column;
+}
+.bearbeitenpop > h2 {
+    font-family: poppins;
+    font-weight: 700;
 }
 .search {
     background-color: #034903;
@@ -417,6 +429,7 @@ form {
     border: none;
     height: 40px;
     width: 120px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     border-radius: 5px;
 }
 .titlead {
@@ -424,11 +437,13 @@ form {
     display: flex;
     justify-content: center;
     background-color: #034903;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .log123ad {
     transition: 0.5s ease-in-out;
     display: grid;
+    padding: 0px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
     grid-gap: 20px; 
     width: 100%; 
@@ -438,7 +453,10 @@ form {
     transition: 0.5s ease-in-out;
     display: grid;
     width: 100%;
-    padding: 0px; 
+    margin-top: 0px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding: 0px;
     background-color: #004400;
     flex-direction: column;  
     grid-gap: 50px;
@@ -452,12 +470,13 @@ form {
 }
 .dev123ad2 > h2 {
     background-color: #003300;
-    height: 50px;
+    height: 60px;
     width: 100%;
-    transform: translate(0, 25px);
+    transform: translate(0, 21px);
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     color: whitesmoke;
 }
 .msg123 {
@@ -466,7 +485,11 @@ form {
     text-align: center; 
     border-radius: 5px; 
     color: white; 
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     cursor: pointer; 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    grid-gap: 20px; 
     transition: 0.25s ease-in-out;
 }
 .msg123:focus {
@@ -491,12 +514,16 @@ form {
 .users {
   width: 100%;
   background-color: #003300;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   border-radius: 10px;
   height: 150px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  text-align: center;
   color: whitesmoke;
   font-family: poppins;
+  padding: 0px;
   font-size: 12px !important;
 }
 .users > select {
@@ -539,9 +566,9 @@ form {
    z-index: 10000 !important;
 }
 .labelEditEvents {
-   color: black;
-   font-family: "Roboto", sans-serif;
-   font-weight: 400;
+   color: rgb(20, 20, 20);
+   font-family: "Poppins", sans-serif;
+   font-weight: 600;
    margin-left: 1.75%;
 }
 @media only screen and (min-width: 950px) {
@@ -564,4 +591,18 @@ form {
     height: 100px;
     align-items: flex-start;
     transform: translateY(-30px);
+}
+.personscon {
+    width: 70vw;
+    height: 100%;
+    display: grid;
+    grid-gap: 10px;
+    margin: 30px;
+    background-color: #ff02b300;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    grid-gap: 20px; 
+}
+.person:focus {
+    background-color: #006600;
+    -webkit-tap-highlight-color: transparent;
 }
