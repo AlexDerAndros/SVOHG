@@ -71,10 +71,6 @@
     transform: translate(20px);
     height: 50%;
 }
-.like {
-    height: 40px !important;
-    width: 40px !important;
-}
 .head {
     font-size: 2.1rem;
     font-weight: 800;
@@ -315,4 +311,22 @@ label > input {
     .input_real {
         width: 100% !important;
     }
+}
+.dislike {
+    height: 45px;
+}
+.likecon {
+    display: flex;
+    margin-bottom: 5px;
+}
+.likecon > img {
+    height: 40px !important;
+    width: 40px !important;
+}
+.like2 {
+    width: 60px;
+    height: 44px;
+}
+.like {
+    width: 30px !important;
 }

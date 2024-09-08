@@ -2,27 +2,69 @@ import React, { useState, useEffect } from 'react';
 import './SVKasten.css';
 import { db } from '../config/firebase';
 import { collection, addDoc, getDocs, updateDoc, doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
-import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import Cookies from 'js-cookie';
 import { gsap } from 'gsap';
-/*import plane from 'Public/SVKasten/Paper.png';*/
 
 export default function SVKasten() {
-  const [text, setText] = useState('');
-  const [isPublic, setIsPublic] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [isAdminOrDeveloper, setIsAdminOrDeveloper] = useState(false);
-  const auth = getAuth();
+  const [text, setText] = useState(''); 
+  const [isPublic, setIsPublic] = useState(false); 
+  const [messages, setMessages] = useState([]); 
+  let [isAdminOrDeveloper, setIsAdminOrDeveloper] = useState(false); 
+  const [userLikes, setUserLikes] = useState({}); // Store user's like/dislike state
+  const auth = getAuth(); 
 
   useEffect(() => {
     const fetchMessages = async () => {
       const querySnapshot = await getDocs(collection(db, 'messages'));
       const fetchedMessages = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setMessages(fetchedMessages.filter(message => message.isPublic));
+  
+      if (auth.currentUser) {
+        const userId = auth.currentUser.uid;
+        await fetchUserLikes(userId, fetchedMessages.map(msg => msg.id));
+        await checkUserRoles(userId);
+      }
     };
-
+  
+    const checkUserRoles = async (userId) => {
+      const docRef = doc(db, "users", userId);
+      const docSnap = await getDoc(docRef);
+  
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const isAdmin = data.isAdmin || false;
+        const isDeveloper = data.isDeveloper || false;
+        setIsAdminOrDeveloper(isAdmin || isDeveloper);
+      } else {
+        setIsAdminOrDeveloper(false);
+      }
+    };
+  
     fetchMessages();
-  }, []);
+  }, [auth.currentUser]);
+  const fetchUserLikes = async (userId, messageIds) => {
+    const likesSnapshot = await getDocs(collection(db, 'likes'));
+    const dislikesSnapshot = await getDocs(collection(db, 'dislikes'));
+    
+    let likesData = {};
+    
+    likesSnapshot.forEach((doc) => {
+      const { userId: likeUserId, messageId } = doc.data();
+      if (messageIds.includes(messageId) && likeUserId === userId) {
+        likesData[messageId] = 'liked';
+      }
+    });
+    
+    dislikesSnapshot.forEach((doc) => {
+      const { userId: dislikeUserId, messageId } = doc.data();
+      if (messageIds.includes(messageId) && dislikeUserId === userId) {
+        likesData[messageId] = 'disliked';
+      }
+    });
+
+    setUserLikes(likesData);
+  };
 
   const handleChange = (event) => {
     setText(event.target.value);
@@ -35,9 +77,10 @@ export default function SVKasten() {
           text: text,
           timestamp: new Date(),
           isPublic: isPublic,
-          likes: 0
+          likes: 0,
+          dislikes: 0,
         });
-        Cookies.set('message', text, {expires: 7});
+        Cookies.set('message', text, { expires: 7 });
 
         gsap.to('.button-36', {
           opacity: 0,
@@ -59,7 +102,7 @@ export default function SVKasten() {
             });
           }
         });
-    
+
         gsap.to('.plane', {
           y: '-500px',
           x: '70vw',
@@ -100,33 +143,120 @@ export default function SVKasten() {
     }
   };
 
-  const handleLike = async (messageId, currentLikes) => {
+  const handleLike = async (messageId) => {
     const userId = auth.currentUser?.uid;
-  
+    const likeRef = doc(db, 'likes', `${userId}_${messageId}`);
+    const dislikeRef = doc(db, 'dislikes', `${userId}_${messageId}`); 
+
     if (userId) {
-      const likeRef = doc(db, 'likes', `${userId}_${messageId}`);
       const likeDoc = await getDoc(likeRef);
-  
+      const dislikeDoc = await getDoc(dislikeRef);
+      const messageRef = doc(db, 'messages', messageId);
+      const message = messages.find(msg => msg.id === messageId);
+      
       if (likeDoc.exists()) {
-        alert('Du hast diese Nachricht bereits geliket.');
-        return;
+        await updateDoc(messageRef, { likes: message.likes - 1 });
+        await deleteDoc(likeRef);
+        setMessages((prevMessages) =>
+          prevMessages.map((msg) =>
+            msg.id === messageId
+              ? { ...msg, likes: msg.likes - 1 }
+              : msg
+          )
+        );
+      } else {
+        if (dislikeDoc.exists()) {
+          await updateDoc(messageRef, { dislikes: message.dislikes - 1 });
+          await deleteDoc(dislikeRef);
+          setMessages((prevMessages) =>
+            prevMessages.map((msg) =>
+              msg.id === messageId
+                ? { ...msg, dislikes: msg.dislikes - 1 }
+                : msg
+            )
+          );
+        }
+        await updateDoc(messageRef, { likes: message.likes + 1 });
+        await setDoc(likeRef, { userId, messageId });
+        setMessages((prevMessages) =>
+          prevMessages.map((msg) =>
+            msg.id === messageId
+              ? { ...msg, likes: msg.likes + 1 }
+              : msg
+          )
+        );
       }
   
-      const messageRef = doc(db, 'messages', messageId);
-      await updateDoc(messageRef, { likes: currentLikes + 1 });
-  
-      await setDoc(likeRef, { userId, messageId });
-  
-      setMessages(prevMessages =>
-        prevMessages.map(msg =>
-          msg.id === messageId ? { ...msg, likes: currentLikes + 1 } : msg
-        )
-      );
-    } else {
-      alert('Bitte melde dich an, um zu liken.');
+      gsap.to(`#like-${messageId}`, { 
+        scale: 1.2, 
+        duration: 0.2, 
+        ease: 'power1.out',
+        onComplete: () => {
+          document.querySelector(`#like-${messageId}`).src = likeDoc.exists() ? './not_liked2.png' : './like.png';
+          document.querySelector(`#dislike-${messageId}`).src = './not_liked.png';
+          gsap.to(`#like-${messageId}`, { scale: 1, duration: 0.2 });
+        }
+      });
     }
   };
 
+  const handleDislike = async (messageId) => {
+    const userId = auth.currentUser?.uid;
+    const dislikeRef = doc(db, 'dislikes', `${userId}_${messageId}`);
+    const likeRef = doc(db, 'likes', `${userId}_${messageId}`);
+
+    if (userId) {
+      const dislikeDoc = await getDoc(dislikeRef);
+      const likeDoc = await getDoc(likeRef);
+      const messageRef = doc(db, 'messages', messageId);
+      const message = messages.find(msg => msg.id === messageId);
+
+      if (dislikeDoc.exists()) {
+        await updateDoc(messageRef, { dislikes: message.dislikes - 1 });
+        await deleteDoc(dislikeRef);
+        setMessages((prevMessages) =>
+          prevMessages.map((msg) =>
+            msg.id === messageId
+              ? { ...msg, dislikes: msg.dislikes - 1 }
+              : msg
+          )
+        );
+      } else {
+        if (likeDoc.exists()) {
+          await updateDoc(messageRef, { likes: message.likes - 1 });
+          await deleteDoc(likeRef);
+          setMessages((prevMessages) =>
+            prevMessages.map((msg) =>
+              msg.id === messageId
+                ? { ...msg, likes: msg.likes - 1 }
+                : msg
+            )
+          );
+        }
+        await updateDoc(messageRef, { dislikes: message.dislikes + 1 });
+        await setDoc(dislikeRef, { userId, messageId });
+        setMessages((prevMessages) =>
+          prevMessages.map((msg) =>
+            msg.id === messageId
+              ? { ...msg, dislikes: msg.dislikes + 1 }
+              : msg
+          )
+        );
+      }
+
+      gsap.to(`#dislike-${messageId}`, { 
+        scale: 1.2, 
+        duration: 0.2, 
+        ease: 'power1.out',
+        onComplete: () => {
+          document.querySelector(`#dislike-${messageId}`).src = dislikeDoc.exists() ? './not_liked.png' : './dislike.png';
+          document.querySelector(`#like-${messageId}`).src = './not_liked2.png';
+          gsap.to(`#dislike-${messageId}`, { scale: 1, duration: 0.2 });
+        }
+      });
+    }
+  };
+  
   const handleDeleteMessage = async (messageId) => {
     try {
       await deleteDoc(doc(db, 'messages', messageId));
@@ -177,11 +307,8 @@ export default function SVKasten() {
               </label>
             </div>
             <div className='gap123'></div>
-            <button className="button-36" role="button" onClick={handleClick}>Senden
-              
-            </button>
+            <button className="button-36" role="button" onClick={handleClick}>Senden</button>
             <img src={`${process.env.PUBLIC_URL}/Paper.png`} alt='Paper Plane' className='plane' />
-
           </div>
   
           <div className="oeffentlich_nach">
@@ -189,17 +316,21 @@ export default function SVKasten() {
               Nachichten Keine ahnung
             </div>
             {messages
-              .sort((a, b) => b.likes - a.likes) // Sortiere nachihten nach wer die meisten likes hat ich habe keine ahnung was diese funktion ist zumgluck gibt es GOOGLE
+              .sort((a, b) => b.likes - a.likes)
               .map((message) => (
                 <div key={message.id} className="message1234">
                   <p>{message.text}</p>
                   <div className='likecon'>
-                    <button className='btslike' onClick={() => handleLike(message.id, message.likes)}>
-                      <img src='./like.png' className='like' alt='Like'/> {message.likes}
+                    <button className='btslike' onClick={() => handleLike(message.id)}>
+                      <img id={`like-${message.id}`} src={userLikes[message.id] === 'liked' ? './like.png' : './not_liked2.png'} className='like2' alt='Like'/> {message.likes}
                     </button>
-                    {isAdminOrDeveloper && (
-                      <button onClick={() => handleDeleteMessage(message.id)}>Löschen</button>
-                    )}
+                    <button className='btslike' onClick={() => handleDislike(message.id)}>
+                      <img id={`dislike-${message.id}`} src={userLikes[message.id] === 'disliked' ? './dislike.png' : './not_liked.png'} className='dislike' alt='Dislike'/> {message.dislikes || 0}
+                    </button>
+                    {console.log("isAdminOrDeveloper:", isAdminOrDeveloper)} 
+{isAdminOrDeveloper && (
+  <button onClick={() => handleDeleteMessage(message.id)}>Löschen</button>
+)}
                   </div>
                 </div>
               ))}
@@ -208,4 +339,4 @@ export default function SVKasten() {
       </div>
     </>
   );
-}  
+}
