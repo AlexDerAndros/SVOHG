@@ -193,7 +193,7 @@ export default function SVKasten() {
         ease: 'power1.out',
         onComplete: () => {
           document.querySelector(`#like-${messageId}`).src = likeDoc.exists() ? './not_liked2.png' : './like.png';
-          document.querySelector(`#dislike-${messageId}`).src = './not_liked.png';
+          document.querySelector(`#dislike-${messageId}`).src = './Not_liked.png';
           gsap.to(`#like-${messageId}`, { scale: 1, duration: 0.2 });
         }
       });
@@ -249,7 +249,7 @@ export default function SVKasten() {
         duration: 0.2, 
         ease: 'power1.out',
         onComplete: () => {
-          document.querySelector(`#dislike-${messageId}`).src = dislikeDoc.exists() ? './not_liked.png' : './dislike.png';
+          document.querySelector(`#dislike-${messageId}`).src = dislikeDoc.exists() ? './Not_liked.png' : './dislike.png';
           document.querySelector(`#like-${messageId}`).src = './not_liked2.png';
           gsap.to(`#dislike-${messageId}`, { scale: 1, duration: 0.2 });
         }
@@ -325,7 +325,7 @@ export default function SVKasten() {
                       <img id={`like-${message.id}`} src={userLikes[message.id] === 'liked' ? './like.png' : './not_liked2.png'} className='like2' alt='Like'/> {message.likes}
                     </button>
                     <button className='btslike' onClick={() => handleDislike(message.id)}>
-                      <img id={`dislike-${message.id}`} src={userLikes[message.id] === 'disliked' ? './dislike.png' : './not_liked.png'} className='dislike' alt='Dislike'/> {message.dislikes || 0}
+                      <img id={`dislike-${message.id}`} src={userLikes[message.id] === 'disliked' ? './dislike.png' : './Not_liked.png'} className='dislike' alt='Dislike'/> {message.dislikes || 0}
                     </button>
                     {console.log("isAdminOrDeveloper:", isAdminOrDeveloper)} 
 {isAdminOrDeveloper && (
