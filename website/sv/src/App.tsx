@@ -550,18 +550,67 @@ function Startseite() {
         </div>
       </div>
       <div className="back"></div>
-      <div className="questions">
-        <div
-          className="question"
-          ref={(el) => (questionsRef.current[0] = el)}
-        >
-          <div className="titleq">
-            Was ist die &nbsp; <div className='highvs'>SV?</div> <img className='svg123' src="./question-square.svg" alt="" />
-          </div>
-          <div className="textq">
-            Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
-          </div>
+      <div className="line33"></div>
+      <div className="teil1main">
+        <div className="title_teil1">
+          <h3>
+          Was ist die  <div className='highvs2'>SV?</div>
+          </h3>
         </div>
+      <div className="teil1">
+        <div className="right1">
+        <div className="conright">
+  <div className='sv-info'>
+    <h2>
+    Die SV kümmert sich um die Umsetzung der Wünsche der Schüler*innen am Otto-Hahn-Gymnasium. Die SV organisiert verschiedene spaßige und lustige Events, z. B.:
+    </h2>
+    <h2> <img src='./favicon2.ico' className='SVetwas' /> Aktionen für das Schulleben:</h2>
+    <ul>
+      <li>Unterstufendiskos</li>
+      <li>Abschlussaktion</li>
+      <li>Talentwettbewerb</li>
+      <li>Schulfest-Aktionen</li>
+      <li>Speisenverkauf beim Weihnachtskonzert</li>
+      <li>Rosen- und Nikolausaktion mit Fairtrade AG</li>
+    </ul>
+
+    <h2><img src='./favicon2.ico' className='SVetwas' /> Interessenvertretung:</h2>
+    <ul>
+      <li>Schul- und Fachkonferenzen</li>
+      <li>Unterstützung bei schulischen Problemen</li>
+    </ul>
+
+    <h2><img src='./favicon2.ico' className='SVetwas' /> Aktuelles Team:</h2>
+    <ul>
+      <li>Jahrgangsstufen 9, 10 und Q1</li>
+      <li>SV-Verbindungslehrer: Ceyda Kaplan, Daniel Harnischmacher, Maike Cohen</li>
+    </ul>
+
+    <h2><img src='./favicon2.ico' className='SVetwas' /> Freizeitgestaltung:</h2>
+    <ul>
+      <li>Stufenübergreifende Turniere</li>
+      <li>„Schülerteam gegen Lehrerteam“</li>
+    </ul>
+
+    <h2><img src='./favicon2.ico' className='SVetwas' /> Schülerfirmen und Projekte:</h2>
+    <ul>
+      <li>Kiosk: verkauft Milch, Kakao, Brötchen; Überschüsse für ein Patenkind</li>
+      <li>Zukunftsideen: Spendenaktionen, Umwelt-Tage, vegane Tage</li>
+    </ul>
+  </div>
+</div>
+        </div>
+        <div className="left1">
+              <div className="foto_con">
+                <img className='iftar' src="./Iftar.jpg" alt="" />
+                <img className='iftar2' src="./Mingolf.jpg" alt="" />
+                <img className='iftar3' src="./SV.jpg" alt="" />
+              </div>
+        </div>
+      </div>
+      </div>
+      <div className="questions">
+      
         <div
           className="question"
           ref={(el) => (questionsRef.current[1] = el)}
