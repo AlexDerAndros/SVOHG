@@ -310,34 +310,40 @@ function HeaderBottom() {
 }
 
 
-gsap.registerPlugin(ScrollTrigger);
 
 function Startseite() {
   const svRef = useRef<HTMLDivElement | null>(null);
   const wofurRef = useRef<HTMLDivElement | null>(null);
   const kontaktRef = useRef<HTMLDivElement | null>(null);
   const beitretenRef = useRef<HTMLDivElement | null>(null);
+  const teil1main = useRef<HTMLDivElement | null>(null);
   const questionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const eventsRef = useRef<HTMLDivElement | null>(null);
+  const info = useRef<HTMLDivElement | null>(null);
+  const iftar = useRef<HTMLImageElement | null>(null);
+  const iftar2 = useRef<HTMLImageElement | null>(null);
+  const iftar3 = useRef<HTMLImageElement | null>(null);
 
-  const imgRef = useRef(null);
-  const linetop = useRef(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const linetop = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-
-    const animateElement = (element:any, fromVars: gsap.TweenVars, toVars: gsap.TweenVars) => {
-      gsap.fromTo(
-        element,
-        fromVars,
-        {
-          ...toVars,
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
+    const animateElement = (element: HTMLElement | null, fromVars: gsap.TweenVars, toVars: gsap.TweenVars) => {
+      if (element) {
+        gsap.fromTo(
+          element,
+          fromVars,
+          {
+            ...toVars,
+            scrollTrigger: {
+              trigger: element,
+              start: 'top 80%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      }
+      
     };
 
     animateElement(imgRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 2.5, ease: 'power3.out' });
@@ -348,6 +354,13 @@ function Startseite() {
     animateElement(wofurRef.current, { opacity: 0, x: -100 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' });
     animateElement(kontaktRef.current, { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
     animateElement(beitretenRef.current, { opacity: 0, x: 100 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' });
+    
+    animateElement(teil1main.current, { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' });
+    animateElement(info.current, { opacity: 0, x: -150 }, { opacity: 1, x: 0, duration: 2, ease: 'power3.out' });
+    animateElement(iftar.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 1, duration: 2, ease: 'power3.out' });
+    animateElement(iftar2.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: 'power3.out' });
+    animateElement(iftar3.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: 'power3.out' });
+
 
     questionsRef.current.forEach((question, index) => {
       if (question) {
@@ -406,7 +419,6 @@ function Startseite() {
     fetchEvents();
   }, []);
 
-
   const [events, setEvents] = useState<any[]>([]);
   const [flexboxPopup, setFlexboxPopup] = useState('flex');
   const [heightpopup, setheightpopup] = useState('translateY(100vh)');
@@ -441,7 +453,6 @@ function Startseite() {
       transform: 'scale(1.2)',
       duration: 0.2,
       onComplete: () => {
-        // Reset the animation after it completes
         gsap.to('.davor', {
           transform: 'scale(1)',
           duration: 0.2
@@ -450,7 +461,7 @@ function Startseite() {
     });
     gsap.to('.tabelle1', {
       x: '-90vw',
-      duration: 2.5,//
+      duration: 2.5,
       ease: 'bounce.inOut',
     })
   }
@@ -460,7 +471,6 @@ function Startseite() {
       transform: 'scale(1.2)',
       duration: 0.2,
       onComplete: () => {
-        // Reset the animation after it completes
         gsap.to('.danach', {
           transform: 'scale(1)',
           duration: 0.2
@@ -551,7 +561,7 @@ function Startseite() {
       </div>
       <div className="back"></div>
       <div className="line33"></div>
-      <div className="teil1main">
+      <div className="teil1main" ref={teil1main}>
         <div className="title_teil1">
           <h3>
           Was ist die  <div className='highvs2'>SV?</div>
@@ -560,9 +570,9 @@ function Startseite() {
       <div className="teil1">
         <div className="right1">
         <div className="conright">
-  <div className='sv-info'>
+  <div className='sv-info' ref={info}>
     <h2>
-    Die SV kümmert sich um die Umsetzung der Wünsche der Schüler*innen am Otto-Hahn-Gymnasium. Die SV organisiert verschiedene spaßige und lustige Events, z. B.:
+    Die SV kümmert sich um die Umsetzung der Wünsche der Schüler*innen am Otto-Hahn-Gymnasium. Die SV organisiert verschiedene spaßige und lustige Events, z. B
     </h2>
     <h2> <img src='./favicon2.ico' className='SVetwas' /> Aktionen für das Schulleben:</h2>
     <ul>
@@ -578,12 +588,6 @@ function Startseite() {
     <ul>
       <li>Schul- und Fachkonferenzen</li>
       <li>Unterstützung bei schulischen Problemen</li>
-    </ul>
-
-    <h2><img src='./favicon2.ico' className='SVetwas' /> Aktuelles Team:</h2>
-    <ul>
-      <li>Jahrgangsstufen 9, 10 und Q1</li>
-      <li>SV-Verbindungslehrer: Ceyda Kaplan, Daniel Harnischmacher, Maike Cohen</li>
     </ul>
 
     <h2><img src='./favicon2.ico' className='SVetwas' /> Freizeitgestaltung:</h2>
@@ -602,15 +606,14 @@ function Startseite() {
         </div>
         <div className="left1">
               <div className="foto_con">
-                <img className='iftar' src="./Iftar.jpg" alt="" />
-                <img className='iftar2' src="./Mingolf.jpg" alt="" />
-                <img className='iftar3' src="./SV.jpg" alt="" />
+                <img className='iftar' ref={iftar} src="./Iftar.jpg" alt="" />
+                <img className='iftar2' ref={iftar2}   src="./Mingolf.jpg" alt="" />
+                <img className='iftar3' ref={iftar3} src="./SV.jpg" alt="" />
               </div>
         </div>
       </div>
       </div>
       <div className="questions">
-      
         <div
           className="question"
           ref={(el) => (questionsRef.current[1] = el)}
@@ -631,7 +634,6 @@ function Startseite() {
           </div>
           <div className="textq">
           Um in die SV zu kommen musst du ein Klassensprecher oder Stufensprecher sein. Außerdem musst du mindestens in der 9.Klasse sein. Wenn man diese Bedingungen erfüllt, kommt man automatisch in die SV.
-
           </div>
         </div>
         <div
@@ -655,6 +657,7 @@ function Startseite() {
     </div>
   );
 }
+
 
 /* FUR INSTAGRAMM POSTS IN DER WEBSITE
 interface InstagramPostProps {
