@@ -320,6 +320,7 @@ function Startseite() {
   const questionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const eventsRef = useRef<HTMLDivElement | null>(null);
   const info = useRef<HTMLDivElement | null>(null);
+  const line = useRef<HTMLDivElement | null>(null);
   const iftar = useRef<HTMLImageElement | null>(null);
   const iftar2 = useRef<HTMLImageElement | null>(null);
   const iftar3 = useRef<HTMLImageElement | null>(null);
@@ -360,6 +361,7 @@ function Startseite() {
     animateElement(iftar.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 1, duration: 2, ease: 'power3.out' });
     animateElement(iftar2.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: 'power3.out' });
     animateElement(iftar3.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: 'power3.out' });
+    animateElement(line.current, { height: '0px' }, { opacity: 1, duration: 2, height: '600px', ease: 'power3.out' });
 
 
     questionsRef.current.forEach((question, index) => {
@@ -560,7 +562,9 @@ function Startseite() {
         </div>
       </div>
       <div className="back"></div>
-      <div className="line33"></div>
+      <div className="line33" ref={line}></div>
+      
+
       <div className="teil1main" ref={teil1main}>
         <div className="title_teil1">
           <h3>
@@ -612,32 +616,63 @@ function Startseite() {
               </div>
         </div>
       </div>
+      <div className="line44"></div>
+      </div>
+      <div className="teil2">
+        <div className="title_teil1" id='skondone'>
+          <h3>
+            Wofur ist die SV?
+          </h3>
+        </div>
+        <div className="fototeil">
+        <img src='./favicon2.ico' className='SVetwas2' />
+        </div>
+        <div className="innencon">
+            <div className="teilr">
+            <img className='iftar' ref={iftar} src="./Iftar.jpg" alt="" />
+
+            </div>
+            <div className="teill">
+              <div className="sv_info2">
+              <p>Die Schülervertretung (SV) spielt eine zentrale Rolle im Schulleben und setzt sich für die Interessen der Schüler ein. Mit viel Engagement sorgt die SV dafür, dass Schule mehr ist als nur Unterricht und Prüfungen. Hier sind die wichtigsten Aufgaben und Aktivitäten der SV:</p>
+
+<h2><img src='./favicon2.ico' className='SVetwas' />Organisation von Events:</h2>
+<ul>
+  <li>Unterstufendiskos</li>
+  <li>Abschlussaktion</li>
+  <li>Talentwettbewerb</li>
+  <li>Schulfest-Aktionen</li>
+  <li>Speisenverkauf beim Weihnachtskonzert</li>
+  <li>Rosen- und Nikolausaktion mit Fairtrade AG</li>
+</ul>
+
+<h2><img src='./favicon2.ico' className='SVetwas' />Vertretung der Schülerinteressen:</h2>
+<ul>
+  <li>Teilnahme an Schul- und Fachkonferenzen zur Vertretung der Interessen der Schülerschaft</li>
+  <li>Beratung und Unterstützung bei schulischen Problemen, z.B. mit Lehrern</li>
+</ul>
+
+<h2><img src='./favicon2.ico' className='SVetwas' />Kooperation mit anderen Gruppen:</h2>
+<ul>
+  <li>Organisation von Aktionen wie der Rosen- und Nikolausaktion in Zusammenarbeit mit der Fairtrade-AG</li>
+  <li>Stärkung des Gemeinschaftsgefühls und Förderung sozialer Verantwortung</li>
+</ul>
+
+<h2><img src='./favicon2.ico' className='SVetwas' />Soziale Projekte:</h2>
+<ul>
+  <li>Betreibung eines Schulkiosks: Verkauf von Milch, Kakao, Brötchen; Überschüsse fließen in die Unterstützung eines Patenkindes in Bangladesch</li>
+  <li>Planung und Durchführung von Spendenaktionen, Umwelt-Tagen und veganen Tagen</li>
+</ul>
+
+
+
+              </div>
+            </div>
+        </div>
       </div>
       <div className="questions">
-        <div
-          className="question"
-          ref={(el) => (questionsRef.current[1] = el)}
-        >
-          <div className="titleq">
-          Wofür ist die &nbsp; <div className='highvs'>SV</div> &nbsp; da?
-          </div>
-          <div className="textq">
-          Die SV kümmert sich beispielsweise darum, dass die Wünsche der Schüler*innen auf dem Otto-Hahn-Gymnasium so gut es geht umgesetzt werden. Außerdem organisiert die SV auch einige spaßige und lustige Events für euch wie zum Beispiel eine Schülerdisko oder den Talentwettbewerb.
-          </div>
-        </div>
-        <div
-          className="question"
-          ref={(el) => (questionsRef.current[2] = el)}
-        >
-          <div className="titleq">
-            Wie kann man die &nbsp; <div className='highvs'>SV</div> &nbsp; beitreten?
-          </div>
-          <div className="textq">
-          Um in die SV zu kommen musst du ein Klassensprecher oder Stufensprecher sein. Außerdem musst du mindestens in der 9.Klasse sein. Wenn man diese Bedingungen erfüllt, kommt man automatisch in die SV.
-          </div>
-        </div>
-        <div
-          className="question"
+      
+         <div className="question"
           ref={(el) => (questionsRef.current[3] = el)}
         >
           <div className="titleq">
@@ -652,7 +687,6 @@ function Startseite() {
       <div className="ic1">
         <FontAwesomeIcon icon={faCalendarDays} className='calendar'/>
       </div>
-      <div className="line2"></div>
       <AboutUs />
     </div>
   );
