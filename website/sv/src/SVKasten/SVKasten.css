@@ -158,7 +158,7 @@
     align-items: center;
 }
 .input_real::-webkit-input-placeholder {
-    font-family: poppins !important;
+    font-family: 'Poppins' !important;
     font-weight: 500 !important;
     font-size: 17px !important;
     font-weight: 600;

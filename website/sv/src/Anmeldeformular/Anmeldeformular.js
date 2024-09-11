@@ -5,8 +5,9 @@ import { useState, useEffect, useRef } from "react";
 import { faTrash, faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { auth, db } from "../config/firebase"; 
-import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query } from "firebase/firestore"; 
+import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query, setDoc } from "firebase/firestore"; 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -183,6 +184,8 @@ function NichtsVerfügbar() {
   );
 }
 
+
+
 function Formular({ events, pressF, clickEF, remove, setClickEF }) {
   const [VN, setVN] = useState('');
   const [NN, setNN] = useState('');
@@ -190,80 +193,61 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
   const [geb, setGeb] = useState('');
   const [kla, setKla] = useState('');
   const [inF, setInF] = useState('');
+  const [addedIn1, setAddedIn1] = useState('');
+  const [addedIn2, setAddedIn2] = useState('');
+  const [addedIn3, setAddedIn3] = useState('');
+  const [addedIn4, setAddedIn4] = useState('');
+  const [addedIn5, setAddedIn5] = useState('');
   const [clickIN, setClickIN] = useState(false);
   const [inputsList, setInputsList] = useState([]);
+  const [addInLi, setAddINLi] = useState([]);
   const [deleteCon, setDeleteCon] = useState(false);
   const [deleteIn, setDeleteIn] = useState('');
+  const [inCountdown, setInCountdown] = useState(0);
   let plusIcon;
-  
   const pressIN = () => {
     setClickIN(!clickIN);
-   }
+  }
+  
+  const PlusIcon = () => {
+ 
+    return (
+      <div className="addInput" onClick={pressIN} 
+           style={{transform: clickIN ? "rotate(45deg)" : 'rotate(0deg)',
+           transition: '0.2s ease-in'}}>
+        +
+      </div>
+    );
+  }
+
+  //Überprüfung, ob das Plus Angezeigt wird oder nicht
   if (Cookies.get('isAdmin') == 'true' || Cookies.get('isDeveloper') == 'true') {
-    plusIcon = <div className="addInput" onClick={pressIN} style={{transform: clickIN ? "rotate(45deg)" : 'rotate(0deg)', transition: '0.2s ease-in'}}>+</div>;
+    plusIcon = <PlusIcon clickIN={clickIN} setClickIN={setClickIN} /> ;
   }
   else {
     plusIcon = '';
   }
   
  
-  
-  let user = Cookies.get('user');
-  useEffect(() => {}, []);
 
-  const sendForm = async () => {
-    gsap.to('.bearbeiten1', {
-      borderRadius: '100%',
-      width: '70px', 
-      opacity: 0,
-      duration: 1,
-      onComplete: () => {
-        gsap.to('.bearbeiten1', {
-          borderRadius: '8px',
-          width: '13rem',
-          opacity: 1,
-          duration: 1
-        });
-      }
-    });
-    if (VN.trim() !== '' && NN.trim() !== '' && email.trim() !== '' && geb.trim() !== '' && kla.trim() !== '') {
-      await addDoc(collection(db, "userEvents"), {
-        title: VN + '' + NN,
-        name: VN + ' ' + NN,
-        email: email,
-        age: geb,
-        Klasse: kla
-      });
-      setClickEF(true);
-      Cookies.set('teil', true, { expires: 7 });
-      Cookies.set("name", VN + ' ' + NN, { expires: 7 });
-      Cookies.set("age", geb, { expires: 7 });
-      Cookies.set("kla", kla, { expires: 7 });
-      Cookies.set("email1", email, { expires: 7 });
-      alert("Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!");
-      let mail = Cookies.get('email1');
-      await addDoc(collection( db, "mail"), {
-        to : [mail],
-        message: {
-          subject: "Anmeldung für das Event erfolgreich",
-          text:"Hallo",
-          html:`Guten Tag ${mail}, <br/> <br/> sie nehmen nun am Event teil. <br/> Falls Sie noch weitere Fragen haben, wenden Sie sich bitte an die E-Mail Adresse svohgmonheim7@gmail.com <br/> <br/> Mit freundlichen Grüßen <br/> Eure SV`
-        }
-      });
-      setVN('');
-      setNN('');
-      setEmail('');
-      setGeb('');
-      setKla('');
-    }
-  };
-  const sendInput = async () => {
-    if(inF.trim() !== '') {
+
+
+//Senden des Inputs
+const sendInput = async () => {
+  
+    if (inF.trim() !== '') {
       try {
+        const newCountdown = inCountdown + 1;
+        await setDoc(doc(db, "inputCounter", 'inCounter'), {
+          counter: newCountdown
+        });
         await addDoc(collection(db, "inputs"), {
            placeholder: inF + '...',
-           titleIN: inF + ':'
+           titleIN: inF + ':',
+           number: newCountdown
         });
+        
+       
         alert('Eingabefeld wurde erfolgreich hinzugefügt!');
         window.location.reload();
       } catch (error) {
@@ -273,11 +257,15 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
     }
     setInF('');
 
-  };
-  const pressDel = () => {
-    setDeleteCon(!deleteCon);
-  }
-  async function deleteInput() {
+};
+
+
+const pressDel = () => {
+  setDeleteCon(!deleteCon);
+};
+  
+//Löschen des Inputs
+const deleteInput = async() => {
     try {
       let value = deleteIn;
       const q = query(collection(db, "inputs"), where('titleIN', '==', value));
@@ -287,6 +275,10 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
         const docRef = doc(db, "inputs", docSnapshot.id);
         await deleteDoc(docRef);
       });
+      const newCountdown = inCountdown - 1;
+      await setDoc(doc(db, "inputCounter", 'inCounter'), {
+        counter: newCountdown
+      });
       alert('Eingabefeld erfolgreich gelöscht!');
 
     } catch(error) {
@@ -295,94 +287,239 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
     }
     
  };
-  const fetchInputs = async () => {
+
+ 
+//Aufrufung von der Inputanzahl
+const inputCounter = async() => {
+    try {
+      const q = query(
+        collection(db, "inputCounter"),
+      );
+  
+      const querySnapshot = await getDocs(q);
+      
+      querySnapshot.forEach((docSnapshot) => {
+        const data = docSnapshot.data();
+        const counterValue =  data.counter;
+        setInCountdown(counterValue);
+      });
+      
+     
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+
+const fetchCountdown = async() => {
+  try {
+    const q = query(
+      collection(db, "inputs"),
+    );
+
+    const querySnapshot = await getDocs(q);
+    
+    querySnapshot.forEach((docSnapshot) => {
+      const data = docSnapshot.data();
+      const counterValue =  data.number;
+      setAddINLi(counterValue);
+    });
+    
+   
+    
+  } catch (error) {
+    console.log(error);
+  }
+}
+const onChange = (e) => {
+  if (addInLi == 1) {
+    setAddedIn1(e.target.value);
+  }
+  if (addInLi == 2) {
+    setAddedIn2(e.target.value);
+  }
+  if (addInLi == 3) {
+    setAddedIn3(e.target.value);
+  }
+  if (addInLi == 4) {
+    setAddedIn4(e.target.value);
+  }
+  if (addInLi == 4) {
+    setAddedIn5(e.target.value);
+  }
+};
+
+//Aufrufung von Database der Inputs
+const fetchInputs = async () => {
     const inCol = collection(db, 'inputs');
     const inSnapshot = await getDocs(inCol);
     const inList = inSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setInputsList(inList);
-  };
+};
  
-  useEffect(() => {
+useEffect(() => {
     fetchInputs();
-  }, []);
+    inputCounter();
+    fetchCountdown();
+}, []);
 
-  if (clickEF === true || Cookies.get("teil") === "true") {
-    return <InEvent remove={remove} events={events} />;
-  } else {
-    return (
-      <>
+//Senden des Formulars
+const sendForm = async () => {
+  gsap.to('.bearbeiten1', {
+    borderRadius: '100%',
+    width: '70px', 
+    opacity: 0,
+    duration: 1,
+    onComplete: () => {
+      gsap.to('.bearbeiten1', {
+        borderRadius: '8px',
+        width: '13rem',
+        opacity: 1,
+        duration: 1
+      });
+    }
+  });
+ 
+  if (VN.trim() !== '' && NN.trim() !== '' && email.trim() !== '' && geb.trim() !== '' && kla.trim() !== '') {
+    await addDoc(collection(db, "userEvents"), {
+      title: VN + '' + NN,
+      name: VN + ' ' + NN,
+      email: email,
+      age: geb,
+      Klasse: kla,
+      newCategorie1: addedIn1 || 'none',
+      newCategorie2: addedIn2 || 'none',
+      newCategorie3: addedIn3 || 'none',
+      newCategorie4: addedIn4 || 'none',
+      newCategorie5: addedIn5 || 'none',
+
+    });
+    setClickEF(true);
+    Cookies.set('teil', true, { expires: 7 });
+    Cookies.set("name", VN + ' ' + NN, { expires: 7 });
+    Cookies.set("age", geb, { expires: 7 });
+    Cookies.set("kla", kla, { expires: 7 });
+    Cookies.set("email1", email, { expires: 7 });
+    alert("Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!");
+    let mail = Cookies.get('email1');
+    await addDoc(collection( db, "mail"), {
+      to : [mail],
+      message: {
+        subject: "Anmeldung für das Event erfolgreich",
+        text:"Hallo",
+        html:`Guten Tag ${mail}, <br/> <br/> sie nehmen nun am Event teil. <br/> Falls Sie noch weitere Fragen haben, wenden Sie sich bitte an die E-Mail Adresse svohgmonheim7@gmail.com <br/> <br/> Mit freundlichen Grüßen <br/> Eure SV`
+      }
+    });
+    setVN('');
+    setNN('');
+    setEmail('');
+    setGeb('');
+    setKla('');
+  }
+};
+
+
+if (clickEF === true || Cookies.get("teil") === "true") {
+  return <InEvent remove={remove} events={events} />;
+} 
+else {
+  return (
+   <>
        
-          <div className="contentA"  >
-          {events.map((event) => (
-            <div className="title_events_2" >
+     <div className="contentA"  >
+      {events.map((event) => (
+        <div className="title_events_2" >
               {event.topic}
-            </div>
-          ))}
-          <div className='loadofinputs'>
-            <input type="text"   className='search' placeholder="Vorname..." onChange={(e) => setVN(e.target.value)} />
-            <input type="text" className='search' placeholder="Nachname..." onChange={(e) => setNN(e.target.value)} />
-            <input type="number" className='search' placeholder="Alter..." onChange={(e) => setGeb(e.target.value)} />
-            <input type="text" className='search' placeholder="Klasse..." onChange={(e) => setKla(e.target.value)} />
-            <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)}  />
+        </div>
+      ))}
+      <div className='loadofinputs'>
+          <input type="text"   className='search' placeholder="Vorname..." onChange={(e) => setVN(e.target.value)} />
+          <input type="text" className='search' placeholder="Nachname..." onChange={(e) => setNN(e.target.value)} />
+          <input type="number" className='search' placeholder="Alter..." onChange={(e) => setGeb(e.target.value)} />
+          <input type="text" className='search' placeholder="Klasse..." onChange={(e) => setKla(e.target.value)} />
+          <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)}  />
+      </div>
+      <br/>
 
-          </div>
-            {inputsList.map((item) => (
-              <>
-                 <div className="infoIN">{item.titleIN}</div> 
-                 <div className="INDEL">
-                   <input type="text" className='search' placeholder={item.placeholder}   />
-                   <div className="PosbtnDelIn">
-                    <br/>
-                    <FontAwesomeIcon icon={faTrash} onClick={pressDel} className="btnDelIn"/>
+      {/* Hinzugefügte Inputs werden gemappt  */}
+      {inputsList.map((item) => (
+        <>
+         <div className="infoIN">{item.titleIN}</div> 
+           <div className="INDEL">
+              <input type="text" className='search' placeholder={item.placeholder} onChange={onChange}/>
+                <div className="PosbtnDelIn">
+                   <br/>
+                   <FontAwesomeIcon icon={faTrash} onClick={pressDel} className="btnDelIn"/>
                    </div>
                  </div> 
-                 <div className="delete" style={{width: deleteCon ? '80vw' : '0vw', zIndex: deleteCon ? '1000' : '-1'}}>
-             <div className="conDelte">
-              <div className="backToForm" onClick={pressDel}>
-               <FontAwesomeIcon icon={faX}/>
-              </div>
-              <div className="DelInfo">
-                <div className="DelText">
-                  Bitte geben Sie hier den Titel des Eingabefeldes mit einem Doppelpunkt hinten dran ein und <br/> bestätigen Sie dann die Löschung dieses Eingabefeldes, um es zu löschen.
-                 <br/> <br/>
-                 <input type="text" className='search' placeholder="Titel eines Eingabefeldes mit einem Doppelpunkt hinten dran"  onChange={(e) => setDeleteIn(e.target.value)}
-                 style={{ padding: deleteCon ? '10px' : '0px',width: deleteCon ? '60vw' : "0vw",}} />
-                 <br/>
-                  <button className="bearbeiten1" onClick={deleteInput} style={{width: deleteCon ? '60vw' : "0vw",fontSize: deleteCon ? '120%' : '0vw',  padding: deleteCon ? '10px' : '0px'}}>
-                   Löschung des Eingabefeldes
-                 </button>
-                </div>
-              </div>
-             </div> 
-            </div>
-              </>
-            ))}
-            <br/>
-            <br/>
-            {plusIcon}
-            <div style={{width: clickIN ? '60vw' : "0", fontSize: clickIN ? '100%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}}  className="infoIN">Titel des neuen Eingabefeldes:</div> <br/>
-            <input style={{zIndex: deleteCon ? '-1' : '1' , padding: clickIN ? '10px' : '0px',width: clickIN ? '60vw' : "0vw", fontSize: clickIN ? '120%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}} 
-                   type="text"
-                   className='search'
-                   placeholder="Titel des Eingabefeldes..."
-                   onChange={(e) => setInF(e.target.value)}   />
-                 <button className="bearbeiten1" onClick={sendInput} style={{padding: '0', marginTop: "5%", width: clickIN ? '60vw' : "0", fontSize: clickIN ? '100%' : '0vw', transition:'0.3s ease-in-out', display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none', display:'flex', justifyContent:'center', alignItems: "center"}}>
-                   Senden des Eingabefeldes
-                 </button>
-            <div className="btnPos">
-              <button className="bearbeiten1" onClick={sendForm} style={{ marginTop: "5%" }}>
-                Senden
-              </button>
-            </div>
-            <br />
-            <div className="eventname21" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
-              ← Zurück
-            </div>
-          </div>
-       
-      </>
-    );
-  }
+             {/*Delete Container */}
+             <div className="delete" style={{width: deleteCon ? '80vw' : '0vw', zIndex: deleteCon ? '1000' : '-1'}}>
+               <div className="conDelte">
+                 <div className="backToForm" onClick={pressDel}>
+                   <FontAwesomeIcon icon={faX}/>
+                 </div>
+                <div className="DelInfo">
+                  <div className="DelText">
+                    Bitte geben Sie hier den Titel des Eingabefeldes mit einem Doppelpunkt hinten dran ein und
+                    <br/> bestätigen Sie dann die Löschung dieses Eingabefeldes, um es zu löschen.
+                    <br/> <br/>
+                    <input type="text" className='searchAI' placeholder="Titel eines Eingabefeldes mit einem Doppelpunkt hinten dran"  
+                         onChange={(e) => setDeleteIn(e.target.value)}
+                         style={{ padding: deleteCon ? '10px' : '0px',
+                                  width: deleteCon ? '60vw' : "0vw",  }} />
+                    <br/>
+                    <button className="bearbeiten1" onClick={deleteInput} 
+                           style={{width: deleteCon ? '60vw' : "0vw",
+                                   fontSize: deleteCon ? '120%' : '0vw', 
+                                   padding: deleteCon ? '10px' : '0px'}}>
+                       Löschung des Eingabefeldes
+                    </button>
+                 </div>
+               </div>
+            </div> 
+         </div>
+       </>
+      ))}
+      <br/>
+      <br/>
+      {plusIcon}
+      {/*Hier werden die Inputs hinzugefügt */}
+      <div style={{width: clickIN ? '60vw' : "0",
+                  fontSize: clickIN ? '100%' : '0vw',
+                  transition:'0.3s ease-in-out',
+                  display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}}  className="infoIN">
+         Titel des neuen Eingabefeldes:
+      </div> 
+      <br/>
+      <input style={{zIndex: deleteCon ? '-1' : '1' ,
+                     padding: clickIN ? '10px' : '0px',
+                     width: clickIN ? '60vw' : "0vw", 
+                     transition:'0.3s ease-in-out', 
+                     display: Cookies.get('isDeveloper') == 'true' || Cookies.get('isAdmin') == 'true' ? 'flex' : 'none'}} 
+              type="text"
+              className='searchAI'
+              placeholder="Titel des Eingabefeldes..."
+              onChange={(e) => setInF(e.target.value)}   />
+      <button className="bearbeiten1  btnAddIN" 
+              onClick={sendInput} 
+              style={{ display: clickIN ? 'flex' : 'none',
+              }}>
+         Senden des Eingabefeldes
+      </button>
+      <div className="btnPos">
+        <button className="bearbeiten1" onClick={sendForm} style={{ marginTop: "5%" }}>
+          Senden
+        </button>
+     </div>
+     <br />
+     <div className="eventname21" style={{ color: 'blue', textDecoration: 'underline blue 1px', cursor: "pointer" }} onClick={pressF}>
+       ← Zurück
+     </div>
+    </div>
+   </>
+  );
+ }
 }
 
 function InEvent({ remove, events }) {
