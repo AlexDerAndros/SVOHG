@@ -434,11 +434,11 @@ else {
         </div>
       ))}
       <div className='loadofinputs'>
-          <input type="text"   className='search' placeholder="Vorname..." onChange={(e) => setVN(e.target.value)} />
-          <input type="text" className='search' placeholder="Nachname..." onChange={(e) => setNN(e.target.value)} />
-          <input type="number" className='search' placeholder="Alter..." onChange={(e) => setGeb(e.target.value)} />
-          <input type="text" className='search' placeholder="Klasse..." onChange={(e) => setKla(e.target.value)} />
-          <input type="text" className='search' placeholder="E-Mail..."  onChange={(e) => setEmail(e.target.value)}  />
+          <input type="text"   className='search' placeholder="Vorname." onChange={(e) => setVN(e.target.value)} />
+          <input type="text" className='search' placeholder="Nachname." onChange={(e) => setNN(e.target.value)} />
+          <input type="number" className='search' placeholder="Alter." onChange={(e) => setGeb(e.target.value)} />
+          <input type="text" className='search' placeholder="Klasse." onChange={(e) => setKla(e.target.value)} />
+          <input type="text" className='search' placeholder="E-Mail."  onChange={(e) => setEmail(e.target.value)}  />
       </div>
       <br/>
 
@@ -454,7 +454,7 @@ else {
                    </div>
                  </div> 
              {/*Delete Container */}
-             <div className="delete" style={{width: deleteCon ? '80vw' : '0vw', zIndex: deleteCon ? '1000' : '-1'}}>
+             <div className="delete" style={{opacity: deleteCon ? '1' : '0', zIndex: deleteCon ? '1000' : '-1'}}>
                <div className="conDelte">
                  <div className="backToForm" onClick={pressDel}>
                    <FontAwesomeIcon icon={faX}/>
@@ -466,13 +466,13 @@ else {
                     <br/> <br/>
                     <input type="text" className='searchAI' placeholder="Titel eines Eingabefeldes mit einem Doppelpunkt hinten dran"  
                          onChange={(e) => setDeleteIn(e.target.value)}
-                         style={{ padding: deleteCon ? '10px' : '0px',
-                                  width: deleteCon ? '60vw' : "0vw",  }} />
+                         style={{ padding: deleteCon ? '10px' : '10px',
+                                  width: deleteCon ? '60vw' : "60vw",  }} />
                     <br/>
                     <button className="bearbeiten1" onClick={deleteInput} 
-                           style={{width: deleteCon ? '60vw' : "0vw",
-                                   fontSize: deleteCon ? '120%' : '0vw', 
-                                   padding: deleteCon ? '10px' : '0px'}}>
+                           style={{width: deleteCon ? '60vw' : "60vw",
+                                   fontSize: deleteCon ? '120%' : '120%', 
+                                   padding: deleteCon ? '10px' : '10px'}}>
                        Löschung des Eingabefeldes
                     </button>
                  </div>

@@ -576,8 +576,9 @@ a {
   height: 470px !important;
   display: flex;
   align-items: center;
+  border: solid 2px #7fa3e7;
   flex-direction: column;
-  border-radius: 2px;
+  border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   background-color: #d3d3d3af;
   color: rgb(24, 24, 24);
@@ -980,8 +981,6 @@ html::-webkit-scrollbar {
   width: 100vw;
   height: 100vh;
   bottom: 0;
-  backdrop-filter: blur(5px);
-  border: red 1px solid;
   justify-self: center;
   justify-content: center;
   align-items: center;
@@ -999,7 +998,10 @@ html::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(108, 143, 209) !important;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #003300;
+  border: solid 2px #7fa3e7;
+  color: whitesmoke;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   gap: 20%;
   border: rgba(0, 139, 139, 0.459) 3px solid ;
 }
@@ -1009,8 +1011,9 @@ html::-webkit-scrollbar {
   font-size: 2vw;
   font-family: roboto;
   font-weight: 800;
-  border: 2px solid white;
+  border: 2px solid #7fa3e7;
   background-color: rgba(0, 139, 139, 0.459);
+  color: rgb(226, 226, 226);
   border-radius: 5px;
 }
 .text_pop {
@@ -1035,11 +1038,12 @@ html::-webkit-scrollbar {
   font-size: 1.9vw;
 }
 .button_cookies:last-child {
-  background-color: rgba(245, 151, 151, 0.575);box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background: linear-gradient(180deg, rgba(168, 25, 20, 0.74) 13%, rgba(189, 23, 23, 0.863) 100%);
+
 }
 .button_cookies:first-child {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  background-color: #277527;
+  background-color: #1e8fbb;
 
 }
 @media only screen and (max-width: 500px) 
@@ -1675,7 +1679,7 @@ li {
   z-index: 0;
   width: 4px;
   background: rgb(240,254,250);
-background: linear-gradient(180deg, #7fa3e7 23%, #003300 70%);
+background: linear-gradient(180deg, #7fa3e7 23%, #00330073 70%, #003300 100%);
   transform: translate(12px, 545px);
   left: 6.9vw;
 }

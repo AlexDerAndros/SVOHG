@@ -7,8 +7,8 @@ SV OHG CODE BY ALEXANDROS AND MARCO
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500;600;700&family=Roboto&display=swap');
 
 input{
-    border: 2px solid #7fa3e7 !important;
-    border-radius: 10px !important;
+    border-bottom: 2px solid #7fa3e7 !important;
+    border-radius: 0px !important;
     display: flex;
     justify-self: center;
     width: 80%;
@@ -22,6 +22,13 @@ input{
     box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
     border-radius: 5px;
 }
+input::placeholder {
+    transform: translate(20px, 0px);
+}
+input:focus::placeholder {
+    transform: translate(-20px, -50%) scale(0.8);
+}
+
 .mitgoogle {
     height: 50px;
     -webkit-tap-highlight-color: transparent;
@@ -205,9 +212,7 @@ input:focus{
 input::placeholder {
     transition: 0.5s ease-in-out;
 }
-input:focus::placeholder {
-    transform: translateX(100vw);
-}
+
 .change {
     color: black;
 }
@@ -262,8 +267,8 @@ input:focus::placeholder {
 
 .textasdf123 > p {
     background-color: #003300;
-    height: auto; /* Adjust height based on content */
-    padding: 10px; /* Internal padding for content */
+    height: auto; 
+    padding: 20px; 
     display: flex;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
@@ -273,7 +278,7 @@ input:focus::placeholder {
     -webkit-tap-highlight-color: transparent;
     text-align: center;
     transition: 0.4s ease-in-out;
-    border-radius: 5px; /* Optional: Rounded corners */
+    border-radius: 5px; 
 }
 
 .textasdf123 > p:focus {
@@ -443,20 +448,22 @@ form {
 .log123ad {
     transition: 0.5s ease-in-out;
     display: grid;
-    padding: 0px;
+    padding: 20px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
     grid-gap: 20px; 
+    box-sizing: border-box;
     width: 100%; 
     background-color: #004400;
 }
 .log123ad2 {
     transition: 0.5s ease-in-out;
     display: grid;
+    box-sizing: border-box;
+    padding: 20px;
     width: 90vw;
     margin-top: 0px;
     padding-top: 20px;
     padding-bottom: 20px;
-    padding: 0px;
     background-color: #004400;
     flex-direction: column;  
     grid-gap: 50px;
@@ -519,9 +526,12 @@ form {
   height: 150px;
   display: flex;
   justify-content: center;
+  transition: 0.5s ease-in-out;
   align-items: center;
   text-align: center;
   color: whitesmoke;
+  box-sizing: border-box;
+  padding: 10px;
   font-family: poppins;
   padding: 0px;
   font-size: 12px !important;
@@ -597,6 +607,8 @@ form {
     height: 100%;
     display: grid;
     grid-gap: 10px;
+    box-sizing: border-box;
+    padding: 20px;
     margin: 30px;
     background-color: #ff02b300;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
@@ -605,4 +617,8 @@ form {
 .person:focus {
     background-color: #006600;
     -webkit-tap-highlight-color: transparent;
+}
+.users:focus {
+    background-color: #006600;
+    outline: none;
 }

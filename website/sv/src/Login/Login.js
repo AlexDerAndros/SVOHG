@@ -652,7 +652,7 @@ function DeveloperDashboard({ setLog }) {
           <h2>User zu Admins machen</h2>
           <div className='log123ad2' style={{marginBottom:"5%"}}>
             {users.slice(0, visibleUsers).map(user => (
-              <form className="users" key={user.id}>
+              <form className="users" key={user.id} tabIndex={0}>
                 E-Mail: {user.email} <br/>
                 ist ein Admin: 
                 <select name="options">

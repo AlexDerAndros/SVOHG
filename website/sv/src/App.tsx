@@ -321,9 +321,17 @@ function Startseite() {
   const eventsRef = useRef<HTMLDivElement | null>(null);
   const info = useRef<HTMLDivElement | null>(null);
   const line = useRef<HTMLDivElement | null>(null);
+  const line44 = useRef<HTMLDivElement | null>(null);
   const iftar = useRef<HTMLImageElement | null>(null);
   const iftar2 = useRef<HTMLImageElement | null>(null);
   const iftar3 = useRef<HTMLImageElement | null>(null);
+  const logo = useRef<HTMLImageElement | null>(null);
+
+  const info2 = useRef<HTMLDivElement | null>(null);
+
+
+  const title2 = useRef<HTMLDivElement | null>(null);
+
 
   const imgRef = useRef<HTMLImageElement | null>(null);
   const linetop = useRef<HTMLDivElement | null>(null);
@@ -361,7 +369,12 @@ function Startseite() {
     animateElement(iftar.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 1, duration: 2, ease: 'power3.out' });
     animateElement(iftar2.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: 'power3.out' });
     animateElement(iftar3.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: 'power3.out' });
+    animateElement(logo.current, { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 2, ease: 'power3.out' });
     animateElement(line.current, { height: '0px' }, { opacity: 1, duration: 2, height: '600px', ease: 'power3.out' });
+    animateElement(line44.current, { opacity: 0 }, { opacity: 1, duration: 2, ease: 'power3.out' });
+
+    animateElement(title2.current, { opacity: 0, x: '50vw' }, { opacity: 1, x: '20vw', duration: 2, ease: 'power3.out' });
+    animateElement(info2.current, { opacity: 0, x: '50vw' }, { opacity: 1, x: '-40px', duration: 2, ease: 'power3.out' });
 
 
     questionsRef.current.forEach((question, index) => {
@@ -616,16 +629,16 @@ function Startseite() {
               </div>
         </div>
       </div>
-      <div className="line44"></div>
+      <div className="line44" ref={line44}></div>
       </div>
       <div className="teil2">
-        <div className="title_teil1" id='skondone'>
+        <div className="title_teil1" id='skondone' ref={title2}>
           <h3>
             Wofur ist die SV?
           </h3>
         </div>
         <div className="fototeil">
-        <img src='./favicon2.ico' className='SVetwas2' />
+        <img src='./favicon2.ico' className='SVetwas2' ref={logo} />
         </div>
         <div className="innencon">
             <div className="teilr">
@@ -633,7 +646,7 @@ function Startseite() {
 
             </div>
             <div className="teill">
-              <div className="sv_info2">
+              <div className="sv_info2" ref={info2}>
               <p>Die Schülervertretung (SV) spielt eine zentrale Rolle im Schulleben und setzt sich für die Interessen der Schüler ein. Mit viel Engagement sorgt die SV dafür, dass Schule mehr ist als nur Unterricht und Prüfungen. Hier sind die wichtigsten Aufgaben und Aktivitäten der SV:</p>
 
 <h2><img src='./favicon2.ico' className='SVetwas' />Organisation von Events:</h2>
