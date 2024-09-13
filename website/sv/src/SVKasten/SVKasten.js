@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './SVKasten.css';
 import { db } from '../config/firebase';
 import { collection, addDoc, getDocs, updateDoc, doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
@@ -7,6 +7,9 @@ import Cookies from 'js-cookie';
 import { gsap } from 'gsap';
 
 export default function SVKasten() {
+  
+  const likeCooldown = useRef(false);
+  const dislikeCooldown = useRef(false);
   const [text, setText] = useState(''); 
   const [isPublic, setIsPublic] = useState(false); 
   const [messages, setMessages] = useState([]); 
@@ -131,7 +134,7 @@ export default function SVKasten() {
       }
     } else {
       gsap.to('.button-36', {
-        x: -25,
+        x: -95,
         duration: 0.1,
         yoyo: true,
         repeat: 5,
@@ -143,7 +146,12 @@ export default function SVKasten() {
     }
   };
 
+
   const handleLike = async (messageId) => {
+    if (likeCooldown.current) return;
+    likeCooldown.current = true; 
+    setTimeout(() => likeCooldown.current = false, 500); // Fuktion um die Like sachen zu stoppen weil wenn man zu schneel klickt dann glitch das aus
+  
     const userId = auth.currentUser?.uid;
     const likeRef = doc(db, 'likes', `${userId}_${messageId}`);
     const dislikeRef = doc(db, 'dislikes', `${userId}_${messageId}`); 
@@ -201,6 +209,10 @@ export default function SVKasten() {
   };
 
   const handleDislike = async (messageId) => {
+    if (dislikeCooldown.current) return;
+    dislikeCooldown.current = true; 
+    setTimeout(() => dislikeCooldown.current = false, 500); // Selbe sache wie oben
+  
     const userId = auth.currentUser?.uid;
     const dislikeRef = doc(db, 'dislikes', `${userId}_${messageId}`);
     const likeRef = doc(db, 'likes', `${userId}_${messageId}`);
@@ -274,7 +286,7 @@ export default function SVKasten() {
           <br />
           <br />
           <br />
-          <div className="head">SV Kasten</div>
+          <div className="head"><div className='highvs2'>SV</div>&nbsp; Kasten</div>
           <div className="neinene"></div>
           <div className="kasten">
             <div className="texte">

@@ -75,13 +75,23 @@
 .head {
     font-size: 2.1rem;
     font-weight: 800;
+    background-color: #003300;
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    color: whitesmoke;
+    border: solid 2px #7fa3e7;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 7px;
 }
 .kasten {
     display: flex;
     width: 70%;
     border: #7fa3e7 solid 2px;
     height: 40%;
-    background-color: #003300dc;
+    background-color: #003300;
     justify-content: center;
     color: whitesmoke;
     font-family: poppins;
@@ -89,6 +99,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+    padding: 10px;
 }
 .texte {
     height: 100%;
@@ -200,6 +211,8 @@
 }
 .oeffentlich > input {
     width: 30%;
+    color: #7fa3e7;
+    background-color: #7fa3e7;
 }
 label > input {
     margin-top: 50px;
@@ -292,7 +305,7 @@ label > input {
 }
 @media only screen and (max-height: 1826px) {
     .plane {
-        transform: translateY(130px);
+        transform: translateY(140px);
     }
 }
 @media only screen and (max-width: 600px) {

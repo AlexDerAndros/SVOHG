@@ -337,6 +337,18 @@ function Startseite() {
   const linetop = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const animateLogo = () => {
+      gsap.to(logo.current, {
+        height: '90px',
+        duration: 1,
+        onComplete: function() {
+          gsap.to(logo.current, {
+            height: '70px',
+            duration: 1,
+          })
+        }
+      })
+    }
     const animateElement = (element: HTMLElement | null, fromVars: gsap.TweenVars, toVars: gsap.TweenVars) => {
       if (element) {
         gsap.fromTo(
@@ -352,7 +364,6 @@ function Startseite() {
           }
         );
       }
-      
     };
 
     animateElement(imgRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 2.5, ease: 'power3.out' });
@@ -477,7 +488,7 @@ function Startseite() {
     gsap.to('.tabelle1', {
       x: '-90vw',
       duration: 2.5,
-      ease: 'bounce.inOut',
+      ease: 'power1.in',
     })
   }
 
@@ -495,7 +506,7 @@ function Startseite() {
     gsap.to('.tabelle1', {
       x: '0px',
       duration: 2.5,
-      ease: 'bounce.inOut',
+      ease: 'power1.in',
     })
   }
 
