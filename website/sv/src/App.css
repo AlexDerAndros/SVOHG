@@ -1694,3 +1694,24 @@ background: linear-gradient(180deg, #7fa3e7 23%, #00330073 70%, #003300 100%);
   object-fit: cover;
   height: 90%;
 }
+#zei2 {
+  width: 90vw !important;
+}
+#seite {
+  height: 80%;
+  transform: translate(20px, 10px);
+}
+#link {
+  color: blue;
+}
+#link:hover, #link:focus {
+  text-decoration: underline;
+}
+#zeitung {
+  background-color: rgba(85, 11, 27, 0.322);
+}
+#imgsvg12 {
+  box-shadow: transparent 0px 0px;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}

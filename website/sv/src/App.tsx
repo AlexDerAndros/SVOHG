@@ -694,6 +694,53 @@ function Startseite() {
             </div>
         </div>
       </div>
+      <div className="teil1main" ref={teil1main} id='zeitung'>
+        <div className="title_teil1" id='zei2'>
+          <h3>
+          Wie könnt ihr uns <div className='highvs2'>Kontaktieren?</div>
+          </h3>
+        </div>
+      <div className="teil1">
+        <div className="right1">
+        <div className="conright" id='seite' >
+  <div className='sv-info'ref={info}>
+
+  <h2><img src='./favicon2.ico' className='SVetwas' /> Wie ihr die Schülervertretung (SV) kontaktieren könnt</h2>
+<p>
+    Ihr habt verschiedene Möglichkeiten, um mit uns in Kontakt zu treten. Wenn ihr Fragen, Ideen, Verbesserungsvorschläge oder Probleme habt, könnt ihr uns ganz einfach erreichen:
+</p>
+<ul>
+  <h2>Per Email:</h2>
+    <li>
+        Schreibt uns eine E-Mail an <a id='link' href="mailto:sv@ohg-monheim.eu">sv@ohg-monheim.eu</a>. Wir antworten so schnell wie möglich und stehen euch bei allen Anliegen zur Seite.
+    </li>
+    <h2>Instagram:</h2>
+    <li>
+        Besucht uns auf Instagram unter <a id='link' href="https://www.instagram.com/schuelervertretungohg" target="_blank">@schuelervertretungohg</a>. Dort könnt ihr uns direkt Nachrichten schicken oder euch über unsere aktuellen Aktionen informieren.
+    </li>
+    <h2>Persoenlich:</h2>
+    <li>
+        Kommt donnerstags in der ersten großen Pause in Raum 022 vorbei. Wir sind persönlich für euch da und nehmen uns Zeit, eure Anliegen zu besprechen.
+    </li>
+    <h2>SVKasten:</h2>
+    <li>
+        Klickt auf den <a href="/SV%20Kasten" id="link">SV Kasten</a>, um uns direkt eine Nachricht zu schreiben. Ihr könnt eure Nachricht auch öffentlich machen, damit andere sie sehen, liken oder disliken können.
+    </li>
+</ul>
+<p>
+    Egal, auf welchem Weg – wir freuen uns auf eure Nachrichten und sind hier, um euch zu unterstützen!
+</p>
+
+  </div>
+</div>
+        </div>
+        <div className="left1">
+              <div className="foto_con">
+                <img className='iftar' ref={iftar} src="./Hoping.svg" alt="" id='imgsvg12' />
+              </div>
+        </div>
+      </div>
+      </div>
       <div className="questions">
       
          <div className="question"
