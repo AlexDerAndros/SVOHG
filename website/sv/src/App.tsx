@@ -693,6 +693,12 @@ function Startseite() {
               </div>
             </div>
         </div>
+        <div className="BTCON123">
+              <button className='treten1'>
+              Klicken sie hier, um am SV Talentwettbewerb teilzunehmen! <img src='./arrowleft.svg' className='arrowleft' />
+              </button>
+
+        </div>
       </div>
       <div className="teil1main" ref={teil1main} id='zeitung'>
         <div className="title_teil1" id='zei2'>
@@ -732,28 +738,46 @@ function Startseite() {
 </p>
 
   </div>
+  
 </div>
         </div>
         <div className="left1">
-              <div className="foto_con">
-                <img className='iftar' ref={iftar} src="./Hoping.svg" alt="" id='imgsvg12' />
+              <div className="foto_con2">
+                <img className='iftar' ref={iftar} src="./Test.png" alt="" id='imgsvg12' />
               </div>
         </div>
       </div>
-      </div>
-      <div className="questions">
-      
-         <div className="question"
-          ref={(el) => (questionsRef.current[3] = el)}
-        >
-          <div className="titleq">
-            Wie könnt ihr &nbsp; <div className='highvs'>uns</div> &nbsp; kontaktieren?
-          </div>
-          <div className="textq">
-          <a className='linktokasten' href='/SV Kasten'>  Um uns zu kontaktieren musst ihr nur auf dem SV Kasten unten clicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben.  </a>
-          </div>
+      <div className="BTCON123" id='keineahunngaberwassollichdiasnennenkeineahnungaberichhoffedasdasgutistundehhtrump2024'>
+              <button className='treten1'>
+              Klicken sie hier, um uns eine Nachicht zu Schreiben! <img src='./arrowleft.svg' className='arrowleft' />
+              </button>
+
         </div>
       </div>
+      <div className="teil2">
+        <div className="title_teil1" id='skondone' ref={title2}>
+          <h3>
+            Wie kann man die <div className='highvs2'>SV</div> beitreten?
+          </h3>
+        </div>
+        <div className="fototeil">
+        <img src='./favicon2.ico' className='SVetwas2' ref={logo} />
+        </div>
+        <div className="innencon">
+            <div className="teilr">
+            <img className='iftar' ref={iftar} src="./Iftar.jpg" alt="" />
+
+            </div>
+            <div className="teill">
+              <div className="sv_info2" ref={info2}>
+          
+
+
+              </div>
+            </div>
+        </div>
+      </div>
+            
       <div className="line1"></div>
       <div className="ic1">
         <FontAwesomeIcon icon={faCalendarDays} className='calendar'/>

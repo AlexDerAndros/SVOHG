@@ -1625,6 +1625,7 @@ li {
   width: 100vw;
   padding: 20px;
   z-index: 4;
+  padding-bottom: 200px;
 }
 .innencon {
   border: solid rgba(255, 0, 0, 0) 2px;
@@ -1709,9 +1710,43 @@ background: linear-gradient(180deg, #7fa3e7 23%, #00330073 70%, #003300 100%);
 }
 #zeitung {
   background-color: rgba(85, 11, 27, 0.322);
+  padding-top: 100px;
 }
-#imgsvg12 {
-  box-shadow: transparent 0px 0px;
-  border-top-left-radius: 7px;
-  border-top-right-radius: 7px;
+.BTCON123 {
+  width: 100vw;
+  height: 250px;
+  transform: translate(-20px, 0px);
+  z-index: -20;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  box-sizing: border-box;
+  padding-bottom: 55px;
+}.treten1 {
+  height: 100px;
+  background-image: linear-gradient(92.88deg, #003300dc 9.16%, #054405dc 43.89%, #074e07dc 64.72%);
+
+  border: solid 2px #7fa3e7;
+  border-radius: 7px;
+  color: whitesmoke;
+  font-family: poppins;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  width: 70vw;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+}
+.treten1:hover {
+  background-color: #006600;
+  text-decoration: underline;
+  transform: scale(1.1);
+}
+.arrowleft {
+  color: #7fa3e7;
+  transform: scale(1.5);
+  margin-left: 5px;
+}
+#keineahunngaberwassollichdiasnennenkeineahnungaberichhoffedasdasgutistundehhtrump2024 {
+  transform: translatey(-35px);
 }
