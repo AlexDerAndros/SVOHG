@@ -193,11 +193,7 @@ function Formular({ events, pressF, clickEF, remove, setClickEF }) {
   const [geb, setGeb] = useState('');
   const [kla, setKla] = useState('');
   const [inF, setInF] = useState('');
-  const [addedIn1, setAddedIn1] = useState('');
-  const [addedIn2, setAddedIn2] = useState('');
-  const [addedIn3, setAddedIn3] = useState('');
-  const [addedIn4, setAddedIn4] = useState('');
-  const [addedIn5, setAddedIn5] = useState('');
+  
   const [clickIN, setClickIN] = useState(false);
   const [inputsList, setInputsList] = useState([]);
   const [addInLi, setAddINLi] = useState([]);
@@ -332,23 +328,35 @@ const fetchCountdown = async() => {
     console.log(error);
   }
 }
+
+const [addedIn, setAddedIn] = useState({
+  1: '',
+  2: '',
+  3: '',
+  4: '',
+  5: ''
+});
+
 const onChange = (e) => {
-  if (addInLi == 1) {
-    setAddedIn1(e.target.value);
-  }
-  if (addInLi == 2) {
-    setAddedIn2(e.target.value);
-  }
-  if (addInLi == 3) {
-    setAddedIn3(e.target.value);
-  }
-  if (addInLi == 4) {
-    setAddedIn4(e.target.value);
-  }
-  if (addInLi == 4) {
-    setAddedIn5(e.target.value);
+  const value = e.target.value;
+  if ([1, 2, 3, 4, 5].includes(addInLi)) {
+    setAddedIn(prevState => ({
+      ...prevState,
+      [addInLi]: value   
+    }));
   }
 };
+
+const counterDelete = async() => {
+  try {
+   const newCountdown = inCountdown - 1;
+   await setDoc(doc(db, "inputCounter", 'inCounter'), {
+     counter: newCountdown
+   });
+  } catch (e) {
+  console.log(e)
+ }
+}
 
 //Aufrufung von Database der Inputs
 const fetchInputs = async () => {
@@ -388,11 +396,8 @@ const sendForm = async () => {
       email: email,
       age: geb,
       Klasse: kla,
-      newCategorie1: addedIn1 || 'none',
-      newCategorie2: addedIn2 || 'none',
-      newCategorie3: addedIn3 || 'none',
-      newCategorie4: addedIn4 || 'none',
-      newCategorie5: addedIn5 || 'none',
+      newCategorie: addedIn || 'none',
+      
 
     });
     setClickEF(true);
@@ -448,13 +453,36 @@ else {
          <div className="infoIN">{item.titleIN}</div> 
            <div className="INDEL">
               <input type="text" className='search' placeholder={item.placeholder} onChange={onChange}/>
-                <div className="PosbtnDelIn">
+               {Cookies.get('isAdmin') || Cookies.get('isDeveloper') ? (
+                  <div className="PosbtnDelIn">
                    <br/>
-                   <FontAwesomeIcon icon={faTrash} onClick={pressDel} className="btnDelIn"/>
-                   </div>
-                 </div> 
+                   <FontAwesomeIcon icon={faTrash} onClick={ async() => {
+                       try {
+                        const q = query(collection(db, "inputs"), where('titleIN', '==', item.titleIN ));
+                        const querySnapshot = await getDocs(q);
+                  
+                        querySnapshot.forEach(async (docSnapshot) => {
+                          const docRef = doc(db, "inputs", docSnapshot.id);
+                          await deleteDoc(docRef);
+                        });
+                        counterDelete();
+                        alert('Eingabefeld erfolgreich gelöscht!');
+                  
+                      } catch(error) {
+                        console.log(error);
+                        alert('Eingabefeld konnte leider nicht gelöscht werden');
+                      }
+                      
+                   }} className="btnDelIn"/>
+                  </div>
+               ): (
+                <>
+
+                </>
+               )}
+             </div>  
              {/*Delete Container */}
-             <div className="delete" style={{opacity: deleteCon ? '1' : '0', zIndex: deleteCon ? '1000' : '-1'}}>
+             {/* <div className="delete" style={{opacity: deleteCon ? '1' : '0', zIndex: deleteCon ? '1000' : '-1'}}>
                <div className="conDelte">
                  <div className="backToForm" onClick={pressDel}>
                    <FontAwesomeIcon icon={faX}/>
@@ -476,9 +504,7 @@ else {
                        Löschung des Eingabefeldes
                     </button>
                  </div>
-               </div>
-            </div> 
-         </div>
+               </div>*/}
        </>
       ))}
       <br/>

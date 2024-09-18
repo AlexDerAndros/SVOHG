@@ -2,7 +2,7 @@ import "./Login.css";
 import Cookies from 'js-cookie';
 import { useState, useEffect, handleUpdate, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faEye, faEyeSlash, faTrash} from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { auth, db, GoogleProvider } from "../config/firebase"; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
@@ -421,7 +421,24 @@ function AdminDevDashboard() {
   <div className="log123ad">
     {sortedMessages.slice(0, visibleMessages).map(message => (
       <div className="msg123" tabindex={0} key={message.id}>
-        <p>{message.text}</p>
+        <p>{message.text}  <FontAwesomeIcon icon={faTrash} onClick={ async() => {
+                       try {
+                        const q = query(collection(db, "messages"), where('text', '==', message.text ), where('timestamp', '==', message.timestamp ));
+                        const querySnapshot = await getDocs(q);
+                  
+                        querySnapshot.forEach(async (docSnapshot) => {
+                          const docRef = doc(db, "messages", docSnapshot.id);
+                          await deleteDoc(docRef);
+                        });
+                        alert('Nachricht erfolgreich gelöscht!');
+                        window.location.reload();
+                        
+                      } catch(error) {
+                        console.log(error);
+                        alert('Nachricht konnte leider nicht gelöscht werden');
+                      }
+                      
+                   }} className="btnDelIn"/>  </p>
         <p>{message.timestamp ? new Date(message.timestamp.seconds * 1000).toLocaleString() : 'Keine datum da'}</p>
         {/* <button onClick={deleteMessage}> Löschen</button> */}
       </div>
