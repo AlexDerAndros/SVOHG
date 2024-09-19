@@ -431,7 +431,6 @@ function AdminDevDashboard() {
                           await deleteDoc(docRef);
                         });
                         alert('Nachricht erfolgreich gelöscht!');
-                        window.location.reload();
                         
                       } catch(error) {
                         console.log(error);
