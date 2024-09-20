@@ -292,7 +292,26 @@
 .searchAI::placeholder {
   color: white;
 }
-
+.sendFormular {
+  z-index: 1000;
+  background-color: green;
+  width: 80vw;
+  height: auto;
+  color: white;
+  padding: 2% 5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.posEvents {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 200vw;
+  gap: 5%;
+} 
 
 
 @media only screen and (max-width: 800px) {

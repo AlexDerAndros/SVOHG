@@ -121,16 +121,20 @@ function Event({ events,  remove, clickEF, setClickEF}) {
 
   return (
     <>
+     
     {clickF ? (
       <Formular events={events} pressF={pressF} clickEF={clickEF} remove={remove} setClickEF={setClickEF} />
     ) : (
       <>
+       
 {events.map((event, index) => (
+       
             <div
               className="events1"
               ref={el => eventsRefs.current[index] = el} // Attach each event ref
               key={index}
             >
+           
             <div className="coneven1">
               <div className="title_events">{event.topic}</div>
             </div>
@@ -374,6 +378,7 @@ useEffect(() => {
 
 //Senden des Formulars
 const sendForm = async () => {
+
   gsap.to('.bearbeiten1', {
     borderRadius: '100%',
     width: '70px', 
@@ -388,7 +393,21 @@ const sendForm = async () => {
       });
     }
   });
- 
+  gsap.to('.sendFormular', {
+    width: '80vw',
+    padding: ' 2% 5%',
+    opacity: 0, 
+    duration: 2,
+    onComplete: () => {
+      gsap.to('.sendFormular', {
+        width: '0vw', 
+        opacity: 1,
+        duration: 2, 
+        padding: '0%',
+      }  
+      )
+    }
+  }) 
   if (VN.trim() !== '' && NN.trim() !== '' && email.trim() !== '' && geb.trim() !== '' && kla.trim() !== '') {
     await addDoc(collection(db, "userEvents"), {
       title: VN + '' + NN,
@@ -406,6 +425,8 @@ const sendForm = async () => {
     Cookies.set("age", geb, { expires: 7 });
     Cookies.set("kla", kla, { expires: 7 });
     Cookies.set("email1", email, { expires: 7 });
+    Cookies.set('confirmationForm', true, {expires: 28});
+
     alert("Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!");
     let mail = Cookies.get('email1');
     await addDoc(collection( db, "mail"), {
@@ -438,6 +459,7 @@ else {
               {event.topic}
         </div>
       ))}
+     
       <div className='loadofinputs'>
           <input type="text"   className='search' placeholder="Vorname." onChange={(e) => setVN(e.target.value)} />
           <input type="text" className='search' placeholder="Nachname." onChange={(e) => setNN(e.target.value)} />
@@ -564,9 +586,15 @@ function InEvent({ remove, events }) {
     fetchTeilnehmer();
   }, []);
   return (
-    <div className="contentB">
+    <>
+   
       {events.map((event => (
-        <>
+        <div className="posEvents">
+          <div className="sendFormular">
+            Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!
+          </div>
+         <div className="contentB">
+        
           <div className="coneven1">
             <div className="title_events">{event.topic}</div>
           </div>
@@ -621,10 +649,11 @@ function InEvent({ remove, events }) {
             <button className="bearbeiten" onClick={remove}>
               Ich möchte nicht mehr an diesem Event teilnehmen.
             </button>
+           </div>
           </div>
-        </>
+        </div>
       )))}
-    </div>
+    </>
   );
 }
 
