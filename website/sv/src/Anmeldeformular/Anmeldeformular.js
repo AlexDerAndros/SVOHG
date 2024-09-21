@@ -19,6 +19,18 @@ export default function Anmeldeformular1() {
  
 
   const remove = async () => {
+    gsap.to('.sendFormular', {
+      display: 'flex',
+      duration: 2,
+      onComplete: () => {
+        gsap.to('.sendFormular', {
+          display:'none', 
+          duration: 2
+        })
+      }
+    });
+    Cookies.set('EventRaus', false , {expires: 28});
+
     try {
       const userEmail = Cookies.get("email1");
       const q = query(collection(db, "userEvents"), where('email', '==', userEmail));
@@ -31,7 +43,7 @@ export default function Anmeldeformular1() {
 
       setClickEF(!clickEF);
       Cookies.set('teil', false, { expires: 1 / 48 });
-      alert('Sie wurden aus dem Event ausgetragen');
+      
     } catch (error) {
       console.error('Error deleting document: ', error);
       alert('Error: ' + error);
@@ -106,7 +118,12 @@ function Event({ events,  remove, clickEF, setClickEF}) {
         setClickF(!clickF);
       }, 500);
   };
-
+  setTimeout(() => {
+    Cookies.set('EventRaus', true, {expires: 28});
+  }, 5000);
+ 
+  
+  
   useEffect(() => {
     eventsRefs.current.forEach((ref, index) => {
       if (ref) {
@@ -128,10 +145,13 @@ function Event({ events,  remove, clickEF, setClickEF}) {
       <>
        
 {events.map((event, index) => (
-       
+      <>
+         <div className="sendFormular" style={{ display: Cookies.get('EventRaus') == 'true' ? 'none' : 'flex'}}>
+           Sie wurden aus dem Event ausgetragen!
+         </div>
             <div
               className="events1"
-              ref={el => eventsRefs.current[index] = el} // Attach each event ref
+              ref={el => eventsRefs.current[index] = el} 
               key={index}
             >
            
@@ -172,6 +192,7 @@ function Event({ events,  remove, clickEF, setClickEF}) {
               </div>
             </div>
           </div>
+        </>  
         ))}
       </>
     )}

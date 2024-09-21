@@ -586,6 +586,12 @@ form {
    font-weight: 600;
    margin-left: 1.75%;
 }
+.center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media only screen and (min-width: 950px) {
    .square {
      width: 50vw;

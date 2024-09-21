@@ -113,6 +113,7 @@ function LoggingIn({ setLog }) {
   }
 
   const logBtn = async (event) => {
+   
     event.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, username, password);
@@ -138,12 +139,24 @@ function LoggingIn({ setLog }) {
   }
 
   const register = async (event) => {
+    gsap.to('sendFormular', {
+      display: 'flex',
+      duration: 2,
+      onComplete: () => {
+        gsap.to('sendFormular', {
+          display:'none', 
+          duration: 2
+        })
+      }
+    }, 3000);
+    Cookies.set('registerAlert', false, {expires: 7});
+   
     event.preventDefault();
+   
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
       const user = userCredential.user;
       setLog(true);
-      alert("Registrierung erfolgreich");
       Cookies.set('log', 'true', { expires: 14 });
       Cookies.set('user', registerEmail, { expires: 14 });
 
@@ -156,7 +169,7 @@ function LoggingIn({ setLog }) {
           html: `Guten Tag ${us}, <br/> <br/> ihre Registrierung war erfolgreich. Nun können Sie sich mit ihrer E-Mail Adresse ${us} und mit ihrem Passwort auch anmelden. <br/> Falls Sie noch weitere Fragen haben, wenden Sie sich bitte an die E-Mail Adresse svohgmonheim7@gmail.com <br/> <br/> Mit freundlichen Grüßen <br/> Eure SV`
         }
       });
-      window.location.reload();
+      // window.location.reload();
       await setDoc(doc(db, "users", registerEmail), {
         email: registerEmail,
         isAdmin: false,
@@ -165,7 +178,6 @@ function LoggingIn({ setLog }) {
       
     } catch (error) {
       setLog(false);
-      alert("Registrierung fehlgeschlagen");
     }
   }
 
@@ -284,9 +296,17 @@ function LoggedIn({ setLog }) {
     Cookies.remove('isDeveloper');
 
   }
-
+  
+  setTimeout(() => {
+    Cookies.set('registerAlert', true, {expires: 28}); 
+  }, 3000);
   return (
     <div>
+      <div className="center"> 
+       {/* <div className="sendFormular" style={{ display: Cookies.get('registerAlert') == 'true' ? 'none' : 'flex'}}>
+          Ihre Registrierung war erfolgreich!
+         </div> */}
+        </div> 
       <div className="welcome">
         Willkommen {username}!
       </div>
