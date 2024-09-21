@@ -389,21 +389,19 @@ const sendForm = async () => {
         borderRadius: '8px',
         width: '13rem',
         opacity: 1,
-        duration: 1
+        duration: 1,
+        ease: 'power3.out'
       });
     }
   });
   gsap.to('.sendFormular', {
-    width: '80vw',
-    padding: ' 2% 5%',
-    opacity: 0, 
-    duration: 2,
+    display: 'flex',
+    duration: 5,
     onComplete: () => {
       gsap.to('.sendFormular', {
-        width: '0vw', 
-        opacity: 1,
-        duration: 2, 
-        padding: '0%',
+       display:'none',
+       duration: 5, 
+       
       }  
       )
     }
@@ -425,9 +423,8 @@ const sendForm = async () => {
     Cookies.set("age", geb, { expires: 7 });
     Cookies.set("kla", kla, { expires: 7 });
     Cookies.set("email1", email, { expires: 7 });
-    Cookies.set('confirmationForm', true, {expires: 28});
+    Cookies.set('confirmationForm', false, {expires: 28});
 
-    alert("Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!");
     let mail = Cookies.get('email1');
     await addDoc(collection( db, "mail"), {
       to : [mail],
@@ -584,15 +581,22 @@ function InEvent({ remove, events }) {
   };
   useEffect(() => {
     fetchTeilnehmer();
+     
   }, []);
+  setTimeout(() => {
+    Cookies.set('confirmationForm', true , {expires: 28});
+
+  }, 5000);
   return (
     <>
    
       {events.map((event => (
-        <div className="posEvents">
-          <div className="sendFormular">
-            Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!
-          </div>
+      <>
+        <div className="sendFormular" style={{ display: Cookies.get('confirmationForm') === 'true' ? 'none' : 'flex'}}>
+          Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!
+        </div>
+
+         
          <div className="contentB">
         
           <div className="coneven1">
@@ -605,7 +609,7 @@ function InEvent({ remove, events }) {
             <div className="eventnameAusnahme">
              <div>
               <span className="angabezeit">Datum: </span> {event.date} 
-              <br/>
+              <br/> 
               <br/>
               <span className="angabezeit">Zeit: </span> {event.time} 
               <br/>
@@ -651,7 +655,7 @@ function InEvent({ remove, events }) {
             </button>
            </div>
           </div>
-        </div>
+       </>   
       )))}
     </>
   );

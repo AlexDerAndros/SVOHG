@@ -295,8 +295,10 @@
 .sendFormular {
   z-index: 1000;
   background-color: green;
-  width: 80vw;
+  width: 80% !important;
+  top: 10% !important;
   height: auto;
+  position: fixed !important;
   color: white;
   padding: 2% 5%;
   box-sizing: border-box;
@@ -347,6 +349,18 @@
 @media only screen and (max-width: 450px) {
   .events1 {
     font-size: 15px;
+  }
+  .contentB {
+    width: 80vw;
+    height: 1000px !important;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    background-color: #d3d3d3af;
+    color: rgb(24, 24, 24);
+    font-family: 'Roboto';
   }
 }
 @media only screen and (min-width: 1000px)
