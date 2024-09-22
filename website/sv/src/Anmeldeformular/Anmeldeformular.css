@@ -303,37 +303,32 @@
 } 
 .alert {
   z-index: 1000;
-  background-color: green;
+  background-color: #7fa3e7;
   width: 90% !important;
   top: 10% !important;
   height: auto;
   position: fixed !important;
-  color: white;
+  color: black;
+  border: #024602 2px solid;
+  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  border-radius: 7px;
   padding: 2% 5%;
   box-sizing: border-box;
   display: flex;
   justify-content: left;
   align-items: center;
-  border-radius: 7px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  background-image: linear-gradient(92.88deg, #003300dc 9.16%, #054405dc 43.89%, #074e07dc 64.72%);
-  font-size: 20px;
 }
-.alertDelete {
-  position: absolute;
-  width: 90vw;
-  font-size: 30px;
-  right: 0%;
-  z-index: 1000;
-}
-.lineAlert {
-  height: 5% !important;
-  width: 100% !important;
-  background-color: white !important;
-  bottom: 0% !important;
-  left: 0% !important;
-  position: absolute;
-}
+.posEvents {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 200vw;
+  gap: 5%;
+} 
+
+
 @media only screen and (max-width: 800px) {
   .events1 {
     font-size: 20px;
