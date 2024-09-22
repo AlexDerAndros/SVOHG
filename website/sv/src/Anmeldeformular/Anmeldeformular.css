@@ -319,6 +319,22 @@
   justify-content: left;
   align-items: center;
 }
+
+.alertDelete {
+  position: absolute;
+  width: 90vw;
+  font-size: 30px;
+  right: 0%;
+  z-index: 1000;
+}
+.lineAlert {
+  height: 5% !important;
+  width: 100% !important;
+  background-color: white !important;
+  bottom: 0% !important;
+  left: 0% !important;
+  position: absolute;
+}
 .posEvents {
   display: flex;
   align-items: center;
