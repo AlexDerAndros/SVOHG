@@ -19,11 +19,11 @@ export default function Anmeldeformular1() {
  
 
   const remove = async () => {
-    gsap.to('.sendFormular', {
+    gsap.to('.alert', {
       display: 'flex',
       duration: 2,
       onComplete: () => {
-        gsap.to('.sendFormular', {
+        gsap.to('.alert', {
           display:'none', 
           duration: 2
         })
@@ -118,8 +118,15 @@ function Event({ events,  remove, clickEF, setClickEF}) {
         setClickF(!clickF);
       }, 500);
   };
+const [alert, setAlert] = useState(false);
+const pressAlert = () => {
+  Cookies.set('EventRaus', true, { expires: 28 });
+  setAlert(true); 
+};
   setTimeout(() => {
     Cookies.set('EventRaus', true, {expires: 28});
+    setAlert(true); 
+
   }, 5000);
  
   
@@ -146,9 +153,14 @@ function Event({ events,  remove, clickEF, setClickEF}) {
        
 {events.map((event, index) => (
       <>
-         <div className="sendFormular" style={{ display: Cookies.get('EventRaus') == 'true' ? 'none' : 'flex'}}>
+         <div className="alert" style={{ display: Cookies.get('EventRaus') == 'true' || alert == true ? 'none' : 'flex'}}>
            Sie wurden aus dem Event ausgetragen!
+           <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
+            </span>
+            <span className="lineAlert" ></span>
          </div>
+         
             <div
               className="events1"
               ref={el => eventsRefs.current[index] = el} 
@@ -415,18 +427,33 @@ const sendForm = async () => {
       });
     }
   });
-  gsap.to('.sendFormular', {
+  gsap.to('.alert', {
     display: 'flex',
     duration: 5,
     onComplete: () => {
-      gsap.to('.sendFormular', {
-       display:'none',
-       duration: 5, 
+      gsap.to('.alert', {
+         display:'none',
+         duration: 5, 
        
-      }  
-      )
+       })
+      }
+   });
+  gsap.to('.lineAlert', {
+    duration: 5,
+    width: '100%',  
+    ease: 'power1.inOut',  
+    position: 'absolute',
+    bottom: '0%',
+    onComplete: () => {
+      gsap.to('.lineAlert', {
+        duration: 5,
+        width: '0%',  
+        ease: 'power1.inOut',  
+        position: 'absolute',
+        bottom: '0%',
+      });
     }
-  }) 
+  });
   if (VN.trim() !== '' && NN.trim() !== '' && email.trim() !== '' && geb.trim() !== '' && kla.trim() !== '') {
     await addDoc(collection(db, "userEvents"), {
       title: VN + '' + NN,
@@ -590,95 +617,95 @@ else {
 
 function InEvent({ remove, events }) {
   const [teilnehmer, setTeilnehmer] = useState([]);
+  
   let name = Cookies.get("name") || "Sie können Ihre Anmeldedaten nur auf dem Gerät abrufen, auf dem Sie sich für das Event angemeldet haben.";
   let age = Cookies.get("age") || "Hier ist dasselbe der Fall.";
   let email = Cookies.get("email1") || "Hier ist dasselbe der Fall.";
   let klasse = Cookies.get("kla") || "Hier ist dasselbe der Fall.";
+
   const fetchTeilnehmer = async () => {
     const TeilnehmerCol = collection(db, 'userEvents');
     const messagesSnapshot = await getDocs(TeilnehmerCol);
     const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setTeilnehmer(messagesList);
   };
+
   useEffect(() => {
     fetchTeilnehmer();
-     
   }, []);
-  setTimeout(() => {
-    Cookies.set('confirmationForm', true , {expires: 28});
 
-  }, 5000);
+const [alert, setAlert] = useState(false);
+const pressAlert = () => {
+  Cookies.set('confirmationForm', true, { expires: 28 });
+  setAlert(true); 
+};
+ setTimeout(() => {
+  Cookies.set('confirmationForm', true, { expires: 28 });
+  setAlert(true); 
+ }, 5000)
+    
+
+
+
   return (
     <>
-   
-      {events.map((event => (
-      <>
-        <div className="sendFormular" style={{ display: Cookies.get('confirmationForm') === 'true' ? 'none' : 'flex'}}>
-          Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!
-        </div>
-
-         
-         <div className="contentB">
-        
-          <div className="coneven1">
-            <div className="title_events">{event.topic}</div>
+      {events.map((event) => (
+        <>
+          <div className="alert" style={{ display: Cookies.get('confirmationForm') === 'true' || alert ? 'none' : 'flex' }}>
+            Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!
+            <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
+            </span>
+            <span className="lineAlert" ></span>
           </div>
-          <div className="tabelle1">
-            <div style={{ fontWeight: "600" }}>
-              Sie können nun an diesem Event teilnehmen.
+
+          <div className="contentB">
+            <div className="coneven1">
+              <div className="title_events">{event.topic}</div>
             </div>
-            <div className="eventnameAusnahme">
-             <div>
-              <span className="angabezeit">Datum: </span> {event.date} 
-              <br/> 
-              <br/>
-              <span className="angabezeit">Zeit: </span> {event.time} 
-              <br/>
-              <br/>
-              <span className="angabezeit">Ort: </span>  {event.place}
-              <br/>
-              <br/>
-             </div> 
-              <div className='angabezeit'>Worum geht es bei dem {event.topic}? &nbsp;</div>
-              <div className="textEv">
-                {event.longDescription}
+            <div className="tabelle1">
+              <div style={{ fontWeight: '600' }}>
+                Sie können nun an diesem Event teilnehmen.
               </div>
-            </div>
-            <div className="eventnameAusnahme">
-              <div className='angabezeit'>Wie nehme ich bei dem {event.topic} teil? &nbsp;</div>
-              <div className="textEv">
-                Beim {event.topic} kann man teilnehmen, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. Wenn Sie den gedrückt haben, können Sie sich dann für den {event.topic} anmelden.
+              <div className="eventnameAusnahme">
+                <div>
+                  <span className="angabezeit">Datum: </span> {event.date}
+                  <br />
+                  <br />
+                  <span className="angabezeit">Zeit: </span> {event.time}
+                  <br />
+                  <br />
+                  <span className="angabezeit">Ort: </span> {event.place}
+                  <br />
+                  <br />
+                </div>
+                <div className="angabezeit">Worum geht es bei dem {event.topic}? &nbsp;</div>
+                <div className="textEv">{event.longDescription}</div>
               </div>
-            </div>
-            <div>
-              <div style={{ fontWeight: "600" }}>
-                Ihre Informationen:
-                <div style={{ fontWeight: "400" }}>
-                  <div>
-                    Name: {name}
-                  </div>
-                  <div>
-                    Alter: {age}
-                  </div>
-                  <div>
-                    Klasse: {klasse}
-                  </div>
-                  <div>
-                    E-Mail: {email}
+              <div className="eventnameAusnahme">
+                <div className="angabezeit">Wie nehme ich bei dem {event.topic} teil? &nbsp;</div>
+                <div className="textEv">
+                  Beim {event.topic} kann man teilnehmen, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. Wenn Sie den gedrückt haben, können Sie sich dann für den {event.topic} anmelden.
+                </div>
+              </div>
+              <div>
+                <div style={{ fontWeight: '600' }}>
+                  Ihre Informationen:
+                  <div style={{ fontWeight: '400' }}>
+                    <div>Name: {name}</div>
+                    <div>Alter: {age}</div>
+                    <div>Klasse: {klasse}</div>
+                    <div>E-Mail: {email}</div>
                   </div>
                 </div>
               </div>
-              <ul>
-              </ul>
+              <button className="bearbeiten" onClick={remove}>
+                Ich möchte nicht mehr an diesem Event teilnehmen.
+              </button>
             </div>
-            <button className="bearbeiten" onClick={remove}>
-              Ich möchte nicht mehr an diesem Event teilnehmen.
-            </button>
-           </div>
           </div>
-       </>   
-      )))}
+        </>
+      ))}
     </>
   );
 }
-

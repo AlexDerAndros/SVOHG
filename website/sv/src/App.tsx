@@ -645,7 +645,7 @@ function Startseite() {
       <div className="teil2">
         <div className="title_teil1" id='skondone' ref={title2}>
           <h3>
-            Wofur ist die SV?
+            Was hat die SV für Aufgaben?
           </h3>
         </div>
         <div className="fototeil">

@@ -2,8 +2,8 @@ import "./Login.css";
 import Cookies from 'js-cookie';
 import { useState, useEffect, handleUpdate, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faEye, faEyeSlash, faTrash} from '@fortawesome/free-solid-svg-icons';
-import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faArrowLeft, faEye, faEyeSlash, faTrash, faX} from '@fortawesome/free-solid-svg-icons';
+import { faGoogle, faGithub,  } from "@fortawesome/free-brands-svg-icons";
 import { auth, db, GoogleProvider } from "../config/firebase"; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { getDoc, setDoc, collection, getDocs, addDoc, where, deleteDoc, query, writeBatch} from "firebase/firestore"; // import Firestore functions
@@ -139,17 +139,9 @@ function LoggingIn({ setLog }) {
   }
 
   const register = async (event) => {
-    gsap.to('sendFormular', {
-      display: 'flex',
-      duration: 2,
-      onComplete: () => {
-        gsap.to('sendFormular', {
-          display:'none', 
-          duration: 2
-        })
-      }
-    }, 3000);
-    Cookies.set('registerAlert', false, {expires: 7});
+    Cookies.set('registerAlert', false, {expires: 1/3600});
+
+  
    
     event.preventDefault();
    
@@ -169,7 +161,7 @@ function LoggingIn({ setLog }) {
           html: `Guten Tag ${us}, <br/> <br/> ihre Registrierung war erfolgreich. Nun können Sie sich mit ihrer E-Mail Adresse ${us} und mit ihrem Passwort auch anmelden. <br/> Falls Sie noch weitere Fragen haben, wenden Sie sich bitte an die E-Mail Adresse svohgmonheim7@gmail.com <br/> <br/> Mit freundlichen Grüßen <br/> Eure SV`
         }
       });
-      // window.location.reload();
+      window.location.reload();
       await setDoc(doc(db, "users", registerEmail), {
         email: registerEmail,
         isAdmin: false,
@@ -199,10 +191,54 @@ function LoggingIn({ setLog }) {
       alert('Error: ' + error)
     }
   };
+const [alert, setAlert] = useState(false);
+const [alert1, setAlert1] = useState(false);
+const [alert2, setAlert2] = useState(false);
 
+const pressAlert = () => {
+  Cookies.set('logOutAlert', true, { expires: 28 });
+  setAlert(true); 
+};
+const pressAlert1 = () => {
+  Cookies.set('logOutAlert1', true, { expires: 28 });
+  setAlert1(true); 
+};
+const pressAlert2 = () => {
+  Cookies.set('logOutAlert2', true, { expires: 28 });
+  setAlert2(true); 
+};
+  setTimeout(() => {
+    Cookies.set('logOutAlert', true, {expires: 7});
+    Cookies.set('logOutAlert1', true, {expires: 7});
+    Cookies.set('logOutAlert2', true, {expires: 7});
+
+  }, 3000);
   return (
     <div className="main">
       <div className="square">
+      <div className="center">
+        <div className="alert" style={{display: Cookies.get('logOutAlert') == 'true' || alert == true ? 'none' : 'flex' }}>
+          Sie wurden erfolgreich ausgeloggt.
+          <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
+            </span>
+            <span className="lineAlert" ></span>
+        </div>
+        <div className="alert" style={{display: Cookies.get('logOutAlert1') == 'true' || alert1 == true ? 'none' : 'flex' }}>
+          Sie wurden erfolgreich ausgeloggt.
+          <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert1} />
+            </span>
+            <span className="lineAlert" ></span>
+        </div>
+        <div className="alert" style={{display: Cookies.get('logOutAlert2') == 'true' || alert2 == true? 'none' : 'flex' }}>
+          Sie wurden erfolgreich ausgeloggt.
+          <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert2} />
+            </span>
+            <span className="lineAlert" ></span>
+        </div>
+      </div>
         {click ? (
           <div>
             <div className='arrowcon'>
@@ -288,36 +324,69 @@ function LoggedIn({ setLog }) {
   const username = Cookies.get("user");
 
   const logOut = () => {
+    gsap.to('.alert', {
+      display: 'flex', 
+      duration: 2,
+      onComplete: () => {
+        gsap.to('.alert', {
+         display: 'none',
+         duration: 2 
+        });
+      }
+    });
+    Cookies.set('logOutAlert', false, {expires: 7});
     setLog(false);
-    alert("Sie sind ausgeloggt!");
     Cookies.set('log', 'false', { expires: 1 / 3600 });
     Cookies.remove('user');
     Cookies.remove('isAdmin');
     Cookies.remove('isDeveloper');
 
   }
+
+gsap.to('.alert', {
+    display: 'flex',
+    duration: 2,
+    onComplete: () => { 
+      gsap.to('.alert', {
+         display:'none', 
+         duration: 2
+      })
+    }
+  });
+  const [alert, setAlert] = useState(false);
+  const pressAlert = () => {
+    Cookies.set('logOutAlert', true, { expires: 28 });
+    setAlert(true); 
+  };
+setTimeout(() => {
+  Cookies.set('registerAlert', true, { expires: 28 });
   
-  setTimeout(() => {
-    Cookies.set('registerAlert', true, {expires: 28}); 
-  }, 3000);
+}, 3000);
+
   return (
     <div>
-      <div className="center"> 
-       {/* <div className="sendFormular" style={{ display: Cookies.get('registerAlert') == 'true' ? 'none' : 'flex'}}>
+      <div className="center">
+        <div className="alert" style={{display: Cookies.get('registerAlert') == 'true' || alert == true ? 'none' : 'flex' }}>
           Ihre Registrierung war erfolgreich!
-         </div> */}
-        </div> 
+          <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
+            </span>
+            <span className="lineAlert" ></span>
+        </div>
+       
+      </div>
       <div className="welcome">
         Willkommen {username}!
       </div>
       <div className="posLogOutBtn">
-       <button onClick={logOut} className="logOutBtn">
-         Ausloggen  
-       </button>
+        <button onClick={logOut} className="logOutBtn">
+          Ausloggen
+        </button>
       </div>
     </div>
   );
 }
+
 
 function AdminDevDashboard() {
   const [events, setEvents] = useState([]);
@@ -612,10 +681,21 @@ function AdminDevDashboard() {
 
 function AdminDashboard({ setLog }) {
  
+ 
   const username = Cookies.get("user");
   const logOut = () => {
+    gsap.to('.alert', {
+      display: 'flex', 
+      duration: 2,
+      onComplete: () => {
+        gsap.to('.alert', {
+         display: 'none',
+         duration: 2 
+        });
+      }
+    });
+    Cookies.set('logOutAlert1', false, {expires: 7});
     setLog(false);
-    alert("Sie sind ausgeloggt!");
     Cookies.set('log', 'false', { expires: 1 / 3600 });
     Cookies.remove('user');
     Cookies.remove('isAdmin');
@@ -660,8 +740,18 @@ function DeveloperDashboard({ setLog }) {
   }, []);
 
   const logOut = () => {
+    gsap.to('.alert', {
+      display: 'flex', 
+      duration: 2,
+      onComplete: () => {
+        gsap.to('.alert', {
+         display: 'none',
+         duration: 2 
+        });
+      }
+    });
+    Cookies.set('logOutAlert2', false, {expires: 7});
     setLog(false);
-    alert("Sie sind ausgeloggt!");
     Cookies.set('log', 'false', { expires: 1 / 3600 });
     Cookies.remove('user');
     Cookies.remove('isAdmin');
