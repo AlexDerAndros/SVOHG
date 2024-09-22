@@ -294,18 +294,25 @@
 }
 .sendFormular {
   z-index: 1000;
-  background-color: green;
+  background-color: #7fa3e7;
   width: 90% !important;
   top: 10% !important;
   height: auto;
+  font-family: poppins;
   position: fixed !important;
-  color: white;
+  color: black;
+  border: #024602 2px solid;
+  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  border-radius: 7px;
   padding: 2% 5%;
   box-sizing: border-box;
   display: flex;
   justify-content: left;
   align-items: center;
+  box-sizing: border-box;
 }
+
 .posEvents {
   display: flex;
   align-items: center;
