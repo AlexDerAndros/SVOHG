@@ -142,6 +142,16 @@ const pressAlert = () => {
       }
     });
   }, [events]);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+      // Setze ein Timeout, um die Sichtbarkeit nach 3 Sekunden zu ändern
+      const timer = setTimeout(() => {
+          setIsVisible(false);
+      }, 3000);
+
+      return () => clearTimeout(timer); // Aufräumen des Timers
+  }, []);
 
   return (
     <>
@@ -158,7 +168,7 @@ const pressAlert = () => {
            <span className="alertDelete">
               <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
             </span>
-            <span className="lineAlert" ></span>
+            <span className={`lineAlert ${isVisible ? 'animate' : ''}`}></span>
          </div>
          
             <div
