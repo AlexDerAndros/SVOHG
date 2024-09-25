@@ -985,7 +985,7 @@ html::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   transition: 0.2s ease-in-out;
-  z-index: 1000;
+  z-index: 100000000;
   border: transparent 1px solid;
   /*transform: translateY(5vh) !important;*/
   box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
@@ -999,6 +999,7 @@ html::-webkit-scrollbar {
   align-items: center;
   flex-direction: column;
   background-color: #003300;
+  z-index: 100000000;
   border: solid 2px #7fa3e7;
   color: whitesmoke;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -1011,6 +1012,7 @@ html::-webkit-scrollbar {
   font-size: 2vw;
   font-family: roboto;
   font-weight: 800;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   border: 2px solid #7fa3e7;
   background-color: rgba(0, 139, 139, 0.459);
   color: rgb(226, 226, 226);
@@ -1050,9 +1052,7 @@ html::-webkit-scrollbar {
 {
   .popup {
     z-index: 100000000;
-    height: 50vh;
-    backdrop-filter: none !important;
-    background-color: transparent !important;
+    height: 80vh !important;
     background: none;
     width: 100vw;
     border-radius: 0px;
@@ -1063,12 +1063,14 @@ html::-webkit-scrollbar {
     border-radius: 0px !important;
     background-color: rgb(108, 143, 209) !important;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     width: 100vw;
-    height: 100%;
+    height: 100% !important;
     border: none;
     display: flex;
     justify-content: center;
     align-items: center ;
-    gap: 120px;
+    gap: 100px;
+    transform: translateY(-10vh);
+    color: rgb(235, 235, 235);
     flex-direction: column;
   }
   .button_cookies {
@@ -1092,6 +1094,7 @@ html::-webkit-scrollbar {
     font-size: 15px;
     font-family: poppins;
     font-weight: 800;
+    border: none !important;
   }
   .button_cookies:last-child {
     background-color: rgb(245, 151, 151);box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -1640,6 +1643,14 @@ li {
 }
 #skondone {
   transform: translate(20vw, 50px);
+}
+@media only screen and (max-width: 500px) {
+  #skondone {
+    text-align: center;
+  }
+  #zei2 {
+    text-align: center;
+  }
 }
 .teilr {
   width: 40%;

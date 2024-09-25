@@ -325,7 +325,7 @@ export default function SVKasten() {
   
           <div className="oeffentlich_nach">
             <div className='title_svkasten_123adg'>
-              Nachichten Keine ahnung
+              Nachichten
             </div>
             {messages
               .sort((a, b) => b.likes - a.likes)

@@ -200,7 +200,9 @@
   flex-direction: column;
   border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  background-color: #d3d3d3af;
+  background-color: #d3d3d3;
+  border: solid 2px #7fa3e7;
+  border-radius: 3px;
   color: rgb(24, 24, 24);
   font-family: 'Roboto';
 }
@@ -319,6 +321,10 @@
   justify-content: left;
   align-items: center;
 }
+.alertDel {
+  padding-left: 20px;
+  padding-right: 50px;
+}
 
 .alertDelete {
   position: absolute;
@@ -328,6 +334,13 @@
   z-index: 1000;
 
 }
+/*
+
+  Stunden verschwended um die linie animation zu machen = 1.5
+
+*/
+
+
 .lineAlert {
   /* height: 5% !important;
   width: 100% !important;

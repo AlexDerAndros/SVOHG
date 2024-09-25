@@ -319,6 +319,7 @@ function Startseite() {
   const teil1main = useRef<HTMLDivElement | null>(null);
   const questionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const eventsRef = useRef<HTMLDivElement | null>(null);
+  const conright123= useRef<HTMLDivElement | null>(null);
   const info = useRef<HTMLDivElement | null>(null);
   const line = useRef<HTMLDivElement | null>(null);
   const line44 = useRef<HTMLDivElement | null>(null);
@@ -366,6 +367,8 @@ function Startseite() {
       }
     };
 
+    animateElement(title2.current, { opacity: 0, }, { opacity: 1, duration: 1 });
+
     animateElement(imgRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 2.5, ease: 'power3.out' });
     animateElement(linetop.current, { opacity: 0, height: '0px' }, { opacity: 1, height: '800px', duration: 4.5, ease: 'power3.out' });
     
@@ -375,7 +378,7 @@ function Startseite() {
     animateElement(kontaktRef.current, { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
     animateElement(beitretenRef.current, { opacity: 0, x: 100 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' });
     
-    animateElement(teil1main.current, { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' });
+    animateElement(teil1main.current, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power3.out' });
     animateElement(info.current, { opacity: 0, x: -150 }, { opacity: 1, x: 0, duration: 2, ease: 'power3.out' });
     animateElement(iftar.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 1, duration: 2, ease: 'power3.out' });
     animateElement(iftar2.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: 'power3.out' });
@@ -384,7 +387,9 @@ function Startseite() {
     animateElement(line.current, { height: '0px' }, { opacity: 1, duration: 2, height: '600px', ease: 'power3.out' });
     animateElement(line44.current, { opacity: 0 }, { opacity: 1, duration: 2, ease: 'power3.out' });
 
-    animateElement(title2.current, { opacity: 0, x: '50vw' }, { opacity: 1, x: '20vw', duration: 2, ease: 'power3.out' });
+
+    animateElement(conright123.current, { opacity: 0, x: 150 }, { opacity: 1, x: -20, duration: 1, ease: 'power3.out' });
+    
     animateElement(info2.current, { opacity: 0, x: '50vw' }, { opacity: 1, x: '-40px', duration: 2, ease: 'power3.out' });
 
 
@@ -597,7 +602,7 @@ function Startseite() {
         </div>
       <div className="teil1">
         <div className="right1">
-        <div className="conright">
+        <div className="conright" ref={conright123}>
   <div className='sv-info' ref={info}>
     <h2>
     Die SV kümmert sich um die Umsetzung der Wünsche der Schüler*innen am Otto-Hahn-Gymnasium. Die SV organisiert verschiedene spaßige und lustige Events, z. B
@@ -695,7 +700,9 @@ function Startseite() {
         </div>
         <div className="BTCON123">
               <button className='treten1'>
-              Klicken sie hier, um am SV Talentwettbewerb teilzunehmen! <img src='./arrowleft.svg' className='arrowleft' />
+                <a href="/Anmeldeformular">
+              Klicken sie hier, um am SV Talentwettbewerb teilzunehmen! <img src='./arrowleft.svg' className='arrowleft' />  
+                </a>
               </button>
 
         </div>
@@ -748,7 +755,7 @@ function Startseite() {
         </div>
       </div>
       <div className="BTCON123" id='keineanhungwieichdasnennenmusweilfastallenamengefhultscongennommenwurdenaberichgluabedasdasnochnichtgenommenwurdeodervielleichtschonkeinerweisauserichweilichderbesterprogrammierenallerzeitenbinderallesweistundnursozurinfoalexdubistschlechtinuiunduxdesignundichbinvielbesseraberegalobamawasntthatgood'>
-              <button className='treten1'>
+              <button className='treten1'> Verschwindet einfach... Egal
               Klicken sie hier, um uns eine Nachicht zu Schreiben! <img src='./arrowleft.svg' className='arrowleft' />
               </button>
 

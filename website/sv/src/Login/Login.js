@@ -520,6 +520,7 @@ function AdminDevDashboard() {
                           await deleteDoc(docRef);
                         });
                         alert('Nachricht erfolgreich gelöscht!');
+                        fetchMessages(); //Damit die Nachichten reloaded werden und nicht die seite wieder reloaded werden... Beste zeile code die ich je geschreiben habe!!
                         
                       } catch(error) {
                         console.log(error);
