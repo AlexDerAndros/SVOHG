@@ -353,7 +353,7 @@
   animation-timing-function: ease-in-out; 
   animation-fill-mode: forwards;  */
 }
-
+  
 @keyframes lineDelete {
   from {
     width: 100% !important;
@@ -371,16 +371,31 @@
   height: 200vw;
   gap: 5%;
 } 
-
+.EditEvent {
+  height: 10%;
+}
+.coneven2 {
+  width: 99.9%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid rgba(255, 0, 0, 0) 1px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  color: white;
+  background-color: rgb(2, 70, 2);
+  font-size: 1.3em;
+}
 
 @media only screen and (max-width: 800px) {
   .events1 {
     font-size: 20px;
     height: 500px;
   }
+  
   .contentB {
     width: 80vw;
-    height: 145vw;
+    height: 1250px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -436,7 +451,12 @@
     transform: translateY(-50px);
   }
   .contentB {
-    height: 100vh;
+    height: 100vh !important;
+  }
+ }
+ @media only screen and (min-width: 1200px) {
+  .contentB {
+    height: 73vw !important;
   }
  }
 

@@ -2,7 +2,7 @@ import "./Anmeldeformular.css";
 import Cookies from 'js-cookie';
 import gsap from "gsap";
 import { useState, useEffect, useRef } from "react";
-import { faTrash, faX } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faX, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { auth, db } from "../config/firebase"; 
 import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query, setDoc } from "firebase/firestore"; 
@@ -142,16 +142,6 @@ const pressAlert = () => {
       }
     });
   }, [events]);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-      // Setze ein Timeout, um die Sichtbarkeit nach 3 Sekunden zu ändern
-      const timer = setTimeout(() => {
-          setIsVisible(false);
-      }, 3000);
-
-      return () => clearTimeout(timer); // Aufräumen des Timers
-  }, []);
 
   return (
     <>
@@ -168,7 +158,7 @@ const pressAlert = () => {
            <span className="alertDelete">
               <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
             </span>
-            <span className={`lineAlert ${isVisible ? 'animate' : ''}`}></span>
+            <span className="lineAlert" ></span>
          </div>
          
             <div
@@ -627,11 +617,19 @@ else {
 
 function InEvent({ remove, events }) {
   const [teilnehmer, setTeilnehmer] = useState([]);
+  const [alert, setAlert] = useState(false);
+  const [editEventInfo, setEditEventInfo] = useState(false);
+
+  const [editName, setEditName] = useState('');
+  const [editAge, setEditAge] = useState('');
+  const [editEmail, setEditEmail] = useState('');
+  const [editKlasse, setEditKlasse] = useState('');
   
   let name = Cookies.get("name") || "Sie können Ihre Anmeldedaten nur auf dem Gerät abrufen, auf dem Sie sich für das Event angemeldet haben.";
   let age = Cookies.get("age") || "Hier ist dasselbe der Fall.";
   let email = Cookies.get("email1") || "Hier ist dasselbe der Fall.";
   let klasse = Cookies.get("kla") || "Hier ist dasselbe der Fall.";
+
 
   const fetchTeilnehmer = async () => {
     const TeilnehmerCol = collection(db, 'userEvents');
@@ -640,11 +638,19 @@ function InEvent({ remove, events }) {
     setTeilnehmer(messagesList);
   };
 
+  const AktualisierungEventDaten = () => {
+  }
+
   useEffect(() => {
     fetchTeilnehmer();
   }, []);
 
-const [alert, setAlert] = useState(false);
+ 
+
+
+const pressEditEvent = () => {
+  setEditEventInfo(!editEventInfo);
+}
 const pressAlert = () => {
   Cookies.set('confirmationForm', true, { expires: 28 });
   setAlert(true); 
@@ -670,7 +676,7 @@ const pressAlert = () => {
           </div>
 
           <div className="contentB">
-            <div className="coneven1">
+            <div className="coneven2">
               <div className="title_events">{event.topic}</div>
             </div>
             <div className="tabelle1">
@@ -702,11 +708,43 @@ const pressAlert = () => {
                 <div style={{ fontWeight: '600' }}>
                   Ihre Informationen:
                   <div style={{ fontWeight: '400' }}>
-                    <div>Name: {name}</div>
-                    <div>Alter: {age}</div>
-                    <div>Klasse: {klasse}</div>
-                    <div>E-Mail: {email}</div>
+                    {editEventInfo ? (
+                      <>
+                        <div>Name: {name}</div>
+                        <div>Alter: {age}</div>
+                        <div>Klasse: {klasse}</div>
+                        <div>E-Mail: {email}</div>
+                      </>
+                    ) :(
+                      <> 
+                       <input className="search   EditEvent" value={editName} type="text" placeholder={`Name: ${name}`} onChange={(e) => setEditName(e.target.value)}/>
+                       <input className="search   EditEvent" value={editAge} type="number" placeholder={`Alter: ${age}`} onChange={(e) => setEditAge(e.target.value)}/>
+                       <input className="search   EditEvent" value={editKlasse} type="text" placeholder={`Klasse: ${klasse}`} onChange={(e) => setEditKlasse(e.target.value)}/>
+                       <input className="search   EditEvent" value={editEmail} type="text" placeholder={`E-Mail: ${email}`} onChange={(e) => setEditEmail(e.target.value)}/>
+                        <button className="bearbeiten" style={{width:'60vw'}} onClick={AktualisierungEventDaten}>
+                          Aktualisierung der angegebenen Daten
+                        </button>
+                      </>
+                    )}
+                    
                   </div>
+                  <div onClick={pressEditEvent} style={{cursor:'pointer'}}>
+                    {editEventInfo ? (
+                      <>
+                       <FontAwesomeIcon icon={faEdit} 
+                       size="2x"
+                       style={{textAlign:'right', width: '100vw'}}/>
+                       </>
+                    ): (
+                      <>
+                      <br/>
+                        <FontAwesomeIcon icon={faX} 
+                       size="2x"
+                       style={{textAlign:'right', width: '100vw'}}/>
+                      </>
+                    )}
+                  </div>
+                 
                 </div>
               </div>
               <button className="bearbeiten" onClick={remove}>
