@@ -175,22 +175,25 @@ function LoggingIn({ setLog }) {
 
   const logGoogle = () => {
     try {
-    signInWithPopup(auth, GoogleProvider).then((data) => {
-      try {
-      setGoogleUs(data.user.email);
-      Cookies.set('log', true, { expires: 14 });
-      Cookies.set('user', data.user.email, { expires: 14 });
-      window.location.reload();
-      }
-      catch {
-        alert("Error" + error)
-      }
-    });
-    }
-    catch {
-      alert('Error: ' + error)
+      signInWithPopup(auth, GoogleProvider).then((data) => {
+        try {
+          setGoogleUs(data.user.email);
+          Cookies.set('log', true, { expires: 14 });
+          Cookies.set('user', data.user.email, { expires: 14 });
+          window.location.reload();
+        } catch (error) {
+          window.alert("Error: " + error.message + "Login seite wurde geschlossen!");
+        }
+      }).catch((error) => {
+        window.alert("Login Error: " + error.message + "Login seite wurde geschliessen!");
+      });
+    } catch (error) {
+      window.alert("Error: " + error.message + "Login seite wurde geschliessen!");
     }
   };
+  
+
+
 const [alert, setAlert] = useState(false);
 const [alert1, setAlert1] = useState(false);
 const [alert2, setAlert2] = useState(false);
