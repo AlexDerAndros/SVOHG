@@ -5,8 +5,9 @@ import { useState, useEffect, useRef } from "react";
 import { faTrash, faX, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { auth, db } from "../config/firebase"; 
-import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query, setDoc } from "firebase/firestore"; 
+import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query, setDoc, updateDoc } from "firebase/firestore"; 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { title } from "process";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -462,17 +463,18 @@ const sendForm = async () => {
       age: geb,
       Klasse: kla,
       newCategorie: addedIn || 'none',
+      timestamp: new Date()
       
 
     });
     setClickEF(true);
-    Cookies.set('teil', true, { expires: 7 });
-    Cookies.set("name", VN + ' ' + NN, { expires: 7 });
-    Cookies.set("age", geb, { expires: 7 });
-    Cookies.set("kla", kla, { expires: 7 });
-    Cookies.set("email1", email, { expires: 7 });
+    Cookies.set('teil', true, { expires: 14});
+    Cookies.set("name", VN + ' ' + NN, { expires: 14 });
+    Cookies.set("age", geb, { expires: 14 });
+    Cookies.set("kla", kla, { expires: 14});
+    Cookies.set("email1", email, { expires: 14 });
     Cookies.set('confirmationForm', false, {expires: 28});
-
+    Cookies.set('timestamp', new Date(), {expires: 14})
     let mail = Cookies.get('email1');
     await addDoc(collection( db, "mail"), {
       to : [mail],
@@ -508,7 +510,7 @@ else {
       <div className='loadofinputs'>
           <input type="text"   className='search' placeholder="Vorname." onChange={(e) => setVN(e.target.value)} />
           <input type="text" className='search' placeholder="Nachname." onChange={(e) => setNN(e.target.value)} />
-          <input type="number" className='search' placeholder="Alter." onChange={(e) => setGeb(e.target.value)} />
+          <input type="text" className='search' placeholder="Alter." onChange={(e) => setGeb(e.target.value)} />
           <input type="text" className='search' placeholder="Klasse." onChange={(e) => setKla(e.target.value)} />
           <input type="text" className='search' placeholder="E-Mail."  onChange={(e) => setEmail(e.target.value)}  />
       </div>
@@ -629,6 +631,7 @@ function InEvent({ remove, events }) {
   let age = Cookies.get("age") || "Hier ist dasselbe der Fall.";
   let email = Cookies.get("email1") || "Hier ist dasselbe der Fall.";
   let klasse = Cookies.get("kla") || "Hier ist dasselbe der Fall.";
+  let timestamp = Cookies.get('timestamp');
 
 
   const fetchTeilnehmer = async () => {
@@ -638,11 +641,56 @@ function InEvent({ remove, events }) {
     setTeilnehmer(messagesList);
   };
 
-  const AktualisierungEventDaten = () => {
+ 
+  const fetchCookies = () => {
+    setEditName(Cookies.get('name'));
+    setEditAge(Cookies.get('age'));
+    setEditEmail(Cookies.get('email1'));
+    setEditKlasse(Cookies.get('kla'));
   }
+
+  const AktualisierungEventDaten = async () => {
+    try {
+      const q = query(
+        collection(db, 'userEvents'), 
+        where('name', '==', name),
+        where('email', '==', email),
+      );
+  
+      const querySnapshot = await getDocs(q);
+      
+      const updatePromises = querySnapshot.docs.map((docSnapshot) => {
+        const updateData = {
+          name: editName, 
+          title: editName, 
+          age: editAge, 
+          Klasse: editKlasse,
+          email: editEmail
+        };
+  
+        const docRef = doc(db, 'userEvents', docSnapshot.id);
+        return updateDoc(docRef, updateData);
+      });
+  
+      await Promise.all(updatePromises);
+  
+      Cookies.set('name', editName, { expires: 14 });
+      Cookies.set('age', editAge, { expires: 14 });
+      Cookies.set('email1', editEmail, { expires: 14 });
+      Cookies.set('kla', editKlasse, { expires: 14 });
+      
+      fetchCookies();
+      setEditEventInfo(false);
+      alert('Ihre Infos wurden erfolgreich aktualisiert.');
+    } catch (e) {
+      console.error('Error: ' + e);
+    }
+  };
+  
 
   useEffect(() => {
     fetchTeilnehmer();
+    fetchCookies();
   }, []);
 
  
@@ -710,20 +758,21 @@ const pressAlert = () => {
                   <div style={{ fontWeight: '400' }}>
                     {editEventInfo ? (
                       <>
-                        <div>Name: {name}</div>
-                        <div>Alter: {age}</div>
-                        <div>Klasse: {klasse}</div>
-                        <div>E-Mail: {email}</div>
+                         <input className="search   EditEvent" value={editName} type="text" placeholder={`Name: ${name}`} onChange={(e) => setEditName(e.target.value)}/>
+                         <input className="search   EditEvent" value={editAge} type="text" placeholder={`Alter: ${age}`} onChange={(e) => setEditAge(e.target.value)}/>
+                         <input className="search   EditEvent" value={editKlasse} type="text" placeholder={`Klasse: ${klasse}`} onChange={(e) => setEditKlasse(e.target.value)}/>
+                         <input className="search   EditEvent" value={editEmail} type="text" placeholder={`E-Mail: ${email}`} onChange={(e) => setEditEmail(e.target.value)}/>
+                         <button className="bearbeiten" style={{width:'60vw'}} onClick={AktualisierungEventDaten}>
+                           Aktualisierung der angegebenen Daten
+                         </button>
+                        
                       </>
                     ) :(
                       <> 
-                       <input className="search   EditEvent" value={editName} type="text" placeholder={`Name: ${name}`} onChange={(e) => setEditName(e.target.value)}/>
-                       <input className="search   EditEvent" value={editAge} type="number" placeholder={`Alter: ${age}`} onChange={(e) => setEditAge(e.target.value)}/>
-                       <input className="search   EditEvent" value={editKlasse} type="text" placeholder={`Klasse: ${klasse}`} onChange={(e) => setEditKlasse(e.target.value)}/>
-                       <input className="search   EditEvent" value={editEmail} type="text" placeholder={`E-Mail: ${email}`} onChange={(e) => setEditEmail(e.target.value)}/>
-                        <button className="bearbeiten" style={{width:'60vw'}} onClick={AktualisierungEventDaten}>
-                          Aktualisierung der angegebenen Daten
-                        </button>
+                         <div>Name: {name}</div>
+                        <div>Alter: {age}</div>
+                        <div>Klasse: {klasse}</div>
+                        <div>E-Mail: {email}</div>
                       </>
                     )}
                     
@@ -731,14 +780,14 @@ const pressAlert = () => {
                   <div onClick={pressEditEvent} style={{cursor:'pointer'}}>
                     {editEventInfo ? (
                       <>
-                       <FontAwesomeIcon icon={faEdit} 
+                       <FontAwesomeIcon icon={faX} 
                        size="2x"
                        style={{textAlign:'right', width: '100vw'}}/>
                        </>
                     ): (
                       <>
                       <br/>
-                        <FontAwesomeIcon icon={faX} 
+                        <FontAwesomeIcon icon={faEdit} 
                        size="2x"
                        style={{textAlign:'right', width: '100vw'}}/>
                       </>
