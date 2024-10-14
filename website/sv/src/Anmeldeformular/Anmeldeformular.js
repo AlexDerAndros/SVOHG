@@ -665,7 +665,7 @@ function InEvent({ remove, events }) {
           title: editName, 
           age: editAge, 
           Klasse: editKlasse,
-          email: editEmail
+          email: editEmail 
         };
   
         const docRef = doc(db, 'userEvents', docSnapshot.id);
@@ -713,15 +713,16 @@ const pressAlert = () => {
 
   return (
     <>
-      {events.map((event) => (
-        <>
-          <div className="alert" style={{ display: Cookies.get('confirmationForm') === 'true' || alert ? 'none' : 'flex' }}>
+     <div className="alert" style={{ display: Cookies.get('confirmationForm') === 'true' || alert ? 'none' : 'flex' }}>
             Ihr Formular wurde an die SV gesendet. Sie können nun an dem Event teilnehmen!
             <span className="alertDelete">
               <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
             </span>
             <span className="lineAlert" ></span>
           </div>
+      {events.map((event) => (
+        <>
+         
 
           <div className="contentB">
             <div className="coneven2">

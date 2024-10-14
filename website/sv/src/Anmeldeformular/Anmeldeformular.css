@@ -334,11 +334,7 @@
   z-index: 1000;
 
 }
-/*
 
-  Stunden verschwended um die linie animation zu machen = 1.5
-
-*/
 
 
 .lineAlert {
@@ -390,20 +386,12 @@
 @media only screen and (max-width: 800px) {
   .events1 {
     font-size: 20px;
-    height: 500px;
+    height: 700px !important;
   }
   
   .contentB {
     width: 80vw;
-    height: 1250px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    background-color: #d3d3d3af;
-    color: rgb(24, 24, 24);
-    font-family: 'Roboto';
+    height: 1250px !important;
   }  
   .tabelle1 {
     font-size: 15px;
@@ -411,6 +399,14 @@
   .addInput {
     font-size: 6vw;
     width: 7vw;
+  }
+  .alert {
+    top: 12% !important;
+  }
+  .alertDel {
+    padding-left: 90%;
+    padding-right: 50px;
+    z-index: 1000;
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -424,15 +420,8 @@
   }
   .contentB {
     width: 80vw;
-    height: 1000px !important;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    background-color: #d3d3d3af;
-    color: rgb(24, 24, 24);
-    font-family: 'Roboto';
+    height: 1250px !important;
+    margin-bottom: 500px !important;
   }
 }
 @media only screen and (min-width: 1000px)
@@ -451,7 +440,7 @@
     transform: translateY(-50px);
   }
   .contentB {
-    height: 100vh !important;
+    height: 150vh !important;
   }
  }
  @media only screen and (min-width: 1200px) {

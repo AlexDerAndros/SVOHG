@@ -6,6 +6,9 @@ SV OHG CODE BY ALEXANDROS AND MARCO
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500;600;700&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500;600;700&family=Roboto&display=swap');
 
+main {
+    overflow-x: hidden;
+}
 input{
     border-bottom: 2px solid #7fa3e7 !important;
     border-radius: 0px !important;
@@ -631,4 +634,28 @@ form {
 .users:focus {
     background-color: #006600;
     outline: none;
+}
+/**Add Events**/
+.addEvents {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.plusAddEvents {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    background-color: #006600;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    transition: ease 0.3s ;
+}
+.dateAdd {
+    width: 62vw;
+    text-align: left;
 }

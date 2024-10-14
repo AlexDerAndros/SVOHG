@@ -398,8 +398,44 @@ function AdminDevDashboard() {
   const [messages, setMessages] = useState([]); 
   const [teilnehmer, setTeilnehmer] = useState([]); 
   const [ moreSize, setMoreSize] = useState(false);
+  const [add, setAdd] = useState(false);
+  const [themeV, setThemeV] = useState('');
+  const [dateV, setDateV] = useState(null);
+  const [placeV, setPlaceV] = useState('');
+  const [timeV, setTimeV] = useState('');
+  const [shortDescriptionV, setShortDescriptionV] = useState('');
+  const [longDescriptionV, setLongDescriptionV] = useState('');
   const [timestamp, setTimestamp] = useState('');
   const [visibleMessages, setVisibleMessages] = useState(6);
+
+  const pressAdd = () => {
+    setAdd(!add);
+  }
+  const handleDateChange = (e) => {
+    const selectedDate = new Date(e.target.value);
+    setDateV(selectedDate);
+  };
+  
+  const AddEvent = async() => {
+    try {
+     if (themeV.trim() != '' && placeV.trim() != '' && timeV.trim() != '' && shortDescriptionV.trim() != '' && longDescriptionV.trim() != '') { 
+      await addDoc(collection(db, 'events'), {
+        topic: themeV,
+        date: dateV, 
+        place: placeV, 
+        time: timeV,
+        shortDescription: shortDescriptionV,  
+        longDescription: longDescriptionV
+      })
+      setAdd(!add);
+      fetchEvents();
+      alert('Event konnte erfolgreich hinzugefügt werden.');
+    }
+    } catch(e) {
+      console.error(e);
+      alert('Event konnte leider nicht hiuszugefügt werden aufgrund des Fehlers:' + e);
+    }
+  }
   const fetchEvents = async () => {
     const eventsCol = collection(db, 'events');
     const eventSnapshot = await getDocs(eventsCol);
@@ -523,7 +559,7 @@ function AdminDevDashboard() {
                           await deleteDoc(docRef);
                         });
                         alert('Nachricht erfolgreich gelöscht!');
-                        fetchMessages(); //Damit die Nachichten reloaded werden und nicht die seite wieder reloaded werden... Beste zeile code die ich je geschreiben habe!!
+                        fetchMessages(); 
                         
                       } catch(error) {
                         console.log(error);
@@ -532,7 +568,6 @@ function AdminDevDashboard() {
                       
                    }} className="btnDelIn"/>  </p>
         <p>{message.timestamp ? new Date(message.timestamp.seconds * 1000).toLocaleString() : 'Keine datum da'}</p>
-        {/* <button onClick={deleteMessage}> Löschen</button> */}
       </div>
     ))}
   </div>
@@ -561,7 +596,25 @@ function AdminDevDashboard() {
         <li>Klasse: {item.Klasse}</li>
         <li>E-Mail: {item.email}</li>
       </ul>
+      <FontAwesomeIcon icon={faTrash} onClick={ async() => {
+                       try {
+                        const q = query(collection(db, "userEvents"), where('name', '==', item.name ), where('timestamp', '==', item.timestamp ));
+                        const querySnapshot = await getDocs(q);
+                  
+                        querySnapshot.forEach(async (docSnapshot) => {
+                          const docRef = doc(db, "userEvents", docSnapshot.id);
+                          await deleteDoc(docRef);
+                        });
+                        alert('Teilnehmer des Events gelöscht!');
+                        fetchTeilnehmer();
+                      } catch(error) {
+                        console.log(error);
+                        alert('Nachricht konnte leider nicht gelöscht werden');
+                      }
+                      
+                   }} className="btnDelIn"/>  
     </div>
+
   ))}
   </div>
 </div>
@@ -677,7 +730,34 @@ function AdminDevDashboard() {
             </form>
           </div>
         )}
-
+        <br/> 
+        <br/>
+     <div className="addEvents">
+        <h2>
+          Events hinzufügen
+        </h2>
+        <div className="plusAddEvents" style={{transform: add ? 'rotate(45deg)' : 'rotate(0deg)'}} onClick={pressAdd}>
+            +
+        </div>
+        {add ? (
+          <>
+            <br/> <br/>
+            <input type="text" className="search" onChange={(e) => setThemeV(e.target.value)} placeholder="Thema"/>
+            <div className="dateAdd">Datum:</div>
+            <input type="date" className="search" onChange={handleDateChange} placeholder="Datum"/>
+            <input type="text" className="search" onChange={(e) => setPlaceV(e.target.value)} placeholder="Ort"/>
+            <input type="text" className="search" onChange={(e) => setTimeV(e.target.value)} placeholder="Von...bis.."/>
+            <input type="text" className="search" onChange={(e) => setShortDescriptionV(e.target.value)} placeholder="Kurze Beschreibung des Events"/>
+            <input type="text" className="search" onChange={(e) => setLongDescriptionV(e.target.value)} placeholder="Etwas längere Beschreibung des Events"/>
+            <button className="bearbeiten" style={{width:'63vw'}} onClick={AddEvent}>
+              Hinzufügen des Events
+            </button>
+          </>
+        ) : (
+          <>
+          </>
+        )}
+     </div>
      
      </>
    );
