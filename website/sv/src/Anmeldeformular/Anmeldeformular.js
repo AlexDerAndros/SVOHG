@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { auth, db } from "../config/firebase"; 
 import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query, setDoc, updateDoc } from "firebase/firestore"; 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { title } from "process";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,7 +15,6 @@ export default function Anmeldeformular1() {
   const [verfügbar, setVerfügbar] = useState(false);
   const [events, setEvents] = useState([]);
   const [clickEF, setClickEF] = useState(false);
-
  
 
   const remove = async () => {
@@ -109,17 +107,46 @@ export default function Anmeldeformular1() {
 function Event({ events,  remove, clickEF, setClickEF}) {
   const eventsRefs = useRef([]);
   const [clickF, setClickF] = useState(false);
+  const [eventList, setEventList] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [newEventList, setNewEventList] = useState([]);
+  const [topic, setTopic] = useState('');
 
-  const pressF = () => {
-    gsap.to(".eventname1", {
-      scale: 1.2,
-      duration: 0.5,
-    })
+  const pressF = async () => {
+    try {
+      gsap.to(".eventname1", {
+        scale: 1.2,
+        duration: 0.5,
+      });
+  
       setTimeout(() => {
-        setClickF(!clickF);
+        setClickF(!clickF); 
       }, 500);
+  
+      const q = query(collection(db, 'events'), where('topic', '==', currentEvent.topic));
+      const querySnapshot = await getDocs(q);
+      const list = [];
+      
+      querySnapshot.forEach((docSnapshot) => {
+          list.push(docSnapshot.data());  
+      });
+  
+      setNewEventList(list);
+      setTopic(currentEvent.topic);
+      Cookies.set('topic', currentEvent.topic, {expires: 7});
+      Cookies.set('time', currentEvent.time, {expires: 7});
+      Cookies.set('place', currentEvent.place, {expires: 7});
+      Cookies.set('longD', currentEvent.longDescription, {expires: 7});
+      Cookies.set('date', currentEvent.date, {expires: 7});
+
+    } catch (error) {
+      console.error("Error fetching new events: ", error);
+    }
   };
+  
 const [alert, setAlert] = useState(false);
+const currentEvent = eventList[currentIndex];
+
 const pressAlert = () => {
   Cookies.set('EventRaus', true, { expires: 28 });
   setAlert(true); 
@@ -129,6 +156,51 @@ const pressAlert = () => {
     setAlert(true); 
 
   }, 5000);
+  function eventdavor() {
+
+    gsap.to('.davor', {
+      transform: 'scale(1.2)',
+      duration: 0.2,
+      onComplete: () => {
+        gsap.to('.davor', {
+          transform: 'scale(1)',
+          duration: 0.2
+        });
+      }
+    });
+    // gsap.to('.tabelle1', {
+    //   x: '-90vw',
+    //   duration: 2.5,
+    //   ease: 'power1.in',
+    // });
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? eventList.length - 1 : prevIndex - 1
+    );
+    
+  }
+
+  function nachstesevent() {
+
+    gsap.to('.danach', {
+      transform: 'scale(1.2)',
+      duration: 0.2,
+      onComplete: () => {
+        gsap.to('.danach', {
+          transform: 'scale(1)',
+          duration: 0.2
+        });
+      }
+    });
+    // gsap.to('.tabelle1', {
+    //   x: '0px',
+    //   duration: 2.5,
+    //   ease: 'power1.in',
+    // });
+    setCurrentIndex((prevIndex) =>
+      prevIndex === eventList.length - 1 ? 0 : prevIndex + 1
+    );
+
+  }
  
   
   
@@ -142,58 +214,78 @@ const pressAlert = () => {
         );
       }
     });
-  }, [events]);
+    async function fetchEvents() {
+      try {
+        const eventsCol = collection(db, 'events');
+        const eventSnapshot = await getDocs(eventsCol);
+        const eventsList = eventSnapshot.docs.map(doc => doc.data());
+        const formattedEvents = eventsList.map(event => ({
+          ...event,
+          date: event.date instanceof Timestamp ? event.date.toDate().toLocaleDateString() : event.date,
+          time: event.time,
+          place: event.place,
+          topic: event.topic,
+          shortDescription: event.shortDescription,
+        }));
 
+        setEventList(formattedEvents);
+      } catch (error) {
+        console.error("Error fetching events: ", error);
+      }
+    }
+   
+
+    fetchEvents();
+  }, [events]);
+  
   return (
     <>
      
     {clickF ? (
-      <Formular events={events} pressF={pressF} clickEF={clickEF} remove={remove} setClickEF={setClickEF} />
+      <Formular newEventList={newEventList} pressF={pressF} clickEF={clickEF} remove={remove} setClickEF={setClickEF} topic={topic} />
     ) : (
       <>
-       
-{events.map((event, index) => (
-      <>
-         <div className="alert" style={{ display: Cookies.get('EventRaus') == 'true' || alert == true ? 'none' : 'flex'}}>
+      <div className="alert" style={{ display: Cookies.get('EventRaus') == 'true' || alert == true ? 'none' : 'flex'}}>
            Sie wurden aus dem Event ausgetragen!
            <span className="alertDelete">
               <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
             </span>
             <span className="lineAlert" ></span>
+
          </div>
+         <div className="eventsU">
+       
          
-            <div
-              className="events1"
-              ref={el => eventsRefs.current[index] = el} 
-              key={index}
-            >
+            <div className="events1">
            
             <div className="coneven1">
-              <div className="title_events">{event.topic}</div>
+              <div className="davor1" onClick={eventdavor}>Event davor</div>
+              <div className="title_events" >{currentEvent ? currentEvent.topic : ''}</div>
+              <div className="danach1" onClick={nachstesevent}>Nächstes Event</div>
             </div>
             <div className="tabelle1" >
               <div className="zeit">
                 <div className='angabezeit'>Datum: &nbsp;</div>
-                {event.date}
+                {currentEvent ? currentEvent.date : ''}  
               </div>
               <div className="zeit">
                 <div className='angabezeit'>Zeit: &nbsp;</div>
-                {event.time}
+                {currentEvent ? currentEvent.time : ''}
               </div>
               <div className="zeit">
                 <div className='angabezeit'>Ort: &nbsp;</div>
-                {event.place}
+                {currentEvent ? currentEvent.place : ''}
               </div>
               <div className="eventnameAusnahme">
-                <div className='angabezeit'>Worum geht es bei dem {event.topic}? &nbsp;</div>
+                <div className='angabezeit'>Worum geht es bei dem Event: {currentEvent ? currentEvent.topic : ''} ? &nbsp;</div>
                 <div className="textEv">
-                  {event.longDescription}
+                  {currentEvent ? currentEvent.longDescription : ''}
                 </div>
               </div>
               <div className="eventnameAusnahme">
-                <div className='angabezeit'>Wie nehme ich bei dem {event.topic} teil? &nbsp;</div>
+                <div className='angabezeit'>Wie nehme ich bei dem Event: {currentEvent ? currentEvent.topic : ''} teil? &nbsp;</div>
                 <div className="textEv">
-                  Beim {event.topic} kann man teilnehmen, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. Wenn Sie den gedrückt haben, können Sie sich dann für den {event.topic} anmelden.
+                  Beim dem Event: {currentEvent ? currentEvent.topic : ''} kann man teilnehmen, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. Wenn Sie den gedrückt haben, können Sie sich dann für das Event anmelden.
                 </div>
                 <br />
                 <div className="posLi">
@@ -205,8 +297,8 @@ const pressAlert = () => {
               </div>
             </div>
           </div>
-        </>  
-        ))}
+          </div>
+
       </>
     )}
   </>
@@ -224,7 +316,7 @@ function NichtsVerfügbar() {
 
 
 
-function Formular({ events, pressF, clickEF, remove, setClickEF }) {
+function Formular({ newEventList, pressF, clickEF, remove, setClickEF, topic }) {
   const [VN, setVN] = useState('');
   const [NN, setNN] = useState('');
   const [email, setEmail] = useState('');
@@ -298,29 +390,7 @@ const pressDel = () => {
   setDeleteCon(!deleteCon);
 };
   
-//Löschen des Inputs
-const deleteInput = async() => {
-    try {
-      let value = deleteIn;
-      const q = query(collection(db, "inputs"), where('titleIN', '==', value));
-      const querySnapshot = await getDocs(q);
 
-      querySnapshot.forEach(async (docSnapshot) => {
-        const docRef = doc(db, "inputs", docSnapshot.id);
-        await deleteDoc(docRef);
-      });
-      const newCountdown = inCountdown - 1;
-      await setDoc(doc(db, "inputCounter", 'inCounter'), {
-        counter: newCountdown
-      });
-      alert('Eingabefeld erfolgreich gelöscht!');
-
-    } catch(error) {
-      console.log(error);
-      alert('Eingabefeld konnte leider nicht gelöscht werden');
-    }
-    
- };
 
  
 //Aufrufung von der Inputanzahl
@@ -463,7 +533,8 @@ const sendForm = async () => {
       age: geb,
       Klasse: kla,
       newCategorie: addedIn || 'none',
-      timestamp: new Date()
+      timestamp: new Date(),
+      topic: topic || 'none'
       
 
     });
@@ -475,6 +546,7 @@ const sendForm = async () => {
     Cookies.set("email1", email, { expires: 14 });
     Cookies.set('confirmationForm', false, {expires: 28});
     Cookies.set('timestamp', new Date(), {expires: 14})
+   
     let mail = Cookies.get('email1');
     await addDoc(collection( db, "mail"), {
       to : [mail],
@@ -494,14 +566,14 @@ const sendForm = async () => {
 
 
 if (clickEF === true || Cookies.get("teil") === "true") {
-  return <InEvent remove={remove} events={events} />;
+  return <InEvent remove={remove} newEventList={newEventList} topic={topic} />;
 } 
 else {
   return (
    <>
        
      <div className="contentA"  >
-      {events.map((event) => (
+      {newEventList.map((event) => (
         <div className="title_events_2" >
               {event.topic}
         </div>
@@ -617,10 +689,12 @@ else {
  }
 }
 
-function InEvent({ remove, events }) {
+function InEvent({ remove, newEventList, topic }) {
   const [teilnehmer, setTeilnehmer] = useState([]);
   const [alert, setAlert] = useState(false);
   const [editEventInfo, setEditEventInfo] = useState(false);
+  
+
 
   const [editName, setEditName] = useState('');
   const [editAge, setEditAge] = useState('');
@@ -693,8 +767,9 @@ function InEvent({ remove, events }) {
     fetchCookies();
   }, []);
 
- 
 
+ 
+ 
 
 const pressEditEvent = () => {
   setEditEventInfo(!editEventInfo);
@@ -708,7 +783,7 @@ const pressAlert = () => {
   setAlert(true); 
  }, 5000)
     
-
+ 
 
 
   return (
@@ -719,40 +794,42 @@ const pressAlert = () => {
               <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
             </span>
             <span className="lineAlert" ></span>
-          </div>
-      {events.map((event) => (
+          </div> 
+     
         <>
          
 
           <div className="contentB">
             <div className="coneven2">
-              <div className="title_events">{event.topic}</div>
+              <div className="title_events">{Cookies.get('topic')}</div>
             </div>
             <div className="tabelle1">
               <div style={{ fontWeight: '600' }}>
                 Sie können nun an diesem Event teilnehmen.
               </div>
+               <> 
               <div className="eventnameAusnahme">
                 <div>
-                  <span className="angabezeit">Datum: </span> {event.date}
+                  <span className="angabezeit">Datum: </span> {Cookies.get('date')}
                   <br />
                   <br />
-                  <span className="angabezeit">Zeit: </span> {event.time}
+                  <span className="angabezeit">Zeit: </span> {Cookies.get('time')}
                   <br />
                   <br />
-                  <span className="angabezeit">Ort: </span> {event.place}
+                  <span className="angabezeit">Ort: </span> {Cookies.get('place')}
                   <br />
                   <br />
                 </div>
-                <div className="angabezeit">Worum geht es bei dem {event.topic}? &nbsp;</div>
-                <div className="textEv">{event.longDescription}</div>
+                <div className="angabezeit">Worum geht es bei dem Event: {Cookies.get('topic')}? &nbsp;</div>
+                <div className="textEv">{Cookies.get('longD')}</div>
               </div>
               <div className="eventnameAusnahme">
-                <div className="angabezeit">Wie nehme ich bei dem {event.topic} teil? &nbsp;</div>
+                <div className="angabezeit">Wie nehme ich bei dem Event: {Cookies.get('topic')} teil? &nbsp;</div>
                 <div className="textEv">
-                  Beim {event.topic} kann man teilnehmen, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. Wenn Sie den gedrückt haben, können Sie sich dann für den {event.topic} anmelden.
+                  Bei dem Event: {Cookies.get('topic')} kann man teilnehmen, indem Sie auf den unteren Knopf ,,Ich bin ein/e Schüler*in." drücken. Wenn Sie den gedrückt haben, können Sie sich dann für das Event anmelden.
                 </div>
               </div>
+              </>  
               <div>
                 <div style={{ fontWeight: '600' }}>
                   Ihre Informationen:
@@ -803,7 +880,6 @@ const pressAlert = () => {
             </div>
           </div>
         </>
-      ))}
     </>
   );
 }

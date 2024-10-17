@@ -16,11 +16,12 @@ import { auth, db } from "./config/firebase"; // import Firestore db
 import 'firebase/analytics';
 import { doc, updateDoc } from "firebase/firestore";
 
-import { getDoc, setDoc, collection, getDocs, getFirestore , Timestamp} from "firebase/firestore"; // import Firestore functions
+import { getDoc, setDoc, collection, getDocs, getFirestore , Timestamp, query} from "firebase/firestore"; // import Firestore functions
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { wait } from '@testing-library/user-event/dist/utils';
 
 
 
@@ -431,8 +432,8 @@ function Startseite() {
       try {
         const eventsCol = collection(db, 'events');
         const eventSnapshot = await getDocs(eventsCol);
-        const eventList = eventSnapshot.docs.map(doc => doc.data());
-        const formattedEvents = eventList.map(event => ({
+        const eventsList = eventSnapshot.docs.map(doc => doc.data());
+        const formattedEvents = eventsList.map(event => ({
           ...event,
           date: event.date instanceof Timestamp ? event.date.toDate().toLocaleDateString() : event.date,
           time: event.time,
@@ -446,11 +447,14 @@ function Startseite() {
         console.error("Error fetching events: ", error);
       }
     }
+   
 
     fetchEvents();
   }, []);
 
   const [events, setEvents] = useState<any[]>([]);
+  const [ currentIndex, setCurrentIndex ] = useState(0);
+
   const [flexboxPopup, setFlexboxPopup] = useState('flex');
   const [heightpopup, setheightpopup] = useState('translateY(100vh)');
   const COOKIE_NAME = 'cookieConsent';
@@ -490,11 +494,15 @@ function Startseite() {
         });
       }
     });
-    gsap.to('.tabelle1', {
-      x: '-90vw',
-      duration: 2.5,
-      ease: 'power1.in',
-    })
+    // gsap.to('.tabelle1', {
+    //   x: '-90vw',
+    //   duration: 2.5,
+    //   ease: 'power1.in',
+    // });
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? events.length - 1 : prevIndex - 1
+    );
+    
   }
 
   function nachstesevent() {
@@ -508,11 +516,14 @@ function Startseite() {
         });
       }
     });
-    gsap.to('.tabelle1', {
-      x: '0px',
-      duration: 2.5,
-      ease: 'power1.in',
-    })
+    // gsap.to('.tabelle1', {
+    //   x: '0px',
+    //   duration: 2.5,
+    //   ease: 'power1.in',
+    // });
+    setCurrentIndex((prevIndex) =>
+      prevIndex === events.length - 1 ? 0 : prevIndex + 1
+    );
   }
 
   function deletePopup() {
@@ -520,7 +531,7 @@ function Startseite() {
     setCookie(COOKIE_NAME, 'accepted', COOKIE_EXPIRY_DAYS);
     console.log('Popup display set to none and cookie set');
   }
-
+   const currentEvent = events[currentIndex];
   return (
     <div className='abc123' style={{ background: "rgba(250, 255, 238, 0.993)" }}>
       <div className="popup" style={{ display: flexboxPopup, transform: heightpopup }}>
@@ -554,38 +565,37 @@ function Startseite() {
                 <div className="title_events">Aktuelles Event</div>
                 <div className="danach" onClick={nachstesevent}>Nächstes Event</div>
               </div>
-              {events.map((event, index) => (
-                <div className="tabelle" key={index}>
-                  <div className="tabelle1">
-                    <div className="zeit">
-                      <div className='angabezeit'>Datum: &nbsp;</div>{event.date}
-                    </div>
-                    <div className="zeit">
-                      <div className='angabezeit'>Zeit: &nbsp;</div>
-                      {event.time}
-                    </div>
-                    <div className="zeit">
-                      <div className='angabezeit'>Ort: &nbsp;</div>{event.place}
-                    </div>
-                    <div className="eventname">
-                      <div className='angabezeit'>Thema: &nbsp;</div><br />
-                      {event.topic}
-                    </div>
-                    <div className="eventname">
-                      <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div><br />
-                      {event.shortDescription}
-                    </div>
+              <div className="tabelle">
+                <div className="tabelle1">
+                  <div className="zeit">
+                    <div className='angabezeit'>Datum: &nbsp;</div>
+                    {currentEvent ? currentEvent.date : "Datum nicht verfügbar"}
                   </div>
-                  <div className="tabelle2">
-                    <div className="foto">
-                      <div className="holder">
-                        <div className="abit"></div>
-                        <img className='imgbigred' src="./test.png" alt="" />
-                      </div>
+                  <div className="zeit">
+                    <div className='angabezeit'>Zeit: &nbsp;</div>
+                    {currentEvent ? currentEvent.time : "Zeit nicht verfügbar"}
+                  </div>
+                  <div className="zeit">
+                    <div className='angabezeit'>Ort: &nbsp;</div>
+                    {currentEvent ? currentEvent.place : "Ort nicht verfügbar"}
+                  </div>
+                  <div className="eventname">
+                    <div className='angabezeit'>Thema: &nbsp;</div><br />
+                    {currentEvent ? currentEvent.topic : "Thema nicht verfügbar"}
+                  </div>
+                  <div className="eventname">
+                    <div className='angabezeit'>Kurze Beschreibung: &nbsp;</div><br />
+                    {currentEvent ? currentEvent.shortDescription : "Beschreibung nicht verfügbar"}
+                  </div>
+                </div>
+                <div className="tabelle2">
+                  <div className="foto">
+                    <div className="holder">
+                      <img className='imgbigred' src="./test.png" alt="" />
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>
