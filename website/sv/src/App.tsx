@@ -21,7 +21,6 @@ import { getDoc, setDoc, collection, getDocs, getFirestore , Timestamp, query} f
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { wait } from '@testing-library/user-event/dist/utils';
 
 
 
@@ -228,7 +227,7 @@ function HeaderBottom() {
         </div>
         <div className='title'>
           <a href="/">
-          SV Otto-Hahn-Gymnasium 
+          SV Otto-Hahn-Gymnasium
           </a>
         </div>
         <div className="menu" style={{display:"none"}}>
