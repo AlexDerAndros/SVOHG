@@ -560,9 +560,9 @@ function Startseite() {
             <div className="abstand"></div>
             <div className="events" ref={eventsRef} style={{ width: "80%" }}>
               <div className="coneven">
-                <div className="davor" onClick={eventdavor}>Event davor</div>
+                <div className="davor" onClick={eventdavor}><FontAwesomeIcon icon={faArrowLeft} /></div>
                 <div className="title_events">Aktuelles Event</div>
-                <div className="danach" onClick={nachstesevent}>Nächstes Event</div>
+                <div className="danach" onClick={nachstesevent}><FontAwesomeIcon icon={faArrowLeft} style={{transform:'rotate(180deg)'}} /></div>
               </div>
               <div className="tabelle">
                 <div className="tabelle1">

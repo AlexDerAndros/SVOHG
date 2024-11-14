@@ -363,6 +363,7 @@ li {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 10vw !important;
 }
 .bearbeitenpop {
     width: 100vw;

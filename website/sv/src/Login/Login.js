@@ -595,6 +595,7 @@ function AdminDevDashboard() {
         <li>Alter: {item.age}</li>
         <li>Klasse: {item.Klasse}</li>
         <li>E-Mail: {item.email}</li>
+        <li>Thema: {item.topic}</li>
       </ul>
       <FontAwesomeIcon icon={faTrash} onClick={ async() => {
                        try {
@@ -635,19 +636,41 @@ function AdminDevDashboard() {
               <p tabIndex={0}>Kurze Beschreibung: {event.shortDescription}</p>
               <p tabIndex={0}>Was ist es?: {event.longDescription}</p>
               </div>
-
+              <FontAwesomeIcon icon={faTrash} style={{color: 'black', cursor: 'pointer'}} onClick={ async() => {
+                       try {
+                        const q = query(collection(db, "events"), where('topic', '==', event.topic ), where('time', '==', event.time ));
+                        const querySnapshot = await getDocs(q);
+                  
+                        querySnapshot.forEach(async (docSnapshot) => {
+                          const docRef = doc(db, "events", docSnapshot.id);
+                          await deleteDoc(docRef);
+                        });
+                        alert('Event wurde erfolgreich gelöscht!');
+                        fetchEvents();
+                      } catch(error) {
+                        console.log(error);
+                        alert('Nachricht konnte leider nicht gelöscht werden');
+                      }
+                      
+                   }} className="btnDelIn"/>  
             </div>
             <br />
             <br />
             <button onClick={() => handleEditClick(event)} className="bearbeiten">Bearbeiten</button>
           </div>
+          
         ))}
         <br />
         <br />
+        <br />
+        <br />
+        <br />
+
 
     <br />
     <br />
         {editEvent && (
+         <> 
           <div className="bearbeitenpop">
             <h2>Event bearbeiten</h2>
             <form onSubmit={e => e.preventDefault()}>
@@ -729,6 +752,11 @@ function AdminDevDashboard() {
               <button type="button" onClick={handleUpdate} className="bearbeiten">Aktualisieren</button>
             </form>
           </div>
+          <br/>
+          <br/>
+          <br/>
+          
+         </> 
         )}
         <br/> 
         <br/>

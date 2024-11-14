@@ -4,9 +4,10 @@ import gsap from "gsap";
 import { useState, useEffect, useRef } from "react";
 import { faTrash, faX, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { auth, db } from "../config/firebase"; 
+import {  db } from "../config/firebase"; 
 import { getDocs, collection, Timestamp, addDoc, deleteDoc, doc, where, query, setDoc, updateDoc } from "firebase/firestore"; 
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -259,9 +260,9 @@ const pressAlert = () => {
             <div className="events1">
            
             <div className="coneven1">
-              <div className="davor1" onClick={eventdavor}>Event davor</div>
+              <div className="davor1" onClick={eventdavor}><FontAwesomeIcon icon={faArrowLeft} /></div>
               <div className="title_events" >{currentEvent ? currentEvent.topic : ''}</div>
-              <div className="danach1" onClick={nachstesevent}>Nächstes Event</div>
+              <div className="danach1" onClick={nachstesevent}><FontAwesomeIcon icon={faArrowLeft} style={{ transform: "rotate(180deg)"}}/></div>
             </div>
             <div className="tabelle1" >
               <div className="zeit">

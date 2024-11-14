@@ -409,6 +409,7 @@
     padding-right: 50px;
     z-index: 1000;
   }
+  
 }
 @media only screen and (min-width: 1200px) {
   .posLi {
@@ -424,6 +425,12 @@
     height: 1250px !important;
     margin-bottom: 500px !important;
   }
+   .davor1 {
+     font-size: 3vw;
+   }
+   .danach1 {
+     font-size: 3vw;
+   }
 }
 @media only screen and (min-width: 1000px)
  {
