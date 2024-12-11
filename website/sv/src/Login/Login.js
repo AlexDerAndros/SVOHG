@@ -638,7 +638,7 @@ function AdminDevDashboard() {
               </div>
               <FontAwesomeIcon icon={faTrash} style={{color: 'black', cursor: 'pointer'}} onClick={ async() => {
                        try {
-                        const q = query(collection(db, "events"), where('topic', '==', event.topic ), where('time', '==', event.time ));
+                        const q = query(collection(db, "events"), where('topic', '==', event.topic ));
                         const querySnapshot = await getDocs(q);
                   
                         querySnapshot.forEach(async (docSnapshot) => {
@@ -649,7 +649,7 @@ function AdminDevDashboard() {
                         fetchEvents();
                       } catch(error) {
                         console.log(error);
-                        alert('Nachricht konnte leider nicht gelöscht werden');
+                        alert('Event konnte leider nicht gelöscht werden');
                       }
                       
                    }} className="btnDelIn"/>  
