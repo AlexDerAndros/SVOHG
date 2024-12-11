@@ -266,8 +266,9 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  justify-content: center;
+  align-items: center ;
   margin-left: 3vw ;
+  cursor: pointer;
 }
 .btnDelIn {
   font-size: 3vw;
@@ -473,4 +474,17 @@
   font-family: 'Poppins';
   cursor: pointer;
 
+}
+.columnInputs {
+  display:flex;
+  width: 104%;
+  flex-direction: column;
+  align-items: flex-end;  
+  justify-content: center;
+  
+} 
+.rowInputs {
+  flex-direction: row;
+  display: flex;
+  
 }

@@ -331,6 +331,13 @@ function Formular({ newEventList, pressF, clickEF, remove, setClickEF, topic }) 
   const [deleteCon, setDeleteCon] = useState(false);
   const [deleteIn, setDeleteIn] = useState('');
   const [inCountdown, setInCountdown] = useState(0);
+
+  const [textIN1, setTextIN1] = useState('');
+  const [textIN2, setTextIN2] = useState('');
+  const [textIN3, setTextIN3] = useState('');
+  const [textIN4, setTextIN4] = useState('');
+  const [textIN5, setTextIN5] = useState('');
+
   let plusIcon;
   const pressIN = () => {
     setClickIN(!clickIN);
@@ -369,7 +376,7 @@ const sendInput = async () => {
           counter: newCountdown
         });
         await addDoc(collection(db, "inputs"), {
-           placeholder: inF + '...',
+           placeholder: inF + '.',
            titleIN: inF + ':',
            number: newCountdown
         });
@@ -438,23 +445,7 @@ const fetchCountdown = async() => {
   }
 }
 
-const [addedIn, setAddedIn] = useState({
-  1: '',
-  2: '',
-  3: '',
-  4: '',
-  5: ''
-});
 
-const onChange = (e) => {
-  const value = e.target.value;
-  if ([1, 2, 3, 4, 5].includes(addInLi)) {
-    setAddedIn(prevState => ({
-      ...prevState,
-      [addInLi]: value   
-    }));
-  }
-};
 
 const counterDelete = async() => {
   try {
@@ -533,7 +524,11 @@ const sendForm = async () => {
       email: email,
       age: geb,
       Klasse: kla,
-      newCategorie: addedIn || 'none',
+      textIN1: textIN1 || 'none',
+      textIN2: textIN2 || 'none',
+      textIN3: textIN3 || 'none',
+      textIN4: textIN4 || 'none',
+      textIN5: textIN5 || 'none',
       timestamp: new Date(),
       topic: topic || 'none'
       
@@ -589,13 +584,41 @@ else {
       </div>
       <br/>
 
-      {/* Hinzugefügte Inputs werden gemappt  */}
-      {inputsList.map((item) => (
-        <>
-         <div className="infoIN">{item.titleIN}</div> 
-           <div className="INDEL">
-              <input type="text" className='search' placeholder={item.placeholder} onChange={onChange}/>
-               {Cookies.get('isAdmin') || Cookies.get('isDeveloper') ? (
+      {inputsList.length > 0 && (
+  <div>
+    {inputsList.map((item, index) => (
+     <>
+     <div className="columnInputs">
+        <div className="rowInputs">              
+      <input
+        key={index}
+        type="text"
+        className="search"
+        placeholder={item.placeholder}
+        onChange={(e) => {
+          switch (index) {
+            case 0:
+              setTextIN1(e.target.value);
+              break;
+            case 1:
+              setTextIN2(e.target.value);
+              break;
+            case 2:
+              setTextIN3(e.target.value);
+              break;
+            case 3:
+              setTextIN4(e.target.value);
+              break;
+            case 4:
+              setTextIN5(e.target.value);
+              break;
+            default:
+              break;
+          }
+        }}
+      />
+      <div className="INDEL">
+       {Cookies.get('isAdmin') || Cookies.get('isDeveloper') ? (
                   <div className="PosbtnDelIn">
                    <br/>
                    <FontAwesomeIcon icon={faTrash} onClick={ async() => {
@@ -622,33 +645,15 @@ else {
 
                 </>
                )}
-             </div>  
-             {/*Delete Container */}
-             {/* <div className="delete" style={{opacity: deleteCon ? '1' : '0', zIndex: deleteCon ? '1000' : '-1'}}>
-               <div className="conDelte">
-                 <div className="backToForm" onClick={pressDel}>
-                   <FontAwesomeIcon icon={faX}/>
-                 </div>
-                <div className="DelInfo">
-                  <div className="DelText">
-                    Bitte geben Sie hier den Titel des Eingabefeldes mit einem Doppelpunkt hinten dran ein und
-                    <br/> bestätigen Sie dann die Löschung dieses Eingabefeldes, um es zu löschen.
-                    <br/> <br/>
-                    <input type="text" className='searchAI' placeholder="Titel eines Eingabefeldes mit einem Doppelpunkt hinten dran"  
-                         onChange={(e) => setDeleteIn(e.target.value)}
-                         style={{ padding: deleteCon ? '10px' : '10px',
-                                  width: deleteCon ? '60vw' : "60vw",  }} />
-                    <br/>
-                    <button className="bearbeiten1" onClick={deleteInput} 
-                           style={{width: deleteCon ? '60vw' : "60vw",
-                                   fontSize: deleteCon ? '120%' : '120%', 
-                                   padding: deleteCon ? '10px' : '10px'}}>
-                       Löschung des Eingabefeldes
-                    </button>
-                 </div>
-               </div>*/}
-       </>
-      ))}
+             </div> 
+             </div> 
+      </div>
+        
+      </> 
+    ))}
+  </div>
+)}
+
       <br/>
       <br/>
       {plusIcon}
@@ -859,6 +864,7 @@ const pressAlert = () => {
                   <div onClick={pressEditEvent} style={{cursor:'pointer'}}>
                     {editEventInfo ? (
                       <>
+                      <br/> 
                        <FontAwesomeIcon icon={faX} 
                        size="2x"
                        style={{textAlign:'right', width: '100vw'}}/>
