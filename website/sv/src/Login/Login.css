@@ -417,6 +417,7 @@ form {
     height: auto;
 }
 .msg {
+    margin-bottom: 10vw;
     font-family: roboto;
     width: 70vw;
     height: auto + 100px;

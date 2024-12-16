@@ -903,6 +903,13 @@ html::-webkit-scrollbar {
   .neinen {
     height: 900px !important;
   }
+  .davor {
+    font-size: 40px;
+  }
+  .danach {
+    font-size: 40px;
+
+  }
 }
 @media only screen and (max-width: 361px) {
 
@@ -1474,6 +1481,7 @@ background: linear-gradient(180deg, #003300 13%, #00330000 100%);
   .lupesvg {
     display: flex !important; 
   }
+  
 }
 @media only screen and (max-width: 500px) {
   .containerli {
@@ -1733,10 +1741,10 @@ background: linear-gradient(180deg, #7fa3e7 23%, #00330073 70%, #003300 100%);
   align-items: flex-end;
   box-sizing: border-box;
   padding-bottom: 55px;
-}.treten1 {
+}
+.treten1 {
   height: 100px;
   background-image: linear-gradient(92.88deg, #003300dc 9.16%, #054405dc 43.89%, #074e07dc 64.72%);
-
   border: solid 2px #7fa3e7;
   border-radius: 7px;
   color: whitesmoke;

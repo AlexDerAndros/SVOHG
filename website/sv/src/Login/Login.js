@@ -407,6 +407,7 @@ function AdminDevDashboard() {
   const [longDescriptionV, setLongDescriptionV] = useState('');
   const [timestamp, setTimestamp] = useState('');
   const [visibleMessages, setVisibleMessages] = useState(6);
+  const [inputs, setInputs] = useState([]);
 
   const pressAdd = () => {
     setAdd(!add);
@@ -427,6 +428,7 @@ function AdminDevDashboard() {
         shortDescription: shortDescriptionV,  
         longDescription: longDescriptionV
       })
+     
       setAdd(!add);
       fetchEvents();
       alert('Event konnte erfolgreich hinzugefügt werden.');
@@ -449,18 +451,25 @@ function AdminDevDashboard() {
     const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setMessages(messagesList);
   };
-
+  const fetchInputs = async () => {
+    const inputCol = collection(db, 'inputs');
+    const inputSnapchot = await getDocs(inputCol);
+    const inputList = inputSnapchot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setInputs(inputList);
+  }
   const fetchTeilnehmer = async() => {
     const TeilnehmerCol = collection(db, 'userEvents');
     const messagesSnapshot = await getDocs(TeilnehmerCol);
     const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setTeilnehmer(messagesList);
   };
+ 
   
   useEffect(() => {
     fetchEvents();
     fetchMessages();
     fetchTeilnehmer();
+    fetchInputs();
   }, []);
 
  
@@ -513,33 +522,13 @@ function AdminDevDashboard() {
      setMoreSize(true);
    };
 
-   const deleteMessage = async () => {
-     try {
-       const q = query(collection(db, "messages"), where('timestamp', '==', timestamp));
-       const querySnapshot = await getDocs(q);
-   
-       if (querySnapshot.empty) {
-         console.log('Keine Dokumente zum Löschen gefunden.');
-         return;
-       }
-   
-       const batch = writeBatch(db);
-   
-       querySnapshot.forEach(docSnapshot => {
-         const docRef = doc(db, "messages", docSnapshot.id);
-         batch.delete(docRef);
-       });
-   
-       await batch.commit();
-       console.log('Dokumente erfolgreich gelöscht.');
-     } catch (error) {
-       console.error('Fehler beim Löschen der Dokumente: ', error);
-       alert('Fehler: ' + error.message);
-     }
-   };
+  
 
    const sortedMessages = messages.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
-
+   
+   const sortedInputs = inputs.sort((a, b) => a.number - b.number);
+  
+  
    return (
      <>
        <div className='msg'>
@@ -577,49 +566,67 @@ function AdminDevDashboard() {
         </div>
         <br />
         <br />
-        <div className='msg'>
-        <div className="titleposMsg">
-          <h2 style={{width:'100%', display:'flex',justifyContent:'center'}}>Teilnehmer*innen des {events.map((event) => ( <> {event.topic}</>))}</h2>
-        </div>
-        <div>
-      
-          <div className='personscon'>
-  {teilnehmer.map((item) => (
-    <div className="person" key={item.id} tabindex={0}>
-      <div className="container_33log">
-        <div className='headContainerlog'>
-          {item.name}
-        </div>
-      </div>
-      <ul>
-        <li>Alter: {item.age}</li>
-        <li>Klasse: {item.Klasse}</li>
-        <li>E-Mail: {item.email}</li>
-        <li>Thema: {item.topic}</li>
-      </ul>
-      <FontAwesomeIcon icon={faTrash} onClick={ async() => {
-                       try {
-                        const q = query(collection(db, "userEvents"), where('name', '==', item.name ), where('timestamp', '==', item.timestamp ));
-                        const querySnapshot = await getDocs(q);
-                  
-                        querySnapshot.forEach(async (docSnapshot) => {
-                          const docRef = doc(db, "userEvents", docSnapshot.id);
-                          await deleteDoc(docRef);
-                        });
-                        alert('Teilnehmer des Events gelöscht!');
-                        fetchTeilnehmer();
-                      } catch(error) {
-                        console.log(error);
-                        alert('Nachricht konnte leider nicht gelöscht werden');
-                      }
-                      
-                   }} className="btnDelIn"/>  
+        {events.map((event) => (
+  <div className="msg" key={event.id}> 
+    <div className="titleposMsg">
+      <h2 style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+        Teilnehmer*innen des Events: {event.topic}
+      </h2>
     </div>
+    <div>
+      <div className="personscon">
+        {teilnehmer
+          .filter((item) => item.topic === event.topic)
+          .map((item) => (
+            <div className="person" key={item.id} tabIndex={0}> 
+              <div className="container_33log">
+                <div className="headContainerlog">{item.name}</div>
+              </div>
+              <ul>
+                <li>Alter: {item.age}</li>
+                <li>Klasse: {item.Klasse}</li>
+                <li>E-Mail: {item.email}</li>
+                <li>
+                   {sortedInputs.map((input, index) => (
+                     <span key={input.id}> {input.input}: {item[`textIN${index + 1}`]} 
+                       <br/> </span>   ))}
+               
+                </li>
 
-  ))}
-  </div>
-</div>
+
+              </ul>
+              <FontAwesomeIcon
+                icon={faTrash}
+                onClick={async () => {
+                  try {
+                    const q = query(
+                      collection(db, "userEvents"),
+                      where("name", "==", item.name),
+                      where("timestamp", "==", item.timestamp)
+                    );
+                    const querySnapshot = await getDocs(q);
+
+                    querySnapshot.forEach(async (docSnapshot) => {
+                      const docRef = doc(db, "userEvents", docSnapshot.id);
+                      await deleteDoc(docRef);
+                    });
+                    alert("Teilnehmer des Events gelöscht!");
+                    fetchTeilnehmer();
+                  } catch (error) {
+                    console.log(error);
+                    alert("Nachricht konnte leider nicht gelöscht werden");
+                  }
+                }}
+                className="btnDelIn"
+              />
+            </div>
+          ))}
+      </div>
     </div>
+  </div>
+))}
+
+  
     <br />
     <br />
         {events.map(event => (

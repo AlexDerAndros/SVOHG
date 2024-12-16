@@ -5,6 +5,8 @@
 */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
+
+
 .anmeldeformular {
    display: flex;
    width: 100vw;
@@ -23,7 +25,6 @@
    margin-top: 50vh;
 
 }
-
  .eventNameAusahme {
    display: flex;
    font-family: 'Roboto';
@@ -427,10 +428,10 @@
     margin-bottom: 500px !important;
   }
    .davor1 {
-     font-size: 3vw;
+     font-size: 20px;
    }
    .danach1 {
-     font-size: 3vw;
+     font-size: 20px;
    }
 }
 @media only screen and (min-width: 1000px)
@@ -487,4 +488,13 @@
   flex-direction: row;
   display: flex;
   
+}
+
+@media only screen and (min-width: 800px) {
+  .davor1 {
+    font-size: 30px;
+  }
+  .danach1 {
+    font-size: 30px;
+  }
 }

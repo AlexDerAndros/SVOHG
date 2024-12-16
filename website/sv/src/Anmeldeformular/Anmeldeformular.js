@@ -378,7 +378,8 @@ const sendInput = async () => {
         await addDoc(collection(db, "inputs"), {
            placeholder: inF + '.',
            titleIN: inF + ':',
-           number: newCountdown
+           number: newCountdown,
+           input: inF,
         });
         
        

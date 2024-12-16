@@ -550,7 +550,7 @@ function Startseite() {
       <div className="anfang">
         <div className='img-containerSV'>
             <div className="linetop" ref={linetop}></div>
-          <img src='./SV.jpg' className='imgSV' alt='Foto' ref={imgRef} />
+          <img src='./SV 2.jpg' className='imgSV' alt='Foto' ref={imgRef} />
         </div>
         <br /><br />
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -561,7 +561,7 @@ function Startseite() {
             <div className="events" ref={eventsRef} style={{ width: "80%" }}>
               <div className="coneven">
                 <div className="davor" onClick={eventdavor}><FontAwesomeIcon icon={faArrowLeft} /></div>
-                <div className="title_events">Aktuelles Event</div>
+                <div className="title_events">Aktuelle Events</div>
                 <div className="danach" onClick={nachstesevent}><FontAwesomeIcon icon={faArrowLeft} style={{transform:'rotate(180deg)'}} /></div>
               </div>
               <div className="tabelle">
