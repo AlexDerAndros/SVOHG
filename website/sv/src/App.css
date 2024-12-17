@@ -30,6 +30,9 @@ Placeholder SV Kasten
 Um uns zu kontaktieren müsst ihr nur auf den SV Kasten unten klicken und dann koennt ihr eure Fragen oder andere Sachen aufschreiben oder ein Zettel in den Kasten vor dem Lehrerzimmer werfen 
 Wenn ihr wollt könnt ihr auch 
 an „———.“  eine email schreiben 
+
+Neue Farbe: #00052c
+alte Farbe: #003300
 */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
@@ -109,7 +112,7 @@ header {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background-color: #003300;
+  background-color: #00052c;
   height: 70px !important;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   position: fixed;
@@ -189,7 +192,7 @@ ul {
 .ÜberUns {
   width: 100%;
   height: 30vh;
-  background-color: #003300;
+  background-color: #00052c;
   color:rgb(184, 184, 184);
   font-family: "Roboto", sans-serif;
   font-size: 1.75vh;
@@ -367,7 +370,7 @@ footer {
   justify-content: center;
   flex-direction: column;
   height: 75px;
-  background-color: #003300;
+  background-color: #00052c;
 box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 
 }
@@ -623,7 +626,7 @@ a {
   gap: 10%;
   border: solid rgba(255, 0, 0, 0) 1px;
   color: white;
-  background-color: rgb(2, 70, 2);
+  background-color: #00052c;
   /*border-bottom: rgb(96, 151, 96) 2px solid;*/
 
 }
@@ -703,7 +706,8 @@ a {
   opacity: 100% !important;
 }
 .search {
-  background-color: #003300;
+  /* background-color: #003300; */
+  background-color: #00052c !important; 
   color: rgb(22, 22, 22);
   border: none;
   border-radius: 5px;
@@ -1554,7 +1558,7 @@ background: linear-gradient(180deg, #003300 13%, #00330000 100%);
   border-radius: 7px;
   border: #7fa3e7 solid 2px;
   color: whitesmoke;
-  background-color: #003300;
+  background-color: #00052c;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   z-index: 1;
@@ -1744,7 +1748,8 @@ background: linear-gradient(180deg, #7fa3e7 23%, #00330073 70%, #003300 100%);
 }
 .treten1 {
   height: 100px;
-  background-image: linear-gradient(92.88deg, #003300dc 9.16%, #054405dc 43.89%, #074e07dc 64.72%);
+  /* background-image: linear-gradient(92.88deg, #003300dc 9.16%, #054405dc 43.89%, #074e07dc 64.72%); */
+  background: linear-gradient(92.88deg, #00052c 9.16%, #070e46 43.89%, #0d154f 64.72% ) !important;
   border: solid 2px #7fa3e7;
   border-radius: 7px;
   color: whitesmoke;
@@ -1757,7 +1762,7 @@ background: linear-gradient(180deg, #7fa3e7 23%, #00330073 70%, #003300 100%);
   transition: 0.4s ease-in-out;
 }
 .treten1:hover {
-  background-color: #006600;
+  background: #00052c !important;
   text-decoration: underline;
   transform: scale(1.1);
 }
