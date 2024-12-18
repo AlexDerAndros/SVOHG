@@ -46,7 +46,7 @@
    
  }
  .bearbeiten1 {
-  background-image: linear-gradient(92.88deg, #003300dc 9.16%, #054405dc 43.89%, #074e07dc 64.72%);
+  background-image:  linear-gradient(92.88deg, #00052c 9.16%, #00073f 43.89%, #000841 64.72%);
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
@@ -112,7 +112,7 @@
   border: solid rgba(255, 0, 0, 0) 1px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
   color: white;
-  background-color: rgb(2, 70, 2);
+  background-color:  #00052c;
   font-size: 1.3em;
   gap: 5%;
   
@@ -164,7 +164,7 @@
 .eventname1 {
   display: flex;
   width: auto;
-  background-color: rgb(2, 70, 2);
+  background-color:  #00052c;
   transform: translateY(25px);
   text-decoration: none !important;
   box-shadow: rgba(50, 50, 93, 0.404) 0px 13px 27px -5px, rgba(0, 0, 0, 0.39) 0px 8px 16px -8px;
@@ -211,7 +211,7 @@
 
 /*Add Input*/
 .addInput {
-  background-color: rgb(2, 70, 2);
+  background-color:  #00052c;
   color: white;
   font-size: 3vw;
   height: 50px;
@@ -283,7 +283,7 @@
    width: 80vw;
 }
 .searchAI {
-  background-color: #003300;
+  background-color:  #00052c;
   color: white;
   border: none !important;
   border-radius: 5px;
@@ -382,7 +382,7 @@
   border: solid rgba(255, 0, 0, 0) 1px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
   color: white;
-  background-color: rgb(2, 70, 2);
+  background-color:  #00052c;
   font-size: 1.3em;
 }
 

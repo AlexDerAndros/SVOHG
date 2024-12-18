@@ -225,7 +225,7 @@ input::placeholder {
     flex-direction: column;
 }
 .bearbeiten {
-    background-image: linear-gradient(92.88deg, #003300dc 9.16%, #054405dc 43.89%, #074e07dc 64.72%);
+    background-image: linear-gradient(92.88deg, #00052c 9.16%, #00073f 43.89%, #000841 64.72%);
     border-radius: 7px;
     color: #FFFFFF;
     cursor: pointer;
@@ -268,7 +268,7 @@ input::placeholder {
 }
 
 .textasdf123 > p {
-    background-color: #003300;
+    background-color: #00052c;
     height: auto; 
     padding: 20px; 
     display: flex;
@@ -284,7 +284,7 @@ input::placeholder {
 }
 
 .textasdf123 > p:focus {
-    background-color: #006600;
+    background-color: #00052c;
     outline: none;
 }
 
@@ -302,7 +302,7 @@ input::placeholder {
 }
 
 .person {
-    background-color: #003300;
+    background-color: #00052c;
     color: white;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     display: flex;
@@ -320,7 +320,7 @@ input::placeholder {
 }
 
 .container_33log {
-    background-color: #004400;
+    background-color: #000949;
     padding: 10px;
     border-radius: 5px;
 }
@@ -344,7 +344,7 @@ li {
     width: 100%;
     display: flex;
     height: 20%;
-    background-color: #003300 !important;box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    background-color: #00052c!important;box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 .title_asdf {
     width: 100%;
@@ -355,7 +355,7 @@ li {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     align-items: center;
-    background-color: rgb(2, 70, 2);
+    background-color: #00052c;
 }
 .events_fff {
     width: 100vw;
@@ -392,8 +392,8 @@ li {
   }
   
   .search:focus {
-    background-color: #006600;
-    border-color: #006600;
+    background-color: #000a56;
+    border-color: #000a56;
     outline: none;
   }
   .search::placeholder {
@@ -432,7 +432,7 @@ form {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .seemore {
-    background-color: #034903;
+    background-color:  #00052c;
     color: white;
     font-family: roboto;
     border: none;
@@ -445,7 +445,7 @@ form {
     width: 100%;
     display: flex;
     justify-content: center;
-    background-color: #034903;
+    background-color: #00052c;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
@@ -484,7 +484,7 @@ form {
     width: 90vw;
 }
 .dev123ad2 > h2 {
-    background-color: #003300;
+    background-color: #00052c;
     height: 60px;
     width: 100%;
     transform: translate(0, 21px);
@@ -495,7 +495,7 @@ form {
     color: whitesmoke;
 }
 .msg123 {
-    background-color: #003300;
+    background-color: #00052c;
     padding: 10px; 
     text-align: center; 
     border-radius: 5px; 
@@ -508,7 +508,7 @@ form {
     transition: 0.25s ease-in-out;
 }
 .msg123:focus {
-    background-color: #006600;
+    background-color: #18205b;
     outline: none;
     -webkit-tap-highlight-color: transparent;
 }
@@ -528,7 +528,7 @@ form {
 }
 .users {
   width: 100%;
-  background-color: #003300;
+  background-color: #00052c;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   border-radius: 10px;
   height: 150px;
@@ -630,11 +630,11 @@ form {
     grid-gap: 20px; 
 }
 .person:focus {
-    background-color: #006600;
+    background-color: #18205b;
     -webkit-tap-highlight-color: transparent;
 }
 .users:focus {
-    background-color: #006600;
+    background-color: #18205b;
     outline: none;
 }
 /**Add Events**/
@@ -649,7 +649,7 @@ form {
     width: 50px;
     height: 50px;
     font-size: 30px;
-    background-color: #006600;
+    background-color: #00052c;
     color: white;
     display: flex;
     justify-content: center;

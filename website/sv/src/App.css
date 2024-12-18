@@ -31,8 +31,8 @@ Um uns zu kontaktieren müsst ihr nur auf den SV Kasten unten klicken und dann k
 Wenn ihr wollt könnt ihr auch 
 an „———.“  eine email schreiben 
 
-Neue Farbe: #00052c
-alte Farbe: #003300
+ Farbe: #00052c
+:focus Farbe: #18205b
 */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
@@ -1282,7 +1282,7 @@ html::-webkit-scrollbar {
   height: 30%;
   display: flex;
   width: 100%;
-  background-color: #024602;
+  background-color:  #00052c;
   color: white;
   justify-content: center;
   display: flex;
@@ -1427,7 +1427,7 @@ html::-webkit-scrollbar {
 .linetop {
   position: absolute;
   top: 0;
-  color: #003300;
+  color:  #00052c;
   width: 5px;
   background: rgb(240,254,250);
 background: linear-gradient(180deg, #003300 13%, #00330000 100%);

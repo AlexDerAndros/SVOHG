@@ -556,7 +556,7 @@ function Startseite() {
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <div className='text_container'>
             <div className="hallo">Hallo!</div>
-            <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium.</div>
+            <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium Monheim am Rhein.</div>
             <div className="abstand"></div>
             <div className="events" ref={eventsRef} style={{ width: "80%" }}>
               <div className="coneven">
@@ -927,9 +927,9 @@ function Search() {
          </div>
          <ul className='searchItems'>
          {filteredItems.map(item =>(
-           <li key={item.index} className='searchItem' onClick={item.press}>
+           <li key={item.index} className='searchItem' onClick={item.press} >
             <div className="centerli">
-            <div className="containerli">
+            <div className="containerli" style={{background: ' #00052c'}}>
                 {item.theme}
             </div>
             </div>
