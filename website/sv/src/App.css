@@ -33,6 +33,7 @@ an „———.“  eine email schreiben
 
  Farbe: #00052c
 :focus Farbe: #18205b
+Farbverlauf:  linear-gradient(92.88deg, #00052c 9.16%, #00073f 43.89%, #000841 64.72%)
 */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;500&family=Roboto&display=swap');
@@ -968,7 +969,7 @@ html::-webkit-scrollbar {
   justify-content: center;
   flex-direction: column;
   gap: 40px;
-  background-color: #3bb1377c;
+  background-color:  #00052c;
   color: rgb(0, 0, 0);
   font-family: poppins;
   height: 390px;
@@ -1009,7 +1010,7 @@ html::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #003300;
+  background-color:  #00052c;
   z-index: 100000000;
   border: solid 2px #7fa3e7;
   color: whitesmoke;

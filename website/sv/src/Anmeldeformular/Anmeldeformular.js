@@ -542,7 +542,13 @@ const sendForm = async () => {
     Cookies.set("kla", kla, { expires: 14});
     Cookies.set("email1", email, { expires: 14 });
     Cookies.set('confirmationForm', false, {expires: 28});
-    Cookies.set('timestamp', new Date(), {expires: 14})
+    Cookies.set('timestamp', new Date(), {expires: 14});
+    Cookies.set('textIN1', textIN1 || 'none', {expires: 14});
+    Cookies.set('textIN2', textIN2 || 'none', {expires: 14});
+    Cookies.set('textIN3', textIN3 || 'none', {expires: 14});
+    Cookies.set('textIN4', textIN4 || 'none', {expires: 14});
+    Cookies.set('textIN5', textIN5 || 'none', {expires: 14});
+
    
     let mail = Cookies.get('email1');
     await addDoc(collection( db, "mail"), {
@@ -589,7 +595,7 @@ else {
   <div>
     {inputsList.map((item, index) => (
      <>
-     <div className="columnInputs">
+     <div className="columnInputs" style={{width: Cookies.get('isAdmin') || Cookies.get('isDeveloper') ? '104%' : '102.5%'}}>
         <div className="rowInputs">              
       <input
         key={index}
@@ -620,7 +626,7 @@ else {
       />
       <div className="INDEL">
        {Cookies.get('isAdmin') || Cookies.get('isDeveloper') ? (
-                  <div className="PosbtnDelIn">
+                  <div className="PosbtnDelIn" >
                    <br/>
                    <FontAwesomeIcon icon={faTrash} onClick={ async() => {
                        try {
@@ -693,6 +699,7 @@ else {
        ← Zurück
      </div>
     </div>
+
    </>
   );
  }
@@ -702,19 +709,30 @@ function InEvent({ remove, newEventList, topic }) {
   const [teilnehmer, setTeilnehmer] = useState([]);
   const [alert, setAlert] = useState(false);
   const [editEventInfo, setEditEventInfo] = useState(false);
-  
-
-
+  const [inputs, setInputs] = useState([])
   const [editName, setEditName] = useState('');
   const [editAge, setEditAge] = useState('');
   const [editEmail, setEditEmail] = useState('');
   const [editKlasse, setEditKlasse] = useState('');
+  const [editText1, setEditText1] = useState('');
+  const [editText2, setEditText2] = useState('');
+  const [editText3, setEditText3] = useState('');
+  const [editText4, setEditText4] = useState('');
+  const [editText5, setEditText5] = useState('');
+
   
   let name = Cookies.get("name") || "Sie können Ihre Anmeldedaten nur auf dem Gerät abrufen, auf dem Sie sich für das Event angemeldet haben.";
   let age = Cookies.get("age") || "Hier ist dasselbe der Fall.";
   let email = Cookies.get("email1") || "Hier ist dasselbe der Fall.";
   let klasse = Cookies.get("kla") || "Hier ist dasselbe der Fall.";
   let timestamp = Cookies.get('timestamp');
+  
+  const texts = [ Cookies.get('textIN1') ,
+    Cookies.get('textIN2') ,
+     Cookies.get('textIN3') ,
+     Cookies.get('textIN4') ,
+     Cookies.get('textIN5') 
+  ]
 
 
   const fetchTeilnehmer = async () => {
@@ -730,6 +748,12 @@ function InEvent({ remove, newEventList, topic }) {
     setEditAge(Cookies.get('age'));
     setEditEmail(Cookies.get('email1'));
     setEditKlasse(Cookies.get('kla'));
+    setEditText1(Cookies.get('textIN1'));
+    setEditText2(Cookies.get('textIN2'));
+    setEditText3(Cookies.get('textIN3'));
+    setEditText4(Cookies.get('textIN4'));
+    setEditText5(Cookies.get('textIN5'));
+
   }
 
   const AktualisierungEventDaten = async () => {
@@ -748,7 +772,13 @@ function InEvent({ remove, newEventList, topic }) {
           title: editName, 
           age: editAge, 
           Klasse: editKlasse,
-          email: editEmail 
+          email: editEmail,
+          textIN1: editText1 || 'none', 
+          textIN2: editText2 || 'none', 
+          textIN3: editText3 || 'none', 
+          textIN4: editText4 || 'none', 
+          textIN5: editText5 || 'none', 
+
         };
   
         const docRef = doc(db, 'userEvents', docSnapshot.id);
@@ -761,6 +791,13 @@ function InEvent({ remove, newEventList, topic }) {
       Cookies.set('age', editAge, { expires: 14 });
       Cookies.set('email1', editEmail, { expires: 14 });
       Cookies.set('kla', editKlasse, { expires: 14 });
+      Cookies.set('textIN1', editText1, { expires: 14 });
+      Cookies.set('textIN2', editText2, { expires: 14 });
+      Cookies.set('textIN3', editText3, { expires: 14 });
+      Cookies.set('textIN4', editText4, { expires: 14 });
+      Cookies.set('textIN5', editText5, { expires: 14 });
+
+
       
       fetchCookies();
       setEditEventInfo(false);
@@ -770,10 +807,18 @@ function InEvent({ remove, newEventList, topic }) {
     }
   };
   
+  const texts2 = [editText1, editText2, editText3, editText4, editText5];
 
+  const fetchInputs = async () => {
+    const inputCol = collection(db, 'inputs');
+    const inputSnapchot = await getDocs(inputCol);
+    const inputList = inputSnapchot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setInputs(inputList);
+  }
   useEffect(() => {
     fetchTeilnehmer();
     fetchCookies();
+    fetchInputs();
   }, []);
 
 
@@ -841,7 +886,7 @@ const pressAlert = () => {
               </>  
               <div>
                 <div style={{ fontWeight: '600' }}>
-                  Ihre Informationen:
+                  Ihre Informationen: 
                   <div style={{ fontWeight: '400' }}>
                     {editEventInfo ? (
                       <>
@@ -849,6 +894,33 @@ const pressAlert = () => {
                          <input className="search   EditEvent" value={editAge} type="text" placeholder={`Alter: ${age}`} onChange={(e) => setEditAge(e.target.value)}/>
                          <input className="search   EditEvent" value={editKlasse} type="text" placeholder={`Klasse: ${klasse}`} onChange={(e) => setEditKlasse(e.target.value)}/>
                          <input className="search   EditEvent" value={editEmail} type="text" placeholder={`E-Mail: ${email}`} onChange={(e) => setEditEmail(e.target.value)}/>
+                         {inputs.map((input, index) => (
+                         <div key={index}>
+                           <input className="search   EditEvent"   value={texts2[index]}  type="text" placeholder={`${input.input}: ${texts[index]}`} 
+                                   onChange={(e) => {
+                                    switch (index) {
+                                      case 0:
+                                        setEditText1(e.target.value);
+                                        break;
+                                      case 1:
+                                        setEditText2(e.target.value);
+                                        break;
+                                      case 2:
+                                        setEditText3(e.target.value);
+                                        break;
+                                      case 3:
+                                        setEditText4(e.target.value);
+                                        break;
+                                      case 4:
+                                        setEditText5(e.target.value);
+                                        break;
+                                      default:
+                                        break;
+                                    }
+                                  }}/>
+                           
+                        </div>
+                             ))}
                          <button className="bearbeiten" style={{width:'60vw'}} onClick={AktualisierungEventDaten}>
                            Aktualisierung der angegebenen Daten
                          </button>
@@ -860,6 +932,19 @@ const pressAlert = () => {
                         <div>Alter: {age}</div>
                         <div>Klasse: {klasse}</div>
                         <div>E-Mail: {email}</div>
+                         
+                        <div>
+                        {inputs.map((input, index) => (
+                         <div key={index}>
+                           <span>{input.input}: </span>
+                           <span>{texts[index]}</span>
+                          <br />
+                        </div>
+                             ))}
+                       </div>
+
+                          
+                          
                       </>
                     )}
                     

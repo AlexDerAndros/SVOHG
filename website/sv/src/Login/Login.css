@@ -80,7 +80,6 @@ label{
     margin-top: 50px;
     width: 80%;
     background-color: rgb(127, 163, 231);
-
     color: #080710;
     padding: 15px 0;
     font-size: 18px;
@@ -112,7 +111,7 @@ label{
 .square {
     width: 88vw;
     height: auto;
-    background-color: #003300;
+    background-color:  #00052c;
     display: flex;
     border-radius: 15px;
     flex-direction: column;
