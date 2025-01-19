@@ -235,7 +235,7 @@ const pressAlert = () => {
       }
     }
    
-
+     Cookies.set('EventRaus', true, {expires:7});
     fetchEvents();
   }, [events]);
   

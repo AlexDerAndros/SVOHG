@@ -97,6 +97,9 @@ function LoggingIn({ setLog }) {
 
       return () => clearTimeout(timer);
     }
+    Cookies.set('logOutAlert', true, {expires: 7});
+    Cookies.set('logOutAlert1', true, {expires: 7});
+    Cookies.set('logOutAlert2', true, {expires: 7});
   }, [error]);
 
   const press = () => {
