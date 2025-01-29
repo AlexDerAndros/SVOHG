@@ -848,6 +848,7 @@ function AdminDashboard({ setLog }) {
 function DeveloperDashboard({ setLog }) {
   const [users, setUsers] = useState([]);
   const [visibleUsers, setVisibleUsers] = useState(6); // 6j users gerade
+  const [value, setValue] = useState('');
 
   const username = Cookies.get("user");
 
@@ -885,6 +886,7 @@ function DeveloperDashboard({ setLog }) {
     setVisibleUsers(prevVisibleUsers => prevVisibleUsers + 3); 
   };
 
+
   return (
     <div className="siteAdmin" style={{marginBottom:"100vh"}}>
       <div className="welcome">
@@ -904,15 +906,52 @@ function DeveloperDashboard({ setLog }) {
               <form className="users" key={user.id} tabIndex={0}>
                 E-Mail: {user.email} <br/>
                 ist ein Admin: 
-                <select name="options">
-                  <option>true</option>
-                  <option>false</option>
+                <select name="options" onChange={(e) => setValue(e.target.value)}>
+                  {user.isAdmin.toString() === 'false' ? (
+                    <>
+                      <option>false</option>
+                      <option>true</option>
+
+                    </>
+                  ):(
+                    <>
+                       <option>true</option>
+                       <option>false</option>
+
+                    </>
+                  )}
                 </select>
+
+                <div className="SaveUserInfo" onClick={async() => {
+                   try {
+                    const q = query(
+                      collection(db, 'users'), 
+                      where('email', '==', user.email),
+                    );
+                
+                    const querySnapshot = await getDocs(q);
+                    
+                    const updatePromises = querySnapshot.docs.map((docSnapshot) => {
+                      const updateData = {
+                        isAdmin: value === "true" ? true : false 
+                      };
+                      
+                      const docRef = doc(db, 'users', docSnapshot.id);
+                      return updateDoc(docRef, updateData);
+                    });
+
+                     await Promise.all(updatePromises);
+                     window.location.reload();
+                   } catch(e) {
+                    console.log(e);
+                   }
+                }}>
+                  Sichern
+                </div>
               </form>
             ))}
         </div>
         <div className='savingthebutton'>
-          {/* ... Button thing */}
           {visibleUsers < users.length && (
             <button onClick={loadMoreUsers} className='seemore' id="lilbutton">
               Mehr Benutzer laden
