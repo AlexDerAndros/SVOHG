@@ -97,9 +97,7 @@ function LoggingIn({ setLog }) {
 
       return () => clearTimeout(timer);
     }
-    Cookies.set('logOutAlert', true, {expires: 7});
-    Cookies.set('logOutAlert1', true, {expires: 7});
-    Cookies.set('logOutAlert2', true, {expires: 7});
+    // Cookies.set('showlogOut', false, {expires:7});
   }, [error]);
 
   const press = () => {
@@ -202,48 +200,33 @@ const [alert1, setAlert1] = useState(false);
 const [alert2, setAlert2] = useState(false);
 
 const pressAlert = () => {
-  Cookies.set('logOutAlert', true, { expires: 28 });
+  Cookies.set('logOutAlert', false, { expires: 28 });
   setAlert(true); 
 };
 const pressAlert1 = () => {
-  Cookies.set('logOutAlert1', true, { expires: 28 });
+  Cookies.set('logOutAlert1', false, { expires: 28 });
   setAlert1(true); 
 };
 const pressAlert2 = () => {
-  Cookies.set('logOutAlert2', true, { expires: 28 });
+  Cookies.set('logOutAlert2', false, { expires: 28 }); 
   setAlert2(true); 
 };
   setTimeout(() => {
-    Cookies.set('logOutAlert', true, {expires: 7});
-    Cookies.set('logOutAlert1', true, {expires: 7});
-    Cookies.set('logOutAlert2', true, {expires: 7});
-
-  }, 3000);
+    Cookies.set('showlogOut', false, {expires:7}); 
+  }, 300);
   return (
     <div className="main">
       <div className="square">
       <div className="center">
-        <div className="alert" style={{display: Cookies.get('logOutAlert') == 'true' || alert == true ? 'none' : 'flex' }}>
-          Sie wurden erfolgreich ausgeloggt.
-          <span className="alertDelete">
-              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
+      {Cookies.get('showlogOut') === 'true' && (
+          <div className="alert">
+            Sie wurden erfolgreich ausgeloggt.
+            <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={() => window.location.reload()} />
             </span>
-            <span className="lineAlert" ></span>
-        </div>
-        <div className="alert" style={{display: Cookies.get('logOutAlert1') == 'true' || alert1 == true ? 'none' : 'flex' }}>
-          Sie wurden erfolgreich ausgeloggt.
-          <span className="alertDelete">
-              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert1} />
-            </span>
-            <span className="lineAlert" ></span>
-        </div>
-        <div className="alert" style={{display: Cookies.get('logOutAlert2') == 'true' || alert2 == true? 'none' : 'flex' }}>
-          Sie wurden erfolgreich ausgeloggt.
-          <span className="alertDelete">
-              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert2} />
-            </span>
-            <span className="lineAlert" ></span>
-        </div>
+            <span className="lineAlert"></span>
+          </div>
+        )}
       </div>
         {click ? (
           <div>
@@ -328,6 +311,7 @@ const pressAlert2 = () => {
 
 function LoggedIn({ setLog }) {
   const username = Cookies.get("user");
+  const [showLogoutAlert, setShowLogoutAlert] = useState(false);
 
   const logOut = () => {
     gsap.to('.alert', {
@@ -340,47 +324,23 @@ function LoggedIn({ setLog }) {
         });
       }
     });
-    Cookies.set('logOutAlert', false, {expires: 7});
-    setLog(false);
+    Cookies.set('showlogOut',true, {expires:7}); 
+
+    setTimeout(() => {
+    Cookies.set('showlogOut',false, {expires:7}); 
+
+    }, 3000);
+
     Cookies.set('log', 'false', { expires: 1 / 3600 });
     Cookies.remove('user');
     Cookies.remove('isAdmin');
     Cookies.remove('isDeveloper');
-
-  }
-
-gsap.to('.alert', {
-    display: 'flex',
-    duration: 2,
-    onComplete: () => { 
-      gsap.to('.alert', {
-         display:'none', 
-         duration: 2
-      })
-    }
-  });
-  const [alert, setAlert] = useState(false);
-  const pressAlert = () => {
-    Cookies.set('logOutAlert', true, { expires: 28 });
-    setAlert(true); 
+    setLog(false);
   };
-setTimeout(() => {
-  Cookies.set('registerAlert', true, { expires: 28 });
-  
-}, 3000);
 
   return (
     <div>
-      <div className="center">
-        <div className="alert" style={{display: Cookies.get('registerAlert') == 'true' || alert == true ? 'none' : 'flex' }}>
-          Ihre Registrierung war erfolgreich!
-          <span className="alertDelete">
-              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
-            </span>
-            <span className="lineAlert" ></span>
-        </div>
-       
-      </div>
+      
       <div className="welcome">
         Willkommen {username}!
       </div>
@@ -392,6 +352,7 @@ setTimeout(() => {
     </div>
   );
 }
+
 
 
 function AdminDevDashboard() {
@@ -431,10 +392,20 @@ function AdminDevDashboard() {
         shortDescription: shortDescriptionV,  
         longDescription: longDescriptionV
       })
-     
+      gsap.to('.alert', {
+        display: 'flex', 
+        duration: 2,
+        onComplete: () => {
+          gsap.to('.alert', {
+           display: 'none',
+           duration: 2 
+          });
+        }
+      });
+      Cookies.set('showEventsAddenAlert',true, {expires:7}); 
       setAdd(!add);
       fetchEvents();
-      alert('Event konnte erfolgreich hinzugefügt werden.');
+      
     }
     } catch(e) {
       console.error(e);
@@ -473,6 +444,12 @@ function AdminDevDashboard() {
     fetchMessages();
     fetchTeilnehmer();
     fetchInputs();
+    Cookies.set('showNachrichtenAlert', false, {expires:7}); 
+    Cookies.set('showEventLöschenAlert', false, {expires:7}); 
+    Cookies.set('showTeilnehmerLöschenAlert', false, {expires:7}); 
+    Cookies.set('showEventsAddenAlert', false, {expires:7});
+
+
   }, []);
 
  
@@ -534,6 +511,42 @@ function AdminDevDashboard() {
   
    return (
      <>
+      {Cookies.get('showNachrichtenAlert') === 'true' && (
+          <div className="alert">
+             Nachricht erfolgreich gelöscht!
+            <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={() => window.location.reload()} />
+            </span>
+            <span className="lineAlert"></span>
+          </div>
+        )}
+        {Cookies.get('showEventLöschenAlert') === 'true' && (
+          <div className="alert">
+             Event wurde erfolgreich gelöscht!
+            <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={() => window.location.reload()} />
+            </span>
+            <span className="lineAlert"></span>
+          </div>
+        )}
+         {Cookies.get('showTeilnehmerLöschenAlert') === 'true' && (
+          <div className="alert">
+             Teilnehmer wurde erfolgreich gelöscht!
+            <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={() => window.location.reload()} />
+            </span>
+            <span className="lineAlert"></span>
+          </div>
+        )}
+        {Cookies.get('showEventsAddenAlert') === 'true' && (
+          <div className="alert">
+              Event wurde erfolgreich hinzugefügt!
+            <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={() => window.location.reload()} />
+            </span>
+            <span className="lineAlert"></span>
+          </div>
+        )}
        <div className='msg'>
         <div className='titlead'>
           <h2>Nachichten</h2>
@@ -543,6 +556,17 @@ function AdminDevDashboard() {
       <div className="msg123" tabindex={0} key={message.id}>
         <p>{message.text}  <FontAwesomeIcon icon={faTrash} onClick={ async() => {
                        try {
+                        gsap.to('.alert', {
+                          display: 'flex', 
+                          duration: 2,
+                          onComplete: () => {
+                            gsap.to('.alert', {
+                             display: 'none',
+                             duration: 2 
+                            });
+                          }
+                        });
+                        Cookies.set('showNachrichtenAlert',true, {expires:7}); 
                         const q = query(collection(db, "messages"), where('text', '==', message.text ), where('timestamp', '==', message.timestamp ));
                         const querySnapshot = await getDocs(q);
                   
@@ -550,7 +574,6 @@ function AdminDevDashboard() {
                           const docRef = doc(db, "messages", docSnapshot.id);
                           await deleteDoc(docRef);
                         });
-                        alert('Nachricht erfolgreich gelöscht!');
                         fetchMessages(); 
                         
                       } catch(error) {
@@ -613,11 +636,21 @@ function AdminDevDashboard() {
                       const docRef = doc(db, "userEvents", docSnapshot.id);
                       await deleteDoc(docRef);
                     });
-                    alert("Teilnehmer des Events gelöscht!");
+                    gsap.to('.alert', {
+                      display: 'flex', 
+                      duration: 2,
+                      onComplete: () => {
+                        gsap.to('.alert', {
+                         display: 'none',
+                         duration: 2 
+                        });
+                      }
+                    });
+                    Cookies.set('showTeilnehmerLöschenAlert',true, {expires:7}); 
                     fetchTeilnehmer();
                   } catch (error) {
                     console.log(error);
-                    alert("Nachricht konnte leider nicht gelöscht werden");
+                    alert("Teilnehmer konnte leider nicht gelöscht werden");
                   }
                 }}
                 className="btnDelIn"
@@ -648,6 +681,17 @@ function AdminDevDashboard() {
               </div>
               <FontAwesomeIcon icon={faTrash} style={{color: 'black', cursor: 'pointer'}} onClick={ async() => {
                        try {
+                        gsap.to('.alert', {
+                          display: 'flex', 
+                          duration: 2,
+                          onComplete: () => {
+                            gsap.to('.alert', {
+                             display: 'none',
+                             duration: 2 
+                            });
+                          }
+                        });
+                        Cookies.set('showEventLöschenAlert',true, {expires:7}); 
                         const q = query(collection(db, "events"), where('topic', '==', event.topic ));
                         const querySnapshot = await getDocs(q);
                   
@@ -655,7 +699,7 @@ function AdminDevDashboard() {
                           const docRef = doc(db, "events", docSnapshot.id);
                           await deleteDoc(docRef);
                         });
-                        alert('Event wurde erfolgreich gelöscht!');
+                      
                         fetchEvents();
                       } catch(error) {
                         console.log(error);
@@ -804,38 +848,39 @@ function AdminDevDashboard() {
 
 function AdminDashboard({ setLog }) {
  
- 
-  const username = Cookies.get("user");
-  const logOut = () => {
-    gsap.to('.alert', {
-      display: 'flex', 
-      duration: 2,
-      onComplete: () => {
-        gsap.to('.alert', {
-         display: 'none',
-         duration: 2 
-        });
-      }
-    });
-    Cookies.set('logOutAlert1', false, {expires: 7});
-    setLog(false);
-    Cookies.set('log', 'false', { expires: 1 / 3600 });
-    Cookies.remove('user');
-    Cookies.remove('isAdmin');
-    Cookies.remove('isDeveloper');
+    const username = Cookies.get("user");
+    const [showLogoutAlert, setShowLogoutAlert] = useState(false);
+  
+    const logOut = () => {
+      gsap.to('.alert', {
+        display: 'flex', 
+        duration: 2,
+        onComplete: () => {
+          gsap.to('.alert', {
+           display: 'none',
+           duration: 2 
+          });
+        }
+      });
+      Cookies.set('showlogOut',true, {expires:7}); 
+      
+      setTimeout(() => {
+       Cookies.set('showlogOut',true, {expires:7}); 
 
-  };
- 
-  return (
-    <div className="siteAdmin" style={{marginBottom:"100vh"}}>
-      <div className="welcome">
-        Willkommen Admin {username}!
-      </div>
-      <div className="posLogOutBtn">
-        <button onClick={logOut} className="logOutBtn">
-          Ausloggen
-        </button>
-      </div>
+      }, 3000);
+  
+      Cookies.set('log', 'false', { expires: 1 / 3600 });
+      Cookies.remove('user');
+      Cookies.remove('isAdmin');
+      Cookies.remove('isDeveloper');
+      setLog(false);
+    };
+  
+    return (
+      <div className="siteAdmin">
+        
+        <div className="welcome">Willkommen Admin {username}!</div>
+        <button onClick={logOut} className="logOutBtn">Ausloggen</button>
       <div className="adminDashboard" style={{marginBottom:"50vh",}}>
          <h2>Admin Dashboard</h2>
          <AdminDevDashboard />
@@ -861,27 +906,34 @@ function DeveloperDashboard({ setLog }) {
 
   useEffect(() => {
     fetchUser();
+    Cookies.set('showUserSaveAlert', false, {expires: 7});
   }, []);
 
-  const logOut = () => {
-    gsap.to('.alert', {
-      display: 'flex', 
-      duration: 2,
-      onComplete: () => {
-        gsap.to('.alert', {
-         display: 'none',
-         duration: 2 
-        });
-      }
-    });
-    Cookies.set('logOutAlert2', false, {expires: 7});
-    setLog(false);
-    Cookies.set('log', 'false', { expires: 1 / 3600 });
-    Cookies.remove('user');
-    Cookies.remove('isAdmin');
-    Cookies.remove('isDeveloper');
-  };
+  
+    const logOut = () => {
+      gsap.to('.alert', {
+        display: 'flex', 
+        duration: 2,
+        onComplete: () => {
+          gsap.to('.alert', {
+           display: 'none',
+           duration: 2 
+          });
+        }
+      });
+      Cookies.set('showlogOut',true, {expires:7}); 
+      
+      setTimeout(() => {
+       Cookies.set('showlogOut',true, {expires:7}); 
 
+      }, 3000);
+      Cookies.set('log', 'false', { expires: 1 / 3600 });
+      Cookies.remove('user');
+      Cookies.remove('isAdmin');
+      Cookies.remove('isDeveloper');
+      setLog(false);
+    };
+  
   const loadMoreUsers = () => {
     setVisibleUsers(prevVisibleUsers => prevVisibleUsers + 3); 
   };
@@ -889,6 +941,15 @@ function DeveloperDashboard({ setLog }) {
 
   return (
     <div className="siteAdmin" style={{marginBottom:"100vh"}}>
+      {Cookies.get('showUserSaveAlert') === 'true' && (
+          <div className="alert">
+             Änderung konnte erfolgreich gespeichert werden!
+            <span className="alertDelete">
+              <FontAwesomeIcon className="alertDel" icon={faX} onClick={() => window.location.reload()} />
+            </span>
+            <span className="lineAlert"></span>
+          </div>
+        )}
       <div className="welcome">
         Willkommen Developer {username}!
       </div>
@@ -924,6 +985,8 @@ function DeveloperDashboard({ setLog }) {
 
                 <div className="SaveUserInfo" onClick={async() => {
                    try {
+                
+                 
                     const q = query(
                       collection(db, 'users'), 
                       where('email', '==', user.email),
@@ -942,6 +1005,17 @@ function DeveloperDashboard({ setLog }) {
 
                      await Promise.all(updatePromises);
                      window.location.reload();
+                    //  gsap.to('.alert', {
+                    //   display: 'flex', 
+                    //   duration: 2,
+                    //   onComplete: () => {
+                    //     gsap.to('.alert', {
+                    //      display: 'none',
+                    //      duration: 2 
+                    //     });
+                    //   }
+                    // });
+                    // Cookies.set('showUserSaveAlert',true, {expires:7}); 
                    } catch(e) {
                     console.log(e);
                    }

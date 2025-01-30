@@ -19,18 +19,7 @@ export default function Anmeldeformular1() {
  
 
   const remove = async () => {
-    gsap.to('.alert', {
-      display: 'flex',
-      duration: 2,
-      onComplete: () => {
-        gsap.to('.alert', {
-          display:'none', 
-          duration: 2
-        })
-      }
-    });
-    Cookies.set('EventRaus', false , {expires: 28});
-
+  
     try {
       const userEmail = Cookies.get("email1");
       const q = query(collection(db, "userEvents"), where('email', '==', userEmail));
@@ -43,6 +32,17 @@ export default function Anmeldeformular1() {
 
       setClickEF(!clickEF);
       Cookies.set('teil', false, { expires: 1 / 48 });
+      gsap.to('.alert', {
+        display: 'flex', 
+        duration: 2,
+        onComplete: () => {
+          gsap.to('.alert', {
+           display: 'none',
+           duration: 2 
+          });
+        }
+      });
+      Cookies.set('showRausAlert',true, {expires:7}); 
       
     } catch (error) {
       console.error('Error deleting document: ', error);
@@ -83,6 +83,8 @@ export default function Anmeldeformular1() {
 
     fetchEvents();
     conditions();
+    Cookies.set('showRausAlert', false, {expires:7}); 
+    
   }, []);
 
   if (clickEF === true || Cookies.get("teil") === "true") {
@@ -145,18 +147,9 @@ function Event({ events,  remove, clickEF, setClickEF}) {
     }
   };
   
-const [alert, setAlert] = useState(false);
 const currentEvent = eventList[currentIndex];
 
-const pressAlert = () => {
-  Cookies.set('EventRaus', true, { expires: 28 });
-  setAlert(true); 
-};
-  setTimeout(() => {
-    Cookies.set('EventRaus', true, {expires: 28});
-    setAlert(true); 
 
-  }, 5000);
   function eventdavor() {
 
     gsap.to('.davor', {
@@ -235,7 +228,6 @@ const pressAlert = () => {
       }
     }
    
-     Cookies.set('EventRaus', true, {expires:7});
     fetchEvents();
   }, [events]);
   
@@ -246,15 +238,16 @@ const pressAlert = () => {
       <Formular newEventList={newEventList} pressF={pressF} clickEF={clickEF} remove={remove} setClickEF={setClickEF} topic={topic} />
     ) : (
       <>
-      <div className="alert" style={{ display: Cookies.get('EventRaus') == 'true' || alert == true ? 'none' : 'flex'}}>
-           Sie wurden aus dem Event ausgetragen!
-           <span className="alertDelete">
-              <FontAwesomeIcon className="alertDel" icon={faX} onClick={pressAlert} />
-            </span>
-            <span className="lineAlert" ></span>
-
-         </div>
-         <div className="eventsU">
+     {Cookies.get('showRausAlert') === 'true' && (
+              <div className="alert">
+                 Sie wurden erfolgreichaus dem Event aussortiert.
+                <span className="alertDelete">
+                  <FontAwesomeIcon className="alertDel" icon={faX} onClick={() => window.location.reload()} />
+                </span>
+                <span className="lineAlert"></span>
+              </div>
+            )}
+             <div className="eventsU">
        
          
             <div className="events1">
