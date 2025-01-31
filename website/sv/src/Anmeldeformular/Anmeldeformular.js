@@ -240,7 +240,7 @@ const currentEvent = eventList[currentIndex];
       <>
      {Cookies.get('showRausAlert') === 'true' && (
               <div className="alert">
-                 Sie wurden erfolgreichaus dem Event aussortiert.
+                 Sie wurden erfolgreich aus dem Event aussortiert.
                 <span className="alertDelete">
                   <FontAwesomeIcon className="alertDel" icon={faX} onClick={() => window.location.reload()} />
                 </span>
@@ -374,10 +374,20 @@ const sendInput = async () => {
            number: newCountdown,
            input: inF,
         });
-        
+        gsap.to('.alert', {
+          display: 'flex', 
+          duration: 2,
+          onComplete: () => {
+            gsap.to('.alert', {
+             display: 'none',
+             duration: 2 
+            });
+          }
+        });
+        Cookies.set('showAddInputAlert',true, {expires:7}); 
        
-        alert('Eingabefeld wurde erfolgreich hinzugefügt!');
-        window.location.reload();
+        fetchInputs();
+        setClickIN(false);
       } catch (error) {
          console.log(error);
          alert('Eingabefeld konnte nicht hinzugefügt werden!');
@@ -464,6 +474,8 @@ useEffect(() => {
     fetchInputs();
     inputCounter();
     fetchCountdown();
+    Cookies.set('showAddInputAlert', false, {expires: 7});
+    Cookies.set('showDeleteInputAlert', false, {expires: 7});
 }, []);
 
 //Senden des Formulars
@@ -567,7 +579,24 @@ if (clickEF === true || Cookies.get("teil") === "true") {
 else {
   return (
    <>
-       
+         {/* {Cookies.get('showAddInputAlert') === 'true' && (
+                 <div className="alert">
+                    Eingabefeld wurde erfolgreich hinzugefügt!
+                   <span className="alertDelete">
+                     <FontAwesomeIcon className="alertDel" icon={faX} onClick={() => window.location.reload()} />
+                   </span>
+                   <span className="lineAlert"></span>
+                 </div>
+               )} */}
+               {/* {Cookies.get('showDeleteInputAlert') === 'true' && (
+                 <div className="alert">
+                    Eingabefeld erfolgreich gelöscht!
+                   <span className="alertDelete">
+                     <FontAwesomeIcon className="alertDel" icon={faX} onClick={() => window.location.reload()} />
+                   </span>
+                   <span className="lineAlert"></span>
+                 </div>
+               )} */}
      <div className="contentA"  >
       {newEventList.map((event) => (
         <div className="title_events_2" >
@@ -623,6 +652,17 @@ else {
                    <br/>
                    <FontAwesomeIcon icon={faTrash} onClick={ async() => {
                        try {
+                        gsap.to('.alert', {
+                          display: 'flex', 
+                          duration: 2,
+                          onComplete: () => {
+                            gsap.to('.alert', {
+                             display: 'none',
+                             duration: 2 
+                            });
+                          }
+                        });
+                        Cookies.set('showDeleteInputAlert',true, {expires:7}); 
                         const q = query(collection(db, "inputs"), where('titleIN', '==', item.titleIN ));
                         const querySnapshot = await getDocs(q);
                   
@@ -631,8 +671,7 @@ else {
                           await deleteDoc(docRef);
                         });
                         counterDelete();
-                        alert('Eingabefeld erfolgreich gelöscht!');
-                  
+                        fetchInputs();
                       } catch(error) {
                         console.log(error);
                         alert('Eingabefeld konnte leider nicht gelöscht werden');

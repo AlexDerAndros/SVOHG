@@ -1004,7 +1004,7 @@ function DeveloperDashboard({ setLog }) {
                     });
 
                      await Promise.all(updatePromises);
-                     window.location.reload();
+                     window.location.reload()
                     //  gsap.to('.alert', {
                     //   display: 'flex', 
                     //   duration: 2,
