@@ -6,7 +6,7 @@ import { faArrowLeft, faEye, faEyeSlash, faTrash, faX} from '@fortawesome/free-s
 import { faGoogle, faGithub,  } from "@fortawesome/free-brands-svg-icons";
 import { auth, db, GoogleProvider } from "../config/firebase"; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { getDoc, setDoc, collection, getDocs, addDoc, where, deleteDoc, query, writeBatch} from "firebase/firestore"; // import Firestore functions
+import { getDoc, setDoc, collection, getDocs, addDoc, where, deleteDoc, query, writeBatch, onSnapshot} from "firebase/firestore"; // import Firestore functions
 import gsap from "gsap";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { doc, updateDoc } from "firebase/firestore";
@@ -426,17 +426,20 @@ function AdminDevDashboard() {
     setMessages(messagesList);
   };
   const fetchInputs = async () => {
-    const inputCol = collection(db, 'inputs');
-    const inputSnapchot = await getDocs(inputCol);
-    const inputList = inputSnapchot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setInputs(inputList);
+    const snapshot = await getDocs(collection(db, 'inputs'));
+    const datas = snapshot.docs.map(doc => ({
+      ...doc.data(),
+    }));
+    setInputs(datas);
   }
-  const fetchTeilnehmer = async() => {
-    const TeilnehmerCol = collection(db, 'userEvents');
-    const messagesSnapshot = await getDocs(TeilnehmerCol);
-    const messagesList = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setTeilnehmer(messagesList);
-  };
+  const fetchTeilnehmer = onSnapshot(collection(db, 'userEvents'), (snapshot) => {
+     const datas = snapshot.docs.map(doc => ({
+      ...doc.data(),
+     }));
+     setTeilnehmer(datas);
+  });
+   
+   
  
   
   useEffect(() => {
