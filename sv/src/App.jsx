@@ -1,22 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { gsap } from 'gsap';
-import { Routes, BrowserRouter, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHouse, faMagnifyingGlass, faTimes, faRightToBracket, faPenToSquare, faArrowUpFromBracket} from '@fortawesome/free-solid-svg-icons';
+import {  faHouse, faMagnifyingGlass, faRightToBracket, faPenToSquare, faArrowUpFromBracket, faArrowLeft, faCalendarDays} from '@fortawesome/free-solid-svg-icons';
 import { faInstagram,  faGithub} from '@fortawesome/free-brands-svg-icons';
-import { faArrowLeft, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
-import SVKasten1 from './SVKasten/SVKasten';
+import SVKasten1 from './SVKasten/svKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
-import Login1 from './Login/Login';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
-import { auth, db } from "./config/firebase"; // import Firestore db
-import 'firebase/analytics';
-
-
-import { getDoc, setDoc, collection, getDocs, getFirestore , Timestamp, query} from "firebase/firestore"; // import Firestore functions
+import Login1 from './Login/login';
+import { db } from "./config/firebase"; 
+import { collection, getDocs , Timestamp} from "firebase/firestore"; // import Firestore functions
 
 
 
@@ -29,169 +22,23 @@ export default function App() {
 }
 
 function HeaderBottom() {
-  
-  const [startseite, setStartseite] = useState(false);
-  const [login, setLogin] = useState(false);
-  const [svKasten, setSvKasten] = useState(false);
-  const [ search, setSearch] = useState(false);
-  const [ Anmeldeformular, setAnmeldeformular] = useState(false);
-  const [isFocusedS, setIsFocusedS] = useState(true);
-  const [isFocusedL, setIsFocusedL] = useState(false);
-  const [isFocusedSVK, setIsFocusedSVK] = useState(false);
-  const [isFocusedSEA, setIsFocusedSEA] = useState(false);
-  const [isFocusedSA, setIsFocusedSA] = useState(false);
-
-  
-  
-  const pressSearch = () => {
-    setSearch(true);
-    setSvKasten(false);
-    setLogin(false);
-    setStartseite(false);
+  const location = useLocation();
+  const smoothAni = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
-    setIsFocusedSEA(true);
-    setIsFocusedS(false);
-    setIsFocusedL(false);
-    setIsFocusedSVK(false);
-    setIsFocusedSA(false);
-
-  }
-  
-  const pressStartseite = () => {
-    setSearch(false);
-    setSvKasten(false);
-    setLogin(false);
-    setStartseite(true);    
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-    setIsFocusedSEA(false);
-    setIsFocusedS(true);
-    setIsFocusedL(false);
-    setIsFocusedSVK(false);
-    setIsFocusedSA(false);
-
-  }
-  const pressLogin = () => {
-    setSearch(false);
-    setSvKasten(false);
-    setLogin(true);
-    setStartseite(false);    
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-    setIsFocusedSEA(false);
-    setIsFocusedS(false);
-    setIsFocusedL(true);
-    setIsFocusedSVK(false);
-    setIsFocusedSA(false);
-
-
-  }
-  const pressSVKasten = () => {
-    setSearch(false);
-    setSvKasten(true);
-    setLogin(false);
-    setStartseite(false);    
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-    setIsFocusedSEA(false);
-    setIsFocusedS(false);
-    setIsFocusedL(false);
-    setIsFocusedSVK(true);
-    setIsFocusedSA(false);
-
+  };
    
-
-  }
-  const pressAnmeldeformular = () => {
-    setSearch(false);
-    setSvKasten(false);
-    setLogin(false);
-    setStartseite(false);
-    setAnmeldeformular(true);    
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-    setIsFocusedSEA(false);
-    setIsFocusedS(false);
-    setIsFocusedL(false);
-    setIsFocusedSVK(false);
-    setIsFocusedSA(true);
-
-
-
-  }
-  const [click, setClick] = useState(false);
-  const [value, setValue] = useState('');
-  const [list, setList] = useState([
-    { theme: 'Startseite', link: '/', index: 1 },
-    { theme: 'Events', link: '/Anmeldeformular', index: 2 },
-    { theme: 'Login', link: '/Login', index: 3 },
-    { theme: 'SV Kasten', link: '/SV Kasten', index: 4 }
-  ]);
-  const [filteredItems, setFilteredItems] = useState(list);
-
-  const press = () => {
-    setClick(!click);
-  };
-
-  const handleFilter = (filterTerm) => {
-    const filteredItems = list.filter(item => item.theme.toLowerCase().includes(filterTerm.toLowerCase()));
-    setFilteredItems(filteredItems);
-    setValue(filterTerm);
-  };
-  let element;
-  if (click === true) {
-    element =   <FontAwesomeIcon onClick={press} icon={faTimes} size='2x' className='hamburger-menu' />;
-  }
-  else {
-    <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>;
-
-  }
    let color = 'rgb(127, 163, 231)';
   
   return (
     <>
-    <BrowserRouter>
-      {/* <div className='content' style={{height: click ? "40%" : '0%' }}>
-        {click && (
-          <>
-            <div className='Hambuger-Elemente'>
-              
-              <div className='inSp'>
-                <input type='text'
-                 value={value}
-                 onChange={(e) => handleFilter(e.target.value)}
-                 placeholder='Suchen...'
-                 className='search' 
-                 style={{height:"10vh", marginLeft:"10%", padding:"0.1% 2%"}}/>
-               </div>  
-            </div>
-            <ul className='searchOv' >
-              {filteredItems.map((item) => (
-                <li key={item.index} >
-                  <Link to={item.link} className='searchEle'>
-                    {item.theme}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </div> */}
+
       <header>
         <div className="gap1234123"></div>
         <div className='LogoSVCon'>
-            <img src='./3.png' className='LogoSV' alt='Logo' />
+            <img src='./SV logo.png' className='LogoSV' alt='Logo' />
         </div>
         <div className='title'>
           <a href="/">
@@ -199,36 +46,27 @@ function HeaderBottom() {
           </a>
         </div>
         <div className="menu" style={{display:"none"}}>
-          {click ? (
-            <>
-             <FontAwesomeIcon onClick={press} icon={faTimes} size='2x' className='hamburger-menu' />;
-             </>
-            
-          ): (
-            <>
-         <FontAwesomeIcon icon={faBars}  onClick={press} className ="hamburger-menu"/>
-         </>
-          )}
+          
         </div>
         <div className='Menu'>
-        <Link to='/' className='svasdf' onClick={pressStartseite}>   
-            <div  style={{ color: isFocusedS ? color : 'white',  transform: isFocusedS ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Startseite</div>
+        <Link to='/' className='svasdf' onClick={smoothAni}>   
+            <div  style={{ color: location.pathname === '/' ? color : 'white',  transform: location.pathname === '/' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Startseite</div>
         </Link> 
-         <Link to="/Anmeldeformular" className='svasdf' onClick={pressAnmeldeformular}>
-          <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: isFocusedSA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_5' onClick={pressAnmeldeformular}/>
-         <div style={{ color: isFocusedSA ? color : 'white' ,  transform: isFocusedSA ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Events</div>
+         <Link to="/Anmeldeformular" className='svasdf' onClick={smoothAni}>
+          <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: location.pathname === '/Anmeldeformular' ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_5' />
+         <div style={{ color: location.pathname === '/Anmeldeformular' ? color : 'white' ,  transform: location.pathname === '/Anmeldeformular' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Events</div>
          </Link>
-        <Link to="/SV Kasten" className='svasdf'  onClick={pressSVKasten}>
-         <FontAwesomeIcon icon={faPenToSquare} style={{ color: isFocusedSVK ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
-         <div  style={{ color: isFocusedSVK ? color: 'white' ,  transform: isFocusedSVK ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>SV Kasten</div>
+        <Link to="/SV Kasten" className='svasdf'  onClick={smoothAni}>
+         <FontAwesomeIcon icon={faPenToSquare} style={{ color: location.pathname === '/SV Kasten' ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
+         <div  style={{ color: location.pathname === '/SV Kasten' ? color: 'white' ,  transform: location.pathname === '/SV Kasten' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>SV Kasten</div>
          </Link>
-        <Link to='/Search'className='svasdf' onClick={pressSearch}>
-         <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: isFocusedSEA ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_3' onClick ={pressSearch}/>
-         <div  style={{ color: isFocusedSEA ? color : 'white',  transform: isFocusedSEA ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Suche</div>
+        <Link to='/Search'className='svasdf' onClick={smoothAni}>
+         <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: location.pathname === '/Search' ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_3' />
+         <div  style={{ color: location.pathname === '/Search' ? color : 'white',  transform: location.pathname === '/Search' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Suche</div>
         </Link> 
-        <Link to = '/login'className='svasdf' onClick={pressLogin}>
-         <FontAwesomeIcon icon={faRightToBracket} style={{ color: isFocusedL ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_2' onClick={pressLogin}/>
-         <div style={{ color: isFocusedL ? color : 'white',  transform: isFocusedL ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Login</div>
+        <Link to = '/login'className='svasdf' onClick={smoothAni}>
+         <FontAwesomeIcon icon={faRightToBracket} style={{ color: location.pathname === '/login' ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_2' />
+         <div style={{ color: location.pathname === '/login' ? color : 'white',  transform: location.pathname === '/login' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Login</div>
         </Link> 
         </div>
       </header>
@@ -238,25 +76,25 @@ function HeaderBottom() {
         
       <footer>
         <div className='icons_footer ' >
-        <Link to='/' className='svasdf' onClick={pressStartseite}>   
-         <FontAwesomeIcon icon={faHouse} className='house_icon'  id='first' style={{ color: isFocusedS ? color : 'white'}} />
-            <div className='title_footer' style={{ color: isFocusedS ? color : 'white', transform:"scale(1.1)", }}>Home</div>
+        <Link to='/' className='svasdf' onClick={smoothAni}>   
+         <FontAwesomeIcon icon={faHouse} className='house_icon'  id='first' style={{ color: location.pathname === '/' ? color : 'white'}} />
+            <div className='title_footer' style={{ color: location.pathname === '/' ? color : 'white', transform:"scale(1.1)", }}>Home</div>
         </Link> 
-        <Link to = '/login'className='svasdf'  onClick={pressLogin}>
-         <FontAwesomeIcon icon={faRightToBracket} style={{ color: isFocusedL ? color : 'white'}} className='house_icon_2'/>
-         <div className='title_footer' style={{ color: isFocusedL ? color : 'white'}}>Login</div>
+        <Link to = '/login'className='svasdf'  onClick={smoothAni}>
+         <FontAwesomeIcon icon={faRightToBracket} style={{ color: location.pathname === '/login' ? color : 'white'}} className='house_icon_2'/>
+         <div className='title_footer' style={{ color: location.pathname === '/login' ? color : 'white'}}>Login</div>
         </Link> 
-        <Link to='/Search'className='svasdf' onClick ={pressSearch} >
-         <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: isFocusedSEA ? color : 'white'}} className='house_icon_3' />
-         <div className='title_footer' style={{ color: isFocusedSEA ? color : 'white'}}>Suche</div>
+        <Link to='/Search'className='svasdf' onClick ={smoothAni} >
+         <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: location.pathname === '/Search' ? color : 'white'}} className='house_icon_3' />
+         <div className='title_footer' style={{ color: location.pathname === '/Search' ? color : 'white'}}>Suche</div>
         </Link> 
-        <Link onClick={pressSVKasten} to="/SV Kasten" className='svasdf'  >
-         <FontAwesomeIcon icon={faPenToSquare} style={{ color: isFocusedSVK ? color : 'white'}}  className='house_icon_4' />
-         <div className='title_footer' style={{ color: isFocusedSVK ? color : 'white'}}>SV Kasten</div>
+        <Link onClick={smoothAni} to="/SV Kasten" className='svasdf'  >
+         <FontAwesomeIcon icon={faPenToSquare} style={{ color: location.pathname === '/SV Kasten' ? color : 'white'}}  className='house_icon_4' />
+         <div className='title_footer' style={{ color: location.pathname === '/SV Kasten' ? color : 'white'}}>SV Kasten</div>
          </Link>
-         <Link onClick={pressAnmeldeformular} to="/Anmeldeformular" className='svasdf' >
-          <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: isFocusedSA ? color : 'white'}} className='house_icon_5' />
-         <div className='title_footer'  style={{ color: isFocusedSA ? color : 'white'}}>Events</div>
+         <Link onClick={smoothAni} to="/Anmeldeformular" className='svasdf' >
+          <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: location.pathname === '/Anmeldeformular' ? color : 'white'}} className='house_icon_5' />
+         <div className='title_footer'  style={{ color: location.pathname === '/Anmeldeformular' ? color : 'white'}}>Events</div>
          </Link>
         </div>
       </footer>
@@ -270,9 +108,7 @@ function HeaderBottom() {
         <Route path='/Anmeldeformular' element={<Anmeldeformularr/>} />
         <Route path='/SV Kasten' element={<SVKasten />} />
         <Route path='/Search' element={<Search />} />
-        <Route path='/Search' element={<SVBeitreten />} />
       </Routes>
-      </BrowserRouter>
     </>
   );
 }
@@ -280,124 +116,101 @@ function HeaderBottom() {
 
 
 function Startseite() {
-  const svRef = useRef<HTMLDivElement | null>(null);
-  const wofurRef = useRef<HTMLDivElement | null>(null);
-  const kontaktRef = useRef<HTMLDivElement | null>(null);
-  const beitretenRef = useRef<HTMLDivElement | null>(null);
-  const teil1main = useRef<HTMLDivElement | null>(null);
-  const questionsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const eventsRef = useRef<HTMLDivElement | null>(null);
-  const conright123= useRef<HTMLDivElement | null>(null);
-  const info = useRef<HTMLDivElement | null>(null);
-  const line = useRef<HTMLDivElement | null>(null);
-  const line44 = useRef<HTMLDivElement | null>(null);
-  const iftar = useRef<HTMLImageElement | null>(null);
-  const iftar2 = useRef<HTMLImageElement | null>(null);
-  const iftar3 = useRef<HTMLImageElement | null>(null);
-  const logo = useRef<HTMLImageElement | null>(null);
-
-  const info2 = useRef<HTMLDivElement | null>(null);
+  const [events, setEvents] = useState([]);
 
 
-  const title2 = useRef<HTMLDivElement | null>(null);
+   const svRef = useRef(null);
+  const wofurRef = useRef(null);
+  const kontaktRef = useRef(null);
+  const beitretenRef = useRef(null);
+  const teil1main = useRef(null);
+  const eventsRef = useRef(null);
+  const conright123 = useRef(null);
+  const info = useRef(null);
+  const line = useRef(null);
+  const line44 = useRef(null);
+  const iftar = useRef(null);
+  const iftar2 = useRef(null);
+  const iftar3 = useRef(null);
+  const logo = useRef(null);
+  const info2 = useRef(null);
+  const title2 = useRef(null);
+  const imgRef = useRef(null);
+  const linetop = useRef(null);
 
-
-  const imgRef = useRef<HTMLImageElement | null>(null);
-  const linetop = useRef<HTMLDivElement | null>(null);
+  // mehrere Elemente (Array von Refs)
+  const questionsRef = useRef([]);
 
   useEffect(() => {
-    const animateLogo = () => {
-      gsap.to(logo.current, {
-        height: '90px',
-        duration: 1,
-        onComplete: function() {
-          gsap.to(logo.current, {
-            height: '70px',
-            duration: 1,
-          })
-        }
-      })
-    }
-    const animateElement = (element: HTMLElement | null, fromVars: gsap.TweenVars, toVars: gsap.TweenVars) => {
+    const animateElement = (
+      element,
+      fromVars,
+      toVars
+    ) => {
       if (element) {
-        gsap.fromTo(
-          element,
-          fromVars,
-          {
-            ...toVars,
-            scrollTrigger: {
-              trigger: element,
-              start: 'top 80%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
+        gsap.fromTo(element, fromVars, {
+          ...toVars,
+          scrollTrigger: {
+            trigger: element,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        });
       }
     };
 
-    animateElement(title2.current, { opacity: 0, }, { opacity: 1, duration: 1 });
+    // Einzelne Animationen
+    animateElement(title2.current, { opacity: 0 }, { opacity: 1, duration: 1 });
+    animateElement(imgRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 2.5, ease: "power3.out" });
+    animateElement(linetop.current, { opacity: 0, height: "0px" }, { opacity: 1, height: "800px", duration: 4.5, ease: "power3.out" });
 
-    animateElement(imgRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 2.5, ease: 'power3.out' });
-    animateElement(linetop.current, { opacity: 0, height: '0px' }, { opacity: 1, height: '800px', duration: 4.5, ease: 'power3.out' });
-    
-    animateElement(eventsRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
-    animateElement(svRef.current, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
-    animateElement(wofurRef.current, { opacity: 0, x: -100 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' });
-    animateElement(kontaktRef.current, { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
-    animateElement(beitretenRef.current, { opacity: 0, x: 100 }, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' });
-    
-    animateElement(teil1main.current, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power3.out' });
-    animateElement(info.current, { opacity: 0, x: -150 }, { opacity: 1, x: 0, duration: 2, ease: 'power3.out' });
-    animateElement(iftar.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 1, duration: 2, ease: 'power3.out' });
-    animateElement(iftar2.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: 'power3.out' });
-    animateElement(iftar3.current, { opacity: 0,  stagger: 0.5, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: 'power3.out' });
-    animateElement(logo.current, { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 2, ease: 'power3.out' });
-    animateElement(line.current, { height: '0px' }, { opacity: 1, duration: 2, height: '600px', ease: 'power3.out' });
-    animateElement(line44.current, { opacity: 0 }, { opacity: 1, duration: 2, ease: 'power3.out' });
+    animateElement(eventsRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
+    animateElement(svRef.current, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
+    animateElement(wofurRef.current, { opacity: 0, x: -100 }, { opacity: 1, x: 0, duration: 1, ease: "power3.out" });
+    animateElement(kontaktRef.current, { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
+    animateElement(beitretenRef.current, { opacity: 0, x: 100 }, { opacity: 1, x: 0, duration: 1, ease: "power3.out" });
 
+    animateElement(teil1main.current, { opacity: 0 }, { opacity: 1, duration: 1, ease: "power3.out" });
+    animateElement(info.current, { opacity: 0, x: -150 }, { opacity: 1, x: 0, duration: 2, ease: "power3.out" });
+    animateElement(iftar.current, { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 2, ease: "power3.out" });
+    animateElement(iftar2.current, { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: "power3.out" });
+    animateElement(iftar3.current, { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 0.6, duration: 2, ease: "power3.out" });
+    animateElement(logo.current, { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 2, ease: "power3.out" });
+    animateElement(line.current, { height: "0px" }, { opacity: 1, duration: 2, height: "600px", ease: "power3.out" });
+    animateElement(line44.current, { opacity: 0 }, { opacity: 1, duration: 2, ease: "power3.out" });
 
-    animateElement(conright123.current, { opacity: 0, x: 150 }, { opacity: 1, x: -20, duration: 1, ease: 'power3.out' });
-    
-    animateElement(info2.current, { opacity: 0, x: '50vw' }, { opacity: 1, x: '-40px', duration: 2, ease: 'power3.out' });
+    animateElement(conright123.current, { opacity: 0, x: 150 }, { opacity: 1, x: -20, duration: 1, ease: "power3.out" });
+    animateElement(info2.current, { opacity: 0, x: "50vw" }, { opacity: 1, x: "-40px", duration: 2, ease: "power3.out" });
 
-
+    // Fragen-Animation mit Array-Ref
     questionsRef.current.forEach((question, index) => {
       if (question) {
-        let fromVars: gsap.TweenVars = { opacity: 0 };
+        let fromVars = { opacity: 0 };
 
         switch (index) {
           case 0:
-            fromVars = { ...fromVars, y: 100 }; 
+            fromVars = { ...fromVars, y: 100 };
             break;
           case 1:
-            fromVars = { ...fromVars, x: -100 }; 
+            fromVars = { ...fromVars, x: -100 };
             break;
           case 2:
-            fromVars = { ...fromVars, y: -100 }; 
+            fromVars = { ...fromVars, y: -100 };
             break;
           case 3:
-            fromVars = { ...fromVars, x: 100 }; 
+            fromVars = { ...fromVars, x: 100 };
             break;
           default:
             break;
         }
 
-        animateElement(question, fromVars, { opacity: 1, x: 0, y: 0, duration: 1.5, ease: 'power2.out' });
+        animateElement(question, fromVars, { opacity: 1, x: 0, y: 0, duration: 1.5, ease: "power2.out" });
       }
     });
 
-    const cookieConsent = getCookie(COOKIE_NAME);
-    if (!cookieConsent) {
-      setTimeout(() => {
-        setheightpopup('translateY(5vh)');
-      }, 1000);
-    } else {
-      setFlexboxPopup('none');
-    }
-
     async function fetchEvents() {
       try {
-        const eventsCol = collection(db, 'events');
+        const eventsCol = collection(db, "events");
         const eventSnapshot = await getDocs(eventsCol);
         const eventsList = eventSnapshot.docs.map(doc => doc.data());
         const formattedEvents = eventsList.map(event => ({
@@ -414,12 +227,15 @@ function Startseite() {
         console.error("Error fetching events: ", error);
       }
     }
-   
 
     fetchEvents();
   }, []);
 
-  const [events, setEvents] = useState<any[]>([]);
+   
+   
+
+
+
   const [ currentIndex, setCurrentIndex ] = useState(0);
 
   const [flexboxPopup, setFlexboxPopup] = useState('flex');
@@ -427,14 +243,14 @@ function Startseite() {
   const COOKIE_NAME = 'cookieConsent';
   const COOKIE_EXPIRY_DAYS = 2;
 
-  function setCookie(name: string, value: string, days: number) {
+  function setCookie(name, value, days) {
     const date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
     const expires = "expires=" + date.toUTCString();
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
   }
 
-  function getCookie(name: string) {
+  function getCookie(name) {
     const cname = name + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     const ca = decodedCookie.split(';');
@@ -461,11 +277,6 @@ function Startseite() {
         });
       }
     });
-    // gsap.to('.tabelle1', {
-    //   x: '-90vw',
-    //   duration: 2.5,
-    //   ease: 'power1.in',
-    // });
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? events.length - 1 : prevIndex - 1
     );
@@ -483,11 +294,7 @@ function Startseite() {
         });
       }
     });
-    // gsap.to('.tabelle1', {
-    //   x: '0px',
-    //   duration: 2.5,
-    //   ease: 'power1.in',
-    // });
+   
     setCurrentIndex((prevIndex) =>
       prevIndex === events.length - 1 ? 0 : prevIndex + 1
     );
@@ -518,13 +325,13 @@ function Startseite() {
       <div className="anfang">
         <div className='img-containerSV'>
             <div className="linetop" ref={linetop}></div>
-          <img src='./SV 2.jpg' className='imgSV' alt='Foto' ref={imgRef} />
+          <img src='./SV Bild.jpg' className='imgSV' alt='Foto' ref={imgRef} />
         </div>
         <br /><br />
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <div className='text_container'>
-            <div className="hallo">Hallo!</div>
-            <div className="text_1">Wir sind die SV für das Otto-Hahn-Gymnasium Monheim am Rhein.</div>
+            <div className='font-roboto font-bold text-base lg:text-xl md:p-5 '>Hallo!</div>
+            <div className="font-roboto text-base lg:text-xl  sm:px-5 text-center ">Wir sind die SV für das Otto-Hahn-Gymnasium Monheim am Rhein.</div>
             <div className="abstand"></div>
             <div className="events" ref={eventsRef} style={{ width: "80%" }}>
               <div className="coneven">
@@ -631,7 +438,7 @@ function Startseite() {
           </h3>
         </div>
         <div className="fototeil">
-        <img src='./favicon2.ico' className='SVetwas2' ref={logo} />
+        <img src='./SVZeichen.png' className='SVetwas2' ref={logo} />
         </div>
         <div className="innencon">
             <div className="teilr">
@@ -642,7 +449,7 @@ function Startseite() {
               <div className="sv_info2" ref={info2}>
               <p>Die Schülervertretung (SV) spielt eine zentrale Rolle im Schulleben und setzt sich für die Interessen der Schüler ein. Mit viel Engagement sorgt die SV dafür, dass Schule mehr ist als nur Unterricht und Prüfungen. Hier sind die wichtigsten Aufgaben und Aktivitäten der SV:</p>
 
-<h2><img src='./favicon2.ico' className='SVetwas' />Organisation von Events:</h2>
+<h2><img src='./SVZeichen.png' className='SVetwas' />Organisation von Events:</h2>
 <ul>
   <li>Unterstufendiskos</li>
   <li>Abschlussaktion</li>
@@ -652,19 +459,19 @@ function Startseite() {
   <li>Rosen- und Nikolausaktion mit Fairtrade AG</li>
 </ul>
 
-<h2><img src='./favicon2.ico' className='SVetwas' />Vertretung der Schülerinteressen:</h2>
+<h2><img src='./SVZeichen.png' className='SVetwas' />Vertretung der Schülerinteressen:</h2>
 <ul>
   <li>Teilnahme an Schul- und Fachkonferenzen zur Vertretung der Interessen der Schülerschaft</li>
   <li>Beratung und Unterstützung bei schulischen Problemen, z.B. mit Lehrern</li>
 </ul>
 
-<h2><img src='./favicon2.ico' className='SVetwas' />Kooperation mit anderen Gruppen:</h2>
+<h2><img src='./SVZeichen.png' className='SVetwas' />Kooperation mit anderen Gruppen:</h2>
 <ul>
   <li>Organisation von Aktionen wie der Rosen- und Nikolausaktion in Zusammenarbeit mit der Fairtrade-AG</li>
   <li>Stärkung des Gemeinschaftsgefühls und Förderung sozialer Verantwortung</li>
 </ul>
 
-<h2><img src='./favicon2.ico' className='SVetwas' />Soziale Projekte:</h2>
+<h2><img src='./SVZeichen.png' className='SVetwas' />Soziale Projekte:</h2>
 <ul>
   <li>Betreibung eines Schulkiosks: Verkauf von Milch, Kakao, Brötchen; Überschüsse fließen in die Unterstützung eines Patenkindes in Bangladesch</li>
   <li>Planung und Durchführung von Spendenaktionen, Umwelt-Tagen und veganen Tagen</li>
@@ -695,7 +502,7 @@ function Startseite() {
         <div className="conright" id='seite' >
   <div className='sv-info'ref={info}>
 
-  <h2><img src='./favicon2.ico' className='SVetwas' /> Wie ihr die Schülervertretung (SV) kontaktieren könnt</h2>
+  <h2><img src='./SVZeichen.png' className='SVetwas' /> Wie ihr die Schülervertretung (SV) kontaktieren könnt</h2>
 <p>
     Ihr habt verschiedene Möglichkeiten, um mit uns in Kontakt zu treten. Wenn ihr Fragen, Ideen, Verbesserungsvorschläge oder Probleme habt, könnt ihr uns ganz einfach erreichen:
 </p>
@@ -745,7 +552,7 @@ function Startseite() {
           </h3>
         </div>
         <div className="fototeil">
-        <img src='./favicon2.ico' className='SVetwas2' ref={logo} />
+        <img src='./SVZeichen.png' className='SVetwas2' ref={logo} />
         </div>
         <div className="innencon">
             <div className="teilr">
@@ -772,37 +579,8 @@ function Startseite() {
 }
 
 
-/* FUR INSTAGRAMM POSTS IN DER WEBSITE
-interface InstagramPostProps {
-  src: string;
-  caption?: string;
-  width?: number;
-  height?: number;
-}
 
-export const InstagramPost: React.FC<InstagramPostProps> = ({ src, caption, width = 500, height = 500 }) => {
-  return (
-    <div style={{ width, height }}>
-      <iframe
-        src={src}
-        width={width}
-        height={height}
-        frameBorder="0"
-        scrolling="no"
-        allowTransparency="true"
-      />
-      {caption && <div dangerouslySetInnerHTML={{ __html: caption }} />}
-    </div>
-  );
-};
-*/
-function SVBeitreten() {
-  return (
-    <>
-    Hallo sv beitreten?
-    </>
-  )
-}
+
 
 function AboutUs() {
   return (
@@ -840,12 +618,12 @@ function Search() {
     setAnmeldeformular(!Anmeldeformular);
   }
   const [value, setValue] = useState('');
-  const [list, setList] = useState([
+  const list = [
     { theme: 'Startseite', link: '/', index: 1, press: pressStartseite},
     { theme: 'Events', link: '/Anmeldeformular', index: 2, press: pressAnmeldeformular},
     { theme: 'Login', link: '/Login', index: 3, press: pressLogin },
     { theme: 'SV Kasten', link: '/SV Kasten', index: 4, press: pressSVKasten }
-  ]);
+  ];
   const [filteredItems, setFilteredItems] = useState(list);
 
  

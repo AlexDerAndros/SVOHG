@@ -1,0 +1,347 @@
+/*
+
+      SV OHG CODE BY ALEXANDROS AND MARCO 
+
+*/
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@100;700;500;800;900;600&family=Roboto&display=swap');
+
+@media only screen and (max-width: 600px) {
+    .center {
+        height: auto;
+    }
+    .input {
+        height: 70% !important;
+    }
+}
+
+.main_kasten {
+    height: auto;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.center {
+    height: auto;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.btslike {
+    background-color: rgba(0, 128, 0, 0);
+    width: 100%;
+    border: none;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    color: #7fa3e7;
+    font-size: 25px;
+}
+.message1234 {
+    transform: translate(0, 200px);
+    background-color:  #00052c;
+    width: 500px;
+    height: auto;
+    display: flex;
+    border: solid #7fa3e7 1px;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.oeffentlich_nach {
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;
+    font-family: poppins;
+    justify-content: center;
+    height: auto;
+    width: auto;
+    align-items: center;
+    transform: translate(0, -100px);
+    gap: 40px;
+}
+.message1234 > p {
+    font-size: 20px;
+    display: flex;
+    transform: translate(20px);
+    height: 50%;
+    width: 94%;
+}
+.head {
+    font-size: 2.1rem;
+    font-weight: 800;
+    background-color:  #00052c;
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    color: whitesmoke;
+    border: solid 2px #7fa3e7;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 7px;
+}
+.kasten {
+    display: flex;
+    width: 70%;
+    border: #7fa3e7 solid 2px;
+    height: 40%;
+    background-color:  #00052c;
+    justify-content: center;
+    color: whitesmoke;
+    font-family: poppins;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 10px;
+}
+.texte {
+    height: 100%;
+    width: 80%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-items: center;
+}
+.neinene {
+    width: 100vw;
+    height: 50px;
+}
+.kasten_schreiben {
+    width: 100vw;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input_real {
+    width: 70%;
+    height: 70px;
+    border: 2px solid rgb(127, 163, 231);
+    color: black;
+    font-family: poppins;
+    font-weight: 500;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    font-size: 20px;
+}
+.input_real:focus {
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: rgba(40, 163, 157, 0.096) 0px 4px 16px, rgba(14, 117, 112, 0.123) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+.input_real:focus::-webkit-input-placeholder {
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    font-family: poppins;
+}
+.input_real {
+    border: 2px solid #7fa3e7 !important;
+    border-radius: 10px !important;
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.title_events_2 {
+    font-size: 40px;
+    margin: 20px;
+    font-family: kanit;
+    font-weight: 600;
+}
+.text2 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.input_real::-webkit-input-placeholder {
+    font-family: 'Poppins' !important;
+    font-weight: 500 !important;
+    font-size: 17px !important;
+    font-weight: 600;
+    text-align: center;
+}
+@media only screen and (max-width: 600px) {
+    .kasten {
+        width: 100%;
+    }
+    .input_real {
+        margin: 50px;
+        width: 95%;
+    }
+    .button-36 {
+        height: 70px !important;
+    }
+    .message1234 {
+        width: 80vw;
+    }
+}
+.oeffentlich {
+    color: black !important;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100px;
+    width: 30vw;
+}
+.oeffentlich > p {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(0, calc(50% + 5px));
+}
+.oeffentlich > input {
+    width: 30%;
+    color: #7fa3e7;
+    background-color: #7fa3e7;
+}
+label > input {
+    margin-top: 50px;
+}
+.input_real::placeholder {
+    text-align: center; 
+    color: rgb(24, 24, 24) !important;
+    font-family: poppins !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+ }
+ .kasten {
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+
+
+/* CSS */
+.button-36 {
+  background-image:  linear-gradient(92.88deg, #00052c 9.16%, #00073f 43.89%, #000841 64.72%);
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  height: 3rem;
+  width: 12rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all .5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    z-index: 100000 !important;
+}
+
+.button-36:hover {
+  box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+  transition-duration: .1s;
+}
+
+@media (min-width: 768px) {
+  .button-36 {
+    padding: 0 2.6rem;
+  }
+}
+@media only screen and (min-width: 950px) {
+    .kasten {
+        width: 60%;
+        height: 40% !important;
+    }
+    .button-36 {
+        height: 80px;
+        font-size: 22px;
+        width: 200px;
+    }
+    .input_real {
+        height: 90px;
+    }
+    .gap123 {
+        height: 50px;
+    }
+    .center {
+        height: auto;
+    }
+}
+.plane {
+    height: 100px;
+    position: absolute;
+    color: #42a9ee;
+    transform: translate(0px, 80px);
+    rotate: 10deg;
+}
+.title_svkasten_123adg {
+    color: #7fa3e7;
+    width: 100%;
+    transform: translate(120px, 200px);
+    font-size: 20px;
+    font-family: poppins;
+    font-weight: 700;
+}
+.button-36:focus {
+    background-color: #42a9ee;
+}
+@media only screen and (max-height: 1826px) {
+    .plane {
+        transform: translateY(140px);
+    }
+}
+@media only screen and (max-width: 600px) {
+    .plane {
+        display: none;
+    }
+    .oeffentlich {
+        margin: 0;
+        height: 50px;
+        transform: translate(0, -40px);
+        width: 80vw;
+    }
+    .input {
+        height: 150px !important;
+    }
+    .title_svkasten_123adg {
+        transform: translate(20px, 200px) !important;
+    }
+    .input_real {
+        width: 100% !important;
+    }
+}
+.dislike {
+    height: 45px;
+}
+.likecon {
+    display: flex;
+    margin-bottom: 5px;
+}
+.likecon > img {
+    height: 40px !important;
+    width: 40px !important;
+}
+.like2 {
+    width: 60px;
+    height: 44px;
+}
+.like {
+    width: 30px !important;
+}
