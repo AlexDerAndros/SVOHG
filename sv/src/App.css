@@ -131,22 +131,6 @@ header {
   width: 91vw;
   font-size: 19.5px !important;
 }
-.hamburger-menu {
-  cursor: pointer;
-  color: white;
-}
-.cross {
-  cursor: pointer;
-}
-.content {
-  background-color: #003300;
-  width: 100%;
-  position: fixed;
-  z-index: 100;
-  height: 50%;
-  transition: ease-in 0.3s;
-  margin-top: 4%;
-}
 input {
   border: none;
   font-family: "Roboto", sans-serif;
@@ -198,13 +182,8 @@ ul {
   margin-top: 100vh;
 }
 .imgSV {
-  width: 70%;
-  height: 70%;
-  margin: 10% 15%;
-  border-radius: 5%;
-  border: 2px solid rgb(127, 163, 231);
-  z-index: 10 !important;
   box-shadow: rgba(16, 157, 161, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
 }
 .text_container {
   font-family: "Roboto", sans-serif;
@@ -311,10 +290,7 @@ ul {
   }
 
 }
-.img-containerSV {
-  z-index: 10000000;
-  background-color: rgb(222, 254, 255);
-}
+
 @media only screen and (max-width: 900px) {
   .content {
     display: none;
@@ -322,13 +298,7 @@ ul {
   .Menu {
     display: none;
   }
-  .imgSV {
-    width: 80%;
-    height: 90%;
-    margin: 10%;
-    z-index: 10 !important;
-
-  }
+ 
   .coneven {
     gap: 0px;
   }
@@ -535,12 +505,6 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
     margin-left: -4%;
   }
   
-  .imgSV {
-    width: 50%;
-    height: 50%;
-    margin: 10% 25%;
-    border-radius: 5%;
-  }
   .container_4 {
     width: 62vw !important;
   }
@@ -1160,22 +1124,9 @@ html::-webkit-scrollbar {
     gap: 25px;
   }
 } 
-.foto {
-  display: none;
-  position: absolute;
-  height: 40%;
-  width: 30%;
-  transform: translateX(-90%);
-}
-.back {
-  height: 900px; 
-  width: 100vw;
-  background-color: rgba(255, 0, 0, 0);
-}
-.holder {
-  height: 90%;
-  width: 90%;
-}
+
+
+
 .imgbigred {
   height: 100% !important;
   width: 100% !important;
@@ -1187,11 +1138,7 @@ html::-webkit-scrollbar {
 .smally {
   display: none;
 }
-@media only screen and (max-width: 897px) {
-  .tabelle2 {
-    display: none;
-  }
-}
+
 
 
 
@@ -1555,7 +1502,6 @@ background: linear-gradient(180deg, #003300 13%, #00330000 100%);
   align-items: center;
 }
 .title_teil1 > h2 {
-  font-family: poppins;
   font-size: 50px;
 }
 .iftar {

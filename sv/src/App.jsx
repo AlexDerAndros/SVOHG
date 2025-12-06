@@ -250,21 +250,6 @@ function Startseite() {
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
   }
 
-  function getCookie(name) {
-    const cname = name + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(cname) === 0) {
-        return c.substring(cname.length, c.length);
-      }
-    }
-    return "";
-  }
 
   function eventdavor() {
     gsap.to('.davor', {
@@ -305,7 +290,7 @@ function Startseite() {
     setCookie(COOKIE_NAME, 'accepted', COOKIE_EXPIRY_DAYS);
     console.log('Popup display set to none and cookie set');
   }
-   const currentEvent = events[currentIndex];
+  const currentEvent = events[currentIndex];
   return (
     <div className='abc123' style={{ background: "rgba(250, 255, 238, 0.993)" }}>
       <div className="popup" style={{ display: flexboxPopup, transform: heightpopup }}>
@@ -323,12 +308,14 @@ function Startseite() {
       </div>
       <div className="all_container"></div>
       <div className="anfang">
-        <div className='img-containerSV'>
-            <div className="linetop" ref={linetop}></div>
-          <img src='./SV Bild.jpg' className='imgSV' alt='Foto' ref={imgRef} />
+        <div className='bg-imgC w-full flex items-center justify-center mt-[50px] '>
+            <div className="linetop z-[-10]" ref={linetop}></div>
+          <img src='./SV Bild.jpg' className=' md:w-[60%] rounded-md 
+             border-2 border-blue-400 z-[10]  
+             w-[80%] h-[100%]' alt='Foto' ref={imgRef} />
         </div>
         <br /><br />
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div className='flex justify-center items-center'>
           <div className='text_container'>
             <div className='font-roboto font-bold text-base lg:text-xl md:p-5 '>Hallo!</div>
             <div className="font-roboto text-base lg:text-xl  sm:px-5 text-center ">Wir sind die SV für das Otto-Hahn-Gymnasium Monheim am Rhein.</div>
@@ -362,19 +349,13 @@ function Startseite() {
                     {currentEvent ? currentEvent.shortDescription : "Beschreibung nicht verfügbar"}
                   </div>
                 </div>
-                <div className="tabelle2">
-                  <div className="foto">
-                    <div className="holder">
-                      <img className='imgbigred' src="./test.png" alt="" />
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="back"></div>
+      <div className="flex flex-col justify-center mt-200">
       <div className="line33" ref={line}></div>
       
 
@@ -387,38 +368,12 @@ function Startseite() {
       <div className="teil1">
         <div className="right1">
         <div className="conright" ref={conright123}>
-  <div className='sv-info' ref={info}>
-    <h2>
-    Die SV kümmert sich um die Umsetzung der Wünsche der Schüler*innen am Otto-Hahn-Gymnasium. Die SV organisiert verschiedene spaßige und lustige Events, z. B
-    </h2>
-    <h2> <img src='./favicon2.ico' className='SVetwas' /> Aktionen für das Schulleben:</h2>
-    <ul>
-      <li>Unterstufendiskos</li>
-      <li>Abschlussaktion</li>
-      <li>Talentwettbewerb</li>
-      <li>Schulfest-Aktionen</li>
-      <li>Speisenverkauf beim Weihnachtskonzert</li>
-      <li>Rosen- und Nikolausaktion mit Fairtrade AG</li>
-    </ul>
-
-    <h2><img src='./favicon2.ico' className='SVetwas' /> Interessenvertretung:</h2>
-    <ul>
-      <li>Schul- und Fachkonferenzen</li>
-      <li>Unterstützung bei schulischen Problemen</li>
-    </ul>
-
-    <h2><img src='./favicon2.ico' className='SVetwas' /> Freizeitgestaltung:</h2>
-    <ul>
-      <li>Stufenübergreifende Turniere</li>
-      <li>„Schülerteam gegen Lehrerteam“</li>
-    </ul>
-
-    <h2><img src='./favicon2.ico' className='SVetwas' /> Schülerfirmen und Projekte:</h2>
-    <ul>
-      <li>Kiosk: verkauft Milch, Kakao, Brötchen; Überschüsse für ein Patenkind</li>
-      <li>Zukunftsideen: Spendenaktionen, Umwelt-Tage, vegane Tage</li>
-    </ul>
-  </div>
+       <div className='' ref={info}>
+           Die Schülervertretung (SV) ist eine Gruppe von Schülern, die gewählt wurden, um die Interessen und Anliegen der Schülerschaft zu vertreten.
+           Sie fungiert als Bindeglied zwischen den Schülern, Lehrern und der Schulleitung und setzt sich für eine positive Schulatmosphäre ein. 
+           Die SV organisiert verschiedene Veranstaltungen, unterstützt soziale Projekte und fördert die Mitbestimmung der Schüler im schulischen Umfeld.
+            Durch ihre Arbeit trägt die SV dazu bei, das Schulleben abwechslungsreicher und engagierter zu gestalten.
+       </div>
 </div>
         </div>
         <div className="left1">
@@ -505,7 +460,7 @@ function Startseite() {
   <h2><img src='./SVZeichen.png' className='SVetwas' /> Wie ihr die Schülervertretung (SV) kontaktieren könnt</h2>
 <p>
     Ihr habt verschiedene Möglichkeiten, um mit uns in Kontakt zu treten. Wenn ihr Fragen, Ideen, Verbesserungsvorschläge oder Probleme habt, könnt ihr uns ganz einfach erreichen:
-</p>
+</p>2
 <ul>
   <h2>Per Email:</h2>
     <li>
@@ -538,7 +493,7 @@ function Startseite() {
               </div>
         </div>
       </div>
-      <div className="BTCON123" id='keineanhungwieichdasnennenmusweilfastallenamengefhultscongennommenwurdenaberichgluabedasdasnochnichtgenommenwurdeodervielleichtschonkeinerweisauserichweilichderbesterprogrammierenallerzeitenbinderallesweistundnursozurinfoalexdubistschlechtinuiunduxdesignundichbinvielbesseraberegalobamawasntthatgood'>
+      <div className="BTCON123">
               <button className='treten1'> Verschwindet einfach... Egal
               Klicken sie hier, um uns eine Nachicht zu Schreiben! <img src='./arrowleft.svg' className='arrowleft' />
               </button>
@@ -568,7 +523,7 @@ function Startseite() {
             </div>
         </div>
       </div>
-            
+      </div>
       <div className="line1"></div>
       <div className="ic1">
         <FontAwesomeIcon icon={faCalendarDays} className='calendar'/>
