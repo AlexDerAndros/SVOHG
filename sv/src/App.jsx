@@ -3,7 +3,7 @@ import './App.css';
 import { gsap } from 'gsap';
 import { Routes, Route, Link, useLocation} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faHouse, faMagnifyingGlass, faRightToBracket, faPenToSquare, faArrowUpFromBracket, faArrowLeft, faCalendarDays} from '@fortawesome/free-solid-svg-icons';
+import {  faHouse, faMagnifyingGlass, faRightToBracket, faPenToSquare, faArrowUpFromBracket, faArrowLeft, faCalendarDays, faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import { faInstagram,  faGithub} from '@fortawesome/free-brands-svg-icons';
 import SVKasten1 from './SVKasten/svKasten';
 import Anmeldeformular1 from './Anmeldeformular/Anmeldeformular';
@@ -308,8 +308,8 @@ function Startseite() {
       </div>
       <div className="all_container"></div>
       <div className="anfang">
-        <div className='bg-imgC w-full flex items-center justify-center mt-[50px] '>
-            <div className="linetop z-[-10]" ref={linetop}></div>
+        <div className='bg-imgC w-full flex items-center justify-center p-5  '>
+            {/* <div className="linetop z-[-10]" ref={linetop}></div> */}
           <img src='./SV Bild.jpg' className=' md:w-[60%] rounded-md 
              border-2 border-blue-400 z-[10]  
              w-[80%] h-[100%]' alt='Foto' ref={imgRef} />
@@ -386,7 +386,15 @@ function Startseite() {
       </div>
       <div className="line44" ref={line44}></div>
       </div>
-      <div className="teil2">
+      <div className='w-full h-[800px] bg-[#05270573] flex flex-col justify-between items-center py-5'>
+         <div className="title_teil1" >
+            Was hat die SV für Aufgaben?
+        </div>
+        <div className='w-full h-[700px] flex flex-row justify-between items-center'>
+          <img src='./SVZeichen.png' className='w-100 h-100 z-100' />
+        </div>
+      </div>
+      {/* <div className="teil2" >
         <div className="title_teil1" id='skondone' ref={title2}>
           <h3>
             Was hat die SV für Aufgaben?
@@ -402,50 +410,19 @@ function Startseite() {
             </div>
             <div className="teill">
               <div className="sv_info2" ref={info2}>
-              <p>Die Schülervertretung (SV) spielt eine zentrale Rolle im Schulleben und setzt sich für die Interessen der Schüler ein. Mit viel Engagement sorgt die SV dafür, dass Schule mehr ist als nur Unterricht und Prüfungen. Hier sind die wichtigsten Aufgaben und Aktivitäten der SV:</p>
-
-<h2><img src='./SVZeichen.png' className='SVetwas' />Organisation von Events:</h2>
-<ul>
-  <li>Unterstufendiskos</li>
-  <li>Abschlussaktion</li>
-  <li>Talentwettbewerb</li>
-  <li>Schulfest-Aktionen</li>
-  <li>Speisenverkauf beim Weihnachtskonzert</li>
-  <li>Rosen- und Nikolausaktion mit Fairtrade AG</li>
-</ul>
-
-<h2><img src='./SVZeichen.png' className='SVetwas' />Vertretung der Schülerinteressen:</h2>
-<ul>
-  <li>Teilnahme an Schul- und Fachkonferenzen zur Vertretung der Interessen der Schülerschaft</li>
-  <li>Beratung und Unterstützung bei schulischen Problemen, z.B. mit Lehrern</li>
-</ul>
-
-<h2><img src='./SVZeichen.png' className='SVetwas' />Kooperation mit anderen Gruppen:</h2>
-<ul>
-  <li>Organisation von Aktionen wie der Rosen- und Nikolausaktion in Zusammenarbeit mit der Fairtrade-AG</li>
-  <li>Stärkung des Gemeinschaftsgefühls und Förderung sozialer Verantwortung</li>
-</ul>
-
-<h2><img src='./SVZeichen.png' className='SVetwas' />Soziale Projekte:</h2>
-<ul>
-  <li>Betreibung eines Schulkiosks: Verkauf von Milch, Kakao, Brötchen; Überschüsse fließen in die Unterstützung eines Patenkindes in Bangladesch</li>
-  <li>Planung und Durchführung von Spendenaktionen, Umwelt-Tagen und veganen Tagen</li>
-</ul>
-
-
-
+                Aufgaben
               </div>
             </div>
         </div>
         <div className="BTCON123">
               <button className='treten1'>
                 <a href="/Anmeldeformular">
-              Klicken sie hier, um am SV Talentwettbewerb teilzunehmen! <img src='./arrowleft.svg' className='arrowleft' />  
+              Klicken sie hier, um an einem Event teilzunehmen! <FontAwesomeIcon icon={faArrowRight}  /> 
                 </a>
               </button>
 
         </div>
-      </div>
+      </div> */}
       <div className="teil1main" ref={teil1main} id='zeitung'>
         <div className="title_teil1" id='zei2'>
           <h3>
@@ -489,7 +466,7 @@ function Startseite() {
         </div>
         <div className="left1">
               <div className="foto_con2">
-                <img className='iftar' ref={iftar} src="./Test.png" alt="" id='imgsvg12' />
+                <img className='iftar' ref={iftar} src="./SVZeichen.png" alt="" id='imgsvg12' />
               </div>
         </div>
       </div>
@@ -511,7 +488,7 @@ function Startseite() {
         </div>
         <div className="innencon">
             <div className="teilr">
-            <img className='iftar' ref={iftar} src="./Iftar.jpg" alt="" />
+            <img className='iftar' ref={iftar} src="./SVZeichen.png"  />
 
             </div>
             <div className="teill">

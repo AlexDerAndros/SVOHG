@@ -436,11 +436,6 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
   align-items: center;
   justify-content: center;
 }
-.all_container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
 .container {
   width: 85vw;
   height: 100%;
@@ -1620,7 +1615,7 @@ li {
 .sv_info2 {
   height: 95%;
   width: 96%;
-  font-size: 13px;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   flex-direction: column;
