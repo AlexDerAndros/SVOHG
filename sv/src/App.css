@@ -742,7 +742,7 @@ html::-webkit-scrollbar {
   color:black;
   z-index: 1000;
   position: absolute;
-  margin: 30px;
+  margin: 0px;
   cursor: pointer;
   position: fixed;
 }
@@ -1552,7 +1552,7 @@ background: linear-gradient(180deg, #003300 13%, #00330000 100%);
   z-index: 0;
   width: 4px;
   background: rgb(240,254,250);
-background: linear-gradient(180deg, #105a1a 13%, #7fa3e7 100%);
+  background: linear-gradient(180deg, #105a1a 13%, #7fa3e7 100%);
   transform: translate(12px, -339px);
   left: 6.9vw;
 }

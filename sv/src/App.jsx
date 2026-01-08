@@ -356,7 +356,7 @@ function Startseite() {
         </div>
       </div>
       <div className="flex flex-col justify-center mt-200">
-      <div className="line33" ref={line}></div>
+      <div className="line33"  ref={line}></div>
       
 
       <div className="teil1main" ref={teil1main}>
@@ -374,13 +374,13 @@ function Startseite() {
            Die SV organisiert verschiedene Veranstaltungen, unterstützt soziale Projekte und fördert die Mitbestimmung der Schüler im schulischen Umfeld.
             Durch ihre Arbeit trägt die SV dazu bei, das Schulleben abwechslungsreicher und engagierter zu gestalten.
        </div>
-</div>
+      </div>
         </div>
         <div className="left1">
               <div className="foto_con">
-                <img className='iftar' ref={iftar} src="./Iftar.jpg" alt="" />
-                <img className='iftar2' ref={iftar2}   src="./Mingolf.jpg" alt="" />
-                <img className='iftar3' ref={iftar3} src="./SV.jpg" alt="" />
+                <img className='iftar' ref={iftar} src="./SVZeichen.png" alt="" />
+                <img className='iftar2' ref={iftar2}   src="./SVZeichen.png" alt="" />
+                <img className='iftar3' ref={iftar3} src="./SVZeichen.png" alt="" />
               </div>
         </div>
       </div>
@@ -391,10 +391,10 @@ function Startseite() {
             Was hat die SV für Aufgaben?
         </div>
         <div className='w-full h-[700px] flex flex-row justify-between items-center'>
-          <img src='./SVZeichen.png' className='w-100 h-100 z-100' />
+          <img src='./SVZeichen.png' className='w-1/3 h-[70%] z-100' />
         </div>
       </div>
-      {/* <div className="teil2" >
+     <div className="teil2">
         <div className="title_teil1" id='skondone' ref={title2}>
           <h3>
             Was hat die SV für Aufgaben?
@@ -405,7 +405,7 @@ function Startseite() {
         </div>
         <div className="innencon">
             <div className="teilr">
-            <img className='iftar' ref={iftar} src="./Iftar.jpg" alt="" />
+            <img className='iftar' ref={iftar} src="./SVZeichen.png" alt="" />
 
             </div>
             <div className="teill">
@@ -422,7 +422,7 @@ function Startseite() {
               </button>
 
         </div>
-      </div> */}
+      </div>
       <div className="teil1main" ref={teil1main} id='zeitung'>
         <div className="title_teil1" id='zei2'>
           <h3>
