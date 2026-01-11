@@ -56,9 +56,9 @@ function HeaderBottom() {
           <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: location.pathname === '/Anmeldeformular' ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_5' />
          <div style={{ color: location.pathname === '/Anmeldeformular' ? color : 'white' ,  transform: location.pathname === '/Anmeldeformular' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Events</div>
          </Link>
-        <Link to="/SV Kasten" className='svasdf'  onClick={smoothAni}>
-         <FontAwesomeIcon icon={faPenToSquare} style={{ color: location.pathname === '/SV Kasten' ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
-         <div  style={{ color: location.pathname === '/SV Kasten' ? color: 'white' ,  transform: location.pathname === '/SV Kasten' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>SV Kasten</div>
+        <Link to="/SV%20Kasten" className='svasdf'  onClick={smoothAni}>
+         <FontAwesomeIcon icon={faPenToSquare} style={{ color: location.pathname === '/SV%20Kasten' ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
+         <div  style={{ color: location.pathname === '/SV%20Kasten' ? color: 'white' ,  transform: location.pathname === '/SV%20Kasten' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>SV Kasten</div>
          </Link>
         <Link to='/Search'className='svasdf' onClick={smoothAni}>
          <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: location.pathname === '/Search' ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_3' />
@@ -88,9 +88,9 @@ function HeaderBottom() {
          <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: location.pathname === '/Search' ? color : 'white'}} className='house_icon_3' />
          <div className='title_footer' style={{ color: location.pathname === '/Search' ? color : 'white'}}>Suche</div>
         </Link> 
-        <Link onClick={smoothAni} to="/SV Kasten" className='svasdf'  >
-         <FontAwesomeIcon icon={faPenToSquare} style={{ color: location.pathname === '/SV Kasten' ? color : 'white'}}  className='house_icon_4' />
-         <div className='title_footer' style={{ color: location.pathname === '/SV Kasten' ? color : 'white'}}>SV Kasten</div>
+        <Link onClick={smoothAni} to="/SV%20Kasten" className='svasdf'  >
+         <FontAwesomeIcon icon={faPenToSquare} style={{ color: location.pathname === '/SV%20Kasten' ? color : 'white'}}  className='house_icon_4' />
+         <div className='title_footer' style={{ color: location.pathname === '/SV%20Kasten' ? color : 'white'}}>SV Kasten</div>
          </Link>
          <Link onClick={smoothAni} to="/Anmeldeformular" className='svasdf' >
           <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: location.pathname === '/Anmeldeformular' ? color : 'white'}} className='house_icon_5' />
@@ -554,7 +554,7 @@ function Search() {
     { theme: 'Startseite', link: '/', index: 1, press: pressStartseite},
     { theme: 'Events', link: '/Anmeldeformular', index: 2, press: pressAnmeldeformular},
     { theme: 'Login', link: '/Login', index: 3, press: pressLogin },
-    { theme: 'SV Kasten', link: '/SV Kasten', index: 4, press: pressSVKasten }
+    { theme: 'SV Kasten', link: '/SV%20Kasten', index: 4, press: pressSVKasten }
   ];
   const [filteredItems, setFilteredItems] = useState(list);
 
@@ -600,7 +600,7 @@ function Search() {
       <br />
         <div className="main_search">
         <div className="searchBar">
-          <img src='./search.svg' alt='' className='lupesvg' />
+          <FontAwesomeIcon icon={faMagnifyingGlass} className='lupesvg ' />
           <input type="text" className='search' id='123ad' placeholder="Suche..." value={value} onChange={(e) => handleFilter(e.target.value)}/>
          </div>
          <ul className='searchItems'>

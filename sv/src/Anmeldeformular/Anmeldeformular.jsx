@@ -593,7 +593,7 @@ else {
                )} */}
      <div className="contentA"  >
       {newEventList.map((event) => (
-        <div className="title_events_2" >
+        <div style={{fontFamily: "Poppins"}} className="title_events_2" >
               {event.topic}
         </div>
       ))}
@@ -605,14 +605,14 @@ else {
           <input type="text" className='search' placeholder="Klasse." onChange={(e) => setKla(e.target.value)} />
           <input type="text" className='search' placeholder="E-Mail."  onChange={(e) => setEmail(e.target.value)}  />
       </div>
-      <br/>
+    
 
       {inputsList.length > 0 && (
   <div>
     {inputsList.map((item, index) => (
      <>
-     <div className="columnInputs" style={{width: Cookies.get('isAdmin') || Cookies.get('isDeveloper') ? '104%' : '102.5%'}}>
-        <div className="rowInputs">              
+     <div className="flex row w-full items-center justify-center"  >
+      <div className="rowInputs">              
       <input
         key={index}
         type="text"
@@ -640,9 +640,9 @@ else {
           }
         }}
       />
-      <div className="INDEL">
+      <div className="absolute z-10 ml-[62%] ">
        {Cookies.get('isAdmin') || Cookies.get('isDeveloper') ? (
-                  <div className="PosbtnDelIn" >
+                  <div >
                    <br/>
                    <FontAwesomeIcon icon={faTrash} onClick={ async() => {
                        try {
@@ -671,7 +671,7 @@ else {
                         alert('Eingabefeld konnte leider nicht gelöscht werden');
                       }
                       
-                   }} className="btnDelIn"/>
+                   }} className="text-2xl"/>
                   </div>
                ): (
                 <>

@@ -2,10 +2,11 @@ import "./Login.css";
 import Cookies from 'js-cookie';
 import { useState, useEffect, } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faEye, faEyeSlash, faTrash, faX} from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faEye, faEyeSlash, faTrash, faX,} from '@fortawesome/free-solid-svg-icons';
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { auth, db, GoogleProvider } from "../config/firebase"; 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { getDoc, setDoc, collection, getDocs, addDoc, where, deleteDoc, query, writeBatch, onSnapshot} from "firebase/firestore"; // import Firestore functions
+import { getDoc, setDoc, collection, getDocs, addDoc, where, deleteDoc, query, onSnapshot} from "firebase/firestore"; // import Firestore functions
 import gsap from "gsap";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { doc, updateDoc } from "firebase/firestore";
@@ -258,7 +259,7 @@ function LoggingIn({ setLog }) {
 
               <div className="loginInfo">
                 <div className="registerInfo" onClick={logGoogle}>
-                  <img src="./google_icon-icons.com_62736.png" alt="Mit Google Anmelden" className="mitgoogle" />
+                  <FontAwesomeIcon icon={faGoogle} className="text-4xl my-5" />
                 </div>
                 Wenn Sie noch nicht eingeloggt sind,
                 <span className="registerInfo" onClick={press}>
@@ -552,7 +553,7 @@ function AdminDevDashboard() {
     ))}
   </div>
           {visibleMessages < messages.length && (
-            <button onClick={handleSeeMore} className='seemore'>See More</button>
+            <button onClick={handleSeeMore} className='seemore'>Mehr Nachrichten</button>
           )}
         </div>
         <br />
@@ -923,15 +924,15 @@ function DeveloperDashboard({ setLog }) {
         </button>
       </div>
       <div className="adminDashboard" style={{marginBottom:"50vh"}}>
-        <h2>Developer Dashboard</h2>
+        <h2 style={{fontFamily:"Poppins"}} className="font-bold font-poppins my-10 text-2xl">Developer Dashboard</h2>
         <div className='dev123ad2'>
           <h2>User zu Admins machen</h2>
-          <div className='log123ad2' style={{marginBottom:"5%"}}>
+          <div className='log123ad2' style={{margin:"2% 0% 5% 0%"}}>
             {users.slice(0, visibleUsers).map(user => (
               <form className="users" key={user.id} tabIndex={0}>
                 E-Mail: {user.email} <br/>
                 ist ein Admin: 
-                <select name="options" onChange={(e) => setValue(e.target.value)}>
+                <select className="p-1" name="options" onChange={(e) => setValue(e.target.value)}>
                   {user.isAdmin.toString() === 'false' ? (
                     <>
                       <option>false</option>

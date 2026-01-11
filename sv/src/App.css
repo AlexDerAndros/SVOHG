@@ -1381,11 +1381,14 @@ background: linear-gradient(180deg, #003300 13%, #00330000 100%);
   background-color: rgba(255, 0, 0, 0);
 }
 .lupesvg {
-  height: 70px !important;
   position: absolute;
   display: none;
+  font-size: 25px;
+  height: 100%;
+  margin-left: 50%;
+  flex-direction: row; 
+  color: white;
   z-index: 10000;
-  transform: translate(55%, calc(25%));
 }
 .containerli {
   background-color: #003300;
