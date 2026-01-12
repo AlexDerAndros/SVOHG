@@ -3,6 +3,7 @@
 
 @theme {
   --font-roboto: 'Roboto', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
   --color-mainC: #00052c;
   --color-imgC: rgb(222, 254, 255);
 }
