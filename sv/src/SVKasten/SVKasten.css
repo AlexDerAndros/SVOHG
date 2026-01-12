@@ -53,18 +53,7 @@
     justify-content: center;
     flex-direction: column;
 }
-.oeffentlich_nach {
-    display: flex;
-    flex-direction: column;
-    color: whitesmoke;
-    font-family: poppins;
-    justify-content: center;
-    height: auto;
-    width: auto;
-    align-items: center;
-    transform: translate(0, -100px);
-    gap: 40px;
-}
+
 .message1234 > p {
     font-size: 20px;
     display: flex;
@@ -182,8 +171,8 @@
         width: 100%;
     }
     .input_real {
-        margin: 50px;
-        width: 95%;
+        margin: 10px;
+        width: 90%;
     }
     .button-36 {
         height: 70px !important;

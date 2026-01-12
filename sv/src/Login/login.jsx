@@ -847,7 +847,7 @@ function AdminDashboard({ setLog }) {
         <div className="welcome">Willkommen Admin {username}!</div>
         <button onClick={logOut} className="logOutBtn">Ausloggen</button>
       <div className="adminDashboard" style={{marginBottom:"50vh",}}>
-         <h2>Admin Dashboard</h2>
+         <h2 style={{fontFamily:"Poppins"}} className="font-bold font-poppins my-10 text-2xl">Admin Dashboard</h2>
          <AdminDevDashboard />
       </div>
     <div style={{height:'150vh', width:"100vw", zIndex:"-100"}}></div>

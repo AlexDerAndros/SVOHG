@@ -56,9 +56,9 @@ function HeaderBottom() {
           <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: location.pathname === '/Anmeldeformular' ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_5' />
          <div style={{ color: location.pathname === '/Anmeldeformular' ? color : 'white' ,  transform: location.pathname === '/Anmeldeformular' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>Events</div>
          </Link>
-        <Link to="/SV%20Kasten" className='svasdf'  onClick={smoothAni}>
-         <FontAwesomeIcon icon={faPenToSquare} style={{ color: location.pathname === '/SV%20Kasten' ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
-         <div  style={{ color: location.pathname === '/SV%20Kasten' ? color: 'white' ,  transform: location.pathname === '/SV%20Kasten' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>SV Kasten</div>
+        <Link to="/svKasten" className='svasdf'  onClick={smoothAni}>
+         <FontAwesomeIcon icon={faPenToSquare} style={{ color: location.pathname === '/svKasten' ? "rgb(127, 163, 231)" : 'white'}}  className='house_icon_4' />
+         <div  style={{ color: location.pathname === '/svKasten' ? color: 'white' ,  transform: location.pathname === '/svKasten' ? " scale(1.3)" : "scale(1)", transition:"ease-in-out 0.3s"}}>SV Kasten</div>
          </Link>
         <Link to='/Search'className='svasdf' onClick={smoothAni}>
          <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: location.pathname === '/Search' ? "rgb(127, 163, 231)" : 'white'}} className='house_icon_3' />
@@ -88,9 +88,9 @@ function HeaderBottom() {
          <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: location.pathname === '/Search' ? color : 'white'}} className='house_icon_3' />
          <div className='title_footer' style={{ color: location.pathname === '/Search' ? color : 'white'}}>Suche</div>
         </Link> 
-        <Link onClick={smoothAni} to="/SV%20Kasten" className='svasdf'  >
-         <FontAwesomeIcon icon={faPenToSquare} style={{ color: location.pathname === '/SV%20Kasten' ? color : 'white'}}  className='house_icon_4' />
-         <div className='title_footer' style={{ color: location.pathname === '/SV%20Kasten' ? color : 'white'}}>SV Kasten</div>
+        <Link onClick={smoothAni} to="/svKasten" className='svasdf'  >
+         <FontAwesomeIcon icon={faPenToSquare} style={{ color: location.pathname === '/svKasten' ? color : 'white'}}  className='house_icon_4' />
+         <div className='title_footer' style={{ color: location.pathname === '/svKasten' ? color : 'white'}}>SV Kasten</div>
          </Link>
          <Link onClick={smoothAni} to="/Anmeldeformular" className='svasdf' >
           <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ color: location.pathname === '/Anmeldeformular' ? color : 'white'}} className='house_icon_5' />
@@ -106,7 +106,7 @@ function HeaderBottom() {
         <Route path='/' element={<Startseite />} />
         <Route path='/Login' element={<Login />} />
         <Route path='/Anmeldeformular' element={<Anmeldeformularr/>} />
-        <Route path='/SV Kasten' element={<SVKasten />} />
+        <Route path='/svKasten' element={<SVKasten />} />
         <Route path='/Search' element={<Search />} />
       </Routes>
     </>
@@ -384,16 +384,9 @@ function Startseite() {
               </div>
         </div>
       </div>
-      <div className="line44" ref={line44}></div>
+      {/* <div className="line44" ref={line44}></div> */}
       </div>
-      <div className='w-full h-[800px] bg-[#05270573] flex flex-col justify-between items-center py-5'>
-         <div className="title_teil1" >
-            Was hat die SV für Aufgaben?
-        </div>
-        <div className='w-full h-[700px] flex flex-row justify-between items-center'>
-          <img src='./SVZeichen.png' className='w-1/3 h-[70%] z-100' />
-        </div>
-      </div>
+      
      <div className="teil2">
         <div className="title_teil1" id='skondone' ref={title2}>
           <h3>
@@ -451,9 +444,9 @@ function Startseite() {
     <li>
         Kommt donnerstags in der ersten großen Pause in Raum 022 vorbei. Wir sind persönlich für euch da und nehmen uns Zeit, eure Anliegen zu besprechen.
     </li>
-    <h2>SVKasten:</h2>
+    <h2>SV Kasten:</h2>
     <li>
-        Klickt auf den <a href="/SV%20Kasten" id="link">SV Kasten</a>, um uns direkt eine Nachricht zu schreiben. Ihr könnt eure Nachricht auch öffentlich machen, damit andere sie sehen, liken oder disliken können.
+        Klickt auf den <a href="/svKasten" id="link">SV Kasten</a>, um uns direkt eine Nachricht zu schreiben. Ihr könnt eure Nachricht auch öffentlich machen, damit andere sie sehen, liken oder disliken können.
     </li>
 </ul>
 <p>
@@ -470,12 +463,14 @@ function Startseite() {
               </div>
         </div>
       </div>
-      <div className="BTCON123">
-              <button className='treten1'> Verschwindet einfach... Egal
-              Klicken sie hier, um uns eine Nachicht zu Schreiben! <img src='./arrowleft.svg' className='arrowleft' />
-              </button>
-
+        <div className="BTCON123">
+          <Link to='/svKasten'>
+         <button className='treten1'> 
+            Klicken sie hier, um uns eine Nachicht zu Schreiben! <FontAwesomeIcon icon={faArrowRight}  /> 
+         </button>
+         </Link>
         </div>
+      
       </div>
       <div className="teil2">
         <div className="title_teil1" id='skondone' ref={title2}>
@@ -492,7 +487,7 @@ function Startseite() {
 
             </div>
             <div className="teill">
-              <div className="sv_info2" ref={info2}>
+              <div className="sv_info2 flex justify-center items-center" ref={info2}>
               Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 
@@ -502,9 +497,9 @@ function Startseite() {
       </div>
       </div>
       <div className="line1"></div>
-      <div className="ic1">
+      {/* <div className="ic1">
         <FontAwesomeIcon icon={faCalendarDays} className='calendar'/>
-      </div>
+      </div> */}
       <AboutUs />
     </div>
   );

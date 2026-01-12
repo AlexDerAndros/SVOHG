@@ -6,6 +6,7 @@ import { getAuth } from 'firebase/auth';
 import Cookies from 'js-cookie';
 import { gsap } from 'gsap';
 
+
 export default function SVKasten() {
   
   const likeCooldown = useRef(false);
@@ -43,7 +44,7 @@ export default function SVKasten() {
         setIsAdminOrDeveloper(false);
       }
     };
-  
+    checkUserRoles();
     fetchMessages();
   }, [auth.currentUser]);
   const fetchUserLikes = async (userId, messageIds) => {
@@ -313,20 +314,17 @@ export default function SVKasten() {
                   checked={isPublic}
                   onChange={(e) => setIsPublic(e.target.checked)}
                 />
-                <p>
-                Öffentlich machen
-                </p>
+                <p>Veröffentlichen</p>
               </label>
             </div>
             <div className='gap123'></div>
             <button className="button-36" role="button" onClick={handleClick}>Senden</button>
             <img src={`Paper.png`} alt='Paper Plane' className='plane' />
           </div>
-  
-          <div className="oeffentlich_nach">
-            <div className='title_svkasten_123adg'>
+          <div style={{fontFamily:"Poppins"}} className='text-black text-3xl w-full flex justify-center items-center mt-50  mb-[-12%]'>
               Nachichten
-            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center w-full gap-[40px] text-white font-roboto">
             {messages
               .sort((a, b) => b.likes - a.likes)
               .map((message) => (
@@ -339,10 +337,10 @@ export default function SVKasten() {
                     <button className='btslike' onClick={() => handleDislike(message.id)}>
                       <img id={`dislike-${message.id}`} src={userLikes[message.id] === 'disliked' ? './dislike.png' : './Not_liked.png'} className='dislike' alt='Dislike'/> {message.dislikes || 0}
                     </button>
-                    {console.log("isAdminOrDeveloper:", isAdminOrDeveloper)} 
-{isAdminOrDeveloper && (
-  <button onClick={() => handleDeleteMessage(message.id)}>Löschen</button>
-)}
+                    
+                    {isAdminOrDeveloper == true && (
+                      <button className='absolute w-full bg-red-500' onClick={() => handleDeleteMessage(message.id)}>Löschen</button>
+                    )}
                   </div>
                 </div>
               ))}
