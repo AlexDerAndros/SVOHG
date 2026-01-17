@@ -119,9 +119,6 @@ function Startseite() {
   const [events, setEvents] = useState([]);
 
 
-   const svRef = useRef(null);
-  const wofurRef = useRef(null);
-  const kontaktRef = useRef(null);
   const beitretenRef = useRef(null);
   const teil1main = useRef(null);
   const eventsRef = useRef(null);
@@ -137,6 +134,20 @@ function Startseite() {
   const title2 = useRef(null);
   const imgRef = useRef(null);
   const linetop = useRef(null);
+
+  /*Aufgaben */
+  const aniTask = useRef(null);
+  const titleTask = useRef(null);
+  const logo1 = useRef(null);
+  const picTask = useRef(null);
+  const btnTask = useRef(null);
+
+  /*Was ist die SV? */
+  const whatTitle = useRef(null);
+  
+  /*Kontakt */
+  const btnContact = useRef(null);
+
 
   // mehrere Elemente (Array von Refs)
   const questionsRef = useRef([]);
@@ -165,9 +176,6 @@ function Startseite() {
     animateElement(linetop.current, { opacity: 0, height: "0px" }, { opacity: 1, height: "800px", duration: 4.5, ease: "power3.out" });
 
     animateElement(eventsRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
-    animateElement(svRef.current, { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
-    animateElement(wofurRef.current, { opacity: 0, x: -100 }, { opacity: 1, x: 0, duration: 1, ease: "power3.out" });
-    animateElement(kontaktRef.current, { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
     animateElement(beitretenRef.current, { opacity: 0, x: 100 }, { opacity: 1, x: 0, duration: 1, ease: "power3.out" });
 
     animateElement(teil1main.current, { opacity: 0 }, { opacity: 1, duration: 1, ease: "power3.out" });
@@ -180,7 +188,7 @@ function Startseite() {
     animateElement(line44.current, { opacity: 0 }, { opacity: 1, duration: 2, ease: "power3.out" });
 
     animateElement(conright123.current, { opacity: 0, x: 150 }, { opacity: 1, x: -20, duration: 1, ease: "power3.out" });
-    animateElement(info2.current, { opacity: 0, x: "50vw" }, { opacity: 1, x: "-40px", duration: 2, ease: "power3.out" });
+    animateElement(info2.current, { opacity: 0, x: "50vw" }, { opacity: 1, x: "0px", duration: 2, ease: "power3.out" });
 
     // Fragen-Animation mit Array-Ref
     questionsRef.current.forEach((question, index) => {
@@ -207,8 +215,44 @@ function Startseite() {
         animateElement(question, fromVars, { opacity: 1, x: 0, y: 0, duration: 1.5, ease: "power2.out" });
       }
     });
+    /*Aufgaben */
+     gsap.fromTo(titleTask.current, {opacity:0}, 
+      { opacity: 1, duration: 1, ease: "power3.inOut",
+        scrollTrigger: { trigger: titleTask.current, start: "top 90%", toggleActions: "play none none reverse"}}
+     );
+     gsap.fromTo(aniTask.current, {opacity:0, scale: 1.3, x:200}, 
+       {x: 0,scale:1, opacity: 1, duration: 1, ease: "power3.inOut",
+          scrollTrigger: { trigger: aniTask.current, start: "top 90%", toggleActions: "play none none reverse"}}
+      );
+     gsap.fromTo(logo1.current, {opacity:0, scale: 1.5}, 
+      {scale:1, opacity: 1, duration: 1, ease: "power3.inOut",
+         scrollTrigger: { trigger: logo1.current, start: "top 90%",  toggleActions: "play none none reverse"}}
+      );
+      gsap.fromTo(picTask.current, {opacity:0, scale: 1.5, x:-100}, 
+      {x: 0, scale:1, opacity: 1, duration: 1, ease: "power3.inOut",
+         scrollTrigger: { trigger: picTask.current, start: "top 90%", toggleActions: "play none none reverse"} }
+        );
+      gsap.fromTo(btnTask.current, {opacity:0, x: 200 }, 
+      { opacity: 1, x:0, duration: 1, ease: "power3.inOut",
+         scrollTrigger: { trigger: btnTask.current, start: "top 90%", toggleActions: "play none none reverse"} }
+        );
 
-    async function fetchEvents() {
+      /*Was ist die SV? */
+      gsap.fromTo(whatTitle.current, {opacity:0}, 
+      { opacity: 1, duration: 1, ease: "power3.inOut",
+         scrollTrigger: { trigger: whatTitle.current, start: "top 90%", toggleActions: "play none none reverse"} }
+        );
+      
+      /*Kontakt */
+       gsap.fromTo(btnContact.current, {opacity:0, x: 200 }, 
+      { opacity: 1, x:0, duration: 1, ease: "power3.inOut",
+         scrollTrigger: { trigger: btnContact.current, start: "top 90%", toggleActions: "play none none reverse"} }
+        );
+  }, []);
+
+
+  useEffect(() => {
+     async function fetchEvents() {
       try {
         const eventsCol = collection(db, "events");
         const eventSnapshot = await getDocs(eventsCol);
@@ -227,10 +271,10 @@ function Startseite() {
         console.error("Error fetching events: ", error);
       }
     }
-
+    
     fetchEvents();
   }, []);
-
+  
    
    
 
@@ -360,7 +404,7 @@ function Startseite() {
       
 
       <div className="teil1main" ref={teil1main}>
-        <div className="title_teil1">
+        <div className="title_teil1" ref={whatTitle}>
           <h3>
           Was ist die  <div className='highvs2'>SV?</div>
           </h3>
@@ -369,47 +413,61 @@ function Startseite() {
         <div className="right1">
         <div className="conright" ref={conright123}>
        <div className='' ref={info}>
-           Die Schülervertretung (SV) ist eine Gruppe von Schülern, die gewählt wurden, um die Interessen und Anliegen der Schülerschaft zu vertreten.
-           Sie fungiert als Bindeglied zwischen den Schülern, Lehrern und der Schulleitung und setzt sich für eine positive Schulatmosphäre ein. 
-           Die SV organisiert verschiedene Veranstaltungen, unterstützt soziale Projekte und fördert die Mitbestimmung der Schüler im schulischen Umfeld.
-            Durch ihre Arbeit trägt die SV dazu bei, das Schulleben abwechslungsreicher und engagierter zu gestalten.
+           Die Schülervertretung am Otto-Hahn-Gymnasium ist das gewählte Gremium der Schülerschaft, 
+           das dafür sorgt, dass Schule mehr ist als Unterricht und Noten. Sie trägt dazu bei, dass das Gymnasium auch ein Ort wird,
+            an dem sich Schüler:innen wohlfühlen, mitgestalten und ihre Freizeit einbringen können. 
+            Das SV‑Team setzt sich aus allen Klassensprecher:innen der Jahrgänge 5 bis EF sowie den Stufensprecher:innen der Q1 und Q2 
+            zusammen. Geleitet wird die SV von einem/einer Schülersprecher:in und sechs Vertreter:innen sowie sechs
+            Helfern, unterstützt von den SV‑Lehrer:innen.
+             Gemeinsam arbeiten sie daran, Wünsche und Ideen der Schüler:innen umzusetzen und den Schulalltag abwechslungsreicher zu gestalten.
+              Da die SV so groß ist, trifft sich das gesamte Gremium nur einmal pro Halbjahr.
        </div>
       </div>
         </div>
-        <div className="left1">
-              <div className="foto_con">
-                <img className='iftar' ref={iftar} src="./SVZeichen.png" alt="" />
-                <img className='iftar2' ref={iftar2}   src="./SVZeichen.png" alt="" />
-                <img className='iftar3' ref={iftar3} src="./SVZeichen.png" alt="" />
-              </div>
-        </div>
+          <div className="left1">
+               <div className="foto_con">
+                   <img className='iftar' ref={picTask} src="./SVZeichen.png" alt="" />
+               </div>
+          </div>
       </div>
       {/* <div className="line44" ref={line44}></div> */}
       </div>
       
      <div className="teil2">
-        <div className="title_teil1" id='skondone' ref={title2}>
+        <div className="title_teil1" id='skondone' ref={titleTask}>
           <h3>
             Was hat die SV für Aufgaben?
           </h3>
         </div>
         <div className="fototeil">
-        <img src='./SVZeichen.png' className='SVetwas2' ref={logo} />
+        <img src='./SVZeichen.png' className='SVetwas2' ref={logo1} />
         </div>
         <div className="innencon">
             <div className="teilr">
-            <img className='iftar' ref={iftar} src="./SVZeichen.png" alt="" />
+              <div className="left2">
+               <div className="foto_con">
+                <img className='iftar' ref={iftar} src="./SVZeichen.png" alt="" />
+                <img className='iftar2' ref={iftar2}   src="./SVZeichen.png" alt="" />
+                <img className='iftar3' ref={iftar3} src="./SVZeichen.png" alt="" />
+              </div>
+        </div>
 
             </div>
-            <div className="teill">
-              <div className="sv_info2" ref={info2}>
-                Aufgaben
+            <div className="teill" >
+              <div className="sv_info2" ref={aniTask}>
+                Zum einen organisieren wir viele Aktionen, damit das Schulleben für euch interessanter und spaßiger wird und die Schulgemeinschaft 
+                gestärkt wird.
+                 Dazu zählen unter anderem die vielen Unterstufendiskos, die jährliche Abschlussaktion, der Talentwettbewerb,
+                  Spieleabende und das jährliche Frühlingsfest. Beliebt ist ebenfalls die Rosen- und Nikolausaktion in Kooperation mit der Fairtrade AG.
+               Jedoch geht es bei uns natürlich nicht nur um Spass und Vergnügen sondern auch darum, die Interessen der 
+               Schüler:innen auf Schulkonferenzen oder Fachkonferenzen zu vertreten. Genauso stehen wir euch zur Seite, wenn 
+               ihr Problem im schulischen Bereich (z.B. mit Lehrer:innen) habt.
               </div>
             </div>
         </div>
-        <div className="BTCON123">
+        <div className=" mt-10 md:mt-30 w-full h-[10%] flex items-center justify-center" ref={btnTask}>
               <button className='treten1'>
-                <a href="/Anmeldeformular">
+                <a href="/Anmeldeformular" >
               Klicken sie hier, um an einem Event teilzunehmen! <FontAwesomeIcon icon={faArrowRight}  /> 
                 </a>
               </button>
@@ -417,9 +475,9 @@ function Startseite() {
         </div>
       </div>
       <div className="teil1main" ref={teil1main} id='zeitung'>
-        <div className="title_teil1" id='zei2'>
+        <div className="title_teil1 p-10 " id='zei2'>
           <h3>
-          Wie könnt ihr uns <div className='highvs2'>Kontaktieren?</div>
+          Wie könnt ihr uns <div className='highvs2'>kontaktieren?</div>
           </h3>
         </div>
       <div className="teil1">
@@ -463,7 +521,7 @@ function Startseite() {
               </div>
         </div>
       </div>
-        <div className="BTCON123">
+        <div className="BTCON123" ref={btnContact} >
           <Link to='/svKasten'>
          <button className='treten1'> 
             Klicken sie hier, um uns eine Nachicht zu Schreiben! <FontAwesomeIcon icon={faArrowRight}  /> 
@@ -486,17 +544,16 @@ function Startseite() {
             <img className='iftar' ref={iftar} src="./SVZeichen.png"  />
 
             </div>
-            <div className="teill">
-              <div className="sv_info2 flex justify-center items-center" ref={info2}>
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
+            <div className="teill"> 
+              <div  className="sv_info2" ref={info2}>
+               wie 
 
               </div>
             </div>
         </div>
       </div>
       </div>
-      <div className="line1"></div>
+      {/* <div className="line1"></div> */}
       {/* <div className="ic1">
         <FontAwesomeIcon icon={faCalendarDays} className='calendar'/>
       </div> */}
