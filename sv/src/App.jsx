@@ -354,9 +354,9 @@ function Startseite() {
       <div className="anfang">
         <div className='bg-imgC w-full flex items-center justify-center p-5  '>
             {/* <div className="linetop z-[-10]" ref={linetop}></div> */}
-          <img src='./SV Bild.jpg' className=' md:w-[60%] rounded-md 
-             border-2 border-blue-400 z-[10]  
-             w-[80%] h-[100%]' alt='Foto' ref={imgRef} />
+          <img src='./SV Bild.jpg' className=' md:w-[65%] md:h-[85%] rounded-md 
+             border-2 border-blue-400 z-[10] h-[250px] w-[100%]
+             ' alt='Foto' ref={imgRef} />
         </div>
         <br /><br />
         <div className='flex justify-center items-center'>
@@ -426,7 +426,7 @@ function Startseite() {
         </div>
           <div className="left1">
                <div className="foto_con">
-                   <img className='iftar' ref={picTask} src="./SVZeichen.png" alt="" />
+                   <img className='iftar' ref={picTask} src="./ohg.jpg" alt="" />
                </div>
           </div>
       </div>
@@ -434,7 +434,7 @@ function Startseite() {
       </div>
       
      <div className="teil2">
-        <div className="title_teil1" id='skondone' ref={titleTask}>
+        <div className="title_teil1 " id='skondone' ref={titleTask}>
           <h3>
             Was hat die SV für Aufgaben?
           </h3>
@@ -446,15 +446,15 @@ function Startseite() {
             <div className="teilr">
               <div className="left2">
                <div className="foto_con">
-                <img className='iftar' ref={iftar} src="./SVZeichen.png" alt="" />
-                <img className='iftar2' ref={iftar2}   src="./SVZeichen.png" alt="" />
-                <img className='iftar3' ref={iftar3} src="./SVZeichen.png" alt="" />
+                <img className='iftar' ref={iftar} src="./Rosenaktion.jpeg" alt="" />
+                <img className='iftar2' ref={iftar2}   src="./Halloween.jpeg" alt="" />
+                <img className='iftar3' ref={iftar3} src="./iftar.jpeg" alt="" />
               </div>
         </div>
 
             </div>
             <div className="teill" >
-              <div className="sv_info2" ref={aniTask}>
+              <div className="sv_info2 md:ml-12 " ref={aniTask}>
                 Zum einen organisieren wir viele Aktionen, damit das Schulleben für euch interessanter und spaßiger wird und die Schulgemeinschaft 
                 gestärkt wird.
                  Dazu zählen unter anderem die vielen Unterstufendiskos, die jährliche Abschlussaktion, der Talentwettbewerb,
@@ -483,33 +483,14 @@ function Startseite() {
       <div className="teil1">
         <div className="right1">
         <div className="conright" id='seite' >
-  <div className='sv-info'ref={info}>
-
-  <h2><img src='./SVZeichen.png' className='SVetwas' /> Wie ihr die Schülervertretung (SV) kontaktieren könnt</h2>
-<p>
-    Ihr habt verschiedene Möglichkeiten, um mit uns in Kontakt zu treten. Wenn ihr Fragen, Ideen, Verbesserungsvorschläge oder Probleme habt, könnt ihr uns ganz einfach erreichen:
-</p>2
-<ul>
-  <h2>Per Email:</h2>
-    <li>
-        Schreibt uns eine E-Mail an <a id='link' href="mailto:sv@ohg-monheim.eu">sv@ohg-monheim.eu</a>. Wir antworten so schnell wie möglich und stehen euch bei allen Anliegen zur Seite.
-    </li>
-    <h2>Instagram:</h2>
-    <li>
-        Besucht uns auf Instagram unter <a id='link' href="https://www.instagram.com/schuelervertretungohg" target="_blank">@schuelervertretungohg</a>. Dort könnt ihr uns direkt Nachrichten schicken oder euch über unsere aktuellen Aktionen informieren.
-    </li>
-    <h2>Persoenlich:</h2>
-    <li>
-        Kommt donnerstags in der ersten großen Pause in Raum 022 vorbei. Wir sind persönlich für euch da und nehmen uns Zeit, eure Anliegen zu besprechen.
-    </li>
-    <h2>SV Kasten:</h2>
-    <li>
-        Klickt auf den <a href="/svKasten" id="link">SV Kasten</a>, um uns direkt eine Nachricht zu schreiben. Ihr könnt eure Nachricht auch öffentlich machen, damit andere sie sehen, liken oder disliken können.
-    </li>
-</ul>
-<p>
-    Egal, auf welchem Weg – wir freuen uns auf eure Nachrichten und sind hier, um euch zu unterstützen!
-</p>
+  <div className='w-full text-lg flex justify-left flex-col gap-5'ref={info}>
+    <p>Ihr könnt uns auf folgenden Wegen kontaktieren, falls ihr Anliegen, Wünsche oder Ideen habt:</p>
+    <ul>
+      <li>Persönlich</li>
+      <li>Per E-Mail: <a href="mailto:schuelervertretung@ohg-monheim.eu" className='mailto'>schuelervertretung@ohg-monheim.eu</a></li>
+      <li>Über den SV-Kasten vor dem Lehrerzimmer</li>
+      <li>Über den digitalen SV-Kasten (siehe unten)</li>
+    </ul>
 
   </div>
   
@@ -524,7 +505,7 @@ function Startseite() {
         <div className="BTCON123" ref={btnContact} >
           <Link to='/svKasten'>
          <button className='treten1'> 
-            Klicken sie hier, um uns eine Nachicht zu Schreiben! <FontAwesomeIcon icon={faArrowRight}  /> 
+            Klicken Sie hier, um uns eine Nachicht zu Schreiben! <FontAwesomeIcon icon={faArrowRight}  /> 
          </button>
          </Link>
         </div>
@@ -541,13 +522,16 @@ function Startseite() {
         </div>
         <div className="innencon">
             <div className="teilr">
-            <img className='iftar' ref={iftar} src="./SVZeichen.png"  />
+            <img className='hidden absolute md:block top-0 left-[5%] w-[90%] object-cover z-[4]
+            shadow-[0_14px_28px_rgba(0,0,0,0.25),0_10px_10px_rgba(0,0,0,0.22)]' ref={iftar} src="./wahl.jpg"  />
 
             </div>
             <div className="teill"> 
-              <div  className="sv_info2" ref={info2}>
-               wie 
-
+              <div  className="sv_info2 " ref={info2}>
+               Um in die SV zu kommen, wird man zunächst in seiner Klasse zum Klassensprecher oder zur stellvertretenden Klassensprecherin gewählt.
+                Mit diesem Amt ist man automatisch Mitglied der Schülervertretung. Wer darüber hinaus Teil der SV‑Leitung werden möchte, kann sich bei der 
+               halbjährlich stattfindenden SV‑Versammlung in der Aula zur Wahl aufstellen lassen. Dort wählen alle SV‑Mitglieder gemeinsam das 
+               Leitungsteam.
               </div>
             </div>
         </div>
@@ -575,7 +559,7 @@ function AboutUs() {
       <FontAwesomeIcon icon={faInstagram} className='InstaIcon'/> Folge uns auf Instagram!
     </a>  
     <br />
-      <div className="UInfo1">Website made by <a href='https://github.com/marcodoro'>@Marcodori</a> and <a href='https://github.com/AlexDerAndros'>@AlexandrosNtrikos</a></div><br />
+      <div className="UInfo1">Diese Website wurde erstellt von <a href='https://github.com/marcodoro'>@Marcodori</a> und <a href='https://github.com/AlexDerAndros'>@AlexandrosNtrikos</a></div><br />
       <a href="https://ohg.monheim.de/">OHG Monheim Website</a>
       <br/>
       <a href='https://github.com/AlexDerAndros/SVOHG'> <FontAwesomeIcon icon={faGithub} className='InstaIcon'/> Link zu GitHub </a>

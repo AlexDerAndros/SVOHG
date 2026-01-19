@@ -1,352 +1,357 @@
-import  { useState, useEffect, useRef } from 'react';
-import './SVKasten.css';
-import { db } from '../config/firebase';
-import { collection, addDoc, getDocs, updateDoc, doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import Cookies from 'js-cookie';
-import { gsap } from 'gsap';
+import "./SVKasten.css";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  addDoc,
+  runTransaction,
+  increment,
+  setDoc,
+  deleteDoc
+} from "firebase/firestore";
 
+import {
+  onAuthStateChanged,
+  signInAnonymously
+} from "firebase/auth";
 
-export default function SVKasten() {
-  
+import gsap from "gsap";
+import { useEffect, useRef, useState } from "react";
+import {db, auth} from '../config/firebase';
+
+export default function SVKasten1() {
   const likeCooldown = useRef(false);
   const dislikeCooldown = useRef(false);
-  const [text, setText] = useState(''); 
-  const [isPublic, setIsPublic] = useState(false); 
-  const [messages, setMessages] = useState([]); 
-  let [isAdminOrDeveloper, setIsAdminOrDeveloper] = useState(false); 
-  const [userLikes, setUserLikes] = useState({}); // Store user's like/dislike state
-  const auth = getAuth(); 
 
+  const [text, setText] = useState("");
+  const [isPublic, setIsPublic] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [votes, setVotes] = useState({}); // { messageId: 1 | -1 }
+
+  // ==============================
+  // 🔥 AUTH INITIALISIEREN (Anonymous)
+  // ==============================
   useEffect(() => {
-    const fetchMessages = async () => {
-      const querySnapshot = await getDocs(collection(db, 'messages'));
-      const fetchedMessages = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setMessages(fetchedMessages.filter(message => message.isPublic));
-  
-      if (auth.currentUser) {
-        const userId = auth.currentUser.uid;
-        await fetchUserLikes(userId, fetchedMessages.map(msg => msg.id));
-        await checkUserRoles(userId);
-      }
-    };
-  
-    const checkUserRoles = async (userId) => {
-      const docRef = doc(db, "users", userId);
-      const docSnap = await getDoc(docRef);
-  
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        const isAdmin = data.isAdmin || false;
-        const isDeveloper = data.isDeveloper || false;
-        setIsAdminOrDeveloper(isAdmin || isDeveloper);
-      } else {
-        setIsAdminOrDeveloper(false);
-      }
-    };
-    checkUserRoles();
-    fetchMessages();
-  }, [auth.currentUser]);
-  const fetchUserLikes = async (userId, messageIds) => {
-    const likesSnapshot = await getDocs(collection(db, 'likes'));
-    const dislikesSnapshot = await getDocs(collection(db, 'dislikes'));
-    
-    let likesData = {};
-    
-    likesSnapshot.forEach((doc) => {
-      const { userId: likeUserId, messageId } = doc.data();
-      if (messageIds.includes(messageId) && likeUserId === userId) {
-        likesData[messageId] = 'liked';
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        signInAnonymously(auth);
       }
     });
-    
-    dislikesSnapshot.forEach((doc) => {
-      const { userId: dislikeUserId, messageId } = doc.data();
-      if (messageIds.includes(messageId) && dislikeUserId === userId) {
-        likesData[messageId] = 'disliked';
+    return () => unsub();
+  }, []);
+
+  // ==============================
+  // 🔥 LIVE MESSAGES + USER VOTES
+  // ==============================
+  useEffect(() => {
+    // Nachrichten immer laden
+    const messagesUnsub = onSnapshot(
+      collection(db, "messages"),
+      (snap) => {
+        const msgs = snap.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setMessages(msgs.filter((msg) => msg.isPublic));
       }
+    );
+
+    // Votes erst laden, wenn User existiert
+    let votesUnsub = () => {};
+
+    const authUnsub = onAuthStateChanged(auth, (user) => {
+      if (!user) return;
+
+      const userId = user.uid;
+
+      votesUnsub = onSnapshot(
+        collection(db, "votes"),
+        (snap) => {
+          const map = {};
+          snap.forEach((doc) => {
+            const { messageId, value, userId: uid } = doc.data();
+            if (uid === userId) {
+              map[messageId] = value;
+            }
+          });
+          setVotes(map);
+        }
+      );
     });
 
-    setUserLikes(likesData);
-  };
+    return () => {
+      messagesUnsub();
+      votesUnsub();
+      authUnsub();
+    };
+  }, []);
 
-  const handleChange = (event) => {
-    setText(event.target.value);
-  };
-
-  const handleClick = async () => {  
-    if (text.trim() !== '') {
-      try {
-        await addDoc(collection(db, 'messages'), {
-          text: text,
-          timestamp: new Date(),
-          isPublic: isPublic,
-          likes: 0,
-          dislikes: 0,
-        });
-        Cookies.set('message', text, { expires: 7 });
-
-        gsap.to('.button-36', {
-          opacity: 0,
-          duration: 2,
-          fontSize: '8px',
-          width: '3rem',
-          height: '1.5rem',
-          padding: '0.5rem',
-          ease: 'power1.in',
-          onComplete: () => {
-            gsap.to('.button-36', {
-              opacity: 1,
-              fontSize: '16px',
-              width: '12rem',
-              height: '3rem',
-              padding: '0',
-              clearProps: 'all',
-              delay: 1,
-            });
-          }
-        });
-
-        gsap.to('.plane', {
-          y: '-500px',
-          x: '70vw',
-          duration: 2,
-          ease: 'power1.inOut',
-          onComplete: () => {
-            gsap.to('.plane', {
-              opacity: 0,
-              duration: 0,
-              onComplete: () => {
-                gsap.set('.plane', {
-                  y: '130px',
-                  x: '0px',
-                  rotate: '10deg',
-                  opacity: 2, 
-                });
-              },
-              delay: 1.5,
-            });
-          }
-        });
-        setText('');
-      } catch (e) {
-        console.error('Fehler beim Hinzufügen des Dokuments in die Datenbank: ', e);
-        alert('Fehler beim Hinzufügen des Dokuments in die Datenbank', e);
-      }
-    } else {
-      gsap.to('.button-36', {
+  // ==============================
+  // ✉️ SEND MESSAGE
+  // ==============================
+  const handleClick = async () => {
+    if (text.trim() === "") {
+      gsap.to(".button-36", {
         x: -95,
         duration: 0.1,
         yoyo: true,
         repeat: 5,
-        ease: 'power1.inOut',
-        onComplete: () => {
-          gsap.set('.button-36', { x: 0 }); 
-        },
+        ease: "power1.inOut",
+        onComplete: () => gsap.set(".button-36", { x: 0 }),
       });
+      return;
     }
+
+    await addDoc(collection(db, "messages"), {
+      text,
+      timestamp: new Date(),
+      isPublic,
+      likes: 0,
+      dislikes: 0,
+    });
+
+    // Animation
+    gsap.to(".button-36", {
+      opacity: 0,
+      duration: 2,
+      fontSize: "8px",
+      width: "3rem",
+      height: "1.5rem",
+      padding: "0.5rem",
+      ease: "power1.in",
+      onComplete: () => {
+        gsap.to(".button-36", {
+          opacity: 1,
+          fontSize: "16px",
+          width: "12rem",
+          height: "3rem",
+          padding: "0",
+          clearProps: "all",
+          delay: 1,
+        });
+      },
+    });
+
+    gsap.to(".plane", {
+      y: "-500px",
+      x: "70vw",
+      duration: 2,
+      ease: "power1.inOut",
+      onComplete: () => {
+        gsap.to(".plane", {
+          opacity: 0,
+          duration: 0,
+          onComplete: () => {
+            gsap.set(".plane", {
+              y: "130px",
+              x: "0px",
+              rotate: "10deg",
+              opacity: 2,
+            });
+          },
+          delay: 1.5,
+        });
+      },
+    });
+
+    setText("");
   };
 
-
+  // ==============================
+  // ❤️ LIKE
+  // ==============================
   const handleLike = async (messageId) => {
     if (likeCooldown.current) return;
-    likeCooldown.current = true; 
-    setTimeout(() => likeCooldown.current = false, 500); // Fuktion um die Like sachen zu stoppen weil wenn man zu schneel klickt dann glitch das aus
-  
-    const userId = auth.currentUser?.uid;
-    const likeRef = doc(db, 'likes', `${userId}_${messageId}`);
-    const dislikeRef = doc(db, 'dislikes', `${userId}_${messageId}`); 
+    likeCooldown.current = true;
+    setTimeout(() => (likeCooldown.current = false), 500);
 
-    if (userId) {
-      const likeDoc = await getDoc(likeRef);
-      const dislikeDoc = await getDoc(dislikeRef);
-      const messageRef = doc(db, 'messages', messageId);
-      const message = messages.find(msg => msg.id === messageId);
-      
-      if (likeDoc.exists()) {
-        await updateDoc(messageRef, { likes: message.likes - 1 });
-        await deleteDoc(likeRef);
-        setMessages((prevMessages) =>
-          prevMessages.map((msg) =>
-            msg.id === messageId
-              ? { ...msg, likes: msg.likes - 1 }
-              : msg
-          )
-        );
-      } else {
-        if (dislikeDoc.exists()) {
-          await updateDoc(messageRef, { dislikes: message.dislikes - 1 });
-          await deleteDoc(dislikeRef);
-          setMessages((prevMessages) =>
-            prevMessages.map((msg) =>
-              msg.id === messageId
-                ? { ...msg, dislikes: msg.dislikes - 1 }
-                : msg
-            )
-          );
-        }
-        await updateDoc(messageRef, { likes: message.likes + 1 });
-        await setDoc(likeRef, { userId, messageId });
-        setMessages((prevMessages) =>
-          prevMessages.map((msg) =>
-            msg.id === messageId
-              ? { ...msg, likes: msg.likes + 1 }
-              : msg
-          )
-        );
+    const userId = auth.currentUser.uid;
+
+    const voteRef = doc(db, "votes", `${userId}_${messageId}`);
+    const messageRef = doc(db, "messages", messageId);
+
+    await runTransaction(db, async (tx) => {
+      const voteDoc = await tx.get(voteRef);
+
+      if (!voteDoc.exists()) {
+        tx.set(voteRef, { userId, messageId, value: 1 });
+        tx.update(messageRef, { likes: increment(1) });
+        return;
       }
-  
-      gsap.to(`#like-${messageId}`, { 
-        scale: 1.2, 
-        duration: 0.2, 
-        ease: 'power1.out',
-        onComplete: () => {
-          document.querySelector(`#like-${messageId}`).src = likeDoc.exists() ? './not_liked2.png' : './like.png';
-          document.querySelector(`#dislike-${messageId}`).src = './Not_liked.png';
-          gsap.to(`#like-${messageId}`, { scale: 1, duration: 0.2 });
-        }
-      });
-    }
+
+      const val = voteDoc.data().value;
+
+      if (val === 1) {
+        tx.delete(voteRef);
+        tx.update(messageRef, { likes: increment(-1) });
+      } else if (val === -1) {
+        tx.update(voteRef, { value: 1 });
+        tx.update(messageRef, {
+          likes: increment(1),
+          dislikes: increment(-1),
+        });
+      }
+    });
+
+    gsap.to(`#like-${messageId}`, {
+      scale: 1.2,
+      duration: 0.2,
+      ease: "power1.out",
+      onComplete: () => {
+        gsap.to(`#like-${messageId}`, { scale: 1, duration: 0.2 });
+      },
+    });
   };
 
+  // ==============================
+  // 💔 DISLIKE
+  // ==============================
   const handleDislike = async (messageId) => {
     if (dislikeCooldown.current) return;
-    dislikeCooldown.current = true; 
-    setTimeout(() => dislikeCooldown.current = false, 500); // Selbe sache wie oben
-  
-    const userId = auth.currentUser?.uid;
-    const dislikeRef = doc(db, 'dislikes', `${userId}_${messageId}`);
-    const likeRef = doc(db, 'likes', `${userId}_${messageId}`);
+    dislikeCooldown.current = true;
+    setTimeout(() => (dislikeCooldown.current = false), 500);
 
-    if (userId) {
-      const dislikeDoc = await getDoc(dislikeRef);
-      const likeDoc = await getDoc(likeRef);
-      const messageRef = doc(db, 'messages', messageId);
-      const message = messages.find(msg => msg.id === messageId);
+    const userId = auth.currentUser.uid;
 
-      if (dislikeDoc.exists()) {
-        await updateDoc(messageRef, { dislikes: message.dislikes - 1 });
-        await deleteDoc(dislikeRef);
-        setMessages((prevMessages) =>
-          prevMessages.map((msg) =>
-            msg.id === messageId
-              ? { ...msg, dislikes: msg.dislikes - 1 }
-              : msg
-          )
-        );
-      } else {
-        if (likeDoc.exists()) {
-          await updateDoc(messageRef, { likes: message.likes - 1 });
-          await deleteDoc(likeRef);
-          setMessages((prevMessages) =>
-            prevMessages.map((msg) =>
-              msg.id === messageId
-                ? { ...msg, likes: msg.likes - 1 }
-                : msg
-            )
-          );
-        }
-        await updateDoc(messageRef, { dislikes: message.dislikes + 1 });
-        await setDoc(dislikeRef, { userId, messageId });
-        setMessages((prevMessages) =>
-          prevMessages.map((msg) =>
-            msg.id === messageId
-              ? { ...msg, dislikes: msg.dislikes + 1 }
-              : msg
-          )
-        );
+    const voteRef = doc(db, "votes", `${userId}_${messageId}`);
+    const messageRef = doc(db, "messages", messageId);
+
+    await runTransaction(db, async (tx) => {
+      const voteDoc = await tx.get(voteRef);
+
+      if (!voteDoc.exists()) {
+        tx.set(voteRef, { userId, messageId, value: -1 });
+        tx.update(messageRef, { dislikes: increment(1) });
+        return;
       }
 
-      gsap.to(`#dislike-${messageId}`, { 
-        scale: 1.2, 
-        duration: 0.2, 
-        ease: 'power1.out',
-        onComplete: () => {
-          document.querySelector(`#dislike-${messageId}`).src = dislikeDoc.exists() ? './Not_liked.png' : './dislike.png';
-          document.querySelector(`#like-${messageId}`).src = './not_liked2.png';
-          gsap.to(`#dislike-${messageId}`, { scale: 1, duration: 0.2 });
-        }
-      });
-    }
-  };
-  
-  const handleDeleteMessage = async (messageId) => {
-    try {
-      await deleteDoc(doc(db, 'messages', messageId));
-      setMessages(messages.filter(message => message.id !== messageId));
-    } catch (error) {
-      console.error("Fehler beim Löschen der Nachricht: ", error);
-      alert("Fehler beim Löschen der Nachricht: " + error.message);
-    }
+      const val = voteDoc.data().value;
+
+      if (val === -1) {
+        tx.delete(voteRef);
+        tx.update(messageRef, { dislikes: increment(-1) });
+      } else if (val === 1) {
+        tx.update(voteRef, { value: -1 });
+        tx.update(messageRef, {
+          dislikes: increment(1),
+          likes: increment(-1),
+        });
+      }
+    });
+
+    gsap.to(`#dislike-${messageId}`, {
+      scale: 1.2,
+      duration: 0.2,
+      ease: "power1.out",
+      onComplete: () => {
+        gsap.to(`#dislike-${messageId}`, { scale: 1, duration: 0.2 });
+      },
+    });
   };
 
   return (
-    <>
-      <div className="main_kasten">
-        <div className="center">
-          <br />
-          <br />
-          <br />
-          <div className="head"><div className='highvs2'>SV</div>&nbsp; Kasten</div>
-          <div className="neinene"></div>
-          <div className="kasten">
-            <div className="texte">
-              <div className="text2">
-                Wilkommen beim SV Kasten! Hier könnt ihr uns eure Wünsche und Beschwerden schicken, damit wir diese dann bestmöglich erfüllen können, um die Schule zu einem besseren Ort zu machen. Natürlich ist das ganze Anonym.
-              </div>
-            </div>
-          </div>
-          <div className='gap123'></div>
-          <div className="kasten_schreiben">
-            <div className="input">
-              <input 
-                type="text" 
-                placeholder="Was wollen sie uns mitteilen?"
-                className="input_real"
-                value={text}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <label className='oeffentlich'>
-                <input
-                  type="checkbox"
-                  checked={isPublic}
-                  onChange={(e) => setIsPublic(e.target.checked)}
-                />
-                <p>Veröffentlichen</p>
-              </label>
-            </div>
-            <div className='gap123'></div>
-            <button className="button-36" role="button" onClick={handleClick}>Senden</button>
-            <img src={`Paper.png`} alt='Paper Plane' className='plane' />
-          </div>
-          <div style={{fontFamily:"Poppins"}} className='text-black text-3xl w-full flex justify-center items-center mt-50  mb-[-12%]'>
-              Nachichten
-          </div>
-          <div className="flex flex-col items-center justify-center w-full gap-[40px] text-white font-roboto">
-            {messages
-              .sort((a, b) => b.likes - a.likes)
-              .map((message) => (
-                <div key={message.id} className="message1234">
-                  <p>{message.text}</p>
-                  <div className='likecon'>
-                    <button className='btslike' onClick={() => handleLike(message.id)}>
-                      <img id={`like-${message.id}`} src={userLikes[message.id] === 'liked' ? './like.png' : './not_liked2.png'} className='like2' alt='Like'/> {message.likes}
-                    </button>
-                    <button className='btslike' onClick={() => handleDislike(message.id)}>
-                      <img id={`dislike-${message.id}`} src={userLikes[message.id] === 'disliked' ? './dislike.png' : './Not_liked.png'} className='dislike' alt='Dislike'/> {message.dislikes || 0}
-                    </button>
-                    
-                    {isAdminOrDeveloper == true && (
-                      <button className='absolute w-full bg-red-500' onClick={() => handleDeleteMessage(message.id)}>Löschen</button>
-                    )}
-                  </div>
-                </div>
-              ))}
+   <>
+  <div className="main_kasten">
+    <div className="center">
+      <br />
+      <br />
+      <br />
+
+      <div className="head">
+        <div className='highvs2'>SV</div>&nbsp; Kasten
+      </div>
+
+      <div className="neinene"></div>
+
+      <div className="kasten">
+        <div className="texte">
+          <div className="text2">
+            Wilkommen beim SV Kasten! Hier könnt ihr uns eure Wünsche und Beschwerden schicken, 
+            damit wir diese dann bestmöglich erfüllen können, um die Schule zu einem besseren Ort 
+            zu machen. Natürlich ist das ganze Anonym.
           </div>
         </div>
       </div>
-    </>
+
+      <div className='gap123'></div>
+
+      <div className="kasten_schreiben">
+        <div className="input">
+          <input 
+            type="text" 
+            placeholder="Was wollen sie uns mitteilen?"
+            className="input_real"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className='oeffentlich'>
+            <input
+              type="checkbox"
+              checked={isPublic}
+              onChange={(e) => setIsPublic(e.target.checked)}
+            />
+            <p>Veröffentlichen</p>
+          </label>
+        </div>
+
+        <div className='gap123'></div>
+
+        <button className="button-36" role="button" onClick={handleClick}>
+          Senden
+        </button>
+
+        <img src={`Paper.png`} alt='Paper Plane' className='plane' />
+      </div>
+
+      <div 
+        style={{fontFamily:"Poppins"}} 
+        className='text-black text-3xl w-full flex justify-center items-center mt-50 mb-[-12%]'
+      >
+        Nachrichten
+      </div>
+
+      <div className="flex flex-col items-center justify-center w-full gap-[40px] text-white font-roboto">
+        {messages
+          .sort((a, b) => b.likes - a.likes)
+          .map((message) => (
+            <div key={message.id} className="message1234">
+              <p>{message.text}</p>
+
+              <div className='likecon'>
+                
+                {/* ❤️ LIKE BUTTON */}
+                <button className='btslike' onClick={() => handleLike(message.id)}>
+                  <img 
+                    id={`like-${message.id}`} 
+                    src={votes[message.id] === 1 ? './like.png' : './not_liked2.png'} 
+                    className='like2' 
+                    alt='Like'
+                  /> 
+                  {message.likes}
+                </button>
+
+                {/* 💔 DISLIKE BUTTON */}
+                <button className='btslike' onClick={() => handleDislike(message.id)}>
+                  <img 
+                    id={`dislike-${message.id}`} 
+                    src={votes[message.id] === -1 ? './dislike.png' : './Not_liked.png'} 
+                    className='dislike' 
+                    alt='Dislike'
+                  /> 
+                  {message.dislikes || 0}
+                </button>
+
+              </div>
+            </div>
+          ))}
+      </div>
+
+    </div>
+  </div>
+</>
+
   );
 }
