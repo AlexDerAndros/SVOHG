@@ -46,9 +46,7 @@ Farbverlauf:  linear-gradient(92.88deg, #00052c 9.16%, #00073f 43.89%, #000841 6
     .tabelle2 {
       display: none;
     }
-    .events {
-      height: 2000px !important;
-    }
+    
   }
 }
 
@@ -66,7 +64,7 @@ Farbverlauf:  linear-gradient(92.88deg, #00052c 9.16%, #00073f 43.89%, #000841 6
 
 @media only screen and (min-height: 1000px) {
   .events {
-    height: 800px !important;
+    height: 600px !important;
     font-size: 20px;
   }
   .neinen {
@@ -1506,7 +1504,7 @@ background: linear-gradient(180deg, #003300 13%, #00330000 100%);
   z-index: 1;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px
+  margin-bottom: 12px !important;
 }
 .title_teil1 > h2 {
   font-size: 50px;
@@ -1620,7 +1618,7 @@ li {
   align-items: flex-end;
 }
 .sv_info2 {
-  height: 95%;
+  height: 90%;
   width: 96%;
   font-size: 18px;
   display: flex;

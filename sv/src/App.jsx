@@ -399,7 +399,7 @@ function Startseite() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center mt-200">
+      <div className="flex flex-col justify-center mt-200 xl:mt-300">
       <div className="line33"  ref={line}></div>
       
 
@@ -448,20 +448,20 @@ function Startseite() {
                <div className="foto_con">
                 <img className='iftar' ref={iftar} src="./Rosenaktion.jpeg" alt="" />
                 <img className='iftar2' ref={iftar2}   src="./Halloween.jpeg" alt="" />
-                <img className='iftar3' ref={iftar3} src="./iftar.jpeg" alt="" />
+                <img  className='iftar3' ref={iftar3} src="./iftar.jpeg" alt="" />
               </div>
         </div>
 
             </div>
             <div className="teill" >
-              <div className="sv_info2 md:ml-12 " ref={aniTask}>
+              <div className="sv_info2 md:ml-12 mt-15  " ref={aniTask}>
                 Zum einen organisieren wir viele Aktionen, damit das Schulleben für euch interessanter und spaßiger wird und die Schulgemeinschaft 
                 gestärkt wird.
                  Dazu zählen unter anderem die vielen Unterstufendiskos, die jährliche Abschlussaktion, der Talentwettbewerb,
                   Spieleabende und das jährliche Frühlingsfest. Beliebt ist ebenfalls die Rosen- und Nikolausaktion in Kooperation mit der Fairtrade AG.
                Jedoch geht es bei uns natürlich nicht nur um Spass und Vergnügen sondern auch darum, die Interessen der 
                Schüler:innen auf Schulkonferenzen oder Fachkonferenzen zu vertreten. Genauso stehen wir euch zur Seite, wenn 
-               ihr Problem im schulischen Bereich (z.B. mit Lehrer:innen) habt.
+               ihr Problem im schulischen Bereich habt.
               </div>
             </div>
         </div>
@@ -512,7 +512,7 @@ function Startseite() {
       
       </div>
       <div className="teil2">
-        <div className="title_teil1" id='skondone' ref={title2}>
+        <div className="title_teil1 mb-5" id='skondone' ref={title2}>
           <h3>
             Wie kann man der <div className='highvs2'>SV</div> beitreten?
           </h3>
