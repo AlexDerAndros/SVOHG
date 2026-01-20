@@ -498,7 +498,7 @@ function Startseite() {
         </div>
         <div className="left1">
               <div className="foto_con2">
-                <img className='iftar' ref={iftar} src="./SVZeichen.png" alt="" id='imgsvg12' />
+                <img className='iftar' ref={iftar} src="./SVK.jpeg" alt="" id='imgsvg12' />
               </div>
         </div>
       </div>
